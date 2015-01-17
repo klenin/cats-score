@@ -1,0 +1,3 @@
+function Ifmo_rules() {
+
+}
