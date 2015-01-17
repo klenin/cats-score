@@ -1,7 +1,8 @@
 $("document").ready(function(){
     $("#result_table").blur(function () {
         var page = $("#result_table").val();
-        $("#display").html(JSON.stringify(ifmo_parse(page)));
+        var a = new Ifmo_adapter(page);
+        $("#display").html(JSON.stringify(a.get_data_for_table_model()));
     });
     function ajax_start(){
         $('#progress').show();
