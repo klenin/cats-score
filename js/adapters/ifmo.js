@@ -1,14 +1,19 @@
 function Ifmo_adapter(page) {
     this.page = page;
+    this.problems = [];
     this.tbl_data = [];
 }
 
 Ifmo_adapter.prototype.parse = function() {
     var page = this.page;
     var data = [];
+    var problems = [];
     $(page).find('table[class != "wrapper"]').find("tr").each(function () {
         var row = {}
         var prob_num = 0;
+        $(this).find("th.problem").each(function () {
+            problems.push($(this).attr("title"));
+        });
         $(this).find("td").each(function () {
             var key = $(this).attr('class');
             if (key !== undefined)
@@ -41,6 +46,7 @@ Ifmo_adapter.prototype.parse = function() {
             data.push(row);
     });
     this.tbl_data = data;
+    this.problems = problems;
 }
 
 Ifmo_adapter.prototype.get_data_for_table_model = function() {
@@ -48,4 +54,11 @@ Ifmo_adapter.prototype.get_data_for_table_model = function() {
         this.parse();
 
     return this.tbl_data;
+}
+
+Ifmo_adapter.prototype.get_problem = function() {
+    if (this.problems.length == 0)
+        this.parse();
+
+    return this.problems;
 }
