@@ -4,7 +4,7 @@ function Ifmo_adapter(page) {
     this.tbl_data = [];
 }
 
-Ifmo_adapter.prototype.parse = function() {
+Ifmo_adapter.prototype.parse_tbl = function() {
     var page = this.page;
     var data = [];
     var problems = [];
@@ -51,14 +51,14 @@ Ifmo_adapter.prototype.parse = function() {
 
 Ifmo_adapter.prototype.get_data_for_table_model = function() {
     if (this.tbl_data.length == 0)
-        this.parse();
+        this.parse_tbl();
 
     return this.tbl_data;
 }
 
-Ifmo_adapter.prototype.get_problem = function() {
-    if (this.problems.length == 0)
-        this.parse();
+Ifmo_adapter.prototype.get_problems = function() {
+    if (this.tbl_data.length == 0)
+        this.parse_tbl();
 
     return this.problems;
 }
