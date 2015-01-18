@@ -2,7 +2,13 @@ $("document").ready(function(){
     $("#result_table").blur(function () {
         var page = $("#result_table").val();
         var a = new Ifmo_adapter(page);
-        $("#display").html(JSON.stringify(a.get_data_for_table_model()));
+        $("#display").html(JSON.stringify(a.get_problems()) + "<br />" + JSON.stringify(a.get_data_for_table_model()));
+    });
+
+    $("#attempt_history").blur(function () {
+        var page = $("#attempt_history").val();
+        var b = new Cats_adapter(page);
+        $("#display").html(JSON.stringify(b.get_problems()) + "<br />" + JSON.stringify(b.get_data_for_history_model()));
     });
     function ajax_start(){
         $('#progress').show();
