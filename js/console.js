@@ -1,14 +1,16 @@
 $("document").ready(function(){
     $("#result_table").blur(function () {
         var page = $("#result_table").val();
-        var a = new Ifmo_adapter(page);
-        $("#display").html(JSON.stringify(a.get_problems()) + "<br />" + JSON.stringify(a.get_data_for_table_model()));
+        var m = new Table_model()
+        var a = new Ifmo_adapter(page, m);
+        $("#display").html(JSON.stringify(a.get_model().problems) + "<br />" + JSON.stringify(a.get_model().score_board));
     });
 
     $("#attempt_history").blur(function () {
         var page = $("#attempt_history").val();
-        var b = new Cats_adapter(page);
-        $("#display").html(JSON.stringify(b.get_problems()) + "<br />" + JSON.stringify(b.get_data_for_history_model()));
+        var m = new History_model()
+        var a = new Cats_adapter(page, m);
+        $("#display").html(JSON.stringify(a.get_model().problems) + "<br />" + JSON.stringify(a.get_model().attempts));
     });
     function ajax_start(){
         $('#progress').show();

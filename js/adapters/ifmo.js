@@ -1,23 +1,29 @@
-function Ifmo_adapter(page) {
+function Ifmo_adapter(page, model) {
     this.page = page;
-    this.problems = [];
-    this.tbl_data = [];
+    this.model = model
+
+    this.aliaces = {
+        'rankl' : 'place',
+        'party' : 'team_name',
+        'penalty' : 'penalty'
+    }
 }
 
-Ifmo_adapter.prototype.parse_tbl = function() {
+
+
+Ifmo_adapter.prototype.parse_score_board = function() {
     var page = this.page;
-    var data = [];
-    var problems = [];
+    var self = this;
     $(page).find('table[class != "wrapper"]').find("tr").each(function () {
         var row = {}
         var prob_num = 0;
         $(this).find("th.problem").each(function () {
-            problems.push($(this).attr("title"));
+            self.model.problems.push($(this).attr("title"));
         });
         $(this).find("td").each(function () {
             var key = $(this).attr('class');
             if (key !== undefined)
-                row[key] = $(this).html();
+                row[self.aliaces[key]] = $(this).html();
             else {
                 prob_num++;
                 var attempts = $(this).find("i");
@@ -43,22 +49,13 @@ Ifmo_adapter.prototype.parse_tbl = function() {
             }
         });
         if (Object.keys(row).length > 0)
-            data.push(row);
+            self.model.score_board.push(row);
     });
-    this.tbl_data = data;
-    this.problems = problems;
 }
 
-Ifmo_adapter.prototype.get_data_for_table_model = function() {
-    if (this.tbl_data.length == 0)
-        this.parse_tbl();
+Ifmo_adapter.prototype.get_model = function() {
+    if (this.model.score_board.length == 0)
+        this.parse_score_board();
 
-    return this.tbl_data;
-}
-
-Ifmo_adapter.prototype.get_problems = function() {
-    if (this.tbl_data.length == 0)
-        this.parse_tbl();
-
-    return this.problems;
+    return this.model;
 }

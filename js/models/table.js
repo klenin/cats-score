@@ -1,3 +1,4 @@
-function Table_model(data) {
-    this.data = data;
+function Table_model() {
+    this.problems = [];
+    this.score_board = [];
 }
