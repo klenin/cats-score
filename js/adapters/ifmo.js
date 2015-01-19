@@ -25,27 +25,32 @@ Ifmo_adapter.prototype.parse_score_board = function() {
             if (key !== undefined)
                 row[self.aliaces[key]] = $(this).html();
             else {
-                prob_num++;
-                var attempts = $(this).find("i");
-                attempts = attempts.length == 0 ? $(this).find("b") : attempts
-                if (attempts.length > 0) {
-                    row['prob_' + prob_num + '_solved'] = $(attempts).html().indexOf("+") != -1;
-                    var time = $(attempts).find("s");
+                var runs = $(this).find("i");
+                runs = runs.length == 0 ? $(this).find("b") : runs;
+                var solved = -1, runs_cnt = -1;
+                if (runs.length > 0) {
+
+                    solved = $(runs).html().indexOf("+") != -1;
+                    var time = $(runs).find("s");
                     if (time.length > 0) {
                         time.find("br").remove();
-                        row['prob_' + prob_num + '_solved'] = time.html();
+                        solved = time.html();
                         time.remove();
                     }
-                    var attempts_cnt = $(attempts).html();
-                    if (attempts_cnt.length == 1)
-                        attempts_cnt = 1;
-                    row['prob_' + prob_num + '_attempts'] = Math.abs(parseInt(attempts_cnt)) + 1;
+                    runs_cnt = $(runs).html();
+                    if (runs_cnt.length == 1)
+                        runs_cnt = 1;
+                    runs_cnt = Math.abs(parseInt(runs_cnt)) + 1;
                 }
                 else if ($(this).html() == ".") {
-                    row['prob_' + prob_num + '_solved'] = false;
-                    row['prob_' + prob_num + '_attempts'] = 0;
+                    solved = false;
+                    runs_cnt = 0;
                 }
 
+                if (runs_cnt >= 0) {
+                    row[prob_num] = {'s' : solved, 'r' : runs_cnt}
+                }
+                prob_num++;
             }
         });
         if (Object.keys(row).length > 0)

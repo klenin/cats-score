@@ -1,4 +1,4 @@
 function History_model() {
-    this.attempts = [];
+    this.runs = [];
     this.problems = [];
 }
