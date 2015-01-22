@@ -12,9 +12,9 @@ Acm_rules.prototype.translate_to_history = function() {
     }
 
 
-    var m = new History_model();
-    var contest_start_time = self.model.contest_start_time;
 
+    var contest_start_time = self.model.contest_start_time;
+    var m = new History_model(contest_start_time);
     var team_id = 0, id = 0;
     $.each(self.model.score_board, function (i, row) {
         var team_name = row['team_name'];
@@ -53,9 +53,9 @@ Acm_rules.prototype.translate_to_table = function() {
         alert('u cant translate to table non history model');
         return;
     }
-    var m = new Table_model();
-    var contest_start_time = self.model.contest_start_time;
 
+    var contest_start_time = self.model.contest_start_time;
+    var m = new Table_model(contest_start_time);
     var teams_problems = {}, teams = {};
     $.each(self.model.runs, function (i, row) {
         var team_name = row['team_name'];
