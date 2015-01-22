@@ -110,3 +110,7 @@ Acm_rules.prototype.translate_to_table = function() {
 
     return m;
 }
+
+Acm_rules.prototype.set_model = function (model) {
+    this.model = model;
+}
