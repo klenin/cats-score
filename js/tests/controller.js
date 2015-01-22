@@ -14,8 +14,27 @@ Controller_tests.prototype.run_tests = function() {
 Controller_tests.prototype.models_equals = function(m, m2) {
     var result = JSON.stringify(m) == JSON.stringify(m2);
     return result ? "OK" :
-        "FAIL <br />" + JSON.stringify(m).substring(1, 1500) +
-        " <br /><br /> " + JSON.stringify(m2).substring(1, 1500) + " <br /><br /> ";
+        "FAIL <br />" + JSON.stringify(m) +
+        " <br /><br /> " + JSON.stringify(m2) +
+        " <br /><br /> ";
+}
+
+Controller_tests.prototype.acm_table_equals = function(m, m2) {
+    m.throw_teams_with_no_solutions();
+    m2.throw_teams_with_no_solutions();
+    var result = JSON.stringify(m) == JSON.stringify(m2);
+    return result ? "OK" :
+    "FAIL <br />" + JSON.stringify(m) +
+    " <br /><br /> " + JSON.stringify(m2) +
+    " <br /><br /> ";
+}
+
+Controller_tests.prototype.acm_history_equals = function(m, m2) {
+    var result = JSON.stringify(m) == JSON.stringify(m2);
+    return result ? "OK" :
+    "FAIL <br />" + JSON.stringify(m) +
+    " <br /><br /> " + JSON.stringify(m2) +
+    " <br /><br /> ";
 }
 
 Controller_tests.prototype.run_ifmo_test = function() {
@@ -26,16 +45,16 @@ Controller_tests.prototype.run_ifmo_test = function() {
     var h = r.translate_to_history();
     r.set_model(h);
     var t2 = r.translate_to_table();
-    return this.models_equals(t, t2);
+    return this.acm_table_equals(t, t2);
 }
 
 Controller_tests.prototype.run_cats_test = function() {
-    var h = new History_model();
+    var h = new History_model(string_to_date("07.11.2014 18:33"), ["Second Best", "Customer support"]);
     var a = new Cats_adapter(cats_xml_data_for_test, h);
     h = a.get_model();
     var r = new Acm_rules(h);
     var t = r.translate_to_table();
     r.set_model(t);
     var h2 = r.translate_to_history();
-    return this.models_equals(h, h2);
+    return this.acm_history_equals(h, h2);
 }

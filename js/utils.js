@@ -1,12 +1,12 @@
 function add_time(date, time) {
     var d = new Date();
-    d.setTime(date.getTime() + time * 60000);
+    d.setTime(date.getTime() + time * 60 * 1000);
 
-    return d.format("dd.mm.yyyy hh:MM");
+    return d.format("dd.mm.yyyy HH:MM");
 }
 
 function get_problem_code(id) {
-    return String.fromCharCode(65 + id);
+    return String.fromCharCode(65 + parseInt(id));
 }
 
 function get_problem_id(code) {
@@ -18,9 +18,13 @@ function string_to_date(str) {
     var date = d[0].split(".");
     var time = d[1].split(":");
 
-    return new Date(date[2], date[1], date[0], time[0], time[1]);
+    return new Date(date[2], date[1] - 1, date[0], time[0], time[1]);
 }
 
 function get_time_diff(date1, date2) {
-    return Math.floor((date2 - date1) / (1000*60));
+    return Math.ceil((date2 - date1) / (1000 * 60));
+}
+
+Array.prototype.top = function () {
+    return this[this.length - 1];
 }

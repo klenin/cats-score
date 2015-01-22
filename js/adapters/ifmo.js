@@ -15,7 +15,7 @@ Ifmo_adapter.prototype.parse_score_board = function() {
     var page = this.page;
     var self = this;
     $(page).find('table[class != "wrapper"]').find("tr").each(function () {
-        var row = {}
+        var row = {};
         var prob_num = 0;
         $(this).find("th.problem").each(function () {
             self.model.problems.push($(this).attr("title"));
@@ -34,12 +34,12 @@ Ifmo_adapter.prototype.parse_score_board = function() {
                     var time = $(runs).find("s");
                     if (time.length > 0) {
                         time.find("br").remove();
-                        solved = time.html().split(":")[0];
+                        solved = parseInt(time.html().split(":")[0]);
                         time.remove();
                     }
                     runs_cnt = $(runs).html();
                     if (runs_cnt.length == 1)
-                        runs_cnt = 1;
+                        runs_cnt = 0;
                     runs_cnt = Math.abs(parseInt(runs_cnt)) + 1;
                 }
                 else if ($(this).html() == ".") {
@@ -53,8 +53,11 @@ Ifmo_adapter.prototype.parse_score_board = function() {
                 prob_num++;
             }
         });
-        if (Object.keys(row).length > 0)
+        if (Object.keys(row).length > 0) {
+            row['place'] = parseInt(row['place']);
+            row['penalty'] = parseInt(row['penalty']);
             self.model.score_board.push(row);
+        }
     });
 }
 

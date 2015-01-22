@@ -25,9 +25,11 @@ Cats_adapter.prototype.parse_history = function() {
 
     $(page).find('reqs').find('req').each(function () {
         var row = {};
-        $(this).children().each(function(){
+
+        $(this).children().each(function() {
             row[$(this)[0].tagName] = $(this).text();
         });
+        self.model.problems[get_problem_id(row['code'])] = row['problem_title'];
         self.model.runs.push(row);
     });
 }
