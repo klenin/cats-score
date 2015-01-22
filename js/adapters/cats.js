@@ -28,12 +28,12 @@ Cats_adapter.prototype.parse_history = function() {
         $(this).children().each(function(){
             row[$(this)[0].tagName] = $(this).text();
         });
-        self.model.attempts.push(row);
+        self.model.runs.push(row);
     });
 }
 
 Cats_adapter.prototype.get_model = function() {
-    if (this.model.attempts.length == 0)
+    if (this.model.runs.length == 0)
         this.parse_history();
 
     return this.model;

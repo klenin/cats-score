@@ -1,16 +1,18 @@
 $("document").ready(function(){
     $("#result_table").blur(function () {
         var page = $("#result_table").val();
-        var m = new Table_model()
+        var m = new Table_model();
         var a = new Ifmo_adapter(page, m);
-        $("#display").html(JSON.stringify(a.get_model().problems) + "<br />" + JSON.stringify(a.get_model().score_board));
+        var r = new Acm_rules(a.get_model());
+        $("#display").html(JSON.stringify(r.translate_to_history()) + "<br />");
     });
 
-    $("#attempt_history").blur(function () {
-        var page = $("#attempt_history").val();
-        var m = new History_model()
+    $("#run_history").blur(function () {
+        var page = $("#run_history").val();
+        var m = new History_model(string_to_date("07.11.2014 18:00"));
         var a = new Cats_adapter(page, m);
-        $("#display").html(JSON.stringify(a.get_model().problems) + "<br />" + JSON.stringify(a.get_model().attempts));
+        var r = new Acm_rules(a.get_model());
+        $("#display").html(JSON.stringify(r.translate_to_table()) + "<br />");
     });
     function ajax_start(){
         $('#progress').show();

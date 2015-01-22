@@ -34,7 +34,7 @@ Ifmo_adapter.prototype.parse_score_board = function() {
                     var time = $(runs).find("s");
                     if (time.length > 0) {
                         time.find("br").remove();
-                        solved = time.html();
+                        solved = time.html().split(":")[0];
                         time.remove();
                     }
                     runs_cnt = $(runs).html();
