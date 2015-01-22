@@ -1,19 +1,10 @@
 $("document").ready(function(){
-    $("#result_table").blur(function () {
-        var page = $("#result_table").val();
-        var m = new Table_model();
-        var a = new Ifmo_adapter(page, m);
-        var r = new Acm_rules(a.get_model());
-        $("#display").html(JSON.stringify(r.translate_to_history()) + "<br />");
+
+    $("#run_tests").click(function () {
+        var t = new Controller_tests();
+        $("#display").html(t.run_tests());
     });
 
-    $("#run_history").blur(function () {
-        var page = $("#run_history").val();
-        var m = new History_model(string_to_date("07.11.2014 18:00"));
-        var a = new Cats_adapter(page, m);
-        var r = new Acm_rules(a.get_model());
-        $("#display").html(JSON.stringify(r.translate_to_table()) + "<br />");
-    });
     function ajax_start(){
         $('#progress').show();
     }
@@ -22,7 +13,7 @@ $("document").ready(function(){
         $('#progress').hide();
     }
 
-    function parser(){
+    function loader(){
         ajax_start();
         $.ajax({
             url: $('#result_table_url').val(),
@@ -40,6 +31,6 @@ $("document").ready(function(){
     }
 
     $("#start").click(function () {
-        parser();
+        loader();
     });
 });
