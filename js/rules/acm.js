@@ -92,21 +92,17 @@ Acm_rules.prototype.translate_to_table = function() {
 
         team_groups[v['solved_cnts']].push({'n' : k, 'p' : v['penalty']});
     })
-
-    var last_place = -1;
+    
     for(var i = team_groups.length - 1; i >= 0; --i) {
         if (team_groups[i] == undefined)
             continue;
-        if (i == 0)
-            last_place = m.score_board.length + 1;
         var group = team_groups[i].sort(function (a, b) {
             return a['p'] - b['p'];
         })
         for(var j = 0; j < group.length; ++j) {
             m.score_board.push($.extend({
-                'place' : (last_place != -1) ? last_place :
-                    (j != 0 && group[j - 1]['p'] == group[j]['p'] ? m.score_board.top()['place'] :
-                        m.score_board.length + 1),
+                'place' : j != 0 && group[j - 1]['p'] == group[j]['p'] ? m.score_board.top()['place'] :
+                        m.score_board.length + 1,
                 'team_name' : group[j]['n'],
                 'penalty' : group[j]['p']
             }, teams_problems[group[j]['n']]));
