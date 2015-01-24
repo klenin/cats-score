@@ -92,7 +92,7 @@ Acm_rules.prototype.translate_to_table = function() {
 
         team_groups[v['solved_cnts']].push({'n' : k, 'p' : v['penalty']});
     })
-    
+
     for(var i = team_groups.length - 1; i >= 0; --i) {
         if (team_groups[i] == undefined)
             continue;
@@ -114,4 +114,5 @@ Acm_rules.prototype.translate_to_table = function() {
 
 Acm_rules.prototype.set_model = function (model) {
     this.model = model;
+    return this;
 }

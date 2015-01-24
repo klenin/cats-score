@@ -29,14 +29,6 @@ Controller_tests.prototype.acm_table_equals = function(m, m2) {
     " <br /><br /> ";
 }
 
-Controller_tests.prototype.acm_history_equals = function(m, m2) {
-    var result = JSON.stringify(m) == JSON.stringify(m2);
-    return result ? "OK" :
-    "FAIL <br />" + JSON.stringify(m) +
-    " <br /><br /> " + JSON.stringify(m2) +
-    " <br /><br /> ";
-}
-
 Controller_tests.prototype.run_ifmo_test = function() {
     var t = new Table_model();
     var a = new Ifmo_adapter(ifmo_html_data_for_test, t);
@@ -54,7 +46,7 @@ Controller_tests.prototype.run_cats_test = function() {
     h = a.get_model();
     var r = new Acm_rules(h);
     var t = r.translate_to_table();
-    r.set_model(t);
-    var h2 = r.translate_to_history();
-    return this.acm_history_equals(h, h2);
+    var h2 = r.set_model(t).translate_to_history();
+    var t2 = r.set_model(h2).translate_to_table();
+    return this.acm_table_equals(t, t2);
 }
