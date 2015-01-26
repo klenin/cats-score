@@ -1,9 +1,10 @@
 (function($){
 $(document).on('click', 'a', function() {return false;});
-tpl.loadTemplates(['table', 'history'], function() {
+tpl.loadTemplates(['header', 'table', 'history'], function() {
     var AppState = Backbone.Model.extend({
         defaults: {
             state: "",
+            source: "cats"
         },
         name: "AppState",
     });
@@ -41,7 +42,7 @@ tpl.loadTemplates(['table', 'history'], function() {
     var controller = new Controller();
 
     var table = new Table_model();
-    var history = new History_model(string_to_date("07.11.2014 18:33"), ["Second Best", "Customer support"]);
+    var history = new History_model(string_to_date("07.11.2014 18:00"), ["Second Best", "Customer support"]);
     var cats = new Cats_adapter(cats_xml_data_for_test, history);
     var ifmo = new Ifmo_adapter(ifmo_html_data_for_test, table);
 
@@ -60,16 +61,19 @@ tpl.loadTemplates(['table', 'history'], function() {
         },
 
         adapters: {
-            table: ifmo,
-            history: cats
+            ifmo: ifmo,
+            cats: cats
         },
 
         refresh: function() {
             var self = this;
-            $.each(self.models, function(index, model) {
-                self.models[index] = self.adapters[index].get_model();
-            });
+            var m = self.adapters[self.source()].get_model();
+            var r = new Acm_rules(m);
+            self.models['table'] = (m.name == 'table') ? m : r.translate_to_table();
+            self.models['history'] = (m.name == 'history') ? m : r.translate_to_history();
+
             self.render();
+            $("#source").val(self.source());
         },
 
         initialize: function () { // Подписка на событие модели
@@ -82,12 +86,19 @@ tpl.loadTemplates(['table', 'history'], function() {
             },
             'click a#look_table': function () {
                 controller.navigate("!/table", true);
+            },
+            'change #source': function () {
+                this.source($("#source").val());
             }
+        },
+
+        header: function () {
+            return _.template(tpl.get('header'))({});
         },
 
         render: function(){
             var state = this.state();
-            this.$el.html(this.templates[state]({model: this.models[state]}));
+            this.$el.html(this.header() + this.templates[state]({model: this.models[state]}));
             return this;
         },
 
@@ -95,6 +106,12 @@ tpl.loadTemplates(['table', 'history'], function() {
             if (state != undefined)
                 this.model.set({state: state})
             return this.model.get("state");
+        },
+
+        source: function (source) {
+            if (source != undefined)
+                this.model.set({source: source})
+            return this.model.get("source");
         },
 
         start: function () {
