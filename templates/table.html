@@ -1,0 +1,54 @@
+<h1>Table ifmo</h1>
+<table class="table table-striped table-bordered table-hover">
+    <tr>
+        <th>
+            place
+        </th>
+        <th>
+            team
+        </th>
+        <%
+        for (var i = 0; i < model.problems.length; ++i) {
+        %>
+        <th>
+            <%=get_problem_code(i)%>
+        </th>
+        <%
+        };
+        %>
+        <th>
+            time
+        </th>
+    </tr>
+    <%
+    _.each(model.score_board, function(row){
+    %>
+    <tr>
+        <td>
+            <%=row["place"]%>
+        </td>
+        <td>
+            <%=row["team_name"]%>
+        </td>
+        <%
+        for (var i = 0; i < model.problems.length; ++i) {
+        %>
+        <td>
+            <% if (row[i]["s"]) {%>
+            <p><%="+" + (row[i]["r"] > 1 ? row[i]["r"] - 1 : "")%></p>
+            <small><%=minutes_to_formated_hours(row[i]["s"])%></small>
+            <%} else %>
+            <%="-"%>
+        </td>
+
+        <%
+        };
+        %>
+        <td>
+            <%=row["penalty"]%>
+        </td>
+    </tr>
+    <%
+    });
+    %>
+</table>

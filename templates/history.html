@@ -1,0 +1,33 @@
+<h1>History cats</h1>
+<table class="table table-striped table-bordered table-hover">
+<tr>
+<%
+var tbl_header = [];
+_.each(model.runs[0], function(v, k){
+%>
+<th>
+<%=k%>
+<%tbl_header.push(k);%>
+</th>
+<%
+});
+%>
+</tr>
+<%
+_.each(model.runs, function(run){
+%>
+<tr>
+<%
+for(var i = 0; i < tbl_header.length; ++i){
+%>
+<td>
+<%=run[tbl_header[i]]%>
+</td>
+<%
+};
+%>
+</tr>
+<%
+});
+%>
+</table>

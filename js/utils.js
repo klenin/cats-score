@@ -25,6 +25,40 @@ function get_time_diff(date1, date2) {
     return Math.ceil((date2 - date1) / (1000 * 60));
 }
 
+function minutes_to_formated_hours(min) {
+    return Math.floor(min / 60) + ":" + min % 60;
+}
+
 Array.prototype.top = function () {
     return this[this.length - 1];
 }
+
+tpl = {
+    templates: {},
+
+    loadTemplates: function (names, callback) {
+
+        var that = this;
+
+        var loadTemplate = function (index) {
+            var name = names[index];
+            console.log('Loading template: ' + name);
+            $.get('templates/' + name + '.html', function (data) {
+                that.templates[name] = data;
+                index++;
+                if (index < names.length) {
+                    loadTemplate(index);
+                } else {
+                    callback();
+                }
+            })
+        }
+
+        loadTemplate(0);
+    },
+
+    get: function (name) {
+        return this.templates[name];
+    }
+
+};
