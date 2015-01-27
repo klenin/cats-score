@@ -10,15 +10,15 @@ tpl.loadTemplates(['header', 'table', 'history'], function() {
     });
     var appState = new AppState();
 
-    appState.bind("change:state", function () { // подписка на смену состояния для контроллера
+    appState.bind("change:state", function () {
         var state = this.get("state");
 
-        if (state == "table") { //незалогинился
+        if (state == "table") {
             controller.navigate("!/table", true);
             return;
         }
 
-        if (state == "history") { //незалогинился
+        if (state == "history") {
             controller.navigate("!/history", true);
             return;
         }
@@ -49,7 +49,7 @@ tpl.loadTemplates(['header', 'table', 'history'], function() {
     var App = Backbone.View.extend({
         el: $("#wrapper"),
 
-        templates: { // Шаблоны на разное состояние
+        templates: {
             table: _.template(tpl.get('table')),
             history: _.template(tpl.get('history'))
         },
@@ -76,7 +76,7 @@ tpl.loadTemplates(['header', 'table', 'history'], function() {
             $("#source").val(self.source());
         },
 
-        initialize: function () { // Подписка на событие модели
+        initialize: function () { 
             this.model.bind('change', this.refresh, this);
         },
 
