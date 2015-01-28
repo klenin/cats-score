@@ -2,7 +2,7 @@ function Cats_adapter(page, model) {
     this.page = page;
     this.model = model;
 
-    this.aliaces = {
+    this.aliases = {
         'time_since_start' : 'time_since_start',
         'problem_title' : 'problem_title',
         'failed_test' : 'failed_test',
@@ -27,7 +27,7 @@ Cats_adapter.prototype.parse_history = function() {
         var row = {};
 
         $(this).children().each(function() {
-            row[$(this)[0].tagName] = $(this).text();
+            row[self.aliases[$(this)[0].tagName]] = $(this).text();
         });
         self.model.problems[get_problem_id(row['code'])] = row['problem_title'];
         self.model.runs.push(row);

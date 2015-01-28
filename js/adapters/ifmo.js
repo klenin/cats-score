@@ -2,7 +2,7 @@ function Ifmo_adapter(page, model) {
     this.page = page;
     this.model = model
 
-    this.aliaces = {
+    this.aliases = {
         'rankl' : 'place',
         'party' : 'team_name',
         'penalty' : 'penalty'
@@ -23,7 +23,7 @@ Ifmo_adapter.prototype.parse_score_board = function() {
         $(this).find("td").each(function () {
             var key = $(this).attr('class');
             if (key !== undefined)
-                row[self.aliaces[key]] = $(this).html();
+                row[self.aliases[key]] = $(this).html();
             else {
                 var runs = $(this).find("i");
                 runs = runs.length == 0 ? $(this).find("b") : runs;
