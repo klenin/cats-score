@@ -9,7 +9,7 @@
             team
         </th>
         <%
-        for (var i = 0; i < model.problems.length; ++i) {
+        for (var i = 0; i < model.contest_info.problems.length; ++i) {
         %>
         <th>
             <%=get_problem_code(i)%>
@@ -22,7 +22,7 @@
         </th>
     </tr>
     <%
-    _.each(model.score_board, function(row){
+    _.each(model.table.score_board, function(row){
     %>
     <tr>
         <td>
@@ -32,12 +32,12 @@
             <%=row["team_name"]%>
         </td>
         <%
-        for (var i = 0; i < model.problems.length; ++i) {
+        for (var i = 0; i < row["problems"].length; ++i) {
         %>
         <td>
-            <% if (row[i]["s"]) {%>
-            <p><%="+" + (row[i]["r"] > 1 ? row[i]["r"] - 1 : "")%></p>
-            <small><%=minutes_to_formated_hours(row[i]["s"])%></small>
+            <% if (row["problems"][i]["solve_time"]) {%>
+            <p><%="+" + (row["problems"][i]["runs_cnt"] > 1 ? row["problems"][i]["runs_cnt"] - 1 : "")%></p>
+            <small><%=minutes_to_formated_hours(row["problems"][i]["solve_time"])%></small>
             <%} else %>
             <%="-"%>
         </td>

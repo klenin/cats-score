@@ -30,23 +30,26 @@ Controller_tests.prototype.acm_table_equals = function(m, m2) {
 }
 
 Controller_tests.prototype.run_ifmo_test = function() {
-    var t = new Table_model();
-    var a = new Ifmo_adapter(ifmo_html_data_for_test, t);
-    t = a.get_model();
-    var r = new Acm_rules(t);
-    var h = r.translate_to_history();
-    r.set_model(h);
-    var t2 = r.translate_to_table();
-    return this.acm_table_equals(t, t2);
+    var c = new Contest_model();
+    var a = new Ifmo_adapter(ifmo_html_data_for_test, c);
+    a.parse();
+    var r = new Acm_rules(c);
+    var t1 = c.table;
+    r.compute_table();
+    var t2 = c.table;
+    return this.acm_table_equals(t1, t2);
 }
 
 Controller_tests.prototype.run_cats_test = function() {
-    var h = new History_model(string_to_date("07.11.2014 18:33"), ["Second Best", "Customer support"]);
-    var a = new Cats_adapter(cats_xml_data_for_test, h);
-    h = a.get_model();
-    var r = new Acm_rules(h);
-    var t = r.translate_to_table();
-    var h2 = r.set_model(t).translate_to_history();
-    var t2 = r.set_model(h2).translate_to_table();
-    return this.acm_table_equals(t, t2);
+    var cats_contest_info = new Contest_info_model(string_to_date("07.11.2014 18:00"), ["Second Best", "Customer support"]);
+    var c = new Contest_model();
+    c.contest_info = cats_contest_info;
+    var a = new Cats_adapter(cats_xml_data_for_test, c);
+    a.parse();
+    var r = new Acm_rules(c);
+    var t1 = c.table;
+    r.compute_history();
+    r.compute_table();
+    var t2 = c.table;
+    return this.acm_table_equals(t1, t2);
 }

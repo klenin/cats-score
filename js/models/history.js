@@ -1,7 +1,20 @@
-function History_model(contest_start_time, problems) {
+function History_model(runs) {
     this.name = 'history';
-    this.problems = problems == undefined ? [] : problems;
-    this.runs = [];
+    this.runs = runs == undefined ? [] : runs;
+}
 
-    this.contest_start_time = (contest_start_time == undefined) ? new Date() : contest_start_time;
+History_model.prototype.get_empty_score_board_run = function() {
+    return {
+        'problem_title' : null,
+        'failed_test' : null,
+        'submit_time' : null,
+        'team_name' : null,
+        'team_id' : null,
+        'is_remote' : null,
+        'state' : null,
+        'is_ooc' : null,
+        'id' : null,
+        'last_ip' : null,
+        'code' : null
+    };
 }

@@ -1,9 +1,23 @@
-function Table_model(contest_start_time, problems) {
-    this.name = 'table';
-    this.problems = problems == undefined ? [] : problems;
-    this.score_board = [];
+function Table_model(score_board) {
+    this.score_board = score_board == undefined ? [] : score_board;
+}
 
-    this.contest_start_time = (contest_start_time == undefined) ? new Date() : contest_start_time;
+Table_model.prototype.get_empty_score_board_row = function() {
+    return {
+        'place' : null,
+        'team_name' : null,
+        'penalty' : null,
+        'is_remote' : null,
+        'is_ooc' : null,
+        'problems' : []
+    };
+}
+
+Table_model.prototype.get_empty_problem_for_score_board_row = function() {
+    return {
+        'solve_time' : null,
+        'runs_cnt' : null
+    };
 }
 
 Table_model.prototype.throw_teams_with_no_solutions = function() {

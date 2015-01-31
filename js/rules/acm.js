@@ -4,59 +4,47 @@ function Acm_rules(model) {
 }
 
 
-Acm_rules.prototype.translate_to_history = function() {
-    var self = this;
-    if (self.model.name != 'table') {
-        alert('u cant translate to history non table model');
-        return;
-    }
-
-    var contest_start_time = self.model.contest_start_time;
-    var m = new History_model(contest_start_time, self.model.problems);
+Acm_rules.prototype.compute_history = function() {
+    var tbl = this.model.table;
+    var info = this.model.contest_info;
+    var contest_start_time = info.contest_start_time;
+    var m = new History_model();
     var team_id = 0, id = 0;
-    $.each(self.model.score_board, function (i, row) {
+    $.each(tbl.score_board, function (i, row) {
         var team_name = row['team_name'];
         team_id++;
-        $.each(row, function (k, v) {
-            if (self.model.problems[k] != undefined)
-                for(var i = 0; i < v['r']; ++i) {
-                    id++;
-                    var run = {
-                        'time_since_start' : 0.1,
-                        'problem_title' : self.model.problems[k],
-                        'submit_time' : add_time(contest_start_time, "1"),
-                        'team_name' : team_name,
-                        'team_id' : team_id,
-                        'is_remote' : 0,
-                        'state' : 'wrong_answer',
-                        'is_ooc' : 1,
-                        'id' : id,
-                        'last_ip' : 'localhost',
-                        'code' : get_problem_code(k)};
-                    if (v['s'] && i + 1 == v['r']) {
-                        run['submit_time'] = add_time(contest_start_time, v['s']);
-                        run['state'] = 'accepted';
-                    }
-                    m.runs.push(run);
+        $.each(row['problems'], function (k, v) {
+            for(var i = 0; i < v['runs_cnt']; ++i) {
+                id++;
+                var run = m.get_empty_score_board_run();
+                run['problem_title'] = info.problems[k];
+                run['submit_time'] = add_time(contest_start_time, "0.1");
+                run['team_name'] = team_name;
+                run['team_id'] = team_id;
+                run['id'] = id;
+                run['code'] = get_problem_code(k);
+
+                if (v['solve_time'] && i + 1 == v['runs_cnt']) {
+                    run['submit_time'] = add_time(contest_start_time, v['solve_time']);
+                    run['state'] = 'accepted';
                 }
+                m.runs.push(run);
+            }
         });
     });
-    console.log(m);
-    return m;
+
+    this.model.history = m;
 }
 
-Acm_rules.prototype.translate_to_table = function() {
+Acm_rules.prototype.compute_table = function() {
     var self = this;
-    if (self.model.name != 'history') {
-        alert('u cant translate to table non history model');
-        return;
-    }
-
-    var contest_start_time = self.model.contest_start_time;
-    var m = new Table_model(contest_start_time, self.model.problems);
+    var hist = this.model.history;
+    var info = this.model.contest_info;
+    var contest_start_time = info.contest_start_time;
+    var m = new Table_model();
     var teams_problems = {}, teams = {};
 
-    $.each(self.model.runs, function (i, row) {
+    $.each(hist.runs, function (i, row) {
         var team_name = row['team_name'];
         if (teams_problems[team_name] == undefined) {
             teams_problems[team_name] = [];
@@ -64,22 +52,22 @@ Acm_rules.prototype.translate_to_table = function() {
             teams[team_name]['penalty'] = 0;
             teams[team_name]['solved_cnts'] = 0;
 
-            for(var i = 0; i < m.problems.length; ++i) {
+            for(var i = 0; i < info.problems.length; ++i) {
                 teams_problems[team_name][i] = {};
-                teams_problems[team_name][i]['s'] = false;
-                teams_problems[team_name][i]['r'] = 0;
+                teams_problems[team_name][i]['solve_time'] = false;
+                teams_problems[team_name][i]['runs_cnt'] = 0;
             }
         }
         var p_id = get_problem_id(row['code']);
 
-        if (!teams_problems[team_name][p_id]['s']) {
-            teams_problems[team_name][p_id]['r']++;
+        if (!teams_problems[team_name][p_id]['solve_time']) {
+            teams_problems[team_name][p_id]['runs_cnt']++;
             if (row['state'] == 'accepted') {
                 var submit = string_to_date(row['submit_time']);
-                teams_problems[team_name][p_id]['s'] = get_time_diff(contest_start_time, submit);
+                teams_problems[team_name][p_id]['solve_time'] = get_time_diff(contest_start_time, submit);
                 teams[team_name]['solved_cnts']++;
-                teams[team_name]['penalty'] += (teams_problems[team_name][p_id]['r'] - 1) * self.failed_run_penalty +
-                    teams_problems[team_name][p_id]['s'];
+                teams[team_name]['penalty'] += (teams_problems[team_name][p_id]['runs_cnt'] - 1) * self.failed_run_penalty +
+                    teams_problems[team_name][p_id]['solve_time'];
             }
         }
 
@@ -91,7 +79,7 @@ Acm_rules.prototype.translate_to_table = function() {
             team_groups[v['solved_cnts']] = [];
 
         team_groups[v['solved_cnts']].push({'n' : k, 'p' : v['penalty']});
-    })
+    });
 
     for(var i = team_groups.length - 1; i >= 0; --i) {
         if (team_groups[i] == undefined)
@@ -100,16 +88,20 @@ Acm_rules.prototype.translate_to_table = function() {
             return a['p'] - b['p'];
         })
         for(var j = 0; j < group.length; ++j) {
-            m.score_board.push($.extend({
-                'place' : j != 0 && group[j - 1]['p'] == group[j]['p'] ? m.score_board.top()['place'] :
-                        m.score_board.length + 1,
-                'team_name' : group[j]['n'],
-                'penalty' : group[j]['p']
-            }, teams_problems[group[j]['n']]));
+
+            var score_board_row = m.get_empty_score_board_row();
+            score_board_row['place'] = (j != 0 && group[j - 1]['p'] == group[j]['p']) ?
+                m.score_board.top()['place'] :
+                m.score_board.length + 1;
+            score_board_row['team_name'] = group[j]['n'];
+            score_board_row['penalty'] =  group[j]['p'];
+            score_board_row['problems'] = teams_problems[group[j]['n']];
+
+            m.score_board.push(score_board_row);
         }
     }
 
-    return m;
+    this.model.table = m;
 }
 
 Acm_rules.prototype.set_model = function (model) {

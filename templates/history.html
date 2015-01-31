@@ -4,7 +4,7 @@
 <tr>
 <%
 var tbl_header = [];
-_.each(model.runs[0], function(v, k){
+_.each(model.history.runs[0], function(v, k){
 %>
 <th>
 <%=k%>
@@ -15,7 +15,7 @@ _.each(model.runs[0], function(v, k){
 %>
 </tr>
 <%
-_.each(model.runs, function(run){
+_.each(model.history.runs, function(run){
 %>
 <tr>
 <%

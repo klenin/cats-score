@@ -3,7 +3,6 @@ function Cats_adapter(page, model) {
     this.model = model;
 
     this.aliases = {
-        'time_since_start' : 'time_since_start',
         'problem_title' : 'problem_title',
         'failed_test' : 'failed_test',
         'submit_time' : 'submit_time',
@@ -24,18 +23,22 @@ Cats_adapter.prototype.parse_history = function() {
     var page = $.parseXML(this.page);
 
     $(page).find('reqs').find('req').each(function () {
-        var row = {};
+        var row = self.model.history.get_empty_score_board_run();
 
         $(this).children().each(function() {
-            row[self.aliases[$(this)[0].tagName]] = $(this).text();
+            if (self.aliases[$(this)[0].tagName] != undefined)
+                row[self.aliases[$(this)[0].tagName]] = $(this).text();
         });
-        self.model.problems[get_problem_id(row['code'])] = row['problem_title'];
-        self.model.runs.push(row);
+        self.model.contest_info.problems[get_problem_id(row['code'])] = row['problem_title'];
+        self.model.history.runs.push(row);
     });
+
+    var r = new Acm_rules(self.model);
+    r.compute_table();
 }
 
-Cats_adapter.prototype.get_model = function() {
-    if (this.model.runs.length == 0)
+Cats_adapter.prototype.parse = function() {
+    if (this.model.history.runs.length == 0)
         this.parse_history();
 
     return this.model;

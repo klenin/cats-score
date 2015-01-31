@@ -41,10 +41,13 @@ tpl.loadTemplates(['header', 'table', 'history'], function() {
     });
     var controller = new Controller();
 
-    var table = new Table_model();
-    var history = new History_model(string_to_date("07.11.2014 18:00"), ["Second Best", "Customer support"]);
-    var cats = new Cats_adapter(cats_xml_data_for_test, history);
-    var ifmo = new Ifmo_adapter(ifmo_html_data_for_test, table);
+    var cats_contest_info = new Contest_info_model(string_to_date("07.11.2014 18:00"), ["Second Best", "Customer support"]);
+    var cats_contest = new Contest_model();
+    cats_contest.contest_info = cats_contest_info;
+    var cats = new Cats_adapter(cats_xml_data_for_test, cats_contest);
+
+    var ifmo_contest = new Contest_model();
+    var ifmo = new Ifmo_adapter(ifmo_html_data_for_test, ifmo_contest);
 
     var App = Backbone.View.extend({
         el: $("#wrapper"),
@@ -54,10 +57,9 @@ tpl.loadTemplates(['header', 'table', 'history'], function() {
             history: _.template(tpl.get('history'))
         },
 
-
-        models: {
-            table: table,
-            history: history
+        contest_models: {
+            cats: null,
+            ifmo: null
         },
 
         adapters: {
@@ -67,10 +69,7 @@ tpl.loadTemplates(['header', 'table', 'history'], function() {
 
         refresh: function() {
             var self = this;
-            var m = self.adapters[self.source()].get_model();
-            var r = new Acm_rules(m);
-            self.models['table'] = (m.name == 'table') ? m : r.translate_to_table();
-            self.models['history'] = (m.name == 'history') ? m : r.translate_to_history();
+            self.contest_models[self.source()] = self.adapters[self.source()].parse();
 
             self.render();
             $("#source").val(self.source());
@@ -98,7 +97,8 @@ tpl.loadTemplates(['header', 'table', 'history'], function() {
 
         render: function(){
             var state = this.state();
-            this.$el.html(this.header() + this.templates[state]({model: this.models[state]}));
+            var source = this.source();
+            this.$el.html(this.header() + this.templates[state]({model: this.contest_models[source]}));
             return this;
         },
 
