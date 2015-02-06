@@ -4,7 +4,7 @@
 <tr>
 <%
 var tbl_header = [];
-_.each(model.history.runs[0], function(v, k){
+_.each(app.runs[app.contests[contest_id].runs[0]], function(v, k){
 %>
 <th>
 <%=k%>
@@ -15,14 +15,14 @@ _.each(model.history.runs[0], function(v, k){
 %>
 </tr>
 <%
-_.each(model.history.runs, function(run){
+_.each(app.contests[contest_id].runs, function(run){
 %>
 <tr>
 <%
 for(var i = 0; i < tbl_header.length; ++i){
 %>
 <td>
-<%=run[tbl_header[i]]%>
+<%=app.runs[run][tbl_header[i]]%>
 </td>
 <%
 };

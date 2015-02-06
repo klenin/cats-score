@@ -1,16 +1,46 @@
-(function($){
 $(document).on('click', 'a', function() {return false;});
+
+tpl = {
+    templates: {},
+
+    loadTemplates: function (names, callback) {
+
+        var that = this;
+
+        var loadTemplate = function (index) {
+            var name = names[index];
+            console.log('Loading template: ' + name);
+            $.get('skins/' + name + '.html', function (data) {
+                that.templates[name] = data;
+                index++;
+                if (index < names.length) {
+                    loadTemplate(index);
+                } else {
+                    callback();
+                }
+            })
+        }
+
+        loadTemplate(0);
+    },
+
+    get: function (name) {
+        return this.templates[name];
+    }
+
+};
+
 tpl.loadTemplates(['header', 'table', 'history'], function() {
-    var AppState = Backbone.Model.extend({
+    var ViewState = Backbone.Model.extend({
         defaults: {
             state: "",
             source: "cats"
         },
-        name: "AppState",
+        name: "ViewState",
     });
-    var appState = new AppState();
+    var viewState = new ViewState();
 
-    appState.bind("change:state", function () {
+    viewState.bind("change:state", function () {
         var state = this.get("state");
 
         if (state == "table") {
@@ -31,25 +61,27 @@ tpl.loadTemplates(['header', 'table', 'history'], function() {
         },
 
         table: function () {
-            appState.set({ state: "table" });
+            viewState.set({ state: "table" });
         },
 
         history: function () {
-            appState.set({ state: "history" });
+            viewState.set({ state: "history" });
         }
 
     });
     var controller = new Controller();
 
-    var cats_contest_info = new Contest_info_model(string_to_date("07.11.2014 18:00"), ["Second Best", "Customer support"]);
-    var cats_contest = new Contest_model();
-    cats_contest.contest_info = cats_contest_info;
-    var cats = new Cats_adapter(cats_xml_data_for_test, cats_contest);
+    var cats_contest = CATS.Model.Contest();
+    var a = CATS.Adapter.Cats(cats_xml_data_for_test, cats_contest);
+    cats_contest.start_time = string_to_date("07.11.2014 18:00");
+    a.parse();
+    CATS.App.add_object(cats_contest);
 
-    var ifmo_contest = new Contest_model();
-    var ifmo = new Ifmo_adapter(ifmo_html_data_for_test, ifmo_contest);
 
-    var App = Backbone.View.extend({
+    //var ifmo_contest = new Contest_model();
+   // var ifmo = new Ifmo_adapter(ifmo_html_data_for_test, ifmo_contest);
+
+    var View = Backbone.View.extend({
         el: $("#wrapper"),
 
         templates: {
@@ -57,19 +89,19 @@ tpl.loadTemplates(['header', 'table', 'history'], function() {
             history: _.template(tpl.get('history'))
         },
 
-        contest_models: {
-            cats: null,
-            ifmo: null
-        },
+       // contest_models: {
+       //     cats: null,
+       //     ifmo: null
+       // },
 
-        adapters: {
-            ifmo: ifmo,
-            cats: cats
-        },
+     //   adapters: {
+     //       ifmo: ifmo,
+     //       cats: cats
+     //   },
 
         refresh: function() {
             var self = this;
-            self.contest_models[self.source()] = self.adapters[self.source()].parse();
+           // self.contest_models[self.source()] = self.adapters[self.source()].parse();
 
             self.render();
             $("#source").val(self.source());
@@ -98,7 +130,8 @@ tpl.loadTemplates(['header', 'table', 'history'], function() {
         render: function(){
             var state = this.state();
             var source = this.source();
-            this.$el.html(this.header() + this.templates[state]({model: this.contest_models[source]}));
+            debugger;
+            this.$el.html(this.header() + this.templates[state]({app: CATS.App, contest_id: cats_contest.id}));//this.contest_models[source]}));
             return this;
         },
 
@@ -115,15 +148,15 @@ tpl.loadTemplates(['header', 'table', 'history'], function() {
         },
 
         start: function () {
-            controller.navigate("!/table", true);
+            controller.navigate("!/history", true);
         }
     });
-    var app;
+    var view;
 
-    if (app == undefined) {
-        app = new App({ model: appState });
+    if (view == undefined) {
+        view = new View({ model: viewState });
         Backbone.history.start();
-        app.start();
+        view.start();
     }
 
-});})(jQuery);
+});

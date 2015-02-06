@@ -1,4 +1,5 @@
 function Table_model(score_board) {
+    this.contests = [];
     this.score_board = score_board == undefined ? [] : score_board;
 }
 
