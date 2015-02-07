@@ -40,8 +40,6 @@ Array.prototype.top = function () {
 
 var getScript = jQuery.getScript;
 
-
-
 jQuery.getScript = function( resources, callback ) {
     var // reference declaration &amp; localization
         length = resources.length,
