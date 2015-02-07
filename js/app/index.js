@@ -1,4 +1,5 @@
-$("document").ready(function(){
+(function($){
+
     $.getScript([
         'controller.js',
         'tests/cats_xml_data.js',
@@ -17,14 +18,15 @@ $("document").ready(function(){
         'rules/acm.js',
         'adapters/cats.js',
         'adapters/ifmo.js',
-        'tests/spec/test.js'
+        'view.js'
     ], function()
     {
         CATS.App = new CATS.Controller();
         CATS.App.regist_adapter(new CATS.Adapter.Cats(CATS.Test.cats_xml_data));
         CATS.App.regist_adapter(new CATS.Adapter.Ifmo(CATS.Test.ifmo_html_data));
         CATS.App.regist_rule(new CATS.Rule.Acm());
-
-        jasmine.getEnv().execute();
+        var view = CATS.View();
+        view.display();
     });
-});
+})(jQuery);
+

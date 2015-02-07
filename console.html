@@ -3,31 +3,24 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>Test console</title>
-    <script type="text/javascript" src="http://yandex.st/jquery/1.8.1/jquery.min.js"></script>
+    <script src="http://yandex.st/jquery/2.0.3/jquery.min.js"></script>
+
+    <script type="text/javascript" src="js/vendors/jasmine-2.2.0/jasmine.js"></script>
+    <script type="text/javascript" src="js/vendors/jasmine-2.2.0/jasmine-html.js"></script>
+    <script type="text/javascript" src="js/vendors/jasmine-2.2.0/boot.js"></script>
+
+    <script type="text/javascript" src="js/vendors/classify.min.js"></script>
     <script type="text/javascript" src="js/vendors/date.format.js"></script>
+    <script type="text/javascript" src="js/app/utils.js"></script>
+
     <script type="text/javascript" src="js/console.js"></script>
-    <script type="text/javascript" src="js/utils.js"></script>
-    <script type="text/javascript" src="js/adapters/ifmo.js"></script>
-    <script type="text/javascript" src="js/adapters/cats.js"></script>
-    <script type="text/javascript" src="js/models/history.js"></script>
-    <script type="text/javascript" src="js/models/table.js"></script>
-    <script type="text/javascript" src="js/models/contest_info.js"></script>
-    <script type="text/javascript" src="js/models/contest.js"></script>
-    <script type="text/javascript" src="js/rules/acm.js"></script>
-    <script type="text/javascript" src="js/tests/controller.js"></script>
-    <script type="text/javascript" src="js/tests/cats_xml_data.js"></script>
-    <script type="text/javascript" src="js/tests/ifmo_html_data.js"></script>
-    <script type="text/javascript" src="js/tests/controller.js"></script>
+
+    <link rel="shortcut icon" type="image/png" href="js/vendors/jasmine-2.2.0/jasmine_favicon.png">
+    <link rel="stylesheet" type="text/css" href="js/vendors/jasmine-2.2.0/jasmine.css">
 </head>
 <body>
-
-        <input type="text" id="result_table_url" value="http://neerc.ifmo.ru/regional/standings/standings.html" /><br />
-        <div style="display: none" id="process">Загружаем страницу</div><br />
-        <button id="start">alert data by url</button>
-        <br />
         _____________________________________________________________
         <br />
-        <button id="run_tests">run tests</button>
         <div id="display"></div>
 </body>
 </html>
