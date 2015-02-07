@@ -25,7 +25,7 @@
         CATS.App.regist_adapter(new CATS.Adapter.Cats(CATS.Test.cats_xml_data));
         CATS.App.regist_adapter(new CATS.Adapter.Ifmo(CATS.Test.ifmo_html_data));
         CATS.App.regist_rule(new CATS.Rule.Acm());
-        var view = CATS.View();
+        var view = new CATS.View()
         view.display();
     });
 })(jQuery);
