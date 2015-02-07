@@ -1,74 +1,63 @@
 CATS.Rule.Acm = Classify({
     init: function (model) {
-        this.model = model;
         this.name = "acm";
         this.failed_run_penalty = 20;
     },
 
-    compute_history: function () {
-        var tbl = this.model.table;
-        var info = this.model.contest_info;
-        var contest_start_time = info.contest_start_time;
-        var m = new History_model();
-        var team_id = 0, id = 0;
+    compute_history: function (result_table, contest) {
+        var tbl = result_table;
+        var contest_start_time = contest.start_time;
         $.each(tbl.score_board, function (i, row) {
-            var team_name = row['team_name'];
-            team_id++;
             $.each(row['problems'], function (k, v) {
                 for (var i = 0; i < v['runs_cnt']; ++i) {
-                    id++;
-                    var run = m.get_empty_score_board_run();
-                    run['problem_title'] = info.problems[k];
-                    run['submit_time'] = add_time(contest_start_time, "0.1");
-                    run['team_name'] = team_name;
-                    run['team_id'] = team_id;
-                    run['id'] = id;
-                    run['code'] = get_problem_code(k);
+                    var run = CATS.Model.Run();
+                    run['problem'] = v['problem'];
+                    run['start_processing_time'] = add_time(contest_start_time, 0);
+                    run['user'] = row['user'];
 
-                    if (v['solve_time'] && i + 1 == v['runs_cnt']) {
-                        run['submit_time'] = add_time(contest_start_time, v['solve_time']);
-                        run['state'] = 'accepted';
+                    if (v['is_solved'] && i + 1 == v['runs_cnt']) {
+                        run['start_processing_time'] = add_time(contest_start_time, v['best_run_time']);
+                        run['status'] = 'accepted';
                     }
-                    m.runs.push(run);
+                    CATS.App.add_object(run);
+                    contest.add_object(run);
                 }
             });
         });
-
-        this.model.history = m;
     },
 
-    compute_table: function () {
-        var self = this;
-        var hist = this.model.history;
-        var info = this.model.contest_info;
-        var contest_start_time = info.contest_start_time;
-        var m = new Table_model();
+    compute_table: function (result_table, contest) {
+        var contest_start_time = contest.start_time;
         var teams_problems = {}, teams = {};
+        var self = this;
+        $.each(contest.runs, function (i, row_id) {
+            var row = CATS.App.runs[row_id];
+            var team_id = row['user'];
+            if (teams_problems[team_id] == undefined) {
+                teams_problems[team_id] = [];
+                teams[team_id] = {};
+                teams[team_id]['penalty'] = 0;
+                teams[team_id]['solved_cnts'] = 0;
 
-        $.each(hist.runs, function (i, row) {
-            var team_name = row['team_name'];
-            if (teams_problems[team_name] == undefined) {
-                teams_problems[team_name] = [];
-                teams[team_name] = {};
-                teams[team_name]['penalty'] = 0;
-                teams[team_name]['solved_cnts'] = 0;
-
-                for (var i = 0; i < info.problems.length; ++i) {
-                    teams_problems[team_name][i] = {};
-                    teams_problems[team_name][i]['solve_time'] = false;
-                    teams_problems[team_name][i]['runs_cnt'] = 0;
+                for (var i = 0; i < contest.problems.length; ++i) {
+                    teams_problems[team_id][i] = result_table.get_empty_problem_for_score_board_row();
+                    teams_problems[team_id][i]['is_solved'] = false;
+                    teams_problems[team_id][i]['runs_cnt'] = 0;
+                    teams_problems[team_id][i]['problem'] = CATS.App.get_problem_by_code(get_problem_code_by_index(i))['name'];
                 }
             }
-            var p_id = get_problem_id(row['code']);
 
-            if (!teams_problems[team_name][p_id]['solve_time']) {
-                teams_problems[team_name][p_id]['runs_cnt']++;
-                if (row['state'] == 'accepted') {
-                    var submit = string_to_date(row['submit_time']);
-                    teams_problems[team_name][p_id]['solve_time'] = get_time_diff(contest_start_time, submit);
-                    teams[team_name]['solved_cnts']++;
-                    teams[team_name]['penalty'] += (teams_problems[team_name][p_id]['runs_cnt'] - 1) * self.failed_run_penalty +
-                    teams_problems[team_name][p_id]['solve_time'];
+            var p_idx = get_problem_index(CATS.App.problems[row['problem']]['code']);
+
+            if (!teams_problems[team_id][p_idx]['is_solved']) {
+                teams_problems[team_id][p_idx]['runs_cnt']++;
+                if (row['status'] == 'accepted') {
+                    var submit = string_to_date(row['start_processing_time']);
+                    teams_problems[team_id][p_idx]['best_run_time'] = get_time_diff(contest_start_time, submit);
+                    teams_problems[team_id][p_idx]['is_solved'] = true;
+                    teams[team_id]['solved_cnts']++;
+                    teams[team_id]['penalty'] += (teams_problems[team_id][p_idx]['runs_cnt'] - 1) * self.failed_run_penalty +
+                        teams_problems[team_id][p_idx]['best_run_time'];
                 }
             }
 
@@ -79,7 +68,7 @@ CATS.Rule.Acm = Classify({
             if (team_groups[v['solved_cnts']] == undefined)
                 team_groups[v['solved_cnts']] = [];
 
-            team_groups[v['solved_cnts']].push({'n': k, 'p': v['penalty']});
+            team_groups[v['solved_cnts']].push({'id': k, 'p': v['penalty']});
         });
 
         for (var i = team_groups.length - 1; i >= 0; --i) {
@@ -90,23 +79,27 @@ CATS.Rule.Acm = Classify({
             })
             for (var j = 0; j < group.length; ++j) {
 
-                var score_board_row = m.get_empty_score_board_row();
+                var score_board_row = result_table.get_empty_score_board_row();
                 score_board_row['place'] = (j != 0 && group[j - 1]['p'] == group[j]['p']) ?
-                    m.score_board.top()['place'] :
-                m.score_board.length + 1;
-                score_board_row['team_name'] = group[j]['n'];
+                    result_table.score_board.top()['place'] :
+                result_table.score_board.length + 1;
+                score_board_row['user'] = group[j]['id'];
                 score_board_row['penalty'] = group[j]['p'];
-                score_board_row['problems'] = teams_problems[group[j]['n']];
+                score_board_row['problems'] = teams_problems[group[j]['id']];
 
-                m.score_board.push(score_board_row);
+                result_table.score_board.push(score_board_row);
             }
         }
-
-        this.model.table = m;
     },
 
-    set_model: function (model) {
-        this.model = model;
-        return this;
+    process: function (contest, result_table) {
+        if (contest.runs.length == 0 && result_table.score_board.length > 0)
+            this.compute_history(result_table, contest);
+        else if (contest.runs.length > 0 && result_table.score_board.length == 0) {
+            result_table.contests.push(contest.id);
+            this.compute_table(result_table, contest);
+        }
+        else
+            alert('ACM rule error. History and table both empty or filled');
     }
 });

@@ -1,28 +1,33 @@
 CATS.Adapter.Ifmo = Classify({
-    init : function(page, model) {
+    init : function(page) {
         this.page = page;
-        this.model = model;
         this.name = "ifmo";
         this.aliases = {
             'rankl' : 'place',
-            'party' : 'team_name',
+            'party' : 'user',
             'penalty' : 'penalty'
         }
     },
 
-    parse_score_board: function() {
+    parse_score_board: function(contest, result_table) {
         var page = this.page;
+        contest.name = $(page).find("h2").html();
+        contest.scoring = "acm";
         var self = this;
+        var problem_list = []
         $(page).find('table[class != "wrapper"]').find("tr").each(function () {
             var prob_num = 0;
-
             $(this).find("th.problem").each(function () {
-                self.model.contest_info.problems.push($(this).attr("title"));
-
+                var prob = new CATS.Model.Problem();
+                prob.name = prob.id = $(this).attr("title");
+                prob.code = $(this).html();
+                CATS.App.add_object(prob);
+                contest.add_object(prob);
+                problem_list.push($(this).attr("title"));
             });
 
             var parse_row = false;
-            var row = self.model.table.get_empty_score_board_row();
+            var row = result_table.get_empty_score_board_row();
             $(this).find("td").each(function () {
                 var key = $(this).attr('class');
                 if (key !== undefined) {
@@ -52,27 +57,33 @@ CATS.Adapter.Ifmo = Classify({
                         runs_cnt = 0;
                     }
 
+                    var prob = result_table.get_empty_problem_for_score_board_row();
+                    prob['problem'] = problem_list[prob_num++];
+                    prob['is_solved'] = solved != false;
+                    if (prob['is_solved'])
+                        prob['best_run_time'] = solved;
+                    prob['runs_cnt'] = runs_cnt;
+
                     if (runs_cnt >= 0) {
-                        row['problems'][prob_num] = {'solve_time' : solved, 'runs_cnt' : runs_cnt}
+                        row['problems'].push(prob);
                     }
-                    prob_num++;
                 }
             });
             if (parse_row) {
                 row['place'] = parseInt(row['place']);
                 row['penalty'] = parseInt(row['penalty']);
-                self.model.table.score_board.push(row);
+
+                var user = new CATS.Model.User();
+                user.name = user.id = row['user'];
+                CATS.App.add_object(user);
+                contest.add_object(user);
+
+                result_table.score_board.push(row);
             }
         });
-
-        var r = new Acm_rules(self.model);
-        r.compute_history();
     },
 
-    parse: function() {
-        if (this.model.table.score_board.length == 0)
-            this.parse_score_board();
-
-        return this.model;
+    parse: function(contest, result_table) {
+        this.parse_score_board(contest, result_table);
     }
 });

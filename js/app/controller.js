@@ -3,6 +3,8 @@ var CATS = {
     Adapter: {},
     Rule: {},
     App: null,
+    Test: {},
+    View: null,
     Controller: Classify({
         init: function () {
             //other
@@ -16,7 +18,7 @@ var CATS = {
             this.chats = {};
             this.runs = {};
             this.compilers = {};
-            this.tables = {};
+            this.result_tables = {};
 
             this.last_id = 0;
         },
@@ -35,6 +37,26 @@ var CATS = {
 
         regist_rule: function(rule) {
             this.rules[rule.name] = rule;
+        },
+
+        process_adapter: function(adapter_name, start_time) {
+            var contest = CATS.Model.Contest();
+            var result_table = CATS.Model.Results_table();
+            contest.start_time = start_time;
+            this.adapters[adapter_name].parse(contest, result_table);
+            CATS.App.rules[contest.scoring].process(contest, result_table);
+            CATS.App.add_object(contest);
+            CATS.App.add_object(result_table);
+            return {contests : [contest.id], table : result_table.id };
+        },
+
+        get_problem_by_code: function(code) {
+            var prob = null;
+            $.each(this.problems, function (k, v) {
+                if (v['code'] == code)
+                    prob = v;
+            });
+            return prob;
         }
     })
 };

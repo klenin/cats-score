@@ -1,29 +1,9 @@
 (function($){
-    var getScript = jQuery.getScript;
-    
-    var thisPath = 'js/app/'
-    
-    jQuery.getScript = function( resources, callback ) {
-        var // reference declaration &amp; localization
-            length = resources.length,
-            handler = function() { counter++; },
-            deferreds = [],
-            counter = 0,
-            idx = 0;
-
-        for ( ; idx < length; idx++ ) {
-            deferreds.push(
-                getScript(thisPath + resources[ idx ], handler )
-            );
-        }
-
-        jQuery.when.apply( null, deferreds ).then(function() {
-            callback && callback();
-        });
-    };
 
     $.getScript([
         'controller.js',
+        'tests/cats_xml_data.js',
+        'tests/ifmo_html_data.js',
         'models/version.js',
         'models/entity.js',
         'models/event.js',
@@ -33,7 +13,7 @@
         'models/prize.js',
         'models/problem.js',
         'models/run.js',
-        'models/table.js',
+        'models/results_table.js',
         'models/user.js',
         'rules/acm.js',
         'adapters/cats.js',
@@ -42,9 +22,11 @@
     ], function()
     {
         CATS.App = new CATS.Controller();
-        CATS.App.regist_adapter(new CATS.Adapter.Cats());
-        CATS.App.regist_adapter(new CATS.Adapter.Ifmo());
+        CATS.App.regist_adapter(new CATS.Adapter.Cats(CATS.Test.cats_xml_data));
+        CATS.App.regist_adapter(new CATS.Adapter.Ifmo(CATS.Test.ifmo_html_data));
         CATS.App.regist_rule(new CATS.Rule.Acm());
+        var view = CATS.View();
+        view.display();
     });
 })(jQuery);
 

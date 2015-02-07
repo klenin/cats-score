@@ -1,9 +1,9 @@
 <h1>History</h1>
-<a class="btn btn-primary" id="look_table">look table</a>
 <table class="table table-striped table-bordered table-hover">
 <tr>
 <%
 var tbl_header = [];
+var contest_id = models.contests[0];
 _.each(app.runs[app.contests[contest_id].runs[0]], function(v, k){
 %>
 <th>

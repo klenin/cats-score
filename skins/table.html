@@ -1,5 +1,12 @@
+<%
+var contest_id = models.contests[0];
+var table_id = models.table;
+var contest = app.contests[contest_id];
+var table = app.result_tables[table_id];
+%>
+
 <h1>Table</h1>
-<a class="btn btn-primary" id="look_history">look history</a>
+<h2><%=contest.name%></h2>
 <table class="table table-striped table-bordered table-hover">
     <tr>
         <th>
@@ -9,10 +16,10 @@
             team
         </th>
         <%
-        for (var i = 0; i < model.contest_info.problems.length; ++i) {
+        for (var i = 0; i < contest.problems.length; ++i) {
         %>
         <th>
-            <%=get_problem_code(i)%>
+            <%=get_problem_code_by_index(i)%>
         </th>
         <%
         };
@@ -22,24 +29,24 @@
         </th>
     </tr>
     <%
-    _.each(model.table.score_board, function(row){
+    _.each(table.score_board, function(row){
     %>
     <tr>
         <td>
             <%=row["place"]%>
         </td>
         <td>
-            <%=row["team_name"]%>
+            <%=app.users[row["user"]].name%>
         </td>
         <%
         for (var i = 0; i < row["problems"].length; ++i) {
         %>
         <td>
-            <% if (row["problems"][i]["solve_time"]) {%>
+            <% if (row["problems"][i]["best_run_time"]) {%>
             <p><%="+" + (row["problems"][i]["runs_cnt"] > 1 ? row["problems"][i]["runs_cnt"] - 1 : "")%></p>
-            <small><%=minutes_to_formated_hours(row["problems"][i]["solve_time"])%></small>
+            <small><%=minutes_to_formated_hours(row["problems"][i]["best_run_time"])%></small>
             <%} else %>
-            <%="-"%>
+            <%="-" + (row["problems"][i]["runs_cnt"] > 1 ? row["problems"][i]["runs_cnt"] - 1 : "")%>
         </td>
 
         <%

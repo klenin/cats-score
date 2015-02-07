@@ -1,9 +1,9 @@
 CATS.Adapter.Cats = Classify({
 
-    init : function(page, model) {
+    init : function(page) {
         this.page = page;
-        this.model = model;
         this.name = "cats";
+        this.model = null;
         this.aliases = {
             'problem_title' : 'problem_title',
             'failed_test' : 'failed_test',
@@ -19,10 +19,9 @@ CATS.Adapter.Cats = Classify({
         }
     },
 
-    parse_history : function() {
+    parse_history : function(contest, result_table) {
         var self = this;
         var page = $.parseXML(this.page);
-        var contest = this.model;
         contest.name = "cats contest";
         contest.scoring = "acm";
         $(page).find('reqs').find('req').each(function () {
@@ -48,16 +47,16 @@ CATS.Adapter.Cats = Classify({
             var run = new CATS.Model.Run();
             run.problem = prob.id;
             run.user = user.id;
-            run.status = row['status'];
+            run.status = row['state'];
             run.start_processing_time = row['submit_time'];
             CATS.App.add_object(run);
             contest.add_object(run);
         });
+
+        this.model = contest;
     },
 
-    parse: function() {
-        this.parse_history();
-
-        return this.model;
+    parse: function(contest, result_table) {
+        this.parse_history(contest, result_table);
     }
 });
