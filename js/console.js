@@ -1,36 +1,30 @@
 $("document").ready(function(){
+    $.getScript([
+        'controller.js',
+        'tests/cats_xml_data.js',
+        'tests/ifmo_html_data.js',
+        'models/version.js',
+        'models/entity.js',
+        'models/event.js',
+        'models/chat.js',
+        'models/compiler.js',
+        'models/contest.js',
+        'models/prize.js',
+        'models/problem.js',
+        'models/run.js',
+        'models/results_table.js',
+        'models/user.js',
+        'rules/acm.js',
+        'adapters/cats.js',
+        'adapters/ifmo.js',
+        'tests/spec/test.js'
+    ], function()
+    {
+        CATS.App = new CATS.Controller();
+        CATS.App.regist_adapter(new CATS.Adapter.Cats(CATS.Test.cats_xml_data));
+        CATS.App.regist_adapter(new CATS.Adapter.Ifmo(CATS.Test.ifmo_html_data));
+        CATS.App.regist_rule(new CATS.Rule.Acm());
 
-    $("#run_tests").click(function () {
-        var t = new Controller_tests();
-        $("#display").html(t.run_tests());
-    });
-
-    function ajax_start(){
-        $('#progress').show();
-    }
-
-    function ajax_stop() {
-        $('#progress').hide();
-    }
-
-    function loader(){
-        ajax_start();
-        $.ajax({
-            url: $('#result_table_url').val(),
-            crossDomain: true,
-            dataType: 'jsonp',
-            success: function (data) {
-                alert(data);
-                ajax_stop();
-            },
-            error: function (e, g, f) {
-                console.log(e);
-                ajax_stop();
-            }
-        });
-    }
-
-    $("#start").click(function () {
-        loader();
+        jasmine.getEnv().execute();
     });
 });

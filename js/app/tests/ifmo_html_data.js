@@ -1,4 +1,4 @@
-var ifmo_html_data_for_test = '<html xmlns:locale="locale"><head><META http-equiv="Content-Type" content="text/html; charset=windows-1251"><title>Standings</title><link rel="stylesheet" href="../../standings-wt.css"><script type="text/javascript">\
+CATS.Test.ifmo_html_data = '<html xmlns:locale="locale"><head><META http-equiv="Content-Type" content="text/html; charset=windows-1251"><title>Standings</title><link rel="stylesheet" href="../../standings-wt.css"><script type="text/javascript">\
 function onShowTime() {\
 var showTime = document.getElementById("show-time");\
 var display = showTime.checked ? "" : "none";\
