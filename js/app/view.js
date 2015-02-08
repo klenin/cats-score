@@ -40,7 +40,9 @@ CATS.View = Classify({
                 defaults: {
                     state: "",
                     source: "ifmo",
-                    skin: "ifmo"
+                    skin: "ifmo",
+                    next_page: 0,
+                    elements_on_page: 20
                 },
                 name: "ViewState",
             });
@@ -111,6 +113,12 @@ CATS.View = Classify({
                     },
                     'change #skin': function () {
                         this.skin($("#skin").val());
+                    },
+                    'click #next_page': function () {
+                        var next_page = this.next_page() + this.model.get("elements_on_page");
+                        if (next_page > $("#last_elem_idx").val())
+                            next_page = 0
+                        this.next_page(next_page);
                     }
                 },
 
@@ -132,7 +140,12 @@ CATS.View = Classify({
                     var source = this.source();
                     var skin = this.skin();
                     this.define_stylesheet(skin);
-                    this.$el.html(this.header() + this.page(skin, state)({app: CATS.App, models: this.models[source]}));
+                    this.$el.html(this.header() + this.page(skin, state)({
+                        app: CATS.App,
+                        models: this.models[source],
+                        next_page: this.next_page(),
+                        elem_cnt: this.model.get("elements_on_page")
+                    }));
                     return this;
                 },
 
@@ -140,6 +153,12 @@ CATS.View = Classify({
                     if (state != undefined)
                         this.model.set({state: state})
                     return this.model.get("state");
+                },
+
+                next_page: function (next_page) {
+                    if (next_page != undefined)
+                        this.model.set({next_page: next_page})
+                    return this.model.get("next_page");
                 },
 
                 source: function (source) {
