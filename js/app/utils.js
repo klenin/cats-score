@@ -59,7 +59,13 @@ function extendGetScriptFunction() {
         }
 
         jQuery.when.apply(null, deferreds).then(function () {
+
+        }).done(function() {
             callback && callback();
+        }).notify(function(e) {
+            console.log(e);
+        }).fail(function(e) {
+            console.log(e);
         });
     };
 }
