@@ -42,26 +42,19 @@ function extendGetScriptFunction() {
     var getScript = $.getScript;
 
     $.getScript = function (resources, callback) {
-        var // reference declaration &amp; localization
-            length = resources.length,
-            handler = function () {
-                counter++;
-            },
-            deferreds = [],
-            counter = 0,
-            idx = 0,
-            thisPath = 'js/app/';
-
-        for (; idx < length; idx++) {
-            deferreds.push(
-                getScript(thisPath + resources[idx], handler)
-            );
+        var loadScript = function (index) {
+            var name = resources[index];
+            console.log('Loading script: ' + name);
+            getScript('js/app/' + name, function () {
+                index++;
+                if (index < resources.length) {
+                    loadScript(index);
+                } else {
+                    callback();
+                }
+            })
         }
 
-        $.when.apply($, deferreds).done(function() {
-            callback && callback();
-        }).fail(function(e) {
-            console.log(e);
-        });
+        loadScript(0);
     };
 }
