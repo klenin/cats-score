@@ -39,9 +39,9 @@ Array.prototype.top = function () {
 }
 
 function extendGetScriptFunction() {
-    var getScript = jQuery.getScript;
+    var getScript = $.getScript;
 
-    jQuery.getScript = function (resources, callback) {
+    $.getScript = function (resources, callback) {
         var // reference declaration &amp; localization
             length = resources.length,
             handler = function () {
@@ -58,9 +58,7 @@ function extendGetScriptFunction() {
             );
         }
 
-        jQuery.when.apply(null, deferreds).then(function () {
-
-        }).done(function() {
+        $.when.apply($, deferreds).done(function() {
             callback && callback();
         }).fail(function(e) {
             console.log(e);
