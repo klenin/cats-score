@@ -14,7 +14,7 @@ CATS.Adapter.Ifmo = Classify({
         contest.name = $(page).find("h2").html();
         contest.scoring = "acm";
         var self = this;
-        var problem_list = []
+        var problem_list = [];
         $(page).find('table[class != "wrapper"]').find("tr").each(function () {
             var prob_num = 0;
             $(this).find("th.problem").each(function () {
@@ -57,14 +57,16 @@ CATS.Adapter.Ifmo = Classify({
                         runs_cnt = 0;
                     }
 
-                    var prob = result_table.get_empty_problem_for_score_board_row();
-                    prob['problem'] = problem_list[prob_num++];
-                    prob['is_solved'] = solved != false;
-                    if (prob['is_solved'])
-                        prob['best_run_time'] = solved;
-                    prob['runs_cnt'] = runs_cnt;
+                    if (solved != -1) {
+                        var prob = result_table.get_empty_problem_for_score_board_row();
+                        prob['problem'] = problem_list[prob_num++];
+                        prob['is_solved'] = solved != false;
+                        if (prob['is_solved']) {
+                            prob['best_run_time'] = solved;
+                            row['solved_cnt']++;
+                        }
+                        prob['runs_cnt'] = runs_cnt;
 
-                    if (runs_cnt >= 0) {
                         row['problems'].push(prob);
                     }
                 }

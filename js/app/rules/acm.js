@@ -37,7 +37,7 @@ CATS.Rule.Acm = Classify({
                 teams_problems[team_id] = [];
                 teams[team_id] = {};
                 teams[team_id]['penalty'] = 0;
-                teams[team_id]['solved_cnts'] = 0;
+                teams[team_id]['solved_cnt'] = 0;
 
                 for (var i = 0; i < contest.problems.length; ++i) {
                     teams_problems[team_id][i] = result_table.get_empty_problem_for_score_board_row();
@@ -55,7 +55,7 @@ CATS.Rule.Acm = Classify({
                     var submit = string_to_date(row['start_processing_time']);
                     teams_problems[team_id][p_idx]['best_run_time'] = get_time_diff(contest_start_time, submit);
                     teams_problems[team_id][p_idx]['is_solved'] = true;
-                    teams[team_id]['solved_cnts']++;
+                    teams[team_id]['solved_cnt']++;
                     teams[team_id]['penalty'] += (teams_problems[team_id][p_idx]['runs_cnt'] - 1) * self.failed_run_penalty +
                         teams_problems[team_id][p_idx]['best_run_time'];
                 }
@@ -65,10 +65,10 @@ CATS.Rule.Acm = Classify({
 
         var team_groups = [];
         $.each(teams, function (k, v) {
-            if (team_groups[v['solved_cnts']] == undefined)
-                team_groups[v['solved_cnts']] = [];
+            if (team_groups[v['solved_cnt']] == undefined)
+                team_groups[v['solved_cnt']] = [];
 
-            team_groups[v['solved_cnts']].push({'id': k, 'p': v['penalty']});
+            team_groups[v['solved_cnt']].push({'id': k, 'p': v['penalty'], 'solved_cnt' : v['solved_cnt']});
         });
 
         for (var i = team_groups.length - 1; i >= 0; --i) {
@@ -82,9 +82,10 @@ CATS.Rule.Acm = Classify({
                 var score_board_row = result_table.get_empty_score_board_row();
                 score_board_row['place'] = (j != 0 && group[j - 1]['p'] == group[j]['p']) ?
                     result_table.score_board.top()['place'] :
-                result_table.score_board.length + 1;
+                    result_table.score_board.length + 1;
                 score_board_row['user'] = group[j]['id'];
                 score_board_row['penalty'] = group[j]['p'];
+                score_board_row['solved_cnt'] = group[j]['solved_cnt'];
                 score_board_row['problems'] = teams_problems[group[j]['id']];
 
                 result_table.score_board.push(score_board_row);
