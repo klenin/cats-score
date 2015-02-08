@@ -32,11 +32,15 @@ CATS.View = Classify({
 
         };
 
-        tpl.loadTemplates(['header', 'table', 'history'], function() {
+        tpl.loadTemplates(['header',
+            'default/table', 'default/history',
+            'ifmo/table', 'ifmo/history'
+        ], function() {
             var ViewState = Backbone.Model.extend({
                 defaults: {
                     state: "",
-                    source: "cats"
+                    source: "ifmo",
+                    skin: "ifmo"
                 },
                 name: "ViewState",
             });
@@ -80,11 +84,6 @@ CATS.View = Classify({
             var View = Backbone.View.extend({
                 el: $("#wrapper"),
 
-                templates: {
-                    table: _.template(tpl.get('table')),
-                    history: _.template(tpl.get('history'))
-                },
-
                 models: {
                     cats: cats,
                     ifmo: ifmo
@@ -96,6 +95,7 @@ CATS.View = Classify({
                     self.render();
                     $("#source").val(self.source());
                     $("#state").val(self.state());
+                    $("#skin").val(self.skin());
                 },
 
                 initialize: function () {
@@ -108,6 +108,9 @@ CATS.View = Classify({
                     },
                     'change #source': function () {
                         this.source($("#source").val());
+                    },
+                    'change #skin': function () {
+                        this.skin($("#skin").val());
                     }
                 },
 
@@ -115,10 +118,21 @@ CATS.View = Classify({
                     return _.template(tpl.get('header'))({});
                 },
 
+                page: function(skin, state) {
+                    return _.template(tpl.get(skin + '/' + state));
+                },
+
+                define_stylesheet : function (skin) {
+                    $('link').detach();
+                    $('head').append('<link rel="stylesheet" href="css/' + skin + '.css?" type="text/css" />');
+                },
+
                 render: function(){
                     var state = this.state();
                     var source = this.source();
-                    this.$el.html(this.header() + this.templates[state]({app: CATS.App, models: this.models[source]}));
+                    var skin = this.skin();
+                    this.define_stylesheet(skin);
+                    this.$el.html(this.header() + this.page(skin, state)({app: CATS.App, models: this.models[source]}));
                     return this;
                 },
 
@@ -132,6 +146,12 @@ CATS.View = Classify({
                     if (source != undefined)
                         this.model.set({source: source})
                     return this.model.get("source");
+                },
+
+                skin: function (skin) {
+                    if (skin != undefined)
+                        this.model.set({skin: skin})
+                    return this.model.get("skin");
                 },
 
                 start: function () {
