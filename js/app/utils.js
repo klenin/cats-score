@@ -62,8 +62,6 @@ function extendGetScriptFunction() {
 
         }).done(function() {
             callback && callback();
-        }).notify(function(e) {
-            console.log(e);
         }).fail(function(e) {
             console.log(e);
         });
