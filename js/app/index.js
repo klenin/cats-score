@@ -1,5 +1,5 @@
 (function($){
-
+    extendGetScriptFunction();
     $.getScript([
         'controller.js',
         'tests/cats_xml_data.js',

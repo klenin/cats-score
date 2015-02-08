@@ -38,24 +38,28 @@ Array.prototype.top = function () {
     return this[this.length - 1];
 }
 
-var getScript = jQuery.getScript;
+function extendGetScriptFunction() {
+    var getScript = jQuery.getScript;
 
-jQuery.getScript = function( resources, callback ) {
-    var // reference declaration &amp; localization
-        length = resources.length,
-        handler = function() { counter++; },
-        deferreds = [],
-        counter = 0,
-        idx = 0,
-        thisPath = 'js/app/';
+    jQuery.getScript = function (resources, callback) {
+        var // reference declaration &amp; localization
+            length = resources.length,
+            handler = function () {
+                counter++;
+            },
+            deferreds = [],
+            counter = 0,
+            idx = 0,
+            thisPath = 'js/app/';
 
-    for ( ; idx < length; idx++ ) {
-        deferreds.push(
-            getScript(thisPath + resources[ idx ], handler)
-        );
-    }
+        for (; idx < length; idx++) {
+            deferreds.push(
+                getScript(thisPath + resources[idx], handler)
+            );
+        }
 
-    jQuery.when.apply( null, deferreds ).then(function() {
-        callback && callback();
-    });
-};
+        jQuery.when.apply(null, deferreds).then(function () {
+            callback && callback();
+        });
+    };
+}
