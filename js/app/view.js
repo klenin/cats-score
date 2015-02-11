@@ -34,7 +34,8 @@ CATS.View = Classify({
 
         tpl.loadTemplates(['header',
             'default/table', 'default/history',
-            'ifmo/table', 'ifmo/history'
+            'ifmo/table', 'ifmo/history',
+            'codeforces/table', 'codeforces/history',
         ], function() {
             var ViewState = Backbone.Model.extend({
                 defaults: {
@@ -149,7 +150,7 @@ CATS.View = Classify({
 
                 define_stylesheet : function (skin) {
                     $('link').detach();
-                    $('head').append('<link rel="stylesheet" href="css/' + skin + '.css?" type="text/css" />');
+                    $('head').append('<link rel="stylesheet" href="css/' + skin + '.css?iu=34545" type="text/css" />');
                 },
 
                 render: function(){
