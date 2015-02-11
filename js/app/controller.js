@@ -39,10 +39,10 @@ var CATS = {
             this.rules[rule.name] = rule;
         },
 
-        process_adapter: function(adapter_name, start_time) {
+        process_adapter: function(adapter_name, adapter_param) {
             var contest = CATS.Model.Contest();
             var result_table = CATS.Model.Results_table();
-            contest.start_time = start_time;
+            this.adapters[adapter_name].init(adapter_param);
             this.adapters[adapter_name].parse(contest, result_table);
             CATS.App.rules[contest.scoring].process(contest, result_table);
             CATS.App.add_object(contest);

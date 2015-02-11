@@ -80,15 +80,16 @@ CATS.View = Classify({
             var router = new Router();
 
 
-            var cats = CATS.App.process_adapter("cats", string_to_date("07.11.2014 18:00"));
-            var ifmo = CATS.App.process_adapter("ifmo", string_to_date("07.11.2014 18:00"));
+            var cats = CATS.App.process_adapter("cats", CATS.Test.cats_xml_data);
+            var ifmo = CATS.App.process_adapter("ifmo", CATS.Test.ifmo_html_data);
 
             var View = Backbone.View.extend({
                 el: $("#wrapper"),
 
                 models: {
                     cats: cats,
-                    ifmo: ifmo
+                    ifmo: ifmo,
+                    codeforces: null//codeforces
                 },
 
                 refresh: function() {
@@ -96,6 +97,7 @@ CATS.View = Classify({
 
                     self.render();
                     $("#source").val(self.source());
+                    $("#source").trigger("change");
                     $("#state").val(self.state());
                     $("#skin").val(self.skin());
                 },
@@ -109,7 +111,22 @@ CATS.View = Classify({
                         this.state($("#state").val());
                     },
                     'change #source': function () {
-                        this.source($("#source").val());
+                        if ($("#source").val() != "codeforces")
+                            this.source($("#source").val());
+                    },
+                    'change #cf_contest': function () {
+                        var self = this;
+                        var contest_id = $("#cf_contest").val();
+                        get_jsonp(
+                            "http://codeforces.ru/api/contest.standings?contestId=" +
+                            contest_id +
+                            "&from=1&count=10000000&showUnofficial=true",
+                            function( data ) {
+                                self.models.codeforces = CATS.App.process_adapter("codeforces", data.result);
+                                self.source("codeforces");
+                                CATS.App.last_contest_id = contest_id;
+                                self.refresh();
+                            });
                     },
                     'change #skin': function () {
                         this.skin($("#skin").val());
