@@ -1,8 +1,32 @@
+<script>
+(function($){
+    $("#source").change(function () {
+        if ($(this).val() == "codeforces") {
+            $("#contest_wrapper").html("");
+            get_jsonp('http://codeforces.ru/api/contest.list?gym=true', function (data) {
+                $("#contest_wrapper").append( "contest: " );
+                $("#contest_wrapper").append( "<select id='cf_contest'></strong>" );
+                $.each(data.result, function (k, v) {
+                    if (v['type'] == "ICPC")
+                        $("#cf_contest").append( "<option value='" + v['id'] + "'>" + v['name'] + "</strong>" );
+                });
+                $("#cf_contest").val(CATS.App.last_contest_id);
+            });
+        }
+        else
+            $("#contest_wrapper").html("");
+    });
+
+})(jQuery);
+</script>
 source:
 <select id="source">
     <option value="cats">cats</option>
     <option value="ifmo">ifmo</option>
+    <option value="codeforces">codeforces</option>
 </select>
+<span id="contest_wrapper">
+</span>
 display:
 <select id="state">
     <option value="table">table</option>
@@ -12,5 +36,6 @@ skin:
 <select id="skin">
     <option value="default">default</option>
     <option value="ifmo">ifmo</option>
+    <option value="codeforces">codeforces</option>
 </select>
 <button id="next_page">next page</button>

@@ -11,6 +11,7 @@ CATS.Adapter.Ifmo = Classify({
 
     parse_score_board: function(contest, result_table) {
         var page = this.page;
+        contest.start_time = string_to_date("07.11.2014 18:00");
         contest.name = $(page).find("h2").html();
         contest.scoring = "acm";
         var self = this;

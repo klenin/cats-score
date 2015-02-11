@@ -38,6 +38,10 @@ Array.prototype.top = function () {
     return this[this.length - 1];
 }
 
+String.prototype.throw_last_chars = function (num) {
+    return this.substring(0, this.length - num);
+}
+
 function extendGetScriptFunction() {
     var getScript = $.getScript;
 
@@ -57,4 +61,16 @@ function extendGetScriptFunction() {
 
         loadScript(0);
     };
+}
+
+function get_jsonp(url, callback) {
+    var parseJsonp = function (data) {
+        return data;
+    }
+    $.ajax({
+        url: url + '&jsonp=parseJsonp',
+        dataType: 'jsonp',
+        jsonpCallback: 'parseJsonp',
+        success: callback
+    });
 }

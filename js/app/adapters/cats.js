@@ -22,6 +22,7 @@ CATS.Adapter.Cats = Classify({
     parse_history : function(contest, result_table) {
         var self = this;
         var page = $.parseXML(this.page);
+        contest.start_time = string_to_date("07.11.2014 18:00");
         contest.name = "cats contest";
         contest.scoring = "acm";
         $(page).find('reqs').find('req').each(function () {
