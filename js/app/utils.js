@@ -38,6 +38,10 @@ Array.prototype.top = function () {
     return this[this.length - 1];
 }
 
+String.prototype.throw_last_chars = function (num) {
+    return this.substring(0, this.length - num);
+}
+
 function extendGetScriptFunction() {
     var getScript = $.getScript;
 

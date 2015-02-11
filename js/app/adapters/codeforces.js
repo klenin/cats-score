@@ -42,8 +42,15 @@ CATS.Adapter.Codeforces = Classify({
 
         $.each(cf_table.rows, function (k, v) {
             var user = new CATS.Model.User();
-            user.name = v.party.teamName;
-            user.id = v.party.teamId;
+            user.name = "";
+            $.each(v.party.members, function (k, v) {
+                user.name += v.handle + ", ";
+            });
+            user.name = user.name.throw_last_chars(2);
+            if (v.party.teamName != undefined)
+                user.name += ' "' + v.party.teamName + '"';
+            if (v.party.teamId != undefined)
+            user.id = v.party.teamName;
             user.is_remote = v.party.ghost;
             user.time_offset = v.party.startTimeSeconds;
             CATS.App.add_object(user);
