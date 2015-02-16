@@ -42,21 +42,28 @@ String.prototype.throw_last_chars = function (num) {
     return this.substring(0, this.length - num);
 }
 
-function extendGetScriptFunction() {
+function extendGetScriptFunction(base_script_place) {
     var getScript = $.getScript;
 
     $.getScript = function (resources, callback) {
         var loadScript = function (index) {
             var name = resources[index];
             console.log('Loading script: ' + name);
-            getScript('js/app/' + name, function () {
+            getScript(base_script_place + name, function () {
                 index++;
                 if (index < resources.length) {
                     loadScript(index);
                 } else {
                     callback();
                 }
-            })
+            }).fail(function(){
+                if(arguments[0].readyState==0){
+                    //script failed to load
+                }else{
+                    //script loaded but failed to parse
+                    alert(arguments[2].toString());
+                }
+            });
         }
 
         loadScript(0);
