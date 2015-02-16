@@ -1,6 +1,10 @@
 CATS.Adapter.Ifmo = Classify({
-    init : function(page) {
-        this.page = page;
+    init : function(contest_id, page) {
+        if (page != undefined)
+            this.page = page;
+
+        this.contest_id = contest_id;
+
         this.name = "ifmo";
         this.aliases = {
             'rankl' : 'place',
@@ -9,11 +13,12 @@ CATS.Adapter.Ifmo = Classify({
         }
     },
 
-    parse_score_board: function(contest, result_table) {
+    parse_score_board: function(result_table) {
         var page = this.page;
-        contest.start_time = string_to_date("07.11.2014 18:00");
-        contest.name = $(page).find("h2").html();
-        contest.scoring = "acm";
+        var contest = CATS.App.contests[this.contest_id];
+        if (contest == undefined)
+            contest = this.add_contest();
+
         var self = this;
         var problem_list = [];
         $(page).find('table[class != "wrapper"]').find("tr").each(function () {
@@ -86,7 +91,23 @@ CATS.Adapter.Ifmo = Classify({
         });
     },
 
-    parse: function(contest, result_table) {
-        this.parse_score_board(contest, result_table);
+    add_contest: function(v) {
+        var contest = CATS.Model.Contest(), contests = [];
+        contest.id = "ifmo_contest";
+        contest.name = "ifmo_contest";
+        contest.scoring = "acm";
+        contest.start_time = string_to_date("07.11.2014 18:00");
+        CATS.App.add_object(contest);
+        return contest;
+    },
+
+    get_contests: function(callback) {
+        this.add_contest()
+        callback(["ifmo_contest"]);
+    },
+
+    parse: function(result_table, callback) {
+        this.parse_score_board(result_table);
+        callback();
     }
 });

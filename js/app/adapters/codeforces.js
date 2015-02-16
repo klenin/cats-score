@@ -1,7 +1,8 @@
 CATS.Adapter.Codeforces = Classify({
 
-    init : function(cf_table) {
-        this.cf_table = cf_table;
+    init : function(contest_id) {
+        this.contest_id = contest_id;
+        this.cf_table = null;
         this.name = "codeforces";
         this.contest_aliases = {
             id : 'id',
@@ -13,22 +14,14 @@ CATS.Adapter.Codeforces = Classify({
         }
     },
 
-    parse_score_board: function(contest, result_table) {
+    parse_score_board: function(result_table) {
         var self = this;
         var cf_table = this.cf_table;
 
-        $.each(cf_table.contest, function (k, v) {
-            if (self.contest_aliases[k] != undefined)
-                contest[self.contest_aliases[k]] = v;
-        })
+        var contest = CATS.App.contests[this.contest_id];
 
-        contest.scoring = this.rules_aliases[cf_table.contest.type];
-
-        if (cf_table.contest.phase == 'FINISHED')
-            contest.finish_time = contest.start_time + cf_table.contest.durationSeconds;
-
-        contest.start_time = new Date(contest.start_time);
-        contest.finish_time = new Date(contest.finish_time);
+        if (contest == undefined)
+            contest = this.add_contest(cf_table.contest);
 
         var problem_list = [];
         $.each(cf_table.problems, function (k, v) {
@@ -79,9 +72,63 @@ CATS.Adapter.Codeforces = Classify({
         });
     },
 
+    get_jsonp: function (url, callback) {
+        var parseJsonp = function (data) {
+            return data;
+        }
+        $.ajax({
+            url: url + '&jsonp=parseJsonp',
+            dataType: 'jsonp',
+            jsonpCallback: 'parseJsonp',
+            success: callback
+        });
+    },
 
+    add_contest: function(v) {
+        var contest = CATS.Model.Contest();
+        contest.id = v['id'];
+        contest.name = v['name'];
+        contest.start_time = v['startTimeSeconds'] != undefined ? v['startTimeSeconds'] : 0;
+        contest.scoring = this.rules_aliases[v['type']];
 
-    parse: function(contest, result_table) {
-        this.parse_score_board(contest, result_table);
+        if (v['phase'] == 'FINISHED')
+            contest.finish_time = contest.start_time + v['durationSeconds'];
+
+        contest.start_time = new Date(contest.start_time);
+        contest.finish_time = new Date(contest.finish_time);
+        CATS.App.add_object(contest);
+        return contest;
+    },
+
+    get_contests: function(callback) {
+        var self = this;
+        this.get_jsonp('http://codeforces.ru/api/contest.list?gym=true', function (data) {
+            var contests = [];
+            $.each(data.result, function (k, v) {
+                self.add_contest(v);
+                contests.push(v['id']);
+            });
+            callback(contests);
+        });
+    },
+
+    get_contest: function(callback) {
+        var self = this;
+        this.get_jsonp(
+            "http://codeforces.ru/api/contest.standings?contestId=" +
+            self.contest_id +
+            "&from=1&count=10000000&showUnofficial=true",
+            function( data ) {
+                callback(data.result);
+        });
+    },
+
+    parse: function(result_table, callback) {
+        var self = this;
+        this.get_contest(function (cf_table) {
+            self.cf_table = cf_table;
+            self.parse_score_board(result_table);
+            callback();
+        });
     }
 });

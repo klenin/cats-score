@@ -39,15 +39,22 @@ var CATS = {
             this.rules[rule.name] = rule;
         },
 
-        process_adapter: function(adapter_name, adapter_param) {
-            var contest = CATS.Model.Contest();
+        adapter_process_contest: function(adapter_name, callback, contest_id) {
             var result_table = CATS.Model.Results_table();
-            this.adapters[adapter_name].init(adapter_param);
-            this.adapters[adapter_name].parse(contest, result_table);
-            CATS.App.rules[contest.scoring].process(contest, result_table);
-            CATS.App.add_object(contest);
-            CATS.App.add_object(result_table);
-            return {contests : [contest.id], table : result_table.id };
+
+            this.adapters[adapter_name].init(contest_id);
+            this.adapters[adapter_name].parse(result_table, function () {
+                var contest = CATS.App.contests[contest_id];
+                CATS.App.rules[contest.scoring].process(contest, result_table);
+                CATS.App.add_object(result_table);
+                callback({contests : [contest.id], table : result_table.id });
+            });
+        },
+
+        adapter_process_contests: function(adapter_name, callback) {
+            this.adapters[adapter_name].get_contests(function (contests) {
+                callback({contests : contests});
+            });
         },
 
         get_problem_by_code: function(code) {

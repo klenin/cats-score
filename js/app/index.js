@@ -23,19 +23,20 @@
     ], function()
     {
         CATS.App = new CATS.Controller();
-        CATS.App.regist_adapter(new CATS.Adapter.Cats(CATS.Test.cats_xml_data));
-        CATS.App.regist_adapter(new CATS.Adapter.Ifmo(CATS.Test.ifmo_html_data));
-        CATS.App.regist_adapter(new CATS.Adapter.Codeforces(153));
+        CATS.App.regist_adapter(new CATS.Adapter.Cats(-1, CATS.Test.cats_xml_data));
+        CATS.App.regist_adapter(new CATS.Adapter.Ifmo(-1, CATS.Test.ifmo_html_data));
+        CATS.App.regist_adapter(new CATS.Adapter.Codeforces());
         CATS.App.regist_rule(new CATS.Rule.Acm());
 
-        var view = new CATS.View(['header',
-            'default/table', 'default/history',
-            'ifmo/table', 'ifmo/history',
-            'codeforces/table', 'codeforces/history',
+        var view = new CATS.View([
+            'header_contest', 'header_contests',
+            'default/table', 'default/history', 'default/contests',
+            'ifmo/table', 'ifmo/history', 'ifmo/contests',
+            'codeforces/table', 'codeforces/history', 'codeforces/contests',
         ], {
-            cats: CATS.App.process_adapter("cats", CATS.Test.cats_xml_data),
-            ifmo: CATS.App.process_adapter("ifmo", CATS.Test.ifmo_html_data),
-            codeforces: null
+            contests : CATS.App.adapter_process_contests,
+            history : CATS.App.adapter_process_contest,
+            table : CATS.App.adapter_process_contest,
         });
 
         view.display();
