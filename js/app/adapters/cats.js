@@ -1,7 +1,9 @@
 CATS.Adapter.Cats = Classify({
 
-    init : function(page) {
-        this.page = page;
+    init : function(contest_id, page) {
+        if (page != undefined)
+            this.page = page;
+        this.contest_id = contest_id;
         this.name = "cats";
         this.model = null;
         this.aliases = {
@@ -19,12 +21,14 @@ CATS.Adapter.Cats = Classify({
         }
     },
 
-    parse_history : function(contest, result_table) {
+    parse_history : function(result_table) {
         var self = this;
         var page = $.parseXML(this.page);
-        contest.start_time = string_to_date("07.11.2014 18:00");
-        contest.name = "cats contest";
-        contest.scoring = "acm";
+
+        var contest = CATS.App.contests[this.contest_id];
+        if (contest == undefined)
+            contest = this.add_contest();
+
         $(page).find('reqs').find('req').each(function () {
             var row = {};
             $(this).children().each(function() {
@@ -57,7 +61,23 @@ CATS.Adapter.Cats = Classify({
         this.model = contest;
     },
 
-    parse: function(contest, result_table) {
-        this.parse_history(contest, result_table);
+    add_contest: function(v) {
+        var contest = CATS.Model.Contest(), contests = [];
+        contest.id = "cats_contest";
+        contest.name = "cats_contest";
+        contest.scoring = "acm";
+        contest.start_time = string_to_date("07.11.2014 18:00");
+        CATS.App.add_object(contest);
+        return contest;
+    },
+
+    get_contests: function(callback) {
+        this.add_contest()
+        callback(["cats_contest"]);
+    },
+
+    parse: function(result_table, callback) {
+        this.parse_history(result_table);
+        callback();
     }
 });
