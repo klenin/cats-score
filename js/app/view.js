@@ -49,34 +49,43 @@ CATS.View = Classify({
             });
             var viewState = new ViewState();
 
-            viewState.bind("change:state", function () {
-                var state = this.get("state");
-
-                if (state == "table") {
-                    router.navigate("!/table", true);
-                    return;
-                }
-
-                if (state == "history") {
-                    router.navigate("!/history", true);
-                    return;
-                }
+            viewState.bind("change", function () {
+                router.navigate("!show/" + this.get("source") + "/" + this.get("state") + "/" + this.get("skin"), true);
             });
 
             var Router = Backbone.Router.extend({
                 routes: {
-                    "!/table": "table",
-                    "!/history": "history"
+                    "!show/:source/:state/:skin": "show"
                 },
 
-                table: function () {
-                    viewState.set({ state: "table" });
+                show: function (source, state, skin) {
+                    viewState.set({ source: source, state: state, skin: skin });
                 },
 
-                history: function () {
-                    viewState.set({ state: "history" });
+                current : function() {
+                    var Router = this,
+                        fragment = Backbone.history.fragment,
+                        routes = _.pairs(Router.routes),
+                        route = null, params = null, matched;
+
+                    matched = _.find(routes, function(handler) {
+                        route = _.isRegExp(handler[0]) ? handler[0] : Router._routeToRegExp(handler[0]);
+                        return route.test(fragment);
+                    });
+
+                    if(matched) {
+                        // NEW: Extracts the params using the internal
+                        // function _extractParameters
+                        params = Router._extractParameters(route, fragment);
+                        route = matched[1];
+                    }
+
+                    return {
+                        route : route,
+                        fragment : fragment,
+                        params : params
+                    };
                 }
-
             });
             var router = new Router();
 
@@ -148,9 +157,9 @@ CATS.View = Classify({
                     return _.template(tpl.get(skin + '/' + state));
                 },
 
-                define_stylesheet : function (skin) {
+                define_stylesheet: function (skin) {
                     $('link').detach();
-                    $('head').append('<link rel="stylesheet" href="css/' + skin + '.css?iu=34545" type="text/css" />');
+                    $('head').append('<link rel="stylesheet" href="css/' + skin + '.css" type="text/css" />');
                 },
 
                 render: function(){
@@ -192,7 +201,8 @@ CATS.View = Classify({
                 },
 
                 start: function () {
-                    router.navigate("!/table", true);
+                    var current = router.current();
+                    router.navigate(current.params != null ? current.fragment : "!show/ifmo/table/ifmo", {trigger: true});
                 }
             });
             var view;
