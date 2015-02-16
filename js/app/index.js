@@ -33,11 +33,7 @@
             'default/table', 'default/history', 'default/contests',
             'ifmo/table', 'ifmo/history', 'ifmo/contests',
             'codeforces/table', 'codeforces/history', 'codeforces/contests',
-        ], {
-            contests : CATS.App.adapter_process_contests,
-            history : CATS.App.adapter_process_contest,
-            table : CATS.App.adapter_process_contest,
-        });
+        ]);
 
         view.display();
     });
