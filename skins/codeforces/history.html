@@ -2,10 +2,33 @@
 var contest_id = models.contests[0];
 var contest = app.contests[contest_id];
 %>
-<table class="wrapper"><tr><td><center>
-<h1>History</h1>
+
 <h2><%=contest.name%></h2>
-<table border="0" cellspacing="0" cellpadding="1">
+    <div class="datatable"
+
+         style="background-color: #E1E1E1;padding-bottom:3px;">
+        <div class="lt">&nbsp;</div>
+        <div class="rt">&nbsp;</div>
+        <div class="lb">&nbsp;</div>
+        <div class="rb">&nbsp;</div>
+
+        <div style="padding: 4px 0 0 6px;font-size:1em;position:relative;">
+            Положение
+
+            <div style="position:absolute;right:0.25em;top:0.35em;">
+                <img class="closed" src="http://st.codeforces.com/images/icons/control.png"/>
+
+                    <span class="filter" style="display:none;">
+                        <img class="opened" src="http://st.codeforces.com/images/icons/control-270.png"/>
+                        <input style="position:relative;bottom:2px;border:1px solid #aaa;height:17px;font-size:13px;"/>
+                    </span>
+            </div>
+        </div>
+        <div style="background-color: white;margin:0.3em 3px 0 3px;position:relative;">
+            <div class="ilt">&nbsp;</div>
+            <div class="irt">&nbsp;</div>
+
+            <table class="standings">
 <tr>
 <%
 var tbl_header = [];
@@ -19,14 +42,13 @@ _.each(app.runs[app.contests[contest_id].runs[0]], function(v, k){
 });
 %>
 </tr>
-<tr height="3"><td colspan="15"><hr size="1" color="000000"></td></tr>
     <input type="hidden" id="last_elem_idx" value="<%=app.contests[contest_id].runs.length%>" />
 <%
 var idx = 0;
 _.each(app.contests[contest_id].runs.slice(next_page, next_page + elem_cnt), function(run){
 idx++;
 %>
-<tr bgcolor='<%= idx % 2 != 0 ? "d0f0ff" : "c8e8f8" %>'>
+                <tr <%= idx % 2 != 0 ? "class='dark'" : "" %>>
 <%
 for(var i = 0; i < tbl_header.length; ++i){
 %>
@@ -41,4 +63,5 @@ for(var i = 0; i < tbl_header.length; ++i){
 });
 %>
 </table>
-</center></td></tr></table>
+        </div>
+    </div>

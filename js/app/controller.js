@@ -31,11 +31,11 @@ var CATS = {
             return 'id_' + this.last_id++;
         },
 
-        regist_adapter: function(adapter) {
+        register_adapter: function(adapter) {
             this.adapters[adapter.name] = adapter;
         },
 
-        regist_rule: function(rule) {
+        register_rule: function(rule) {
             this.rules[rule.name] = rule;
         },
 

@@ -171,6 +171,7 @@ CATS.View = Classify({
                 app: CATS.App,
                 models: params,
                 source: source,
+                skin: skin,
                 next_page: this.next_page(),
                 elem_cnt: this.view_state.get("elements_on_page")
             }));
@@ -208,7 +209,7 @@ CATS.View = Classify({
 
         start: function () {
             var current = this.router.current();
-            this.router.navigate(current.params != null ? current.fragment : "!show_contests/codeforces/ifmo", {trigger: true});
+            this.router.navigate(current.params != null ? current.fragment : "!show_contests/codeforces/codeforces", {trigger: true});
         }
     }),
 
