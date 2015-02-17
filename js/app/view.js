@@ -7,24 +7,20 @@ CATS.View = Classify({
         templates: {},
 
         loadTemplates: function (names, callback) {
+            var formated_names = [];
+            $.each(names, function(k, v) {
+                formated_names[k] = 'text!' + v + '.html';
+            });
 
-            var that = this;
-
-            var loadTemplate = function (index) {
-                var name = names[index];
-                console.log('Loading template: ' + name);
-                $.get('skins/' + name + '.html', function (data) {
-                    that.templates[name] = data;
-                    index++;
-                    if (index < names.length) {
-                        loadTemplate(index);
-                    } else {
-                        callback();
-                    }
-                })
-            }
-
-            loadTemplate(0);
+            var self = this;
+            requirejs.config({baseUrl: 'skins/'});
+            require(formated_names, function () {
+                for (var i = 0; i < names.length; ++i) {
+                    self.templates[names[i]] = arguments[i];
+                    console.log("template " + names[i] + " loaded");
+                }
+                callback();
+            });
         },
 
         get: function (name) {
