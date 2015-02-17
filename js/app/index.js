@@ -1,25 +1,27 @@
 (function($){
     //extendGetScriptFunction('js/app/');
+    //$.getScript([
+    requirejs.config({baseUrl: 'js/app/'});
     require([
-        'js/app/controller.js',
-        'js/app/tests/cats_xml_data.js',
-        'js/app/tests/ifmo_html_data.js',
-        'js/app/models/version.js',
-        'js/app/models/entity.js',
-        'js/app/models/event.js',
-        'js/app/models/chat.js',
-        'js/app/models/compiler.js',
-        'js/app/models/contest.js',
-        'js/app/models/prize.js',
-        'js/app/models/problem.js',
-        'js/app/models/run.js',
-        'js/app/models/results_table.js',
-        'js/app/models/user.js',
-        'js/app/rules/acm.js',
-        'js/app/adapters/cats.js',
-        'js/app/adapters/ifmo.js',
-        'js/app/adapters/codeforces.js',
-        'js/app/view.js'
+        'controller',
+        'tests/cats_xml_data',
+        'tests/ifmo_html_data',
+        'models/version',
+        'models/entity',
+        'models/event',
+        'models/chat',
+        'models/compiler',
+        'models/contest',
+        'models/prize',
+        'models/problem',
+        'models/run',
+        'models/results_table',
+        'models/user',
+        'rules/acm',
+        'adapters/cats',
+        'adapters/ifmo',
+        'adapters/codeforces',
+        'view'
     ], function()
     {
         CATS.App = new CATS.Controller();
