@@ -1,7 +1,6 @@
 CATS.View = Classify({
-    init: function (skin_pages, processors) {
+    init: function (skin_pages) {
         this.skin_pages = skin_pages;
-        this.processors = processors;
     },
 
     tpl: {
@@ -232,8 +231,7 @@ CATS.View = Classify({
             var view = new self.View_logic({
                 view_state: view_state,
                 router: router,
-                tpl: tpl,
-                processors: self.processors
+                tpl: tpl
             });
 
             Backbone.history.start();
