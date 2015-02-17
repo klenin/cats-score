@@ -1,25 +1,25 @@
 (function($){
-    extendGetScriptFunction('js/app/');
-    $.getScript([
-        'controller.js',
-        'tests/cats_xml_data.js',
-        'tests/ifmo_html_data.js',
-        'models/version.js',
-        'models/entity.js',
-        'models/event.js',
-        'models/chat.js',
-        'models/compiler.js',
-        'models/contest.js',
-        'models/prize.js',
-        'models/problem.js',
-        'models/run.js',
-        'models/results_table.js',
-        'models/user.js',
-        'rules/acm.js',
-        'adapters/cats.js',
-        'adapters/ifmo.js',
-        'adapters/codeforces.js',
-        'view.js'
+    //extendGetScriptFunction('js/app/');
+    require([
+        'js/app/controller.js',
+        'js/app/tests/cats_xml_data.js',
+        'js/app/tests/ifmo_html_data.js',
+        'js/app/models/version.js',
+        'js/app/models/entity.js',
+        'js/app/models/event.js',
+        'js/app/models/chat.js',
+        'js/app/models/compiler.js',
+        'js/app/models/contest.js',
+        'js/app/models/prize.js',
+        'js/app/models/problem.js',
+        'js/app/models/run.js',
+        'js/app/models/results_table.js',
+        'js/app/models/user.js',
+        'js/app/rules/acm.js',
+        'js/app/adapters/cats.js',
+        'js/app/adapters/ifmo.js',
+        'js/app/adapters/codeforces.js',
+        'js/app/view.js'
     ], function()
     {
         CATS.App = new CATS.Controller();
