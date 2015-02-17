@@ -171,6 +171,7 @@ CATS.View = Classify({
                 app: CATS.App,
                 models: params,
                 source: source,
+                skin: skin,
                 next_page: this.next_page(),
                 elem_cnt: this.view_state.get("elements_on_page")
             }));
