@@ -209,7 +209,7 @@ CATS.View = Classify({
 
         start: function () {
             var current = this.router.current();
-            this.router.navigate(current.params != null ? current.fragment : "!show_contests/codeforces/ifmo", {trigger: true});
+            this.router.navigate(current.params != null ? current.fragment : "!show_contests/codeforces/codeforces", {trigger: true});
         }
     }),
 

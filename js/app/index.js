@@ -24,10 +24,10 @@
                     'view'
                 ], function () {
                     CATS.App = new CATS.Controller();
-                    CATS.App.regist_adapter(new CATS.Adapter.Cats(-1, CATS.Test.cats_xml_data));
-                    CATS.App.regist_adapter(new CATS.Adapter.Ifmo(-1, CATS.Test.ifmo_html_data));
-                    CATS.App.regist_adapter(new CATS.Adapter.Codeforces());
-                    CATS.App.regist_rule(new CATS.Rule.Acm());
+                    CATS.App.register_adapter(new CATS.Adapter.Cats(-1, CATS.Test.cats_xml_data));
+                    CATS.App.register_adapter(new CATS.Adapter.Ifmo(-1, CATS.Test.ifmo_html_data));
+                    CATS.App.register_adapter(new CATS.Adapter.Codeforces());
+                    CATS.App.register_rule(new CATS.Rule.Acm());
 
                     var view = new CATS.View([
                         'header_contest', 'header_contests',
