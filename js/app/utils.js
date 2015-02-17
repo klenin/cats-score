@@ -69,3 +69,4 @@ function extendGetScriptFunction(base_script_place) {
         loadScript(0);
     };
 }
+
