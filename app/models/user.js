@@ -1,7 +1,8 @@
 CATS.Model.User = Classify(CATS.Model.Entity, {
     init: function () {
         this.$$parent();
-        this.type = "user";
+        this.type = "user"
+        this.name = null;
         this.contest = null;//?
         this.url = null;
         this.full_name = null;

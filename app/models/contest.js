@@ -2,6 +2,7 @@ CATS.Model.Contest = Classify(CATS.Model.Entity, {
     init: function () {
         this.$$parent();
         this.type = "contest";
+        this.name = null;
         this.url = null;
         this.problems_url = null;
         this.full_name = null;

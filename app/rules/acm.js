@@ -52,12 +52,11 @@ CATS.Rule.Acm = Classify({
             if (!teams_problems[team_id][p_idx]['is_solved']) {
                 teams_problems[team_id][p_idx]['runs_cnt']++;
                 if (row['status'] == 'accepted') {
-                    var submit = string_to_date(row['start_processing_time']);
-                    teams_problems[team_id][p_idx]['best_run_time'] = get_time_diff(contest_start_time, submit);
+                    teams_problems[team_id][p_idx]['best_run_time'] = get_time_diff(contest_start_time, row['start_processing_time']);
                     teams_problems[team_id][p_idx]['is_solved'] = true;
                     teams[team_id]['solved_cnt']++;
                     teams[team_id]['penalty'] += (teams_problems[team_id][p_idx]['runs_cnt'] - 1) * self.failed_run_penalty +
-                        teams_problems[team_id][p_idx]['best_run_time'];
+                    teams_problems[team_id][p_idx]['best_run_time'];
                 }
             }
 
@@ -76,7 +75,7 @@ CATS.Rule.Acm = Classify({
                 continue;
             var group = team_groups[i].sort(function (a, b) {
                 return a['p'] - b['p'];
-            })
+            });
             for (var j = 0; j < group.length; ++j) {
 
                 var score_board_row = result_table.get_empty_score_board_row();
@@ -100,7 +99,7 @@ CATS.Rule.Acm = Classify({
             result_table.contests.push(contest.id);
             this.compute_table(result_table, contest);
         }
-       // else
-       //     alert('ACM rule error. History and table both empty or filled');
+        // else
+        //     alert('ACM rule error. History and table both empty or filled');
     }
 });
