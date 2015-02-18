@@ -1,0 +1,61 @@
+<%
+var contest_id = models.contests[0];
+var table_id = models.table;
+var contest = app.contests[contest_id];
+var table = app.result_tables[table_id];
+%>
+
+<h2><%=contest.name%></h2>
+<table class="table table-striped table-bordered table-hover">
+    <tr>
+        <th>
+            place
+        </th>
+        <th>
+            team
+        </th>
+        <%
+        for (var i = 0; i < contest.problems.length; ++i) {
+        %>
+        <th>
+            <%=get_problem_code_by_index(i)%>
+        </th>
+        <%
+        };
+        %>
+        <th>
+            points
+        </th>
+    </tr>
+    <input type="hidden" id="last_elem_idx" value="<%=table.score_board.length%>" />
+    <%
+    _.each(table.score_board.slice(next_page, next_page + elem_cnt), function(row){
+    %>
+    <tr>
+        <td>
+            <%=row["place"]%>
+        </td>
+        <td>
+            <%=app.users[row["user"]].name%>
+        </td>
+        <%
+        for (var i = 0; i < row["problems"].length; ++i) {
+        %>
+        <td>
+            <% if (row["problems"][i]["points"]) {%>
+            <p><%=row["problems"][i]["points"]%></p>
+            <%} else %>
+            -
+        </td>
+
+        <%
+        };
+        %>
+        <td>
+            <%=row["points_cnt"]%>
+        </td>
+    </tr>
+    <%
+    });
+    %>
+</table>

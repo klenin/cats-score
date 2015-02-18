@@ -2,6 +2,7 @@ CATS.Model.Problem = Classify(CATS.Model.Entity, {
     init: function () {
         this.$$parent();
         this.type = "problem";
+        this.name = null;
         this.code = null;
         this.contest = null;//?
         this.language = null;

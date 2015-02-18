@@ -1,7 +1,6 @@
-CATS.Rule.Acm = Classify({
+CATS.Rule.School = Classify({
     init: function (model) {
-        this.name = "acm";
-        this.failed_run_penalty = 20;
+        this.name = "school";
     },
 
     compute_history: function (result_table, contest) {
@@ -9,16 +8,17 @@ CATS.Rule.Acm = Classify({
         var contest_start_time = contest.start_time;
         $.each(tbl.score_board, function (i, row) {
             $.each(row['problems'], function (k, v) {
-                for (var i = 0; i < v['runs_cnt']; ++i) {
+                if (v['points'] > 0) {
                     var run = CATS.Model.Run();
                     run['problem'] = v['problem'];
                     run['start_processing_time'] = add_time(contest_start_time, 0);
                     run['user'] = row['user'];
 
-                    if (v['is_solved'] && i + 1 == v['runs_cnt']) {
+                    if (v['best_run_time'])
                         run['start_processing_time'] = add_time(contest_start_time, v['best_run_time']);
-                        run['status'] = 'accepted';
-                    }
+
+                    run['status'] = (v['points'] == 100) ? 'accepted' : 'wrong_answer';
+                    run['points'] = v['points'];
                     CATS.App.add_object(run);
                     contest.add_object(run);
                 }
@@ -49,48 +49,46 @@ CATS.Rule.Acm = Classify({
 
             var p_idx = get_problem_index(CATS.App.problems[row['problem']]['code']);
 
-            if (!teams_problems[team_id][p_idx]['is_solved']) {
-                teams_problems[team_id][p_idx]['runs_cnt']++;
-                if (row['status'] == 'accepted') {
-                    var submit = string_to_date(row['start_processing_time']);
-                    teams_problems[team_id][p_idx]['best_run_time'] = get_time_diff(contest_start_time, submit);
-                    teams_problems[team_id][p_idx]['is_solved'] = true;
-                    teams[team_id]['solved_cnt']++;
-                    teams[team_id]['penalty'] += (teams_problems[team_id][p_idx]['runs_cnt'] - 1) * self.failed_run_penalty +
-                        teams_problems[team_id][p_idx]['best_run_time'];
-                }
+            teams_problems[team_id][p_idx]['runs_cnt']++;
+            teams_problems[team_id][p_idx]['last_run_time'] = get_time_diff(contest_start_time, row['start_processing_time']);
+            if (teams_problems[team_id][p_idx]['points'] < row['points']) {
+                teams_problems[team_id][p_idx]['best_run_time'] = teams_problems[team_id][p_idx]['last_run_time'];
+                teams_problems[team_id][p_idx]['points'] = row['points'];
+            }
+            if (row['status'] == 'accepted') {
+                teams_problems[team_id][p_idx]['is_solved'] = true;
+                teams[team_id]['solved_cnt']++;
             }
 
         });
 
-        var team_groups = [];
+        var teams_arr = [];
         $.each(teams, function (k, v) {
-            if (team_groups[v['solved_cnt']] == undefined)
-                team_groups[v['solved_cnt']] = [];
+            var points_cnt = 0;
+            for (var i = 0; i < contest.problems.length; ++i)
+                points_cnt += teams_problems[k][i]['runs_cnt'] > 0 ? teams_problems[k][i]['points'] : 0;
 
-            team_groups[v['solved_cnt']].push({'id': k, 'p': v['penalty'], 'solved_cnt' : v['solved_cnt']});
+            teams_arr.push({id: k, solved_cnt : v['solved_cnt'], points_cnt: points_cnt});
         });
 
-        for (var i = team_groups.length - 1; i >= 0; --i) {
-            if (team_groups[i] == undefined)
-                continue;
-            var group = team_groups[i].sort(function (a, b) {
-                return a['p'] - b['p'];
-            })
-            for (var j = 0; j < group.length; ++j) {
 
-                var score_board_row = result_table.get_empty_score_board_row();
-                score_board_row['place'] = (j != 0 && group[j - 1]['p'] == group[j]['p']) ?
-                    result_table.score_board.top()['place'] :
-                    result_table.score_board.length + 1;
-                score_board_row['user'] = group[j]['id'];
-                score_board_row['penalty'] = group[j]['p'];
-                score_board_row['solved_cnt'] = group[j]['solved_cnt'];
-                score_board_row['problems'] = teams_problems[group[j]['id']];
+        var group = teams_arr.sort(function (a, b) {
+            return b['points_cnt'] - a['points_cnt'];
+        })
+        for (var j = 0; j < group.length; ++j) {
+            var score_board_row = result_table.get_empty_score_board_row();
+            score_board_row['place'] = (j != 0 && group[j - 1]['points_cnt'] == group[j]['points_cnt']) ?
+                result_table.score_board.top()['place'] :
+                result_table.score_board.length + 1;
+            score_board_row['user'] = group[j]['id'];
+            score_board_row['penalty'] = group[j]['p'];
+            score_board_row['solved_cnt'] = group[j]['solved_cnt'];
+            score_board_row['points_cnt'] = group[j]['points_cnt'];
+            score_board_row['problems'] = teams_problems[group[j]['id']];
 
-                result_table.score_board.push(score_board_row);
-            }
+            result_table.score_board.push(score_board_row);
         }
+
     },
 
     process: function (contest, result_table) {
@@ -100,7 +98,7 @@ CATS.Rule.Acm = Classify({
             result_table.contests.push(contest.id);
             this.compute_table(result_table, contest);
         }
-       // else
-       //     alert('ACM rule error. History and table both empty or filled');
+        // else
+        //     alert('ACM rule error. History and table both empty or filled');
     }
 });

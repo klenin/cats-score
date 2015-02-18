@@ -71,7 +71,6 @@ table {
 }
 
 .datatable .lt {
-    background: url(../images/datatable/datatable-corner-lt.png) no-repeat top left;
     width: 6px;
     height: 6px;
     left: 0;
@@ -80,7 +79,6 @@ table {
 }
 
 .datatable .rt {
-    background: url(../images/datatable/datatable-corner-rt.png) no-repeat top right;
     width: 6px;
     height: 6px;
     right: 0;
@@ -89,7 +87,6 @@ table {
 }
 
 .datatable .lb {
-    background: url(../images/datatable/datatable-corner-lb.png) no-repeat bottom left;
     width: 4px;
     height: 4px;
     left: 0;
@@ -98,7 +95,6 @@ table {
 }
 
 .datatable .rb {
-    background: url(../images/datatable/datatable-corner-rb.png) no-repeat bottom right;
     width: 4px;
     height: 4px;
     right: 0;
@@ -107,7 +103,6 @@ table {
 }
 
 .datatable .ilt {
-    background: url(../images/datatable/datatable-inner-corner-lt.png) no-repeat top left;
     width: 6px;
     height: 6px;
     left: 0;
@@ -116,7 +111,6 @@ table {
 }
 
 .datatable .irt {
-    background: url(../images/datatable/datatable-inner-corner-rt.png) no-repeat top right;
     width: 6px;
     height: 6px;
     right: 0;
@@ -125,6 +119,5 @@ table {
 }
 
 .datatable .filter input {
-    background: white url(../images/icons/magnifier-medium.png) 2px 2px no-repeat;
     padding-left: 20px;
 }

@@ -9,7 +9,7 @@ CATS.Model.Run = Classify(CATS.Model.Event, {
         this.status = null;
         /*:
          "not_processed"*, "processing",
-         "ok", "partial", "compile_error", "runtime_error",
+         "accepted", "partial", "compile_error", "runtime_error",
          "wrong_answer", "presentation_error", "memory_limit", "timie_limit", "idleness_limit",
          "security_violation", "unhandled_error", "ignored", "rejected", "challenged"?
          passed_test_count: \d+ (failed_test - 1)*/

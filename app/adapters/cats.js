@@ -21,6 +21,14 @@ CATS.Adapter.Cats = Classify({
         }
     },
 
+    string_to_date : function(str) {
+        var d = str.split(" ");
+        var date = d[0].split(".");
+        var time = d[1].split(":");
+
+        return new Date(date[2], date[1] - 1, date[0], time[0], time[1]);
+    },
+
     parse_history : function(result_table) {
         var self = this;
         var page = $.parseXML(this.page);
@@ -53,7 +61,7 @@ CATS.Adapter.Cats = Classify({
             run.problem = prob.id;
             run.user = user.id;
             run.status = row['state'];
-            run.start_processing_time = row['submit_time'];
+            run.start_processing_time = self.string_to_date(row['submit_time']);
             CATS.App.add_object(run);
             contest.add_object(run);
         });
@@ -66,7 +74,7 @@ CATS.Adapter.Cats = Classify({
         contest.id = "cats_contest";
         contest.name = "cats_contest";
         contest.scoring = "acm";
-        contest.start_time = string_to_date("07.11.2014 18:00");
+        contest.start_time = this.string_to_date("07.11.2014 18:00");
         CATS.App.add_object(contest);
         return contest;
     },

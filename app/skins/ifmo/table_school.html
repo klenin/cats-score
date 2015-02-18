@@ -1,0 +1,73 @@
+<%
+var contest_id = models.contests[0];
+var table_id = models.table;
+var contest = app.contests[contest_id];
+var table = app.result_tables[table_id];
+%>
+<table class="wrapper"><tr><td><center>
+<h2><%=contest.name%></h2>
+<h3>runs: <%=contest.runs.length%></h3>
+<table border="0" cellspacing="0" cellpadding="1">
+    <tr>
+        <th class="rankl">
+            Rank
+        </th>
+        <th class="party">
+            Team
+        </th>
+        <%
+        for (var i = 0; i < contest.problems.length; ++i) {
+        %>
+        <th class="problem">
+            <%=get_problem_code_by_index(i)%>
+        </th>
+        <%
+        };
+        %>
+        <th class="solved">=</th>
+        <th class="penalty">
+            Points
+        </th>
+    </tr>
+    <tr height="3"><td colspan="15"><hr size="1" color="000000"></td></tr>
+    <input type="hidden" id="last_elem_idx" value="<%=table.score_board.length%>" />
+    <%
+    var idx = 0, last_solved_cnt = 0, use_color = 'normal';
+    var colors = {alt : {even : "ffffff", odd : "f8f8f8"}, normal: {even : "d0f0ff", odd : "c8e8f8"}};
+    _.each(table.score_board.slice(next_page, next_page + elem_cnt), function(row){
+    idx++;
+    if (last_solved_cnt != row['solved_cnt'])
+        use_color = use_color == 'normal' ? 'alt' : 'normal';
+
+    %>
+    <tr bgcolor='<%= colors[use_color][idx % 2 != 0 ? "even" : "odd"] %>'>
+        <td class="rankl">
+            <%=row["place"]%>
+        </td>
+        <td class="party">
+            <%=app.users[row["user"]].name%>
+        </td>
+        <%
+        for (var i = 0; i < row["problems"].length; ++i) {
+        %>
+        <td>
+            <% if (row["problems"][i]["points"]) {%>
+            <i><%=row["problems"][i]["points"]%>
+            <%} else %>
+            <b>-</b>
+        </td>
+
+        <%
+        last_solved_cnt = row['solved_cnt'];
+        };
+        %>
+        <td><%=last_solved_cnt%></td>
+        <td class="penalty">
+            <%=row["points_cnt"]%>
+        </td>
+    </tr>
+    <%
+    });
+    %>
+</table>
+</center></td></tr></table>

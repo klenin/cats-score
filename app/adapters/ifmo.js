@@ -96,7 +96,7 @@ CATS.Adapter.Ifmo = Classify({
         contest.id = "ifmo_contest";
         contest.name = "ifmo_contest";
         contest.scoring = "acm";
-        contest.start_time = string_to_date("07.11.2014 18:00");
+        contest.start_time = new Date();
         CATS.App.add_object(contest);
         return contest;
     },

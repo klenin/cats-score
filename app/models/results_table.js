@@ -12,6 +12,7 @@ CATS.Model.Results_table = Classify(CATS.Model.Entity, {
             user: null,
             penalty: null,
             solved_cnt: 0,
+            points_cnt: 0,
             problems: []
         };
     },
