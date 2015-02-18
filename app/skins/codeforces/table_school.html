@@ -1,0 +1,86 @@
+<%
+var contest_id = models.contests[0];
+var table_id = models.table;
+var contest = app.contests[contest_id];
+var table = app.result_tables[table_id];
+%>
+
+<h2><%=contest.name%></h2>
+<h3>runs: <%=contest.runs.length%></h3>
+<div class="datatable"
+
+     style="background-color: #E1E1E1;padding-bottom:3px;">
+    <div class="lt">&nbsp;</div>
+    <div class="rt">&nbsp;</div>
+    <div class="lb">&nbsp;</div>
+    <div class="rb">&nbsp;</div>
+
+    <div style="padding: 4px 0 0 6px;font-size:1em;position:relative;">
+        Положение
+
+        <div style="position:absolute;right:0.25em;top:0.35em;">
+            <img class="closed" src="http://st.codeforces.com/images/icons/control.png"/>
+
+                    <span class="filter" style="display:none;">
+                        <img class="opened" src="http://st.codeforces.com/images/icons/control-270.png"/>
+                        <input style="position:relative;bottom:2px;border:1px solid #aaa;height:17px;font-size:13px;"/>
+                    </span>
+        </div>
+    </div>
+    <div style="background-color: white;margin:0.3em 3px 0 3px;position:relative;">
+        <div class="ilt">&nbsp;</div>
+        <div class="irt">&nbsp;</div>
+
+<table class="standings">
+    <tr>
+        <th style="width:2em;">№</th>
+        <th style="text-align:left;">Кто</th>
+        <th style="width:2em;">=</th>
+        <th style="width:4em;">Очки</th>
+        <%
+        for (var i = 0; i < contest.problems.length; ++i) {
+        %>
+        <th style="width:4em;">
+            <%=get_problem_code_by_index(i)%>
+        </th>
+        <%
+        };
+        %>
+    </tr>
+    <%
+    var idx = 0;
+    _.each(table.score_board.slice(next_page, next_page + elem_cnt), function(row){
+    idx++;
+    %>
+    <tr <%= idx % 2 != 0 ? "class='dark'" : "" %>>
+        <td class="left">
+            <%=row["place"]%>
+        </td>
+        <td class="contestant-cell" style="text-align:left;padding-left:1em;">
+            <%=app.users[row["user"]].name%>
+        </td>
+        <td><%=row['solved_cnt']%></td>
+        <td>
+            <%=row["points_cnt"]%>
+        </td>
+        <%
+        for (var i = 0; i < row["problems"].length; ++i) {
+        %>
+        <td title="Cobol">
+            <% if (row["problems"][i]["points"]) {%>
+            <span class="cell-accepted"><%=row["problems"][i]["points"]%></span>
+            <%} else %>
+            <span class="cell-rejected">-</span>
+        </td>
+
+        <%
+        };
+        %>
+
+    </tr>
+    <%
+    });
+    %>
+</table>
+    </div>
+</div>

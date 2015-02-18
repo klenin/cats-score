@@ -166,7 +166,8 @@ CATS.View = Classify({
             var source = this.source();
             var skin = this.skin();
             this.define_stylesheet(skin);
-
+            if (page_name == "table")
+                page_name += "_" + CATS.App.contests[params.contests[0]].scoring; //указываются правила
             this.$el.html(this.header("header_" + this.view_state.get("state")) + this.page(skin, page_name)({
                 app: CATS.App,
                 models: params,
