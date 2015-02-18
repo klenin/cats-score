@@ -1,0 +1,49 @@
+[
+  { "type" : "version", "id" : 1 },
+
+  { "type" : "contest", "id" : "0001", "name" : "synthetic acm contest id 0001", "external_id" : null, "tags" : null, "description" : null,
+    "url" : null, "problems_url" : null, "full_name" : null, "affiliation" : null, "start_time" : "Wed Feb 18 2015 23:59:25",
+    "finish_time" : null, "freeze_time" : null, "unfreeze_time" : null, "is_open_registration" : null,
+    "scoring" : "acm", "is_all_results_visible" : true, "problems" : ["0001", "0002"], "users" : ["0001", "0002"], "prizes" : [],
+    "runs" : ["0001", "0002", "0003", "0004", "0005"]
+  },
+
+  { "type" : "user" , "id" : "0001", "external_id" : null, "tags" : null, "description" : null, "name" : "vasya",
+    "contest" : null, "url" : null, "full_name" : null, "login" : null, "email" : null, "affiliation" : null,
+    "region" : { "name" : null } ,"role" : "in_contest", "time_offset" : null, "is_remote" : null, "last_ip" : null, "last_action_time" : null
+  },
+  { "type" : "user" , "id" : "0002", "external_id" : null, "tags" : null, "description" : null, "name" : "petya",
+    "contest" : null, "url" : null, "full_name" : null, "login" : null, "email" : null, "affiliation" : null,
+    "region" : { "name" : null } ,"role" : "in_contest", "time_offset" : null, "is_remote" : null, "last_ip" : null, "last_action_time" : null
+  },
+
+  { "type" : "problem" , "id" : "0001", "external_id" : null, "tags" : null, "description" : null, "name" : "problem A",
+    "code": "A", "contest": null, "language" : null, "text_url" : null, "package_url" : null, "status" : "ok",
+    "max_points" : null, "last_update_time" : null, "limits" : { "time" : null, "memory" : null }, "baloon_color" : null, "data" : null
+  },
+  { "type" : "problem" , "id" : "0002", "external_id" : null, "tags" : null, "description" : null, "name" : "problem B",
+    "code": "B", "contest": null, "language" : null, "text_url" : null, "package_url" : null, "status" : "ok",
+    "max_points" : null, "last_update_time" : null, "limits" : { "time" : null, "memory" : null }, "baloon_color" : null, "data" : null
+  },
+
+  { "type" : "run" , "id" : "0001", "external_id" : null, "tags" : null, "description" : null, "time" : null,
+    "problem" : "0001", "user" : "0001", "compiler" : null, "source" : null, "status" : "accepted", "points" : null,
+    "start_processing_time" : "Thu Feb 19 2015 00:02:21", "finish_processing_time" : null, "processor" : null, "ip" : null, "consumed" : null
+  },
+  { "type" : "run" , "id" : "0002", "external_id" : null, "tags" : null, "description" : null, "time" : null,
+    "problem" : "0002", "user" : "0001", "compiler" : null, "source" : null, "status" : "accepted", "points" : null,
+    "start_processing_time" : "Thu Feb 19 2015 00:05:21", "finish_processing_time" : null, "processor" : null, "ip" : null, "consumed" : null
+  },
+  { "type" : "run" , "id" : "0003", "external_id" : null, "tags" : null, "description" : null, "time" : null,
+    "problem" : "0001", "user" : "0002", "compiler" : null, "source" : null, "status" : "accepted", "points" : null,
+    "start_processing_time" : "Thu Feb 19 2015 00:03:21", "finish_processing_time" : null, "processor" : null, "ip" : null, "consumed" : null
+  },
+  { "type" : "run" , "id" : "0004", "external_id" : null, "tags" : null, "description" : null, "time" : null,
+    "problem" : "0002", "user" : "0002", "compiler" : null, "source" : null, "status" : "presentation_error", "points" : null,
+    "start_processing_time" : "Thu Feb 19 2015 00:06:21", "finish_processing_time" : null, "processor" : null, "ip" : null, "consumed" : null
+  },
+  { "type" : "run" , "id" : "0005", "external_id" : null, "tags" : null, "description" : null, "time" : null,
+    "problem" : "0002", "user" : "0002", "compiler" : null, "source" : null, "status" : "accepted", "points" : null,
+    "start_processing_time" : "Thu Feb 19 2015 00:07:21", "finish_processing_time" : null, "processor" : null, "ip" : null, "consumed" : null
+  }
+]
