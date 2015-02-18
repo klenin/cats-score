@@ -1,7 +1,7 @@
 (function($){
     //extendGetScriptFunction('js/app/');
     //$.getScript([
-    requirejs.config({baseUrl: 'js/app/'});
+    requirejs.config({baseUrl: 'app/'});
     require(['controller'], function () {
         require(['models/entity'], function () {
             require(['models/event'], function () {

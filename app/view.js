@@ -13,7 +13,7 @@ CATS.View = Classify({
             });
 
             var self = this;
-            requirejs.config({baseUrl: 'skins/'});
+            requirejs.config({baseUrl: 'app/skins/'});
             require(formated_names, function () {
                 for (var i = 0; i < names.length; ++i) {
                     self.templates[names[i]] = arguments[i];
@@ -140,7 +140,7 @@ CATS.View = Classify({
 
         define_stylesheet: function (skin) {
             $('link').detach();
-            $('head').append('<link rel="stylesheet" href="css/' + skin + '.css" type="text/css" />');
+            $('head').append('<link rel="stylesheet" href="app/css/' + skin + '.css" type="text/css" />');
         },
 
         refresh: function () {
