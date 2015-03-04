@@ -1,19 +1,20 @@
 CATS.View = Classify({
-    init: function (skin_pages) {
+    init: function (base_url, skin_pages) {
         this.skin_pages = skin_pages;
+        this.base_url = base_url;
     },
 
     tpl: {
         templates: {},
 
-        loadTemplates: function (names, callback) {
+        loadTemplates: function (base_url, names, callback) {
             var formated_names = [];
             $.each(names, function(k, v) {
                 formated_names[k] = 'text!' + v + '.html';
             });
 
             var self = this;
-            requirejs.config({baseUrl: 'app/skins/'});
+            requirejs.config({baseUrl: base_url});
             require(formated_names, function () {
                 for (var i = 0; i < names.length; ++i) {
                     self.templates[names[i]] = arguments[i];
@@ -221,7 +222,7 @@ CATS.View = Classify({
         //$(document).on('click', 'a', function() {return false;});
         var tpl = this.tpl;
         var self = this;
-        tpl.loadTemplates(this.skin_pages, function() {
+        tpl.loadTemplates(this.base_url, this.skin_pages, function() {
             var view_state = new self.View_state();
             var router = new self.Router({ view_state: view_state});
 
