@@ -1,7 +1,14 @@
-$("document").ready(function(){
-    //extendGetScriptFunction('js/app/');
-    //$.getScript([
-    requirejs.config({baseUrl: 'app/'});
+
+requirejs.config({
+    baseUrl: 'app/',
+    paths: {
+        jquery: "//yandex.st/jquery/2.0.3/jquery.min",
+        classify: "../vendors/classify.min",
+        dateformat: "../vendors/date.format",
+        utils: "../app/utils"
+    }
+});
+require(['jquery', 'classify', 'dateformat', 'utils'], function () {
     require(['controller'], function () {
         require(['models/entity'], function () {
             require(['models/event'], function () {
