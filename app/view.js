@@ -49,28 +49,28 @@ CATS.View = Classify({
         },
 
         routes: {
-            "!show_contests/:source/:skin": "show_contests",
-            "!show_contest/:source/:page_name/:skin/:contestid": "show_contest"
+            "!show_contests_list/:source/:skin": "show_contests_list",
+            "!show_rank_table/:source/:page_name/:skin/:contestid": "show_rank_table"
         },
 
-        show_contests: function (source, skin) {
-            this.view_state.set({ source: source, page_name: 'contests', state: 'contests', skin: skin });
+        show_contests_list: function (source, skin) {
+            this.view_state.set({ source: source, page_name: 'contests', state: 'contests_list', skin: skin });
         },
 
-        show_contest: function (source, page_name, skin, contest_id) {
-            this.view_state.set({ source: source, page_name: page_name, state: 'contest', skin: skin, contest_id: contest_id });
+        show_rank_table: function (source, page_name, skin, contest_id) {
+            this.view_state.set({ source: source, page_name: page_name, state: 'rank_table', skin: skin, contest_id: contest_id });
         },
 
         generate_url: function() {
             switch (this.view_state.get("state")) {
-                case "contest":
-                    return "!show_contest/" +
+                case "rank_table":
+                    return "!show_rank_table/" +
                         this.view_state.get("source") + "/" +
                         this.view_state.get("page_name") + "/" +
                         this.view_state.get("skin") + "/" +
                         this.view_state.get("contest_id");
-                case "contests":
-                    return "!show_contests/" +
+                case "contests_list":
+                    return "!show_contests_list/" +
                         this.view_state.get("source") + "/" +
                         this.view_state.get("skin");
                 default :
@@ -147,16 +147,16 @@ CATS.View = Classify({
             this["refresh_" + this.view_state.get("state")]();
         },
 
-        refresh_contest: function() {
+        refresh_rank_table: function() {
             var self = this;
-            CATS.App.adapter_process_contest(this.source(), function (params) {
+            CATS.App.adapter_process_rank_table(this.source(), function (params) {
                 self.render(params);
             }, this.view_state.get("contest_id"));
         },
 
-        refresh_contests: function() {
+        refresh_contests_list: function() {
             var self = this;
-            CATS.App.adapter_process_contests(this.source(), function (params) {
+            CATS.App.adapter_process_contests_list(this.source(), function (params) {
                 self.render(params);
             });
         },
@@ -212,7 +212,7 @@ CATS.View = Classify({
 
         start: function () {
             var current = this.router.current();
-            var default_url = this.default_url_hash ? this.default_url_hash : "!show_contests/codeforces/codeforces";
+            var default_url = this.default_url_hash ? this.default_url_hash : "!show_contests_list/codeforces/codeforces";
             this.router.navigate(current.params != null ? current.fragment : default_url, {trigger: true});
         }
     }),

@@ -1,7 +1,7 @@
 CATS.Adapter.Codeforces = Classify({
 
     init : function(contest_id) {
-        this.contest_id = contest_id;
+        this.contest_id = contest_id[0];
         this.cf_table = null;
         this.name = "codeforces";
         this.contest_aliases = {

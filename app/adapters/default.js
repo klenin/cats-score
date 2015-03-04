@@ -1,7 +1,7 @@
 CATS.Adapter.Default = Classify({
 
     init : function(contest_id) {
-        this.contest_id = contest_id;
+        this.contest_id = contest_id[0];
         this.contest_data = null;
         this.name = "default";
 

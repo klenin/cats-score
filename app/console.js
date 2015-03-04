@@ -31,8 +31,8 @@ require(['jquery'], function () {
                         'tests/spec/test'
                     ], function () {
                         CATS.App = new CATS.Controller();
-                        CATS.App.register_adapter(new CATS.Adapter.Cats(CATS.Test.cats_xml_data));
-                        CATS.App.register_adapter(new CATS.Adapter.Ifmo(CATS.Test.ifmo_html_data));
+                        CATS.App.register_adapter(new CATS.Adapter.Cats([-1], CATS.Test.cats_xml_data));
+                        CATS.App.register_adapter(new CATS.Adapter.Ifmo([-1], CATS.Test.ifmo_html_data));
                         CATS.App.register_rule(new CATS.Rule.Acm());
 
                         jasmine.getEnv().execute();

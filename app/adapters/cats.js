@@ -3,7 +3,7 @@ CATS.Adapter.Cats = Classify({
     init : function(contest_id, page) {
         if (page != undefined)
             this.page = page;
-        this.contest_id = contest_id;
+        this.contest_id = contest_id[0];
         this.name = "cats";
         this.model = null;
         this.aliases = {
@@ -19,14 +19,6 @@ CATS.Adapter.Cats = Classify({
             'last_ip' : 'last_ip',
             'code' : 'code'
         }
-    },
-
-    string_to_date : function(str) {
-        var d = str.split(" ");
-        var date = d[0].split(".");
-        var time = d[1].split(":");
-
-        return new Date(date[2], date[1] - 1, date[0], time[0], time[1]);
     },
 
     parse_history : function(result_table) {
@@ -74,7 +66,7 @@ CATS.Adapter.Cats = Classify({
         contest.id = "cats_contest";
         contest.name = "cats_contest";
         contest.scoring = "acm";
-        contest.start_time = this.string_to_date("07.11.2014 18:00");
+        contest.start_time = "07.11.2014 18:00".to_date();
         CATS.App.add_object(contest);
         return contest;
     },

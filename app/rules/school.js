@@ -17,7 +17,7 @@ CATS.Rule.School = Classify({
                     if (v['best_run_time'])
                         run['start_processing_time'] = add_time(contest_start_time, v['best_run_time']);
 
-                    run['status'] = (v['points'] == 100) ? 'accepted' : 'wrong_answer';
+                    run['status'] = (v['points'] == CATS.App.problems[run['problem']].max_points) ? 'accepted' : 'wrong_answer';
                     run['points'] = v['points'];
                     CATS.App.add_object(run);
                     contest.add_object(run);
