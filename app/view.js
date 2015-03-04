@@ -168,7 +168,9 @@ CATS.View = Classify({
             this.define_stylesheet(skin);
             if (page_name == "table")
                 page_name += "_" + CATS.App.contests[params.contests[0]].scoring; //указываются правила
-            this.$el.html(this.header("header_" + this.view_state.get("state")) + this.page(skin, page_name)({
+
+            var header = this.with_header ? this.header("header_" + this.view_state.get("state")) : "";
+            this.$el.html(header + this.page(skin, page_name)({
                 app: CATS.App,
                 models: params,
                 source: source,
@@ -210,11 +212,12 @@ CATS.View = Classify({
 
         start: function () {
             var current = this.router.current();
-            this.router.navigate(current.params != null ? current.fragment : "!show_contests/codeforces/codeforces", {trigger: true});
+            var default_url = this.default_url_hash ? this.default_url_hash : "!show_contests/codeforces/codeforces";
+            this.router.navigate(current.params != null ? current.fragment : default_url, {trigger: true});
         }
     }),
 
-    display : function () {
+    display : function (defaults) {
         //$(document).on('click', 'a', function() {return false;});
         var tpl = this.tpl;
         var self = this;
@@ -226,11 +229,11 @@ CATS.View = Classify({
                 router.navigate(router.generate_url());
             })
 
-            var view = new self.View_logic({
+            var view = new self.View_logic($.extend({
                 view_state: view_state,
                 router: router,
                 tpl: tpl
-            });
+            }, defaults));
 
             Backbone.history.start();
             view.start();
