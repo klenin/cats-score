@@ -233,7 +233,8 @@ CATS.View = Classify({
             var view = new self.View_logic($.extend({
                 view_state: view_state,
                 router: router,
-                tpl: tpl
+                tpl: tpl,
+                base_url: self.base_url
             }, defaults));
 
             Backbone.history.start();
