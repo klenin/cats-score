@@ -141,7 +141,7 @@ CATS.View = Classify({
 
         define_stylesheet: function (skin) {
             $('link').detach();
-            $('head').append('<link rel="stylesheet" href="app/css/' + skin + '.css" type="text/css" />');
+            $('head').append('<link rel="stylesheet" href="'  + this.base_url + '/css/' + skin + '.css" type="text/css" />');
         },
 
         refresh: function () {
