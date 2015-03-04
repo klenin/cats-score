@@ -25,43 +25,32 @@ function minutes_to_formated_hours(min) {
     return Math.floor(min / 60) + ":" + zeroPad(min % 60, 2);
 }
 
+function formated_hours_to_minutes(h) {
+    var time = h.split(":");
+    return time[0] * 60 + time[1] * 1;
+}
+
 Array.prototype.top = function () {
     return this[this.length - 1];
+}
+
+String.prototype.to_date = function () {
+    var d = this.split(" ");
+    var date = d[0].split(".");
+    var time = d[1].split(":");
+
+    return new Date(date[2], date[1] - 1, date[0], time[0], time[1]);
 }
 
 String.prototype.throw_last_chars = function (num) {
     return this.substring(0, this.length - num);
 }
 
-String.prototype.capitalize = function() {
-    return this.charAt(0).toUpperCase() + this.slice(1);
+String.prototype.throw_first_chars = function (num) {
+    return this.substring(num, this.length);
 }
 
-function extendGetScriptFunction(base_script_place) {
-    var getScript = $.getScript;
-
-    $.getScript = function (resources, callback) {
-        var loadScript = function (index) {
-            var name = resources[index];
-            console.log('Loading script: ' + name);
-            getScript(base_script_place + name, function () {
-                index++;
-                if (index < resources.length) {
-                    loadScript(index);
-                } else {
-                    callback();
-                }
-            }).fail(function(){
-                if(arguments[0].readyState==0){
-                    //script failed to load
-                }else{
-                    //script loaded but failed to parse
-                    alert(arguments[2].toString());
-                }
-            });
-        }
-
-        loadScript(0);
-    };
+String.prototype.capitalize = function() {
+    return this.charAt(0).toUpperCase() + this.slice(1);
 }
 

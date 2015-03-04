@@ -3,7 +3,7 @@ CATS.Adapter.Ifmo = Classify({
         if (page != undefined)
             this.page = page;
 
-        this.contest_id = contest_id;
+        this.contest_id = contest_id[0];
 
         this.name = "ifmo";
         this.aliases = {
