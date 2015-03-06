@@ -1,0 +1,38 @@
+<%
+var contest_id = models.contests[0];
+var contest = app.contests[contest_id];
+%>
+<table width="100%" cellspacing="1" class="bordered rank_table highlight"><tr bgcolor="#ccccff">
+<%
+var tbl_header = [];
+_.each(app.runs[app.contests[contest_id].runs[0]], function(v, k){
+%>
+<th>
+<%=k%>
+<%tbl_header.push(k);%>
+</th>
+<%
+});
+%>
+</tr>
+    <input type="hidden" id="last_elem_idx" value="<%=app.contests[contest_id].runs.length%>" />
+<%
+var idx = 0;
+_.each(app.contests[contest_id].runs.slice(next_page, next_page + elem_cnt), function(run){
+idx++;
+%>
+<tr class='<%= idx % 2 != 0 ? "even" : "odd" %>'>
+<%
+for(var i = 0; i < tbl_header.length; ++i){
+%>
+<td>
+<%=app.runs[run][tbl_header[i]]%>
+</td>
+<%
+};
+%>
+</tr>
+<%
+});
+%>
+</table>

@@ -1,0 +1,26 @@
+<table width="100%" cellspacing="1" class="bordered rank_table highlight"><tr bgcolor="#ccccff">
+        <th>
+            id
+        </th>
+        <th>
+            name
+        </th>
+    </tr>
+    <%
+    var contests = models.contests, idx = 0;
+    _.each(contests.slice(next_page, next_page + elem_cnt), function(id){
+    idx++;
+    %>
+    <tr class='<%= idx % 2 != 0 ? "even" : "odd" %>'>
+        <td>
+            <%=id%>
+        </td>
+        <td>
+            <a href="#!show_rank_table/<%=source%>/table/<%=skin%>/<%=id%>"><%=app.contests[id].name%></a>
+        </td>
+    </tr>
+    <%
+    });
+    %>
+    <input type="hidden" id="last_elem_idx" value="<%=contests.length%>" />
+</table>

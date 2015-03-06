@@ -50,10 +50,11 @@ CATS.Adapter.Cats = Classify({
             contest.add_object(user);
             //add run to contest and controller
             var run = new CATS.Model.Run();
+            run.id = row['id'];
             run.problem = prob.id;
             run.user = user.id;
             run.status = row['state'];
-            run.start_processing_time = self.string_to_date(row['submit_time']);
+            run.start_processing_time = row['submit_time'].to_date();
             CATS.App.add_object(run);
             contest.add_object(run);
         });

@@ -45,11 +45,12 @@ require(['jquery'], function () {
                         CATS.App.register_rule(new CATS.Rule.Acm());
                         CATS.App.register_rule(new CATS.Rule.School());
 
-                        var view = new CATS.View([
+                        var view = new CATS.View('app/skins/', [
                             'header_rank_table', 'header_contests_list',
                             'default/table_acm', 'default/table_school', 'default/history', 'default/contests',
                             'ifmo/table_acm', 'ifmo/table_school', 'ifmo/history', 'ifmo/contests',
                             'codeforces/table_acm', 'codeforces/table_school', 'codeforces/history', 'codeforces/contests',
+                            'cats/table_acm', 'cats/table_school', 'cats/history', 'cats/contests',
                         ]);
 
                         //argument is optional

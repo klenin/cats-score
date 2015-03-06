@@ -19,7 +19,7 @@ var table = app.result_tables[table_id];
         for (var i = 0; i < contest.problems.length; ++i) {
         %>
         <th class="problem">
-            <%=get_problem_code_by_index(i)%>
+            <%=contest.problems[i].code%>
         </th>
         <%
         };
@@ -52,7 +52,7 @@ var table = app.result_tables[table_id];
         %>
         <td>
             <% if (row["problems"][i]["points"]) {%>
-            <i><%=row["problems"][i]["points"]%>
+            <i><%=row["problems"][i]["points"]%></i>
             <%} else %>
             <b>-</b>
         </td>

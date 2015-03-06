@@ -19,7 +19,7 @@ var table = app.result_tables[table_id];
         for (var i = 0; i < contest.problems.length; ++i) {
         %>
         <th class="problem">
-            <%=get_problem_code_by_index(i)%>
+            <%=contest.problems[i].code%>
         </th>
         <%
         };
@@ -55,7 +55,7 @@ var table = app.result_tables[table_id];
             <i><%="+" + (row["problems"][i]["runs_cnt"] > 1 ? row["problems"][i]["runs_cnt"] - 1 : "")%>
             <s><br><%=minutes_to_formated_hours(row["problems"][i]["best_run_time"])%></s></i>
             <%} else %>
-            <b><%="-" + (row["problems"][i]["runs_cnt"] > 1 ? row["problems"][i]["runs_cnt"] - 1 : "")%></b>
+            <b><%="-" + (row["problems"][i]["runs_cnt"] > 0 ? row["problems"][i]["runs_cnt"] : "")%></b>
         </td>
 
         <%
