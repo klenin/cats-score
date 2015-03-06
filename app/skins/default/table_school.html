@@ -18,7 +18,7 @@ var table = app.result_tables[table_id];
         for (var i = 0; i < contest.problems.length; ++i) {
         %>
         <th>
-            <%=get_problem_code_by_index(i)%>
+            <%=contest.problems[i].code%>
         </th>
         <%
         };

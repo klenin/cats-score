@@ -56,7 +56,7 @@ CATS.Adapter.Ifmo = Classify({
                         runs_cnt = $(runs).html();
                         if (runs_cnt.length == 1)
                             runs_cnt = 0;
-                        runs_cnt = Math.abs(parseInt(runs_cnt)) + 1;
+                        runs_cnt = Math.abs(parseInt(runs_cnt));
                     }
                     else if ($(this).html() == ".") {
                         solved = false;
@@ -71,7 +71,7 @@ CATS.Adapter.Ifmo = Classify({
                             prob['best_run_time'] = solved;
                             row['solved_cnt']++;
                         }
-                        prob['runs_cnt'] = runs_cnt;
+                        prob['runs_cnt'] = solved ? runs_cnt + 1 : runs_cnt;
 
                         row['problems'].push(prob);
                     }

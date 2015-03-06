@@ -50,6 +50,7 @@ require(['jquery'], function () {
                             'default/table_acm', 'default/table_school', 'default/history', 'default/contests',
                             'ifmo/table_acm', 'ifmo/table_school', 'ifmo/history', 'ifmo/contests',
                             'codeforces/table_acm', 'codeforces/table_school', 'codeforces/history', 'codeforces/contests',
+                            'cats/table_acm', 'cats/table_school', 'cats/history', 'cats/contests',
                         ]);
 
                         //argument is optional

@@ -20,7 +20,7 @@ CATS.Adapter.Cats_rank_table = Classify({
 
             contest.scoring = con.scoring;
             contest.max_points = con.max_points;
-            contest.start_time = con.start_date;
+            contest.start_time = con.start_date.to_date();
 
             $.each(con.problems, function (k, v) {
                 var problem = new CATS.Model.Problem();
@@ -38,7 +38,7 @@ CATS.Adapter.Cats_rank_table = Classify({
             user.name = r.name;
             user.id = r.id;
             user.is_remote = r.remote;
-            user.state = r.state;
+            user.role = r.state;
             user.description = r.console_url;
             user.affiliation = {name: r.t};
             CATS.App.add_object(user);
@@ -51,7 +51,11 @@ CATS.Adapter.Cats_rank_table = Classify({
                 var prob = result_table.get_empty_problem_for_score_board_row();
                 prob.problem = problem_ids[i];
                 prob.is_solved = r.td != undefined ? r.td[i].charAt(0) == '+' : r.pt[i] == problem_max_points[i];
-                prob.run_cnt = r.td != undefined ? r.td[i].throw_first_chars(1) : null;
+                prob.runs_cnt = r.td != undefined && r.td[i].throw_first_chars(1) != "" ?
+                    parseInt(r.td[i].throw_first_chars(1)) :
+                    0;
+                if (prob.is_solved)
+                    prob.runs_cnt++;
                 prob.best_run_time = r.tm != undefined ? formated_hours_to_minutes(r.tm[i]) : null;
                 prob.points = r.pt != undefined ? r.pt[i] : null;
                 row.problems.push(prob);

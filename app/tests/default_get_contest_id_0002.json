@@ -19,11 +19,11 @@
 
   { "type" : "problem" , "id" : "0001", "external_id" : null, "tags" : null, "description" : null, "name" : "problem A",
     "code": "A", "contest": null, "language" : null, "text_url" : null, "package_url" : null, "status" : "ok",
-    "max_points" : null, "last_update_time" : null, "limits" : { "time" : null, "memory" : null }, "baloon_color" : null, "data" : null
+    "max_points" : 100, "last_update_time" : null, "limits" : { "time" : null, "memory" : null }, "baloon_color" : null, "data" : null
   },
   { "type" : "problem" , "id" : "0002", "external_id" : null, "tags" : null, "description" : null, "name" : "problem B",
     "code": "B", "contest": null, "language" : null, "text_url" : null, "package_url" : null, "status" : "ok",
-    "max_points" : null, "last_update_time" : null, "limits" : { "time" : null, "memory" : null }, "baloon_color" : null, "data" : null
+    "max_points" : 100, "last_update_time" : null, "limits" : { "time" : null, "memory" : null }, "baloon_color" : null, "data" : null
   },
 
   { "type" : "run" , "id" : "10001", "external_id" : null, "tags" : null, "description" : null, "time" : null,

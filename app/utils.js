@@ -4,14 +4,6 @@ function add_time(date, time) {
     return d;
 }
 
-function get_problem_code_by_index(id) {
-    return String.fromCharCode(65 + parseInt(id));
-}
-
-function get_problem_index(code) {
-    return code.charCodeAt(0) - 65;
-}
-
 function get_time_diff(date1, date2) {
     return Math.floor((date2 - date1) / (1000 * 60));
 }

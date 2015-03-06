@@ -23,5 +23,13 @@ CATS.Model.Contest = Classify(CATS.Model.Entity, {
     add_object: function (obj) {
         if ($.inArray(obj.id, this[obj.type + "s"]) == -1)
             this[obj.type + "s"].push(obj.id);
+    },
+
+    get_problem_index: function (p_id) {
+        for(var i = 0; i < this.problems.length; ++i)
+            if (this.problems[i] == p_id)
+                return i;
+
+        return null;
     }
 });

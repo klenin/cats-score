@@ -43,11 +43,11 @@ CATS.Rule.School = Classify({
                     teams_problems[team_id][i] = result_table.get_empty_problem_for_score_board_row();
                     teams_problems[team_id][i]['is_solved'] = false;
                     teams_problems[team_id][i]['runs_cnt'] = 0;
-                    teams_problems[team_id][i]['problem'] = CATS.App.get_problem_by_code(get_problem_code_by_index(i))['name'];
+                    teams_problems[team_id][i]['problem'] = contest.problems[i];
                 }
             }
 
-            var p_idx = get_problem_index(CATS.App.problems[row['problem']]['code']);
+            var p_idx = contest.get_problem_index(row['problem']);
 
             teams_problems[team_id][p_idx]['runs_cnt']++;
             teams_problems[team_id][p_idx]['last_run_time'] = get_time_diff(contest_start_time, row['start_processing_time']);
