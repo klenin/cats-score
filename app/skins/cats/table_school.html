@@ -1,0 +1,94 @@
+<%
+var contest_id = models.contests[0];
+var table_id = models.table;
+var contest = app.contests[contest_id];
+var table = app.result_tables[table_id];
+%>
+<table width="100%" cellspacing="1" class="bordered rank_table highlight"><tr bgcolor="#ccccff">
+    <th width="1%"></th><th>Название команды</th>
+
+    <%
+    var w = Math.floor(50 / (contest.problems.length + 1));
+    w = w < 3 ? 3 : w > 10 ? 10 : w;
+    var problems_stats = [], max_total_pts = 0;
+    for (var i = 0; i < contest.problems.length; ++i) {
+    %>
+    <th width="<%=w%>%">
+        <%
+        problems_stats[i] = 0;
+        var c = CATS.App.problems[contest.problems[i]];
+        max_total_pts += c.max_points;
+        %>
+        <a href="<%=c.text_url%>" alt="<%=c.name%>" title="<%=c.name%>"><%=c.code%></a>
+        (<%=c.max_points%>)
+    </th>
+    <%
+    };
+    %>
+    <th width="<%=w%>%">всего (<%=max_total_pts%>)</th>
+    <th>место</th>
+    <th>статус</th>
+</tr>
+<input type="hidden" id="last_elem_idx" value="<%=table.score_board.length%>" />
+<%
+    var use_color = 'odd', idx = 0;
+    _.each(table.score_board.slice(next_page, next_page + elem_cnt), function(row) {
+        if (idx % 5 == 0)
+            use_color = use_color == 'even' ? 'odd' : 'even';
+        idx++;
+        var total_pts = 0;
+%>
+<tr align="center" class='<%=use_color%>' >
+    <td align="right">
+        <%=idx%>&nbsp;
+    </td>
+    <td align="left">
+        <a href="<%=app.users[row['user']].description%>" title=""><%=app.users[row["user"]].name%></a>
+    </td>
+    <%
+    for (var i = 0; i < row["problems"].length; ++i) {
+    %>
+    <td>
+        <%if (row["problems"][i]["points"] != null) {%>
+            <%=row["problems"][i]["points"]%>
+            <%
+                problems_stats[i] += row["problems"][i]["points"];
+                total_pts += row["problems"][i]["points"];
+            %>
+        <%} else {%>
+            .
+        <%};%>
+    </td>
+    <%
+    };
+    %>
+    <td><%=total_pts%></td>
+    <td>
+        <%=row["place"]%>
+    </td>
+    <td class="ts">
+        <%=app.users[row["user"]].role%>
+        <%=(app.users[row["user"]].is_remote ? "remote" : "")%>
+    </td>
+</tr>
+<%
+});
+%>
+<tr>
+    <td>&nbsp;</td>
+
+    <td>Средний балл</td>
+
+    <%
+        for (var i = 0; i < contest.problems.length; ++i) {
+    %>
+    <td align="center">
+        <%=Math.round(problems_stats[i] / idx * 10) / 10%></td>
+    </th>
+    <%
+        };
+    %>
+    <td colspan="4">&nbsp;</td>
+
+</tr>
+</table>

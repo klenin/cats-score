@@ -1,0 +1,99 @@
+<%
+var contest_id = models.contests[0];
+var table_id = models.table;
+var contest = app.contests[contest_id];
+var table = app.result_tables[table_id];
+%>
+    <table width="100%" cellspacing="1" class="bordered rank_table highlight"><tr bgcolor="#ccccff">
+        <th width="1%"></th><th>Название команды</th>
+
+        <%
+            var w = Math.floor(50 / (contest.problems.length + 1));
+            w = w < 3 ? 3 : w > 10 ? 10 : w;
+            var problems_stats = [];
+            for (var i = 0; i < contest.problems.length; ++i) {
+        %>
+        <th width="<%=w%>%">
+        <%
+            problems_stats[i] = {s: 0, f: 0};
+            var c = CATS.App.problems[contest.problems[i]];
+        %>
+            <a href="<%=c.text_url%>" alt="<%=c.name%>" title="<%=c.name%>"><%=c.code%></a>
+        </th>
+        <%
+            };
+        %>
+        <th width="<%=w%>%">=</th>
+        <th>время</th>
+        <th>место</th>
+        <th>статус</th>
+    </tr>
+    <input type="hidden" id="last_elem_idx" value="<%=table.score_board.length%>" />
+    <%
+        var use_color = 'odd', last_solved_cnt = 0, idx = 0;
+        _.each(table.score_board.slice(next_page, next_page + elem_cnt), function(row) {
+            if (last_solved_cnt != row['solved_cnt'])
+                use_color = use_color == 'even' ? 'odd' : 'even';
+
+            idx++;
+    %>
+    <tr align="center" class='<%=use_color%>' >
+        <td align="right">
+            <%=idx%>&nbsp;
+        </td>
+        <td align="left">
+            <a href="<%=app.users[row['user']].description%>" title=""><%=app.users[row["user"]].name%></a>
+        </td>
+        <%
+            for (var i = 0; i < row["problems"].length; ++i) {
+        %>
+        <td>
+            <% if (row["problems"][i]["is_solved"]) {%>
+                <%problems_stats[i]['s'] += row["problems"][i]["runs_cnt"];%>
+                <p><%=minutes_to_formated_hours(row["problems"][i]["best_run_time"])%></p>
+                <%="+" + (row["problems"][i]["runs_cnt"] > 1 ? row["problems"][i]["runs_cnt"] - 1 : "")%>
+            <%} else {%>
+                <%problems_stats[i]['f'] += row["problems"][i]["runs_cnt"];%>
+                <p></p><%=row["problems"][i]["runs_cnt"] > 0 ? ( "-" + row["problems"][i]["runs_cnt"]) : "."%>
+            <%
+            }
+            %>
+        </td>
+        <%
+        };
+        last_solved_cnt = row['solved_cnt'];
+        %>
+        <td><%=row['solved_cnt']%></td>
+        <td>
+            <%=row["penalty"]%>
+        </td>
+        <td>
+            <%=row["place"]%>
+        </td>
+        <td class="ts">
+            <%=app.users[row["user"]].role%>
+            <%=(app.users[row["user"]].is_remote ? "remote" : "")%>
+        </td>
+    </tr>
+    <%
+        });
+    %>
+    <tr>
+        <td>&nbsp;</td>
+
+        <td>Успешных попыток</td>
+
+        <%
+            for (var i = 0; i < contest.problems.length; ++i) {
+        %>
+            <td align="center"><p>
+            <%=problems_stats[i]['s'] + "/" + (problems_stats[i]['s'] + problems_stats[i]['f'])%>
+            </p><%=Math.round(problems_stats[i]['s'] / (problems_stats[i]['s'] + problems_stats[i]['f']) * 100)%>%</td>
+        </th>
+        <%
+            };
+        %>
+        <td colspan="4">&nbsp;</td>
+
+    </tr>
+</table>
