@@ -56,6 +56,7 @@ require(['jquery'], function () {
                         //argument is optional
                         view.display({
                             with_header: true,
+                            with_pagination: true,
                             default_url_hash: "!show_contests_list/codeforces/codeforces"
                         });
                     });

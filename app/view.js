@@ -181,8 +181,8 @@ CATS.View = Classify({
                 models: params,
                 source: source,
                 skin: skin,
-                next_page: this.next_page(),
-                elem_cnt: this.view_state.get("elements_on_page")
+                next_page: this.with_pagination ? this.next_page() : 0,
+                elem_cnt:  this.with_pagination ? this.view_state.get("elements_on_page") : CATS.App.result_tables[params.table].score_board.length
             }));
 
             $("#source").val(this.source());
