@@ -167,8 +167,13 @@ CATS.View = Classify({
             var source = this.source();
             var skin = this.skin();
             this.define_stylesheet(skin);
+            var scoring = "acm";
+            for (var i = 0; i < params.contests.length; ++i) {
+                if (CATS.App.contests[params.contests[i]].scoring == "school") //суммируются турниры разных правил, выбирем школьные
+                    scoring = "school";
+            }
             if (page_name == "table")
-                page_name += "_" + CATS.App.contests[params.contests[0]].scoring; //указываются правила
+                page_name += "_" + scoring;
 
             var header = this.with_header ? this.header("header_" + this.view_state.get("state")) : "";
             this.$el.html(header + this.page(skin, page_name)({
@@ -176,8 +181,8 @@ CATS.View = Classify({
                 models: params,
                 source: source,
                 skin: skin,
-                next_page: this.next_page(),
-                elem_cnt: this.view_state.get("elements_on_page")
+                next_page: this.with_pagination ? this.next_page() : 0,
+                elem_cnt:  this.with_pagination ? this.view_state.get("elements_on_page") : CATS.App.result_tables[params.table].score_board.length
             }));
 
             $("#source").val(this.source());
