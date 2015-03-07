@@ -107,8 +107,9 @@ var table = app.result_tables[table_id];
     </tr>
     <%
         });
-    %>
-    <tr>
+        use_color = use_color == 'even' ? 'odd' : 'even';
+        %>
+        <tr class='<%=use_color%>' >
         <td>&nbsp;</td>
 
         <td>Успешных попыток</td>
