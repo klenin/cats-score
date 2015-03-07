@@ -15,7 +15,7 @@ var table = app.result_tables[table_id];
         %>
         <th width="<%=w%>%">
         <%
-            problems_stats[i] = {s: 0, f: 0};
+            problems_stats[i] = {s: 0, t: 0};
             var c = CATS.App.problems[contest.problems[i]];
         %>
             <a href="<%=c.text_url%>" alt="<%=c.name%>" title="<%=c.name%>"><%=c.code%></a>
@@ -49,15 +49,16 @@ var table = app.result_tables[table_id];
         %>
         <td>
             <% if (row["problems"][i]["is_solved"]) {%>
-                <%problems_stats[i]['s'] += row["problems"][i]["runs_cnt"];%>
+                <%problems_stats[i]['s']++;
+            %>
                 <p><%=minutes_to_formated_hours(row["problems"][i]["best_run_time"])%></p>
                 <%="+" + (row["problems"][i]["runs_cnt"] > 1 ? row["problems"][i]["runs_cnt"] - 1 : "")%>
             <%} else {%>
-                <%problems_stats[i]['f'] += row["problems"][i]["runs_cnt"];%>
                 <p></p><%=row["problems"][i]["runs_cnt"] > 0 ? ( "-" + row["problems"][i]["runs_cnt"]) : "."%>
             <%
             }
             %>
+            <%problems_stats[i]['t'] += row["problems"][i]["runs_cnt"];%>
         </td>
         <%
         };
@@ -87,8 +88,8 @@ var table = app.result_tables[table_id];
             for (var i = 0; i < contest.problems.length; ++i) {
         %>
             <td align="center"><p>
-            <%=problems_stats[i]['s'] + "/" + (problems_stats[i]['s'] + problems_stats[i]['f'])%>
-            </p><%=Math.round(problems_stats[i]['s'] / (problems_stats[i]['s'] + problems_stats[i]['f']) * 100)%>%</td>
+            <%=problems_stats[i]['s'] + "/" + problems_stats[i]['t']%>
+            </p><%=Math.round(problems_stats[i]['s'] / problems_stats[i]['t'] * 100)%>%</td>
         </th>
         <%
             };
