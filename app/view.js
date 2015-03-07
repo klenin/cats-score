@@ -167,8 +167,13 @@ CATS.View = Classify({
             var source = this.source();
             var skin = this.skin();
             this.define_stylesheet(skin);
+            var scoring = "acm";
+            for (var i = 0; i < params.contests.length; ++i) {
+                if (CATS.App.contests[params.contests[i]].scoring == "school") //суммируются турниры разных правил, выбирем школьные
+                    scoring = "school";
+            }
             if (page_name == "table")
-                page_name += "_" + CATS.App.contests[params.contests[0]].scoring; //указываются правила
+                page_name += "_" + scoring;
 
             var header = this.with_header ? this.header("header_" + this.view_state.get("state")) : "";
             this.$el.html(header + this.page(skin, page_name)({

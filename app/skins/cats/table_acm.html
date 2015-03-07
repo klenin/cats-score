@@ -1,27 +1,56 @@
 <%
-var contest_id = models.contests[0];
 var table_id = models.table;
-var contest = app.contests[contest_id];
 var table = app.result_tables[table_id];
 %>
-    <table width="100%" cellspacing="1" class="bordered rank_table highlight"><tr bgcolor="#ccccff">
+    <table width="100%" cellspacing="1" class="bordered rank_table highlight">
+        <%if (models.contests.length > 1) {%>
+        <tr bgcolor="#ccccff">
+            <th colspan="2"></th>
+            <%for(var j = 0; j < models.contests.length; ++j) {%>
+            <%
+            var contest_id = models.contests[j];
+            var contest = app.contests[contest_id];
+            %>
+            <th colspan="<%=contest.problems.length%>"><%=contest.start_time.format("dd.mm.yyyy")%></th>
+            <%
+            };
+            %>
+            <th colspan="4"></th>
+        </tr>
+        <%}%>
+        <tr bgcolor="#ccccff">
         <th width="1%"></th><th>Название команды</th>
 
         <%
-            var w = Math.floor(50 / (contest.problems.length + 1));
-            w = w < 3 ? 3 : w > 10 ? 10 : w;
-            var problems_stats = [];
-            for (var i = 0; i < contest.problems.length; ++i) {
+        var problems_cnt = 0;
+        for(var j = 0; j < models.contests.length; ++j) {
+            problems_cnt += app.contests[models.contests[j]].problems.length;
+        }
+        var w = Math.floor(50 / (problems_cnt + 1));
+        w = w < 3 ? 3 : w > 10 ? 10 : w;
+        var problems_stats = [], prob_idx = 0;
         %>
-        <th width="<%=w%>%">
+        <%for(var j = 0; j < models.contests.length; ++j) {%>
+            <%
+                var contest_id = models.contests[j];
+                var contest = app.contests[contest_id];
+                for (var i = 0; i < contest.problems.length; ++i) {
+            %>
+            <th width="<%=w%>%">
+            <%
+                problems_stats[prob_idx] = {s: 0, t: 0};
+                var c = CATS.App.problems[contest.problems[i]];
+                prob_idx++;
+            %>
+                <a href="<%=c.text_url%>" alt="<%=c.name%>" title="<%=c.name%>"><%=c.code%></a>
+            </th>
+            <%
+                };
+            %>
         <%
-            problems_stats[i] = {s: 0, t: 0};
-            var c = CATS.App.problems[contest.problems[i]];
-        %>
-            <a href="<%=c.text_url%>" alt="<%=c.name%>" title="<%=c.name%>"><%=c.code%></a>
-        </th>
-        <%
-            };
+        };
+        var w = Math.floor(50 / (problems_cnt + 1));
+        w = w < 3 ? 3 : w > 10 ? 10 : w;
         %>
         <th width="<%=w%>%">=</th>
         <th>время</th>
@@ -85,7 +114,7 @@ var table = app.result_tables[table_id];
         <td>Успешных попыток</td>
 
         <%
-            for (var i = 0; i < contest.problems.length; ++i) {
+            for (var i = 0; i < problems_cnt; ++i) {
         %>
             <td align="center"><p>
             <%=problems_stats[i]['s'] + "/" + problems_stats[i]['t']%>

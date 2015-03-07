@@ -1,27 +1,53 @@
 <%
-var contest_id = models.contests[0];
 var table_id = models.table;
-var contest = app.contests[contest_id];
 var table = app.result_tables[table_id];
 %>
-<table width="100%" cellspacing="1" class="bordered rank_table highlight"><tr bgcolor="#ccccff">
-    <th width="1%"></th><th>Название команды</th>
-
-    <%
-    var w = Math.floor(50 / (contest.problems.length + 1));
-    w = w < 3 ? 3 : w > 10 ? 10 : w;
-    var problems_stats = [], max_total_pts = 0;
-    for (var i = 0; i < contest.problems.length; ++i) {
-    %>
-    <th width="<%=w%>%">
+<table width="100%" cellspacing="1" class="bordered rank_table highlight">
+<%if (models.contests.length > 1) {%>
+<tr bgcolor="#ccccff">
+        <th colspan="2"></th>
+        <%for(var j = 0; j < models.contests.length; ++j) {%>
         <%
-        problems_stats[i] = 0;
-        var c = CATS.App.problems[contest.problems[i]];
-        max_total_pts += c.max_points;
+        var contest_id = models.contests[j];
+        var contest = app.contests[contest_id];
         %>
-        <a href="<%=c.text_url%>" alt="<%=c.name%>" title="<%=c.name%>"><%=c.code%></a>
-        (<%=c.max_points%>)
-    </th>
+        <th colspan="<%=contest.problems.length%>"><%=contest.start_time.format("dd.mm.yyyy")%></th>
+        <%
+        };
+        %>
+        <th colspan="4"></th>
+</tr>
+<%}%>
+    <tr bgcolor="#ccccff">
+    <th width="1%"></th><th>Название команды</th>
+    <%
+    var problems_cnt = 0;
+    for(var j = 0; j < models.contests.length; ++j) {
+        problems_cnt += app.contests[models.contests[j]].problems.length;
+    }
+    var w = Math.floor(50 / (problems_cnt + 1));
+    w = w < 3 ? 3 : w > 10 ? 10 : w;
+    var problems_stats = [], max_total_pts = 0, prob_idx = 0;
+    %>
+    <%for(var j = 0; j < models.contests.length; ++j) {%>
+        <%
+        var contest_id = models.contests[j];
+        var contest = app.contests[contest_id];
+        for (var i = 0; i < contest.problems.length; ++i) {
+        %>
+        <th width="<%=w%>%">
+            <%
+            problems_stats[prob_idx] = 0;
+            var c = CATS.App.problems[contest.problems[i]];
+            max_total_pts += c.max_points * 1;
+            prob_idx++;
+            %>
+            <a href="<%=c.text_url%>" alt="<%=c.name%>" title="<%=c.name%>"><%=c.code%></a>
+            (<%=c.max_points%>)
+        </th>
+        <%
+        };
+        %>
     <%
     };
     %>
@@ -31,7 +57,7 @@ var table = app.result_tables[table_id];
 </tr>
 <input type="hidden" id="last_elem_idx" value="<%=table.score_board.length%>" />
 <%
-    var use_color = 'odd', idx = 0;
+    var use_color = 'even', idx = 0;
     _.each(table.score_board.slice(next_page, next_page + elem_cnt), function(row) {
         if (idx % 5 == 0)
             use_color = use_color == 'even' ? 'odd' : 'even';
@@ -52,8 +78,10 @@ var table = app.result_tables[table_id];
         <%if (row["problems"][i]["points"] != null) {%>
             <%=row["problems"][i]["points"]%>
             <%
-                problems_stats[i] += row["problems"][i]["points"];
-                total_pts += row["problems"][i]["points"];
+                if (row["problems"][i]["points"] != '.') {
+                    problems_stats[i] += row["problems"][i]["points"] * 1;
+                    total_pts += row["problems"][i]["points"] * 1;
+                }
             %>
         <%} else {%>
             .
@@ -73,14 +101,15 @@ var table = app.result_tables[table_id];
 </tr>
 <%
 });
+    use_color = use_color == 'even' ? 'odd' : 'even';
 %>
-<tr>
+<tr class='<%=use_color%>' >
     <td>&nbsp;</td>
 
     <td>Средний балл</td>
 
     <%
-        for (var i = 0; i < contest.problems.length; ++i) {
+        for (var i = 0; i < problems_cnt; ++i) {
     %>
     <td align="center">
         <%=Math.round(problems_stats[i] / idx * 10) / 10%></td>
