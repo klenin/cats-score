@@ -16,11 +16,14 @@ CATS.Adapter.Cats_rank_table = Classify({
         $.each(obj.contests, function (k, con) {
             var contest = CATS.App.contests[con.id];
             if (contest == undefined)
-                contest = self.add_contest();
+                contest = self.add_contest({
+                    id: con.id,
+                    name: "",
+                    scoring: con.scoring,
+                    start_time: con.start_date.to_date()
+                });
 
-            contest.scoring = con.scoring;
-            contest.max_points = con.max_points;
-            contest.start_time = con.start_date.to_date();
+
 
             $.each(con.problems, function (k, v) {
                 var problem = new CATS.Model.Problem();
@@ -66,16 +69,13 @@ CATS.Adapter.Cats_rank_table = Classify({
 
     add_contest: function(v) {
         var contest = CATS.Model.Contest(), contests = [];
-        contest.id = "cats_rank_table_contest";
-        contest.name = "cats_rank_table_contest";
-        contest.scoring = "acm";
-        contest.start_time = "07.11.2014 18:00".to_date();
+        $.extend(contest, v);
         CATS.App.add_object(contest);
         return contest;
     },
 
     get_contests: function(callback) {
-        this.add_contest()
+        this.add_contest({id: "cats_rank_table_contest", name: "cats_rank_table_contest", scoring: "acm", start_time: "07.11.2014 18:00".to_date()});
         callback(["cats_rank_table_contest"]);
     },
 
