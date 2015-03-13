@@ -11,6 +11,7 @@ CATS.View = Classify({
             source: null,
             skin: null,
             contest_id: null,
+            lang: null,
             next_page: 0,
             elements_on_page: 20
         },
@@ -25,15 +26,25 @@ CATS.View = Classify({
 
         routes: {
             "!show_contests_list/:source/:skin": "show_contests_list",
-            "!show_rank_table/:source/:page_name/:skin/:contestid": "show_rank_table"
+            "!show_contests_list/:source/:skin/:lang": "show_contests_list_with_lang",
+            "!show_rank_table/:source/:page_name/:skin/:contestid": "show_rank_table",
+            "!show_rank_table/:source/:page_name/:skin/:contestid/:lang": "show_rank_table_with_lang"
         },
 
         show_contests_list: function (source, skin) {
             this.view_state.set({ source: source, page_name: 'contests', state: 'contests_list', skin: skin });
         },
 
+        show_contests_list_with_lang: function (source, skin, lang) {
+            this.view_state.set({ source: source, page_name: 'contests', state: 'contests_list', skin: skin, lang: lang });
+        },
+
         show_rank_table: function (source, page_name, skin, contest_id) {
             this.view_state.set({ source: source, page_name: page_name, state: 'rank_table', skin: skin, contest_id: contest_id });
+        },
+
+        show_rank_table_with_lang: function (source, page_name, skin, contest_id, lang) {
+            this.view_state.set({ source: source, page_name: page_name, state: 'rank_table', skin: skin, contest_id: contest_id, lang: lang });
         },
 
         generate_url: function() {
@@ -43,11 +54,13 @@ CATS.View = Classify({
                         this.view_state.get("source") + "/" +
                         this.view_state.get("page_name") + "/" +
                         this.view_state.get("skin") + "/" +
-                        this.view_state.get("contest_id");
+                        this.view_state.get("contest_id") +
+                        (this.view_state.get("lang") != null ? "/" + this.view_state.get("lang") : "");
                 case "contests_list":
                     return "!show_contests_list/" +
                         this.view_state.get("source") + "/" +
-                        this.view_state.get("skin");
+                        this.view_state.get("skin") +
+                        (this.view_state.get("lang") != null ? "/" + this.view_state.get("lang") : "");
                 default :
                     return null;
             }
@@ -155,6 +168,7 @@ CATS.View = Classify({
                 models: params,
                 source: source,
                 skin: skin,
+                lang: this.view_state.get("lang") != null ? this.view_state.get("lang") : "ru",
                 next_page: this.with_pagination ? this.next_page() : 0,
                 elem_cnt:  this.with_pagination ? this.view_state.get("elements_on_page") : CATS.App.result_tables[params.table].score_board.length
             }));
