@@ -1,33 +1,7 @@
 CATS.View = Classify({
-    init: function (base_url, skin_pages) {
-        this.skin_pages = skin_pages;
-        this.base_url = base_url;
-    },
-
-    tpl: {
-        templates: {},
-
-        loadTemplates: function (base_url, names, callback) {
-            var formated_names = [];
-            $.each(names, function(k, v) {
-                formated_names[k] = 'text!' + v + '.html';
-            });
-
-            var self = this;
-            requirejs.config({baseUrl: base_url});
-            require(formated_names, function () {
-                for (var i = 0; i < names.length; ++i) {
-                    self.templates[names[i]] = arguments[i];
-                    console.log("template " + names[i] + " loaded");
-                }
-                callback();
-            });
-        },
-
-        get: function (name) {
-            return this.templates[name];
-        }
-
+    init: function (templates, css_base_url) {
+        this.templates = templates;
+        this.css_base_url = css_base_url;
     },
 
     View_state: Backbone.Model.extend({
@@ -132,16 +106,16 @@ CATS.View = Classify({
         },
 
         header: function (name) {
-            return _.template(this.tpl.get(name))({});
+            return _.template(this.get_template(name))({});
         },
 
         page: function(skin, page_name) {
-            return _.template(this.tpl.get(skin + '/' + page_name));
+            return _.template(this.get_template(skin + '/' + page_name));
         },
 
         define_stylesheet: function (skin) {
             $('link').detach();
-            $('head').append('<link rel="stylesheet" href="'  + this.base_url + '/' + skin + '/style.css" type="text/css" />');
+            $('head').append('<link rel="stylesheet" href="'  + this.css_base_url + '/' + skin + '/style.css" type="text/css" />');
         },
 
         refresh: function () {
@@ -192,6 +166,10 @@ CATS.View = Classify({
             return this;
         },
 
+        get_template : function (name) {
+            return this.templates[name];
+        },
+
         page_name: function (page_name) {
             if (page_name != undefined)
                 this.view_state.set({page_name: page_name})
@@ -225,26 +203,25 @@ CATS.View = Classify({
 
     display : function (defaults) {
         //$(document).on('click', 'a', function() {return false;});
-        var tpl = this.tpl;
+        var templates = this.templates;
         var self = this;
-        tpl.loadTemplates(this.base_url, this.skin_pages, function() {
-            var view_state = new self.View_state();
-            var router = new self.Router({ view_state: view_state});
 
-            view_state.bind("change", function () {
-                router.navigate(router.generate_url());
-            })
+        var view_state = new self.View_state();
+        var router = new self.Router({ view_state: view_state});
 
-            var view = new self.View_logic($.extend({
-                view_state: view_state,
-                router: router,
-                tpl: tpl,
-                base_url: self.base_url
-            }, defaults));
+        view_state.bind("change", function () {
+            router.navigate(router.generate_url());
+        })
 
-            Backbone.history.start();
-            view.start();
-        });
+        var view = new self.View_logic($.extend({
+            view_state: view_state,
+            router: router,
+            templates: templates,
+            css_base_url: self.css_base_url
+        }, defaults));
+
+        Backbone.history.start();
+        view.start();
     }
 })
 

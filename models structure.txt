@@ -1,0 +1,121 @@
+id: [A-Za-z0-9]+ unique persistent
+version: \d+ \ hex
+times: ISO8601
+
+version:
+   id*
+
+entity[abstract]:
+    type*
+    id*
+    external_id?
+    version
+    tags
+    description
+
+user: entity
+    name*
+    contest?
+    url
+    full_name
+    login
+    email
+    affiliation: { name: }
+    region { name: }
+    role: "in_contest"* | "out_of_contest" | "virtual" | "jury", ? "commentator"
+    time_offset: seconds
+    is_remote
+    last_ip
+    last_action_time: ISO8601
+
+problem: entity
+    name*
+    code
+    contest?
+    language
+    text_url
+    package_url
+    status: "ok", "disabled", ? "on_hold", "hidden"
+    max_points
+    last_update_time
+    tests: [... TODO] // test_count
+    limits: { time: seconds, memory: bytes, ... }
+    baloon_color:
+    data: object
+
+contest: entity
+    name*
+    url
+    problems_url
+    full_name
+    affiliation: { name: }
+    start_time
+    finish_time
+    freeze_time
+    unfreeze_time
+    is_open_registration:
+    scoring*: "acm", "school"
+    is_all_results_visible?
+    problems*: [id, ...]
+    users: [id, ...]
+    prizes: [id, ...]
+
+compiler: entity
+
+event: entity
+    time*
+
+run: event
+    problem*: id
+    user*: id
+    compiler
+    source
+    status:
+        "not_processed"*, "processing",
+        "ok", "partial", "compile_error", "runtime_error",
+        "wrong_answer", "presentation_error", "memory_limit", "timie_limit", "idleness_limit",
+        "security_violation", "unhandled_error", "ignored", "rejected", "challenged"?
+    passed_test_count: \d+ (failed_test - 1)
+    points: \d+
+    start_processing_time
+    finish_processing_time
+    processor
+    ip
+    tests: [...TODO]
+    consumed?: { time: seconds, memory: bytes }
+
+chat: event
+    user_from?: id | "_jury"
+    user_to*: id | "_all" | "_jury"
+    text*
+    problem: id
+    thread: id
+    ip
+
+prize: entity
+    worst_rank
+
+type*: contest_start?, contest_finish?, reset?
+
+[
+    { type: "version", id: "1" },
+    { type: "user" },
+    { type: "problem" },
+    { type: "user" }
+    { type: "run" }
+]
+
+results_table: entity
+    contests*: [id, ...]
+    rows: [
+        place
+        user
+        problems: [
+            id*,
+            runs_count
+            is_solved
+            last_run_time
+            best_run_time
+            points
+        ]
+    ]
