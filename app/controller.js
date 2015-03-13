@@ -5,6 +5,7 @@ var CATS = {
     App: null,
     Test: {},
     View: null,
+    Langs: null,
     Controller: Classify({
         init: function () {
             //other

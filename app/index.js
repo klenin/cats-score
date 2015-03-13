@@ -34,7 +34,8 @@ require(['jquery'], function () {
                         'adapters/ifmo',
                         'adapters/codeforces',
                         'adapters/default',
-                        'view'
+                        'view',
+                        'skins/langs'
                     ], function () {
                         CATS.App = new CATS.Controller();
                         CATS.App.register_adapter(new CATS.Adapter.Cats([-1], CATS.Test.cats_xml_data));

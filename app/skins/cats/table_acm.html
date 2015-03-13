@@ -1,6 +1,7 @@
 <%
 var table_id = models.table;
 var table = app.result_tables[table_id];
+var capt = CATS.Langs.cats[lang];
 %>
     <table width="100%" cellspacing="1" class="bordered rank_table highlight">
         <%if (models.contests.length > 1) {%>
@@ -19,7 +20,7 @@ var table = app.result_tables[table_id];
         </tr>
         <%}%>
         <tr bgcolor="#ccccff">
-        <th width="1%"></th><th>Название команды</th>
+        <th width="1%"></th><th><%=capt.team_name%></th>
 
         <%
         var problems_cnt = 0;
@@ -39,7 +40,7 @@ var table = app.result_tables[table_id];
             <th width="<%=w%>%">
             <%
                 problems_stats[prob_idx] = {s: 0, t: 0};
-                var c = CATS.App.problems[contest.problems[i]];
+                var c = app.problems[contest.problems[i]];
                 prob_idx++;
             %>
                 <a href="<%=c.text_url%>" alt="<%=c.name%>" title="<%=c.name%>"><%=c.code%></a>
@@ -49,13 +50,11 @@ var table = app.result_tables[table_id];
             %>
         <%
         };
-        var w = Math.floor(50 / (problems_cnt + 1));
-        w = w < 3 ? 3 : w > 10 ? 10 : w;
         %>
         <th width="<%=w%>%">=</th>
-        <th>время</th>
-        <th>место</th>
-        <th>статус</th>
+        <th><%=capt.time%></th>
+        <th><%=capt.place%></th>
+        <th><%=capt.status%></th>
     </tr>
     <input type="hidden" id="last_elem_idx" value="<%=table.score_board.length%>" />
     <%
@@ -112,7 +111,7 @@ var table = app.result_tables[table_id];
         <tr class='<%=use_color%>' >
         <td>&nbsp;</td>
 
-        <td>Успешных попыток</td>
+        <td><%=capt.successful_submits%></td>
 
         <%
             for (var i = 0; i < problems_cnt; ++i) {
