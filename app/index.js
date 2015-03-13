@@ -47,7 +47,7 @@ require(['jquery'], function () {
 
 
                         var skins_names = [
-                            'skins/header_rank_table', 'header_contests_list',
+                            'header_rank_table', 'header_contests_list',
                             'default/table_acm', 'default/table_school', 'default/history', 'default/contests',
                             'ifmo/table_acm', 'ifmo/table_school', 'ifmo/history', 'ifmo/contests',
                             'codeforces/table_acm', 'codeforces/table_school', 'codeforces/history', 'codeforces/contests',
