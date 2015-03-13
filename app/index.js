@@ -1,9 +1,9 @@
 requirejs.config({
     baseUrl: 'app/',
     paths: {
-        jquery: "//yandex.st/jquery/2.0.3/jquery.min",
-        underscore: "//yandex.st/underscore/1.5.2/underscore-min",
-        backbone: "//yandex.st/backbone/1.0.0/backbone-min",
+        jquery: "../vendors/jquery.min",
+        underscore: "../vendors/underscore.min",
+        backbone: "../vendors/backbone.min",
         classify: "../vendors/classify.min",
         dateformat: "../vendors/date.format",
         utils: "../app/utils"
@@ -45,20 +45,38 @@ require(['jquery'], function () {
                         CATS.App.register_rule(new CATS.Rule.Acm());
                         CATS.App.register_rule(new CATS.Rule.School());
 
-                        var view = new CATS.View('app/skins/', [
-                            'header_rank_table', 'header_contests_list',
+
+                        var skins_names = [
+                            'skins/header_rank_table', 'header_contests_list',
                             'default/table_acm', 'default/table_school', 'default/history', 'default/contests',
                             'ifmo/table_acm', 'ifmo/table_school', 'ifmo/history', 'ifmo/contests',
                             'codeforces/table_acm', 'codeforces/table_school', 'codeforces/history', 'codeforces/contests',
                             'cats/table_acm', 'cats/table_school', 'cats/history', 'cats/contests',
-                        ]);
+                        ];
+                        var templates_names = [], templates =[];
 
-                        //argument is optional
-                        view.display({
-                            with_header: true,
-                            with_pagination: true,
-                            default_url_hash: "!show_contests_list/codeforces/codeforces"
+                        require([//we cant use skins_names array because optimization module works only with hardcoded array constant. Proof http://requirejs.org/docs/optimization.html
+                            'text!skins/header_rank_table.html', 'text!skins/header_contests_list.html',
+                            'text!skins/default/table_acm.html', 'text!skins/default/table_school.html', 'text!skins/default/history.html', 'text!skins/default/contests.html',
+                            'text!skins/ifmo/table_acm.html', 'text!skins/ifmo/table_school.html', 'text!skins/ifmo/history.html', 'text!skins/ifmo/contests.html',
+                            'text!skins/codeforces/table_acm.html', 'text!skins/codeforces/table_school.html', 'text!skins/codeforces/history.html', 'text!skins/codeforces/contests.html',
+                            'text!skins/cats/table_acm.html', 'text!skins/cats/table_school.html', 'text!skins/cats/history.html', 'text!skins/cats/contests.html',
+                        ], function () {
+                            for (var i = 0; i < skins_names.length; ++i) {
+                                templates[skins_names[i]] = arguments[i];
+                                console.log("template " + skins_names[i] + " loaded");
+                            }
+
+                            var view = new CATS.View(templates, 'app/skins');
+
+                            //argument is optional
+                            view.display({
+                                with_header: true,
+                                with_pagination: true,
+                                default_url_hash: "!show_contests_list/codeforces/codeforces"
+                            });
                         });
+
                     });
                 });
             });
