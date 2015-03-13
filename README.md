@@ -4,7 +4,7 @@ CATS Score is a unified rank table for programming contests scoring.
 
 ### Installation
 
-Just type in you web browser "file:///path/to/cats-score/index.html"
+make git clone and just type in you web browser "file:///path/to/cats-score/index.html"
 
 If you want to run at maximum performance, perform the following steps:
 
