@@ -153,7 +153,10 @@ CATS.View = Classify({
             var page_name = this.page_name();
             var source = this.source();
             var skin = this.skin();
-            this.define_stylesheet(skin);
+
+            if (this.with_css)
+                this.define_stylesheet(skin);
+
             var scoring = "acm";
             for (var i = 0; i < params.contests.length; ++i) {
                 if (CATS.App.contests[params.contests[i]].scoring == "school") //суммируются турниры разных правил, выбирем школьные

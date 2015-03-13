@@ -28,6 +28,7 @@ function cats_score_init() {
     view.display({
         with_header: true,
         with_pagination: true,
+        with_css: true,
         default_url_hash: "!show_contests_list/codeforces/codeforces"
     });
 }
