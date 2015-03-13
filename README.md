@@ -25,8 +25,8 @@ $ cd path/to/cats-score/
 $ nodejs /usr/local/bin/r.js -o build.js
 ```
 
-4) Next, in index.html make sure be to load "dist/index", not "app/index", like this
+4) Next, in index.html make sure be to load "dist/main", not "app/main", like this
 ```code
-<script type="text/javascript" src="vendors/requirejs/require.js" data-main="dist/index"></script>
+<script type="text/javascript" src="vendors/requirejs/require.js" data-main="dist/main"></script>
 ```
 5) Now, CATS Score should work with maximum performance! 
