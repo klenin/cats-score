@@ -21,4 +21,8 @@ $ cd path/to/cats-score/
 $ nodejs /usr/local/bin/r.js -o build.js
 ```
 
+Next, in index.html make sure be to load "dist/index", not "app/index", like this
+```code
+<script type="text/javascript" src="vendors/requirejs/require.js" data-main="dist/index"></script>
+```
 Now, CATS Score should work! 
