@@ -48,6 +48,7 @@ var CATS = {
                 var contest = CATS.App.contests[contest_list[0]];
                 CATS.App.rules[contest.scoring].process(contest, result_table);
                 CATS.App.add_object(result_table);
+                result_table.define_openers();
                 callback({contests : contest_list, table : result_table.id });
             });
         },

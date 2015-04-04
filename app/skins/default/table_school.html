@@ -16,9 +16,10 @@ var table = app.result_tables[table_id];
         </th>
         <%
         for (var i = 0; i < contest.problems.length; ++i) {
+        var prob = app.problems[contest.problems[i]];
         %>
         <th>
-            <%=contest.problems[i].code%>
+            <%=prob.code%>
         </th>
         <%
         };

@@ -1,5 +1,7 @@
 CATS.Langs = {
+    //skinslist
     'cats': {
+        //langslist
         'en': {
             not_started: 'Contest has not started yet',
             hide_ooc: 'hide ooc',
