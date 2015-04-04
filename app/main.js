@@ -43,6 +43,8 @@ require(['jquery'], function () {
                             'text!skins/ifmo/table_acm.html', 'text!skins/ifmo/table_school.html', 'text!skins/ifmo/history.html', 'text!skins/ifmo/contests.html',
                             'text!skins/codeforces/table_acm.html', 'text!skins/codeforces/table_school.html', 'text!skins/codeforces/history.html', 'text!skins/codeforces/contests.html',
                             'text!skins/cats/table_acm.html', 'text!skins/cats/table_school.html', 'text!skins/cats/history.html', 'text!skins/cats/contests.html',
+                            'text!skins/opencup/table_acm.html', 'text!skins/opencup/table_school.html', 'text!skins/opencup/history.html', 'text!skins/opencup/contests.html',
+                            //after add new skin make sure add new item to skins_names array in index.js
                         ], cats_score_init);
                     });
                 });

@@ -14,6 +14,7 @@ function cats_score_init() {
         'ifmo/table_acm', 'ifmo/table_school', 'ifmo/history', 'ifmo/contests',
         'codeforces/table_acm', 'codeforces/table_school', 'codeforces/history', 'codeforces/contests',
         'cats/table_acm', 'cats/table_school', 'cats/history', 'cats/contests',
+        'opencup/table_acm', 'opencup/table_school', 'opencup/history', 'opencup/contests',
     ];
     var templates_names = [], templates =[];
 
