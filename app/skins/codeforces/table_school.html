@@ -39,9 +39,10 @@ var table = app.result_tables[table_id];
         <th style="width:4em;">Очки</th>
         <%
         for (var i = 0; i < contest.problems.length; ++i) {
+        var prob = app.problems[contest.problems[i]];
         %>
         <th style="width:4em;">
-            <%=contest.problems[i].code%>
+            <%=prob.code%>
         </th>
         <%
         };
@@ -66,7 +67,7 @@ var table = app.result_tables[table_id];
         <%
         for (var i = 0; i < row["problems"].length; ++i) {
         %>
-        <td title="Cobol">
+        <td>
             <% if (row["problems"][i]["points"]) {%>
             <span class="cell-accepted"><%=row["problems"][i]["points"]%></span>
             <%} else %>

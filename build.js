@@ -1,8 +1,8 @@
 ({
-    mainConfigFile : "app/index.js",
+    mainConfigFile : "app/main.js",
     baseUrl : "app",
-    name: "index",
-    out: "dist/index.js",
+    name: "main",
+    out: "dist/main.js",
     removeCombined: true,
     findNestedDependencies: true
 })

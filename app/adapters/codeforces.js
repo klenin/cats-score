@@ -30,7 +30,7 @@ CATS.Adapter.Codeforces = Classify({
             prob.code = v['index'];
             CATS.App.add_object(prob);
             contest.add_object(prob);
-            problem_list.push($(this).attr("title"));
+            problem_list.push(prob.id);
         });
 
         $.each(cf_table.rows, function (k, v) {

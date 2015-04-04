@@ -4,25 +4,29 @@ CATS Score is a unified rank table for programming contests scoring.
 
 ### Installation
 
-You need install Node.js
+make git clone and just type in you web browser "file:///path/to/cats-score/index.html"
+
+If you want to run at maximum performance, perform the following steps:
+
+1) You need install Node.js
 ```sh
 $ sudo apt-get install nodejs
 ```
 
-Next, need requeredjs installed globally:
+2) Next, need requeredjs installed globally:
 
 ```sh
 $ npm install -g requirejs
 ```
 
-Next, build dist/index.js
+3) Next, build dist/index.js
 ```sh
 $ cd path/to/cats-score/
 $ nodejs /usr/local/bin/r.js -o build.js
 ```
 
-Next, in index.html make sure be to load "dist/index", not "app/index", like this
+4) Next, in index.html make sure be to load "dist/main", not "app/main", like this
 ```code
-<script type="text/javascript" src="vendors/requirejs/require.js" data-main="dist/index"></script>
+<script type="text/javascript" src="vendors/requirejs/require.js" data-main="dist/main"></script>
 ```
-Now, CATS Score should work! 
+5) Now, CATS Score should work with maximum performance! 
