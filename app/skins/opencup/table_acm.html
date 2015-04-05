@@ -4,6 +4,7 @@ var table_id = models.table;
 var contest = app.contests[contest_id];
 var contest_problems_stats = contest.get_problems_stats();
 var table = app.result_tables[table_id];
+table.define_openers();
 %>
 <h2><%=contest.name%></h2>
 <h3>runs: <%=contest.runs.length%></h3>
@@ -26,10 +27,18 @@ var table = app.result_tables[table_id];
         <th class="stnd">Time</th>
         <th class="stnd">Dirt</th>
         <th class="stnd">SE</th>
+        <th class="stnd">Raiting</th>
     </tr>
     <input type="hidden" id="last_elem_idx" value="<%=table.score_board.length%>" />
     <%
     var use_color = 'stand01', last_solved_cnt = 0, idx = 0;
+    var p_winner = table.score_board[0].problems;
+    var winner_problem_stat = {s: 0, r: 0}
+    for(var i = 0; i < p_winner.length; ++i) {
+        if (p_winner[i]["is_solved"])
+            winner_problem_stat.s++;
+        winner_problem_stat.r += p_winner[i]["runs_cnt"];
+    }
     _.each(table.score_board.slice(next_page, next_page + elem_cnt), function(row) {
     if (last_solved_cnt != row['solved_cnt'])
         use_color = use_color == 'stand00' ? 'stand01' : 'stand00';
@@ -82,7 +91,20 @@ var table = app.result_tables[table_id];
         </td>
         <td class="stnd"><%=team_problem_stat.r == 0 ? 0 : Math.round((team_problem_stat.r - team_problem_stat.s) / team_problem_stat.r * 100)%>%</td>
         <td class="stnd">
-            <%=row["SE"]%>
+            <%
+            var m = table.score_board.length;
+            var sum = 0;
+            for (var i = 0; i < contest.problems.length; ++i) {
+                if (row["problems"][i]["is_solved"]) {
+                    var prob = app.problems[contest.problems[i]];
+                    sum += (m - contest_problems_stats[prob.id].sols) / m;
+                }
+            };
+            %>
+            <%=Math.round(sum / contest.problems.length * 100) / 100%>
+        </td>
+        <td class="stnd">
+            <%=Math.round(100*(team_problem_stat.s/winner_problem_stat.s)*(2*m-2)/(m+row['place']-2))%>
         </td>
     </tr>
     <%
