@@ -68,7 +68,7 @@ table.define_openers();
                 <%if (row["problems"][i]["runs_cnt"] > 0) { %>
                     <%="-" + row["problems"][i]["runs_cnt"]%>
                     <br>
-                    <font size=1><%=minutes_to_formated_hours(row["problems"][i]["last_run_time"])%></font>
+                    <font size=1><%=(row["problems"][i]["last_run_time"] > 0) ? minutes_to_formated_hours(row["problems"][i]["last_run_time"]) : ""%></font>
                 <%
                 }
                 else {
