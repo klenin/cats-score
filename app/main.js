@@ -7,10 +7,20 @@ requirejs.config({
         classify: "../vendors/classify.min",
         dateformat: "../vendors/date.format",
         utils: "../app/utils"
+    },
+    shim: {
+        underscore: {
+            exports: '_'
+        },
+        backbone: {
+            deps: ["underscore", "jquery"],
+            exports: "backbone"
+        },
+        waitSeconds: 15
     }
 });
-require(['jquery'], function () {
-    require(['underscore', 'backbone', 'classify', 'dateformat', 'utils'], function () {
+require(['underscore', 'jquery'], function () {
+    require(['backbone', 'classify', 'dateformat', 'utils'], function () {
         require(['controller'], function () {
             require(['models/entity'], function () {
                 require(['models/event'], function () {
