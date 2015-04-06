@@ -6,6 +6,7 @@ var CATS = {
     Test: {},
     View: null,
     Langs: null,
+    Config: {},
     Controller: Classify({
         init: function () {
             //other
@@ -20,7 +21,6 @@ var CATS = {
             this.runs = {};
             this.compilers = {};
             this.result_tables = {};
-
             this.last_id = 0;
         },
 

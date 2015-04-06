@@ -17,7 +17,7 @@ CATS.Adapter.Ifmo = Classify({
         var page = this.page;
         var contest = CATS.App.contests[this.contest_id];
         if (contest == undefined)
-            contest = this.add_contest();
+            contest = this.add_contest({id: this.contest_id, name: "NEERC " + this.contest_id});
 
         var self = this;
         var problem_list = [];
@@ -91,10 +91,14 @@ CATS.Adapter.Ifmo = Classify({
         });
     },
 
+    get_page: function(url, callback) {
+        $.get(CATS.Config.proxy_path + "proxy.pl?u=" + encodeURIComponent(url), callback);
+    },
+
     add_contest: function(v) {
         var contest = CATS.Model.Contest(), contests = [];
-        contest.id = "ifmo_contest";
-        contest.name = "ifmo_contest";
+        contest.id = v.id;
+        contest.name = v.name;
         contest.scoring = "acm";
         contest.start_time = new Date();
         CATS.App.add_object(contest);
@@ -102,12 +106,31 @@ CATS.Adapter.Ifmo = Classify({
     },
 
     get_contests: function(callback) {
-        this.add_contest()
-        callback(["ifmo_contest"]);
+        var self = this;
+        this.get_page("http://neerc.ifmo.ru/past/index.html", function (page) {
+            var contests = [];
+            $(page).find('td[class = "neercyear"]').find("a").each(function () {
+                var c = {id: $(this).html().match(/\d+/g)[0], name: $(this).html()};
+                self.add_contest(c);
+                contests.push(c.id);
+            });
+            callback(contests);
+        })
+    },
+
+    get_contest: function(callback) {
+        var self = this;
+        this.get_page("http://neerc.ifmo.ru/past/" + self.contest_id + "/standings.html", function (page) {
+            callback(page);
+        })
     },
 
     parse: function(result_table, callback) {
-        this.parse_score_board(result_table);
-        callback();
+        var self = this;
+        this.get_contest(function (page) {
+            self.page = page;
+            self.parse_score_board(result_table);
+            callback();
+        });
     }
 });

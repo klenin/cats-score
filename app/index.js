@@ -1,4 +1,6 @@
 function cats_score_init() {
+    CATS.Config.proxy_path = "/cats/score/";
+
     CATS.App = new CATS.Controller();
     CATS.App.register_adapter(new CATS.Adapter.Cats([-1], CATS.Test.cats_xml_data));
     CATS.App.register_adapter(new CATS.Adapter.Cats_rank_table([-1], CATS.Test.cats_rank_table_json_data));

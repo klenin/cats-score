@@ -33,7 +33,7 @@ var table = app.result_tables[table_id];
     <tr height="3"><td colspan="15"><hr size="1" color="000000"></td></tr>
     <input type="hidden" id="last_elem_idx" value="<%=table.score_board.length%>" />
     <%
-    var idx = 0, last_solved_cnt = 0, use_color = 'normal';
+    var idx = 0, last_solved_cnt = 0, use_color = 'alt';
     var colors = {alt : {even : "ffffff", odd : "f8f8f8"}, normal: {even : "d0f0ff", odd : "c8e8f8"}};
     _.each(table.score_board.slice(next_page, next_page + elem_cnt), function(row){
     idx++;
