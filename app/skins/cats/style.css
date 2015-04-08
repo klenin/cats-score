@@ -1,4 +1,4 @@
-body {
+#wrapper {
     background-color: #ffffff;
     color: #000000;
     font-family: Arial;
@@ -7,16 +7,16 @@ body {
     width: 100%;
 }
 
-table.iface { width: 100%; border-collapse : collapse; }
-table.iface tr td { padding: 0; }
+#wrapper table.iface { width: 100%; border-collapse : collapse; }
+#wrapper table.iface tr td { padding: 0; }
 
-table.header {
+#wrapper table.header {
     font-family: Arial, sans-serif;
     color: #333300;
     background-color: #ffcc55;
 }
 
-div.elapsed {
+#wrapper div.elapsed {
     position: relative;
     width: 550px;
     height: 72px;
@@ -24,31 +24,31 @@ div.elapsed {
     margin-right: 4px;
 }
 
-div.elapsed > span {
+#wrapper div.elapsed > span {
     position: absolute;
     bottom: 0;
     right: 0;
     font-size: small;
 }
 
-.main_menu {
+#wrapper .main_menu {
     background-color: #7070ff;
     height: 30px;
 }
 
-.sub_menu {
+#wrapper .sub_menu {
     background-color: #bbbbff;
     height: 25px;
 }
 
-.top {
+#wrapper .top {
     font-family: Arial, sans-serif;
     font-size: 13px;
     color: white;
 }
 
-a.top, a.top:link, a.top:visited, a.top:active,
-.top a, .top a:link, .top a:visited, .top a:active
+#wrapper a.top, #wrapper a.top:link, #wrapper a.top:visited, #wrapper a.top:active,
+#wrapper .top a, #wrapper .top a:link, #wrapper .top a:visited, #wrapper .top a:active
 {
     font-family: Arial, sans-serif;
     font-size: 13px;
@@ -56,23 +56,23 @@ a.top, a.top:link, a.top:visited, a.top:active,
     text-decoration: none;
 }
 
-a, a:link {
+#wrapper a, #wrapper a:link {
     color: #4040ff;
     font-family: Arial;
     text-decoration: none;
     font-size: 14px
 }
 
-.sub_menu a {
+#wrapper .sub_menu a {
     font-family: Arial, sans-serif;
     font-size: 12px;
     color: #3030a0;
 }
 
-a.main_menu_selected, a.main_menu_selected:visited { color: yellow; }
-a.sub_menu_selected, a.sub_menu_selected:visited { color: white; }
+#wrapper a.main_menu_selected, #wrapper a.main_menu_selected:visited { color: yellow; }
+#wrapper a.sub_menu_selected, #wrapper a.sub_menu_selected:visited { color: white; }
 
-tr.footer, tr.footer td {
+#wrapper tr.footer, #wrapper tr.footer td {
     background-color: #7070ff;
     height: 30px;
     color: white;
@@ -80,141 +80,136 @@ tr.footer, tr.footer td {
     font-size: 12px;
 }
 
-tr.footer2, tr.footer2 td, tr.footer2 td a {
+#wrapper tr.footer2, #wrapper tr.footer2 td, tr.footer2 td a {
     background-color: #ffcc55;
     height: 40px;
     color: #333300;
     font-size: 12px;
 }
 
-td.footer_image {
-    background-image: url(../../images/std/bg2.gif);
-    background-repeat: no-repeat;
-}
-
-.filter {
+#wrapper .filter {
     /*filter: Alpha(Opacity=80, FinishOpacity=20, Style=1, StartX=0, StartY=100, FinishY=250);*/
 }
 
-select, option {
+#wrapper select, #wrapper option {
     background-color: #ffffff;
     border: 1px solid #4040ff;
     height: 22px;
     vertical-align: middle;
 }
 
-input {
+#wrapper input {
     height: 22px;
     vertical-align: middle;
 }
 
-.file {
+#wrapper .file {
     border: 1px solid #4040ff;
     background: #ffffff;
 }
 
-.bordered {
+#wrapper .bordered {
     border: 1px solid #4040ff;
 }
 
-.bordered2 {
+#wrapper .bordered2 {
     color: white;
     border: 1px solid white;
     background-color: #ccccff;
 }
 
-table.internal_borders { border-collapse: collapse; }
-table.internal_borders td, table.internal_borders th { border: 1px solid #4040ff; }
-table.sample { border-collapse: collapse; border: 2px; }
-table.sample td, table.sample th { border: 1px solid black; padding: 5px; }
-table.sample td { vertical-align: top; }
+#wrapper table.internal_borders { border-collapse: collapse; }
+#wrapper table.internal_borders td, #wrapper table.internal_borders th { border: 1px solid #4040ff; }
+#wrapper table.sample { border-collapse: collapse; border: 2px; }
+#wrapper table.sample td, #wrapper table.sample th { border: 1px solid black; padding: 5px; }
+#wrapper table.sample td { vertical-align: top; }
 
-.button {
+#wrapper .button {
     background-color: #ffffff;
     border: 1px solid #4040ff;
     color : #4040ff;
 }
-.button2 {
+#wrapper .button2 {
     border: 1px solid #ffffff;
     color: #ffffff;
     background-color: #7070ff;
 }
 
-th { font-size: 11pt; font-weight: bold; color:#000000; }
-td { font-size: 11pt }
-td.ts { font-size: 10pt; font-style: italic; }
+#wrapper th { font-size: 11pt; font-weight: bold; color:#000000; }
+#wrapper td { font-size: 11pt }
+#wrapper td.ts { font-size: 10pt; font-style: italic; }
 
-tr.run_details_OK { background-color: #A0FFA0 }
-tr.run_details_WA { background-color: #FFA0A0 }
-tr.run_details_PE { background-color: #FFFFA0 }
-tr.run_details_RE { background-color: #FFA0A0 }
+#wrapper tr.run_details_OK { background-color: #A0FFA0 }
+#wrapper tr.run_details_WA { background-color: #FFA0A0 }
+#wrapper tr.run_details_PE { background-color: #FFFFA0 }
+#wrapper tr.run_details_RE { background-color: #FFA0A0 }
 
-tr.run_details_IN { color: #A0A000 }
-tr.run_details_NP { color: #008000 }
-tr.run_details_NT { color: #000080; font-style: italic; }
+#wrapper tr.run_details_IN { color: #A0A000 }
+#wrapper tr.run_details_NP { color: #008000 }
+#wrapper tr.run_details_NT { color: #000080; font-style: italic; }
 
-tr.odd { background-color: #ffffff; }
-tr.even { background-color: #f0f0f0; }
-table.highlight tr:hover { background-color: #ffcc55; }
-table.console tr td { margin: 0; padding: 1px 10px 1px 1px; }
-table.console tr td, table.console tr td a { font-size: 10pt; }
-table.console tr td:first-child { width: 1%; white-space: nowrap; }
+#wrapper tr.odd { background-color: #ffffff; }
+#wrapper tr.even { background-color: #f0f0f0; }
+#wrapper table.highlight tr:hover { background-color: #ffcc55; }
+#wrapper table.console tr td { margin: 0; padding: 1px 10px 1px 1px; }
+#wrapper table.console tr td, #wrapper table.console tr td a { font-size: 10pt; }
+#wrapper table.console tr td:first-child { width: 1%; white-space: nowrap; }
 
-p { margin-top: 5px; margin-bottom: 5px }
+#wrapper p { margin-top: 5px; margin-bottom: 5px }
 
-ul { margin-top: 5px; margin-bottom: 5px }
+#wrapper ul { margin-top: 5px; margin-bottom: 5px }
 
-h2 { margin-top: 10px; margin-bottom: 10px }
-h3 { margin-top: 10px; margin-bottom: 5px }
-h4 { margin-top: 10px; margin-bottom: 5px }
-code { margin-top: 0; margin-bottom: 0 }
-pre { margin-top: 0; margin-bottom: 0 }
+#wrapper h2 { margin-top: 10px; margin-bottom: 10px }
+#wrapper h3 { margin-top: 10px; margin-bottom: 5px }
+#wrapper h4 { margin-top: 10px; margin-bottom: 5px }
+#wrapper code { margin-top: 0; margin-bottom: 0 }
+#wrapper pre { margin-top: 0; margin-bottom: 0 }
 
-.diff_only_a { background-color: #FFA0A0 }
-.diff_only_b { background-color: #A0FFA0 }
+#wrapper .diff_only_a { background-color: #FFA0A0 }
+#wrapper .diff_only_b { background-color: #A0FFA0 }
 
-form.embedded { margin: 0 }
-a.current_link { font-weight: bold; }
+#wrapper form.embedded { margin: 0 }
+#wrapper a.current_link { font-weight: bold; }
 
-span.TeX { font-family: Arial Unicode Ms, Lucida Sans Unicode, Arial, sans serif; }
-span.TeX i { font-family: Times New Roman, serif; }
-span.TeX b { font-weight: normal; font-family: Times New Roman, serif; }
-span.TeX sup { white-space: nowrap; position: relative; left: 1px; }
-span.TeX sub { white-space: nowrap; position: relative; top: 2px; }
-span.TeX span.over { border-top: 1px solid black; padding: 0px 3px 0px 1px; }
-span.TeX span.num { font-family: Times New Roman, serif; }
-span.TeX span.sqrt { border-top: 1px solid black; padding-right: 2px; }
-span.TeX span.sqrt_sym { font-size: 18px; }
-span.TeX table.frac { border: 0; border-collapse: collapse; display: inline; vertical-align: middle; }
-span.TeX table.frac tr.nom td { border-bottom: 1px solid black; }
-span.TeX table.limits { border: 0; border-collapse: collapse; display: inline; text-align: center; vertical-align: middle; }
-span.TeX table.limits tr { vertical-align: middle; padding: 0; margin: 0; }
-span.TeX table.limits tr td.sub { vertical-align: top; padding: 0; margin: 0; font-size: small; }
+#wrapper span.TeX { font-family: Arial Unicode Ms, Lucida Sans Unicode, Arial, sans serif; }
+#wrapper span.TeX i { font-family: Times New Roman, serif; }
+#wrapper span.TeX b { font-weight: normal; font-family: Times New Roman, serif; }
+#wrapper span.TeX sup { white-space: nowrap; position: relative; left: 1px; }
+#wrapper span.TeX sub { white-space: nowrap; position: relative; top: 2px; }
+#wrapper span.TeX span.over { border-top: 1px solid black; padding: 0px 3px 0px 1px; }
+#wrapper span.TeX span.num { font-family: Times New Roman, serif; }
+#wrapper span.TeX span.sqrt { border-top: 1px solid black; padding-right: 2px; }
+#wrapper span.TeX span.sqrt_sym { font-size: 18px; }
+#wrapper span.TeX table.frac { border: 0; border-collapse: collapse; display: inline; vertical-align: middle; }
+#wrapper span.TeX table.frac tr.nom td { border-bottom: 1px solid black; }
+#wrapper span.TeX table.limits { border: 0; border-collapse: collapse; display: inline; text-align: center; vertical-align: middle; }
+#wrapper span.TeX table.limits tr { vertical-align: middle; padding: 0; margin: 0; }
+#wrapper span.TeX table.limits tr td.sub { vertical-align: top; padding: 0; margin: 0; font-size: small; }
 
-table.nobr tr td { white-space: nowrap; }
+#wrapper table.nobr tr td { white-space: nowrap; }
 
-a.spell { text-decoration: underline; color: red; }
+#wrapper a.spell { text-decoration: underline; color: red; }
 
-td.problem_radio { width: 1%; height: 100%; padding: 0; margin: 0; }
-td.problem_radio label { display: block; width: 100%; height: 100%; }
+#wrapper td.problem_radio { width: 1%; height: 100%; padding: 0; margin: 0; }
+#wrapper td.problem_radio label { display: block; width: 100%; height: 100%; }
 
-table.rank_table tr td p { padding: 0; margin: 0; font-size: 10px; }
+#wrapper table.rank_table tr td p { padding: 0; margin: 0; font-size: 10px; }
 
-div.problem_text { margin-left: 10px; margin-right: 10px; }
-div.problem_text h3, div.problem_text h4 {
+#wrapper div.problem_text { margin-left: 10px; margin-right: 10px; }
+#wrapper div.problem_text h3, #wrapper div.problem_text h4 {
     font-style: italic;
     page-break-after: avoid;
 }
 
-div.problem_text div { page-break-inside: avoid; }
+#wrapper div.problem_text div { page-break-inside: avoid; }
 
-@media print { .jsonly { display: none; } }
+#wrapper @media print { .jsonly { display: none; } }
 
-table.registration tr td { padding: 5px; width: 200px; }
+#wrapper table.registration tr td { padding: 5px; width: 200px; }
 
-span.timing { color: #808080; font-size: xx-small; }
+#wrapper span.timing { color: #808080; font-size: xx-small; }
 
-div.problem_submit { float: left; margin: 5px 20px 5px 5px; }
-div.problem_submit label { display: inline-block; width: 140px; margin-right: 5px; }
+#wrapper div.problem_submit { float: left; margin: 5px 20px 5px 5px; }
+#wrapper div.problem_submit label { display: inline-block; width: 140px; margin-right: 5px; }
 
-span.jury_message { color: red; }
+#wrapper span.jury_message { color: red; }

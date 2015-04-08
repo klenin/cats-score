@@ -1,12 +1,12 @@
-body {
+#wrapper {
     text-align: center;
 }
 
-table {
+#wrapper table {
     font-family: monospace;
 }
 
-table.wrapper {
+#wrapper table.wrapper {
     text-align: center;
     border-collapse: collapse;
     border: none;
@@ -15,114 +15,114 @@ table.wrapper {
     width: 100%;
 }
 
-table.standings {
+#wrapper table.standings {
     border-collapse: collapse;
     border: none;
     margin: 0pt;
     padding: 1pt;
 }
 
-p {
+#wrapper p {
     text-align: center;
     font-family: monospace;
 }
 
-small {
+#wrapper small {
     font-size: xx-small;
 }
 
-h2 {
+#wrapper h2 {
     font-family: helvetica;
     font-size: large;
     text-align: center;
 }
 
-h3 {
+#wrapper h3 {
     font-family: helvetica;
     font-size: medium;
 }
 
-th {
+#wrapper th {
 }
 
-th.solved {
+#wrapper th.solved {
     text-align: center;
     padding-left: 10px;
     padding-right: 10px;
 }
 
-th.penalty {
+#wrapper th.penalty {
     text-align: right;
     padding-left: 10px;
     padding-right: 10px;
 }
 
-th.party {
+#wrapper th.party {
     text-align: left;
     padding-left: 10px;
 }
 
-th.rank {
+#wrapper th.rank {
     text-align: right;
     padding-left: 10px;
     padding-right: 10px;
 }
 
-th.problem {
+#wrapper th.problem {
     text-align: center;
     padding-left: 20px;
     padding-right: 20px;
 }
 
-td {
+#wrapper td {
     text-align: center;
 }
 
-td.solved {
+#wrapper td.solved {
     text-align: right;
     padding-left: 20px;
     padding-right: 20px;
 }
 
-td.penalty {
+#wrapper td.penalty {
     text-align: right;
     padding-left: 10px;
     padding-right: 10px;
 }
 
-td.party {
+#wrapper td.party {
     text-align: left;
     padding-left: 10px;
 }
 
-td.rank {
+#wrapper td.rank {
     text-align: right;
     padding-right: 10px;
 }
 
-td.problem {
+#wrapper td.problem {
     text-align: center;
 }
 
-b {
+#wrapper b {
     color: #c06060;
     font-weight: normal;
 }
-i {
+#wrapper i {
     color: green;
     font-style: normal;
 }
-i.first-to-solve {
+#wrapper i.first-to-solve {
     display: block;
     background-color: #c0ffc0;
     font-style: normal;
 }
-em {
+#wrapper em {
     color: black;
     background-color: #f0f0a0;
     font-style: normal;
 }
-s {
+#wrapper s {
     font-size: x-small;
     font-face: arial;
     font-style: normal;

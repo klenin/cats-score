@@ -1,112 +1,112 @@
-TABLE.standings{
+#wrapper TABLE.standings{
     display: table;
     border-collapse: separate;
     border-spacing: 2px;
     border-color: gray;
 }
-IMG {
+#wrapper IMG {
     border:0;
 }
-TR.head
+#wrapper TR.head
 {
     BACKGROUND-COLOR: #eee
 }
-TD.stnd
+#wrapper TD.stnd
 {
     font-size: 12px; border: solid; border-width: 1px; border-color: #000000; margin: 1px;
 }
-TD.stndact
+#wrapper TD.stndact
 {
     color:#0000FF; font-size: 12px; border: solid; border-width: 1px; border-color: #000000; margin: 1px;
 }
-TD.frost
+#wrapper TD.frost
 {
     background-color: #ffeeaa; font-size: 12px; border: solid; border-width: 1px; border-color: #000000; margin: 1px;
 }
-TD.gold
+#wrapper TD.gold
 {
     background-color: #ffeeaa; font-size: 12px; border: solid; border-width: 1px; border-color: #000000; margin: 1px;
 }
-TD.goldact
+#wrapper TD.goldact
 {
     color:#0000FF; background-color: #ffeeaa; font-size: 12px; border: solid; border-width: 1px; border-color: #000000; margin: 1px;
 }
-TD.silver
+#wrapper TD.silver
 {
     background-color: #aaaaaa; font-size: 12px; border: solid; border-width: 1px; border-color: #000000; margin: 1px;
 }
-TD.silveract
+#wrapper TD.silveract
 {
     color:#0000FF; background-color: #aaaaaa; font-size: 12px; border: solid; border-width: 1px; border-color: #000000; margin: 1px;
 }
-TD.bronze
+#wrapper TD.bronze
 {
     background-color: #f0c0a0; font-size: 12px; border: solid; border-width: 1px; border-color: #000000; margin: 1px;
 }
-TD.bronzeact
+#wrapper TD.bronzeact
 {
     color:#0000FF; background-color: #f0c0a0; font-size: 12px; border: solid; border-width: 1px; border-color: #000000; margin: 1px;
 }
 
-TD.opener
+#wrapper TD.opener
 {
     background-color: #b0ffb0; font-size: 12px; border: solid; border-width: 1px; border-color: #000000; margin: 1px;
 }
-TD.bad
+#wrapper TD.bad
 {
     background-color: #ffd0d0; font-size: 12px; border: solid; border-width: 1px; border-color: #000000; margin: 1px;
 }
-TH.success
+#wrapper TH.success
 {
     background-color: #d0f0d0; font-size: 12px; border: solid; border-width: 1px; border-color: #000000; margin: 1px;
 }
-TH.tried
+#wrapper TH.tried
 {
     background-color: #ffd0d0; font-size: 12px; border: solid; border-width: 1px; border-color: #000000; margin: 1px;
 }
-TD.upsolved
+#wrapper TD.upsolved
 {
     font-size: 12px; border: solid; border-width: 1px; border-color: #000000; margin: 1px; color: #FF0000;
 }
-TD.virtual
+#wrapper TD.virtual
 {
     color:#0000FF; font-size: 12px; border: solid; border-width: 1px; border-color: #000000; margin: 1px;
 }
-TD.alive
+#wrapper TD.alive
 {
     color:#FF0000; font-size: 12px; border: solid; border-width: 1px; border-color: #000000; margin: 1px;
 }
-TH.stnd
+#wrapper TH.stnd
 {
     font-size: 12px; border: solid; border-width: 1px; border-color: #000000; margin: 1px;
 }
-TD.o01
+#wrapper TD.o01
 {
     BACKGROUND-COLOR: #004080;
 }
-TR.solver
+#wrapper TR.solver
 {
     BACKGROUND-COLOR: #F0C0A0;
 }
-TD.o00
+#wrapper TD.o00
 {
     BACKGROUND-COLOR: #004080;
 }
-TR.stand00
+#wrapper TR.stand00
 {
     BACKGROUND-COLOR: #FFFFFF;
 }
-TR.stand01
+#wrapper TR.stand01
 {
     BACKGROUND-COLOR: #B0C7F0;
 }
 
-TR.cfres01
+#wrapper TR.cfres01
 {
     BACKGROUND-COLOR: #FFFFB0;
 }
 
-.rotatedName
+#wrapper .rotatedName
 {
     -moz-transform:rotate(-90deg);
     -o-transform:rotate(-90deg);
@@ -116,379 +116,379 @@ TR.cfres01
     -ms-filter:"progid:DXImageTransform.Microsoft.BasicImage(rotation=3)";
 }
 
-TABLE.matches{table-layout:fixed;}
-TD.match
+#wrapper TABLE.matches{table-layout:fixed;}
+#wrapper TD.match
 {
     height:6em;
     width:2em;
 }
 
 
-.coderTextRed
+#wrapper .coderTextRed
 {
     FONT-WEIGHT: bold;
     BACKGROUND-COLOR: transparent;
 }
-.coderTextYellow
+#wrapper .coderTextYellow
 {
     FONT-WEIGHT: bold;
     BACKGROUND-COLOR: transparent;
 }
-.coderTextViolet
+#wrapper .coderTextViolet
 {
     FONT-WEIGHT: bold;
     BACKGROUND-COLOR: transparent;
 }
-.coderTextBlue
+#wrapper .coderTextBlue
 {
     FONT-WEIGHT: bold;
     BACKGROUND-COLOR: transparent;
 }
-.coderTextGreen
+#wrapper .coderTextGreen
 {
     FONT-WEIGHT: bold;
     BACKGROUND-COLOR: transparent
 }
-.coderTextGray
+#wrapper .coderTextGray
 {
     FONT-WEIGHT: bold;
     BACKGROUND-COLOR: transparent
 }
-.coderTextOrange
+#wrapper .coderTextOrange
 {
     FONT-WEIGHT: bold;
     BACKGROUND-COLOR: transparent
 }
-.coderTextRed:link
+#wrapper .coderTextRed:link
 {
     TEXT-DECORATION: none
 }
-.coderTextYellow:link
+#wrapper .coderTextYellow:link
 {
     TEXT-DECORATION: none
 }
-.coderTextViolet:link
+#wrapper .coderTextViolet:link
 {
     TEXT-DECORATION: none
 }
-.coderTextBlue:link
+#wrapper .coderTextBlue:link
 {
     TEXT-DECORATION: none
 }
-.coderTextGreen:link
+#wrapper .coderTextGreen:link
 {
     TEXT-DECORATION: none
 }
-.coderTextGray:link
+#wrapper .coderTextGray:link
 {
     TEXT-DECORATION: none
 }
-.coderTextOrange:link
+#wrapper .coderTextOrange:link
 {
     TEXT-DECORATION: none
 }
-.coderTextWhite:link
+#wrapper .coderTextWhite:link
 {
     TEXT-DECORATION: none
 }
-.coderTextBlack:link
+#wrapper .coderTextBlack:link
 {
     TEXT-DECORATION: none
 }
-.coderTextRed:visited
+#wrapper .coderTextRed:visited
 {
     TEXT-DECORATION: none
 }
-.coderTextYellow:visited
+#wrapper .coderTextYellow:visited
 {
     TEXT-DECORATION: none
 }
-.coderTextViolet:visited
+#wrapper .coderTextViolet:visited
 {
     TEXT-DECORATION: none
 }
-.coderTextBlue:visited
+#wrapper .coderTextBlue:visited
 {
     TEXT-DECORATION: none
 }
-.coderTextGreen:visited
+#wrapper .coderTextGreen:visited
 {
     TEXT-DECORATION: none
 }
-.coderTextGray:visited
+#wrapper .coderTextGray:visited
 {
     TEXT-DECORATION: none
 }
-.coderTextOrange:visited
+#wrapper .coderTextOrange:visited
 {
     TEXT-DECORATION: none
 }
-.coderTextWhite:visited
+#wrapper .coderTextWhite:visited
 {
     TEXT-DECORATION: none
 }
-.coderTextBlack:visited
+#wrapper .coderTextBlack:visited
 {
     TEXT-DECORATION: none
 }
-.coderTextRed:hover
+#wrapper .coderTextRed:hover
 {
     TEXT-DECORATION: underline
 }
-.coderTextYellow:hover
+#wrapper .coderTextYellow:hover
 {
     TEXT-DECORATION: underline
 }
-.coderTextViolet:hover
+#wrapper .coderTextViolet:hover
 {
     TEXT-DECORATION: underline
 }
-.coderTextBlue:hover
+#wrapper .coderTextBlue:hover
 {
     TEXT-DECORATION: underline
 }
-.coderTextGreen:hover
+#wrapper .coderTextGreen:hover
 {
     TEXT-DECORATION: underline
 }
-.coderTextGray:hover
+#wrapper .coderTextGray:hover
 {
     TEXT-DECORATION: underline
 }
-.coderTextOrange:hover
+#wrapper .coderTextOrange:hover
 {
     TEXT-DECORATION: underline
 }
-.coderTextWhite:hover
+#wrapper .coderTextWhite:hover
 {
     TEXT-DECORATION: underline
 }
-.coderTextBlack:hover
+#wrapper .coderTextBlack:hover
 {
     TEXT-DECORATION: underline
 }
-.coderTextRed:active
+#wrapper .coderTextRed:active
 {
     TEXT-DECORATION: underline
 }
-.coderTextYellow:active
+#wrapper .coderTextYellow:active
 {
     TEXT-DECORATION: underline
 }
-.coderTextViolet:active
+#wrapper .coderTextViolet:active
 {
     TEXT-DECORATION: underline
 }
-.coderTextBlue:active
+#wrapper .coderTextBlue:active
 {
     TEXT-DECORATION: underline
 }
-.coderTextGreen:active
+#wrapper .coderTextGreen:active
 {
     TEXT-DECORATION: underline
 }
-.coderTextGray:active
+#wrapper .coderTextGray:active
 {
     TEXT-DECORATION: underline
 }
-.coderTextOrange:active
+#wrapper .coderTextOrange:active
 {
     TEXT-DECORATION: underline
 }
-.coderTextWhite:active
+#wrapper .coderTextWhite:active
 {
     TEXT-DECORATION: underline
 }
-.coderTextBlack:active
+#wrapper .coderTextBlack:active
 {
     TEXT-DECORATION: underline
 }
-.coderTextOrange
+#wrapper .coderTextOrange
 {
     COLOR: #ff9900
 }
-.coderTextOrange:link
+#wrapper .coderTextOrange:link
 {
     COLOR: #ff9900
 }
-.coderTextOrange:visited
+#wrapper .coderTextOrange:visited
 {
     COLOR: #ff9900
 }
-.coderTextOrange:hover
+#wrapper .coderTextOrange:hover
 {
     COLOR: #ff9900
 }
-.coderTextOrange:active
+#wrapper .coderTextOrange:active
 {
     COLOR: #ff9900
 }
-.coderTextRed
+#wrapper .coderTextRed
 {
     COLOR: #ee0000
 }
-.coderTextRed:link
+#wrapper .coderTextRed:link
 {
     COLOR: #ee0000
 }
-.coderTextRed:visited
+#wrapper .coderTextRed:visited
 {
     COLOR: #ee0000
 }
-.coderTextRed:hover
+#wrapper .coderTextRed:hover
 {
     COLOR: #ee0000
 }
-.coderTextRed:active
+#wrapper .coderTextRed:active
 {
     COLOR: #ee0000
 }
-.coderTextYellow
+#wrapper .coderTextYellow
 {
     COLOR: #ddcc00
 }
-.coderTextYellow:link
+#wrapper .coderTextYellow:link
 {
     COLOR: #ddcc00
 }
-.coderTextYellow:visited
+#wrapper .coderTextYellow:visited
 {
     COLOR: #ddcc00
 }
-.coderTextYellow:hover
+#wrapper .coderTextYellow:hover
 {
     COLOR: #ddcc00
 }
-.coderTextYellow:active
+#wrapper .coderTextYellow:active
 {
     COLOR: #ddcc00
 }
-.coderTextViolet
+#wrapper .coderTextViolet
 {
     COLOR: #a0a
 }
-.coderTextViolet:link
+#wrapper .coderTextViolet:link
 {
     COLOR: #a0a
 }
-.coderTextViolet:visited
+#wrapper .coderTextViolet:visited
 {
     COLOR: #a0a
 }
-.coderTextViolet:hover
+#wrapper .coderTextViolet:hover
 {
     COLOR: #a0a
 }
-.coderTextViolet:active
+#wrapper .coderTextViolet:active
 {
     COLOR: #a0a
 }
 
-.coderTextBlue
+#wrapper .coderTextBlue
 {
     COLOR: #6666ff
 }
-.coderTextBlue:link
+#wrapper .coderTextBlue:link
 {
     COLOR: #6666ff
 }
-.coderTextBlue:visited
+#wrapper .coderTextBlue:visited
 {
     COLOR: #6666ff
 }
-.coderTextBlue:hover
+#wrapper .coderTextBlue:hover
 {
     COLOR: #6666ff
 }
-.coderTextBlue:active
+#wrapper .coderTextBlue:active
 {
     COLOR: #6666ff
 }
-.coderTextGreen
+#wrapper .coderTextGreen
 {
     COLOR: #00a900
 }
-.coderTextGreen:link
+#wrapper .coderTextGreen:link
 {
     COLOR: #00a900
 }
-.coderTextGreen:visited
+#wrapper .coderTextGreen:visited
 {
     COLOR: #00a900
 }
-.coderTextGreen:hover
+#wrapper .coderTextGreen:hover
 {
     COLOR: #00a900
 }
-.coderTextGreen:active
+#wrapper .coderTextGreen:active
 {
     COLOR: #00a900
 }
-.coderTextGray
+#wrapper .coderTextGray
 {
     COLOR: #999999
 }
-.coderTextGray:link
+#wrapper .coderTextGray:link
 {
     COLOR: #999999
 }
-.coderTextGray:visited
+#wrapper .coderTextGray:visited
 {
     COLOR: #999999
 }
-.coderTextGray:hover
+#wrapper .coderTextGray:hover
 {
     COLOR: #999999
 }
-.coderTextGray:active
+#wrapper .coderTextGray:active
 {
     COLOR: #999999
 }
-.coderTextWhite
+#wrapper .coderTextWhite
 {
     COLOR: #ffffff
 }
-.coderTextWhite:link
+#wrapper .coderTextWhite:link
 {
     COLOR: #ffffff
 }
-.coderTextWhite:visited
+#wrapper .coderTextWhite:visited
 {
     COLOR: #ffffff
 }
-.coderTextWhite:hover
+#wrapper .coderTextWhite:hover
 {
     COLOR: #ffffff
 }
-.coderTextWhite:active
+#wrapper .coderTextWhite:active
 {
     COLOR: #ffffff
 }
-.coderTextBlack
+#wrapper .coderTextBlack
 {
     COLOR: #000000
 }
-.coderTextBlack:link
+#wrapper .coderTextBlack:link
 {
     COLOR: #000000
 }
-.coderTextBlack:visited
+#wrapper .coderTextBlack:visited
 {
     COLOR: #000000
 }
-.coderTextBlack:hover
+#wrapper .coderTextBlack:hover
 {
     COLOR: #000000
 }
-.coderTextBlack:active
+#wrapper .coderTextBlack:active
 {
     COLOR: #000000
 }
-S {
+#wrapper S {
     FONT-SIZE: 10px; FONT-STYLE: normal; FONT-WEIGHT: bold; TEXT-DECORATION: none;
 }
 
-.announce {
+#wrapper .announce {
     padding: 0px 8px;
     float:right;
     width:50%;
@@ -496,44 +496,44 @@ S {
     margin-left: 8px;
 }
 
-p.nmessage {
+#wrapper p.nmessage {
     text-align:justify;
 }
 
 
 
-a {
+#wrapper a {
     color: #004080;
 }
-td.topmenu a {
+#wrapper td.topmenu a {
     color: #ffffff;
     text-decoration: none;
     cursor:hand;
 }
-td.topmenu a:hover {
+#wrapper td.topmenu a:hover {
     color: #c0c0c0;
 }
-td.topmenu {
+#wrapper td.topmenu {
     text-align: center;
     font-weight: bold;
     font-style: oblique;
 }
-td.topmenu div {
+#wrapper td.topmenu div {
     background-color: #004080;
     height: 25px;
     padding-top: 2px;
 }
 
-td.menuleft a {
+#wrapper td.menuleft a {
     color: #ffffff;
     text-decoration: none;
     cursor:hand;
 }
-td.menuleft a:hover {
+#wrapper td.menuleft a:hover {
     color: #c0c0c0;
 }
 
-TD.menuleft {
+#wrapper TD.menuleft {
 
     FONT-WEIGHT: bold;
     FONT-SIZE: 16px;
@@ -543,7 +543,7 @@ TD.menuleft {
 
 }
 
-TD.menuleft DIV {
+#wrapper TD.menuleft DIV {
     PADDING-RIGHT: 8px;
     PADDING-LEFT: 8px;
     PADDING-BOTTOM: 4px;
@@ -553,21 +553,21 @@ TD.menuleft DIV {
     TEXT-ALIGN: center;
 }
 
-td.newsselectcontainer {
+#wrapper td.newsselectcontainer {
     height: 25px;
     width: 190px;
 }
-td.newsselectcontainer form {
+#wrapper td.newsselectcontainer form {
     margin: 0px;
 }
-td.newsselectcontainer select {
+#wrapper td.newsselectcontainer select {
     background-color: #004080;
     color: #fff;
     width: 140px;
     font-style: oblique;
     font-weight: bold;
 }
-.newsselectbtn {
+#wrapper .newsselectbtn {
     background-color: #004080;
     color: #fff;
     width: 42px;
@@ -576,10 +576,10 @@ td.newsselectcontainer select {
 }
 
 
-.menuleftblock {
+#wrapper .menuleftblock {
     border: 1px solid #004080;
 }
-.memorial {
+#wrapper .memorial {
     padding: 0px 8px;
     border: 2px solid #000000;
 }
