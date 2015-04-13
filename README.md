@@ -16,13 +16,13 @@ $ sudo apt-get install nodejs
 2) Next, need requeredjs installed globally:
 
 ```sh
-$ npm install -g requirejs
+$ sudo npm install -g requirejs
 ```
 
 3) Next, build dist/index.js
 ```sh
 $ cd path/to/cats-score/
-$ nodejs /usr/local/bin/r.js -o build.js
+$ nodejs path/to/r.js -o build.js
 ```
 
 4) Next, in index.html make sure be to load "dist/main", not "app/main", like this
