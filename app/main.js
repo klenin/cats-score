@@ -39,7 +39,7 @@ require(['underscore', 'jquery'], function () {
                         'models/user',
                         'rules/acm',
                         'rules/school',
-                        'adapters/cats',
+                        'adapters/cats_xml_hist',
                         'adapters/cats_rank_table',
                         'adapters/ifmo',
                         'adapters/codeforces',

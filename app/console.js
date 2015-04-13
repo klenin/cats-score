@@ -26,7 +26,7 @@ require(['jquery'], function () {
                         'models/results_table',
                         'models/user',
                         'rules/acm',
-                        'adapters/cats',
+                        'adapters/cats_xml_hist',
                         'adapters/ifmo',
                         'tests/spec/test'
                     ], function () {
