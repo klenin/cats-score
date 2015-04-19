@@ -1,112 +1,112 @@
-#wrapper TABLE.standings{
+#catsscore_wrapper TABLE.standings{
     display: table;
     border-collapse: separate;
     border-spacing: 2px;
     border-color: gray;
 }
-#wrapper IMG {
+#catsscore_wrapper IMG {
     border:0;
 }
-#wrapper TR.head
+#catsscore_wrapper TR.head
 {
     BACKGROUND-COLOR: #eee
 }
-#wrapper TD.stnd
+#catsscore_wrapper TD.stnd
 {
     font-size: 12px; border: solid; border-width: 1px; border-color: #000000; margin: 1px;
 }
-#wrapper TD.stndact
+#catsscore_wrapper TD.stndact
 {
     color:#0000FF; font-size: 12px; border: solid; border-width: 1px; border-color: #000000; margin: 1px;
 }
-#wrapper TD.frost
+#catsscore_wrapper TD.frost
 {
     background-color: #ffeeaa; font-size: 12px; border: solid; border-width: 1px; border-color: #000000; margin: 1px;
 }
-#wrapper TD.gold
+#catsscore_wrapper TD.gold
 {
     background-color: #ffeeaa; font-size: 12px; border: solid; border-width: 1px; border-color: #000000; margin: 1px;
 }
-#wrapper TD.goldact
+#catsscore_wrapper TD.goldact
 {
     color:#0000FF; background-color: #ffeeaa; font-size: 12px; border: solid; border-width: 1px; border-color: #000000; margin: 1px;
 }
-#wrapper TD.silver
+#catsscore_wrapper TD.silver
 {
     background-color: #aaaaaa; font-size: 12px; border: solid; border-width: 1px; border-color: #000000; margin: 1px;
 }
-#wrapper TD.silveract
+#catsscore_wrapper TD.silveract
 {
     color:#0000FF; background-color: #aaaaaa; font-size: 12px; border: solid; border-width: 1px; border-color: #000000; margin: 1px;
 }
-#wrapper TD.bronze
+#catsscore_wrapper TD.bronze
 {
     background-color: #f0c0a0; font-size: 12px; border: solid; border-width: 1px; border-color: #000000; margin: 1px;
 }
-#wrapper TD.bronzeact
+#catsscore_wrapper TD.bronzeact
 {
     color:#0000FF; background-color: #f0c0a0; font-size: 12px; border: solid; border-width: 1px; border-color: #000000; margin: 1px;
 }
 
-#wrapper TD.opener
+#catsscore_wrapper TD.opener
 {
     background-color: #b0ffb0; font-size: 12px; border: solid; border-width: 1px; border-color: #000000; margin: 1px;
 }
-#wrapper TD.bad
+#catsscore_wrapper TD.bad
 {
     background-color: #ffd0d0; font-size: 12px; border: solid; border-width: 1px; border-color: #000000; margin: 1px;
 }
-#wrapper TH.success
+#catsscore_wrapper TH.success
 {
     background-color: #d0f0d0; font-size: 12px; border: solid; border-width: 1px; border-color: #000000; margin: 1px;
 }
-#wrapper TH.tried
+#catsscore_wrapper TH.tried
 {
     background-color: #ffd0d0; font-size: 12px; border: solid; border-width: 1px; border-color: #000000; margin: 1px;
 }
-#wrapper TD.upsolved
+#catsscore_wrapper TD.upsolved
 {
     font-size: 12px; border: solid; border-width: 1px; border-color: #000000; margin: 1px; color: #FF0000;
 }
-#wrapper TD.virtual
+#catsscore_wrapper TD.virtual
 {
     color:#0000FF; font-size: 12px; border: solid; border-width: 1px; border-color: #000000; margin: 1px;
 }
-#wrapper TD.alive
+#catsscore_wrapper TD.alive
 {
     color:#FF0000; font-size: 12px; border: solid; border-width: 1px; border-color: #000000; margin: 1px;
 }
-#wrapper TH.stnd
+#catsscore_wrapper TH.stnd
 {
     font-size: 12px; border: solid; border-width: 1px; border-color: #000000; margin: 1px;
 }
-#wrapper TD.o01
+#catsscore_wrapper TD.o01
 {
     BACKGROUND-COLOR: #004080;
 }
-#wrapper TR.solver
+#catsscore_wrapper TR.solver
 {
     BACKGROUND-COLOR: #F0C0A0;
 }
-#wrapper TD.o00
+#catsscore_wrapper TD.o00
 {
     BACKGROUND-COLOR: #004080;
 }
-#wrapper TR.stand00
+#catsscore_wrapper TR.stand00
 {
     BACKGROUND-COLOR: #FFFFFF;
 }
-#wrapper TR.stand01
+#catsscore_wrapper TR.stand01
 {
     BACKGROUND-COLOR: #B0C7F0;
 }
 
-#wrapper TR.cfres01
+#catsscore_wrapper TR.cfres01
 {
     BACKGROUND-COLOR: #FFFFB0;
 }
 
-#wrapper .rotatedName
+#catsscore_wrapper .rotatedName
 {
     -moz-transform:rotate(-90deg);
     -o-transform:rotate(-90deg);
@@ -116,379 +116,379 @@
     -ms-filter:"progid:DXImageTransform.Microsoft.BasicImage(rotation=3)";
 }
 
-#wrapper TABLE.matches{table-layout:fixed;}
-#wrapper TD.match
+#catsscore_wrapper TABLE.matches{table-layout:fixed;}
+#catsscore_wrapper TD.match
 {
     height:6em;
     width:2em;
 }
 
 
-#wrapper .coderTextRed
+#catsscore_wrapper .coderTextRed
 {
     FONT-WEIGHT: bold;
     BACKGROUND-COLOR: transparent;
 }
-#wrapper .coderTextYellow
+#catsscore_wrapper .coderTextYellow
 {
     FONT-WEIGHT: bold;
     BACKGROUND-COLOR: transparent;
 }
-#wrapper .coderTextViolet
+#catsscore_wrapper .coderTextViolet
 {
     FONT-WEIGHT: bold;
     BACKGROUND-COLOR: transparent;
 }
-#wrapper .coderTextBlue
+#catsscore_wrapper .coderTextBlue
 {
     FONT-WEIGHT: bold;
     BACKGROUND-COLOR: transparent;
 }
-#wrapper .coderTextGreen
+#catsscore_wrapper .coderTextGreen
 {
     FONT-WEIGHT: bold;
     BACKGROUND-COLOR: transparent
 }
-#wrapper .coderTextGray
+#catsscore_wrapper .coderTextGray
 {
     FONT-WEIGHT: bold;
     BACKGROUND-COLOR: transparent
 }
-#wrapper .coderTextOrange
+#catsscore_wrapper .coderTextOrange
 {
     FONT-WEIGHT: bold;
     BACKGROUND-COLOR: transparent
 }
-#wrapper .coderTextRed:link
+#catsscore_wrapper .coderTextRed:link
 {
     TEXT-DECORATION: none
 }
-#wrapper .coderTextYellow:link
+#catsscore_wrapper .coderTextYellow:link
 {
     TEXT-DECORATION: none
 }
-#wrapper .coderTextViolet:link
+#catsscore_wrapper .coderTextViolet:link
 {
     TEXT-DECORATION: none
 }
-#wrapper .coderTextBlue:link
+#catsscore_wrapper .coderTextBlue:link
 {
     TEXT-DECORATION: none
 }
-#wrapper .coderTextGreen:link
+#catsscore_wrapper .coderTextGreen:link
 {
     TEXT-DECORATION: none
 }
-#wrapper .coderTextGray:link
+#catsscore_wrapper .coderTextGray:link
 {
     TEXT-DECORATION: none
 }
-#wrapper .coderTextOrange:link
+#catsscore_wrapper .coderTextOrange:link
 {
     TEXT-DECORATION: none
 }
-#wrapper .coderTextWhite:link
+#catsscore_wrapper .coderTextWhite:link
 {
     TEXT-DECORATION: none
 }
-#wrapper .coderTextBlack:link
+#catsscore_wrapper .coderTextBlack:link
 {
     TEXT-DECORATION: none
 }
-#wrapper .coderTextRed:visited
+#catsscore_wrapper .coderTextRed:visited
 {
     TEXT-DECORATION: none
 }
-#wrapper .coderTextYellow:visited
+#catsscore_wrapper .coderTextYellow:visited
 {
     TEXT-DECORATION: none
 }
-#wrapper .coderTextViolet:visited
+#catsscore_wrapper .coderTextViolet:visited
 {
     TEXT-DECORATION: none
 }
-#wrapper .coderTextBlue:visited
+#catsscore_wrapper .coderTextBlue:visited
 {
     TEXT-DECORATION: none
 }
-#wrapper .coderTextGreen:visited
+#catsscore_wrapper .coderTextGreen:visited
 {
     TEXT-DECORATION: none
 }
-#wrapper .coderTextGray:visited
+#catsscore_wrapper .coderTextGray:visited
 {
     TEXT-DECORATION: none
 }
-#wrapper .coderTextOrange:visited
+#catsscore_wrapper .coderTextOrange:visited
 {
     TEXT-DECORATION: none
 }
-#wrapper .coderTextWhite:visited
+#catsscore_wrapper .coderTextWhite:visited
 {
     TEXT-DECORATION: none
 }
-#wrapper .coderTextBlack:visited
+#catsscore_wrapper .coderTextBlack:visited
 {
     TEXT-DECORATION: none
 }
-#wrapper .coderTextRed:hover
+#catsscore_wrapper .coderTextRed:hover
 {
     TEXT-DECORATION: underline
 }
-#wrapper .coderTextYellow:hover
+#catsscore_wrapper .coderTextYellow:hover
 {
     TEXT-DECORATION: underline
 }
-#wrapper .coderTextViolet:hover
+#catsscore_wrapper .coderTextViolet:hover
 {
     TEXT-DECORATION: underline
 }
-#wrapper .coderTextBlue:hover
+#catsscore_wrapper .coderTextBlue:hover
 {
     TEXT-DECORATION: underline
 }
-#wrapper .coderTextGreen:hover
+#catsscore_wrapper .coderTextGreen:hover
 {
     TEXT-DECORATION: underline
 }
-#wrapper .coderTextGray:hover
+#catsscore_wrapper .coderTextGray:hover
 {
     TEXT-DECORATION: underline
 }
-#wrapper .coderTextOrange:hover
+#catsscore_wrapper .coderTextOrange:hover
 {
     TEXT-DECORATION: underline
 }
-#wrapper .coderTextWhite:hover
+#catsscore_wrapper .coderTextWhite:hover
 {
     TEXT-DECORATION: underline
 }
-#wrapper .coderTextBlack:hover
+#catsscore_wrapper .coderTextBlack:hover
 {
     TEXT-DECORATION: underline
 }
-#wrapper .coderTextRed:active
+#catsscore_wrapper .coderTextRed:active
 {
     TEXT-DECORATION: underline
 }
-#wrapper .coderTextYellow:active
+#catsscore_wrapper .coderTextYellow:active
 {
     TEXT-DECORATION: underline
 }
-#wrapper .coderTextViolet:active
+#catsscore_wrapper .coderTextViolet:active
 {
     TEXT-DECORATION: underline
 }
-#wrapper .coderTextBlue:active
+#catsscore_wrapper .coderTextBlue:active
 {
     TEXT-DECORATION: underline
 }
-#wrapper .coderTextGreen:active
+#catsscore_wrapper .coderTextGreen:active
 {
     TEXT-DECORATION: underline
 }
-#wrapper .coderTextGray:active
+#catsscore_wrapper .coderTextGray:active
 {
     TEXT-DECORATION: underline
 }
-#wrapper .coderTextOrange:active
+#catsscore_wrapper .coderTextOrange:active
 {
     TEXT-DECORATION: underline
 }
-#wrapper .coderTextWhite:active
+#catsscore_wrapper .coderTextWhite:active
 {
     TEXT-DECORATION: underline
 }
-#wrapper .coderTextBlack:active
+#catsscore_wrapper .coderTextBlack:active
 {
     TEXT-DECORATION: underline
 }
-#wrapper .coderTextOrange
+#catsscore_wrapper .coderTextOrange
 {
     COLOR: #ff9900
 }
-#wrapper .coderTextOrange:link
+#catsscore_wrapper .coderTextOrange:link
 {
     COLOR: #ff9900
 }
-#wrapper .coderTextOrange:visited
+#catsscore_wrapper .coderTextOrange:visited
 {
     COLOR: #ff9900
 }
-#wrapper .coderTextOrange:hover
+#catsscore_wrapper .coderTextOrange:hover
 {
     COLOR: #ff9900
 }
-#wrapper .coderTextOrange:active
+#catsscore_wrapper .coderTextOrange:active
 {
     COLOR: #ff9900
 }
-#wrapper .coderTextRed
+#catsscore_wrapper .coderTextRed
 {
     COLOR: #ee0000
 }
-#wrapper .coderTextRed:link
+#catsscore_wrapper .coderTextRed:link
 {
     COLOR: #ee0000
 }
-#wrapper .coderTextRed:visited
+#catsscore_wrapper .coderTextRed:visited
 {
     COLOR: #ee0000
 }
-#wrapper .coderTextRed:hover
+#catsscore_wrapper .coderTextRed:hover
 {
     COLOR: #ee0000
 }
-#wrapper .coderTextRed:active
+#catsscore_wrapper .coderTextRed:active
 {
     COLOR: #ee0000
 }
-#wrapper .coderTextYellow
+#catsscore_wrapper .coderTextYellow
 {
     COLOR: #ddcc00
 }
-#wrapper .coderTextYellow:link
+#catsscore_wrapper .coderTextYellow:link
 {
     COLOR: #ddcc00
 }
-#wrapper .coderTextYellow:visited
+#catsscore_wrapper .coderTextYellow:visited
 {
     COLOR: #ddcc00
 }
-#wrapper .coderTextYellow:hover
+#catsscore_wrapper .coderTextYellow:hover
 {
     COLOR: #ddcc00
 }
-#wrapper .coderTextYellow:active
+#catsscore_wrapper .coderTextYellow:active
 {
     COLOR: #ddcc00
 }
-#wrapper .coderTextViolet
+#catsscore_wrapper .coderTextViolet
 {
     COLOR: #a0a
 }
-#wrapper .coderTextViolet:link
+#catsscore_wrapper .coderTextViolet:link
 {
     COLOR: #a0a
 }
-#wrapper .coderTextViolet:visited
+#catsscore_wrapper .coderTextViolet:visited
 {
     COLOR: #a0a
 }
-#wrapper .coderTextViolet:hover
+#catsscore_wrapper .coderTextViolet:hover
 {
     COLOR: #a0a
 }
-#wrapper .coderTextViolet:active
+#catsscore_wrapper .coderTextViolet:active
 {
     COLOR: #a0a
 }
 
-#wrapper .coderTextBlue
+#catsscore_wrapper .coderTextBlue
 {
     COLOR: #6666ff
 }
-#wrapper .coderTextBlue:link
+#catsscore_wrapper .coderTextBlue:link
 {
     COLOR: #6666ff
 }
-#wrapper .coderTextBlue:visited
+#catsscore_wrapper .coderTextBlue:visited
 {
     COLOR: #6666ff
 }
-#wrapper .coderTextBlue:hover
+#catsscore_wrapper .coderTextBlue:hover
 {
     COLOR: #6666ff
 }
-#wrapper .coderTextBlue:active
+#catsscore_wrapper .coderTextBlue:active
 {
     COLOR: #6666ff
 }
-#wrapper .coderTextGreen
+#catsscore_wrapper .coderTextGreen
 {
     COLOR: #00a900
 }
-#wrapper .coderTextGreen:link
+#catsscore_wrapper .coderTextGreen:link
 {
     COLOR: #00a900
 }
-#wrapper .coderTextGreen:visited
+#catsscore_wrapper .coderTextGreen:visited
 {
     COLOR: #00a900
 }
-#wrapper .coderTextGreen:hover
+#catsscore_wrapper .coderTextGreen:hover
 {
     COLOR: #00a900
 }
-#wrapper .coderTextGreen:active
+#catsscore_wrapper .coderTextGreen:active
 {
     COLOR: #00a900
 }
-#wrapper .coderTextGray
+#catsscore_wrapper .coderTextGray
 {
     COLOR: #999999
 }
-#wrapper .coderTextGray:link
+#catsscore_wrapper .coderTextGray:link
 {
     COLOR: #999999
 }
-#wrapper .coderTextGray:visited
+#catsscore_wrapper .coderTextGray:visited
 {
     COLOR: #999999
 }
-#wrapper .coderTextGray:hover
+#catsscore_wrapper .coderTextGray:hover
 {
     COLOR: #999999
 }
-#wrapper .coderTextGray:active
+#catsscore_wrapper .coderTextGray:active
 {
     COLOR: #999999
 }
-#wrapper .coderTextWhite
+#catsscore_wrapper .coderTextWhite
 {
     COLOR: #ffffff
 }
-#wrapper .coderTextWhite:link
+#catsscore_wrapper .coderTextWhite:link
 {
     COLOR: #ffffff
 }
-#wrapper .coderTextWhite:visited
+#catsscore_wrapper .coderTextWhite:visited
 {
     COLOR: #ffffff
 }
-#wrapper .coderTextWhite:hover
+#catsscore_wrapper .coderTextWhite:hover
 {
     COLOR: #ffffff
 }
-#wrapper .coderTextWhite:active
+#catsscore_wrapper .coderTextWhite:active
 {
     COLOR: #ffffff
 }
-#wrapper .coderTextBlack
+#catsscore_wrapper .coderTextBlack
 {
     COLOR: #000000
 }
-#wrapper .coderTextBlack:link
+#catsscore_wrapper .coderTextBlack:link
 {
     COLOR: #000000
 }
-#wrapper .coderTextBlack:visited
+#catsscore_wrapper .coderTextBlack:visited
 {
     COLOR: #000000
 }
-#wrapper .coderTextBlack:hover
+#catsscore_wrapper .coderTextBlack:hover
 {
     COLOR: #000000
 }
-#wrapper .coderTextBlack:active
+#catsscore_wrapper .coderTextBlack:active
 {
     COLOR: #000000
 }
-#wrapper S {
+#catsscore_wrapper S {
     FONT-SIZE: 10px; FONT-STYLE: normal; FONT-WEIGHT: bold; TEXT-DECORATION: none;
 }
 
-#wrapper .announce {
+#catsscore_wrapper .announce {
     padding: 0px 8px;
     float:right;
     width:50%;
@@ -496,44 +496,44 @@
     margin-left: 8px;
 }
 
-#wrapper p.nmessage {
+#catsscore_wrapper p.nmessage {
     text-align:justify;
 }
 
 
 
-#wrapper a {
+#catsscore_wrapper a {
     color: #004080;
 }
-#wrapper td.topmenu a {
+#catsscore_wrapper td.topmenu a {
     color: #ffffff;
     text-decoration: none;
     cursor:hand;
 }
-#wrapper td.topmenu a:hover {
+#catsscore_wrapper td.topmenu a:hover {
     color: #c0c0c0;
 }
-#wrapper td.topmenu {
+#catsscore_wrapper td.topmenu {
     text-align: center;
     font-weight: bold;
     font-style: oblique;
 }
-#wrapper td.topmenu div {
+#catsscore_wrapper td.topmenu div {
     background-color: #004080;
     height: 25px;
     padding-top: 2px;
 }
 
-#wrapper td.menuleft a {
+#catsscore_wrapper td.menuleft a {
     color: #ffffff;
     text-decoration: none;
     cursor:hand;
 }
-#wrapper td.menuleft a:hover {
+#catsscore_wrapper td.menuleft a:hover {
     color: #c0c0c0;
 }
 
-#wrapper TD.menuleft {
+#catsscore_wrapper TD.menuleft {
 
     FONT-WEIGHT: bold;
     FONT-SIZE: 16px;
@@ -543,7 +543,7 @@
 
 }
 
-#wrapper TD.menuleft DIV {
+#catsscore_wrapper TD.menuleft DIV {
     PADDING-RIGHT: 8px;
     PADDING-LEFT: 8px;
     PADDING-BOTTOM: 4px;
@@ -553,21 +553,21 @@
     TEXT-ALIGN: center;
 }
 
-#wrapper td.newsselectcontainer {
+#catsscore_wrapper td.newsselectcontainer {
     height: 25px;
     width: 190px;
 }
-#wrapper td.newsselectcontainer form {
+#catsscore_wrapper td.newsselectcontainer form {
     margin: 0px;
 }
-#wrapper td.newsselectcontainer select {
+#catsscore_wrapper td.newsselectcontainer select {
     background-color: #004080;
     color: #fff;
     width: 140px;
     font-style: oblique;
     font-weight: bold;
 }
-#wrapper .newsselectbtn {
+#catsscore_wrapper .newsselectbtn {
     background-color: #004080;
     color: #fff;
     width: 42px;
@@ -576,10 +576,10 @@
 }
 
 
-#wrapper .menuleftblock {
+#catsscore_wrapper .menuleftblock {
     border: 1px solid #004080;
 }
-#wrapper .memorial {
+#catsscore_wrapper .memorial {
     padding: 0px 8px;
     border: 2px solid #000000;
 }

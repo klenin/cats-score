@@ -1,4 +1,4 @@
-#wrapper {
+#catsscore_wrapper {
     background-color: #ffffff;
     color: #000000;
     font-family: Arial;
@@ -7,16 +7,16 @@
     width: 100%;
 }
 
-#wrapper table.iface { width: 100%; border-collapse : collapse; }
-#wrapper table.iface tr td { padding: 0; }
+#catsscore_wrapper table.iface { width: 100%; border-collapse : collapse; }
+#catsscore_wrapper table.iface tr td { padding: 0; }
 
-#wrapper table.header {
+#catsscore_wrapper table.header {
     font-family: Arial, sans-serif;
     color: #333300;
     background-color: #ffcc55;
 }
 
-#wrapper div.elapsed {
+#catsscore_wrapper div.elapsed {
     position: relative;
     width: 550px;
     height: 72px;
@@ -24,31 +24,31 @@
     margin-right: 4px;
 }
 
-#wrapper div.elapsed > span {
+#catsscore_wrapper div.elapsed > span {
     position: absolute;
     bottom: 0;
     right: 0;
     font-size: small;
 }
 
-#wrapper .main_menu {
+#catsscore_wrapper .main_menu {
     background-color: #7070ff;
     height: 30px;
 }
 
-#wrapper .sub_menu {
+#catsscore_wrapper .sub_menu {
     background-color: #bbbbff;
     height: 25px;
 }
 
-#wrapper .top {
+#catsscore_wrapper .top {
     font-family: Arial, sans-serif;
     font-size: 13px;
     color: white;
 }
 
-#wrapper a.top, #wrapper a.top:link, #wrapper a.top:visited, #wrapper a.top:active,
-#wrapper .top a, #wrapper .top a:link, #wrapper .top a:visited, #wrapper .top a:active
+#catsscore_wrapper a.top, #catsscore_wrapper a.top:link, #catsscore_wrapper a.top:visited, #catsscore_wrapper a.top:active,
+#catsscore_wrapper .top a, #catsscore_wrapper .top a:link, #catsscore_wrapper .top a:visited, #catsscore_wrapper .top a:active
 {
     font-family: Arial, sans-serif;
     font-size: 13px;
@@ -56,23 +56,23 @@
     text-decoration: none;
 }
 
-#wrapper a, #wrapper a:link {
+#catsscore_wrapper a, #catsscore_wrapper a:link {
     color: #4040ff;
     font-family: Arial;
     text-decoration: none;
     font-size: 14px
 }
 
-#wrapper .sub_menu a {
+#catsscore_wrapper .sub_menu a {
     font-family: Arial, sans-serif;
     font-size: 12px;
     color: #3030a0;
 }
 
-#wrapper a.main_menu_selected, #wrapper a.main_menu_selected:visited { color: yellow; }
-#wrapper a.sub_menu_selected, #wrapper a.sub_menu_selected:visited { color: white; }
+#catsscore_wrapper a.main_menu_selected, #catsscore_wrapper a.main_menu_selected:visited { color: yellow; }
+#catsscore_wrapper a.sub_menu_selected, #catsscore_wrapper a.sub_menu_selected:visited { color: white; }
 
-#wrapper tr.footer, #wrapper tr.footer td {
+#catsscore_wrapper tr.footer, #catsscore_wrapper tr.footer td {
     background-color: #7070ff;
     height: 30px;
     color: white;
@@ -80,136 +80,136 @@
     font-size: 12px;
 }
 
-#wrapper tr.footer2, #wrapper tr.footer2 td, tr.footer2 td a {
+#catsscore_wrapper tr.footer2, #catsscore_wrapper tr.footer2 td, tr.footer2 td a {
     background-color: #ffcc55;
     height: 40px;
     color: #333300;
     font-size: 12px;
 }
 
-#wrapper .filter {
+#catsscore_wrapper .filter {
     /*filter: Alpha(Opacity=80, FinishOpacity=20, Style=1, StartX=0, StartY=100, FinishY=250);*/
 }
 
-#wrapper select, #wrapper option {
+#catsscore_wrapper select, #catsscore_wrapper option {
     background-color: #ffffff;
     border: 1px solid #4040ff;
     height: 22px;
     vertical-align: middle;
 }
 
-#wrapper input {
+#catsscore_wrapper input {
     height: 22px;
     vertical-align: middle;
 }
 
-#wrapper .file {
+#catsscore_wrapper .file {
     border: 1px solid #4040ff;
     background: #ffffff;
 }
 
-#wrapper .bordered {
+#catsscore_wrapper .bordered {
     border: 1px solid #4040ff;
 }
 
-#wrapper .bordered2 {
+#catsscore_wrapper .bordered2 {
     color: white;
     border: 1px solid white;
     background-color: #ccccff;
 }
 
-#wrapper table.internal_borders { border-collapse: collapse; }
-#wrapper table.internal_borders td, #wrapper table.internal_borders th { border: 1px solid #4040ff; }
-#wrapper table.sample { border-collapse: collapse; border: 2px; }
-#wrapper table.sample td, #wrapper table.sample th { border: 1px solid black; padding: 5px; }
-#wrapper table.sample td { vertical-align: top; }
+#catsscore_wrapper table.internal_borders { border-collapse: collapse; }
+#catsscore_wrapper table.internal_borders td, #catsscore_wrapper table.internal_borders th { border: 1px solid #4040ff; }
+#catsscore_wrapper table.sample { border-collapse: collapse; border: 2px; }
+#catsscore_wrapper table.sample td, #catsscore_wrapper table.sample th { border: 1px solid black; padding: 5px; }
+#catsscore_wrapper table.sample td { vertical-align: top; }
 
-#wrapper .button {
+#catsscore_wrapper .button {
     background-color: #ffffff;
     border: 1px solid #4040ff;
     color : #4040ff;
 }
-#wrapper .button2 {
+#catsscore_wrapper .button2 {
     border: 1px solid #ffffff;
     color: #ffffff;
     background-color: #7070ff;
 }
 
-#wrapper th { font-size: 11pt; font-weight: bold; color:#000000; }
-#wrapper td { font-size: 11pt }
-#wrapper td.ts { font-size: 10pt; font-style: italic; }
+#catsscore_wrapper th { font-size: 11pt; font-weight: bold; color:#000000; }
+#catsscore_wrapper td { font-size: 11pt }
+#catsscore_wrapper td.ts { font-size: 10pt; font-style: italic; }
 
-#wrapper tr.run_details_OK { background-color: #A0FFA0 }
-#wrapper tr.run_details_WA { background-color: #FFA0A0 }
-#wrapper tr.run_details_PE { background-color: #FFFFA0 }
-#wrapper tr.run_details_RE { background-color: #FFA0A0 }
+#catsscore_wrapper tr.run_details_OK { background-color: #A0FFA0 }
+#catsscore_wrapper tr.run_details_WA { background-color: #FFA0A0 }
+#catsscore_wrapper tr.run_details_PE { background-color: #FFFFA0 }
+#catsscore_wrapper tr.run_details_RE { background-color: #FFA0A0 }
 
-#wrapper tr.run_details_IN { color: #A0A000 }
-#wrapper tr.run_details_NP { color: #008000 }
-#wrapper tr.run_details_NT { color: #000080; font-style: italic; }
+#catsscore_wrapper tr.run_details_IN { color: #A0A000 }
+#catsscore_wrapper tr.run_details_NP { color: #008000 }
+#catsscore_wrapper tr.run_details_NT { color: #000080; font-style: italic; }
 
-#wrapper tr.odd { background-color: #ffffff; }
-#wrapper tr.even { background-color: #f0f0f0; }
-#wrapper table.highlight tr:hover { background-color: #ffcc55; }
-#wrapper table.console tr td { margin: 0; padding: 1px 10px 1px 1px; }
-#wrapper table.console tr td, #wrapper table.console tr td a { font-size: 10pt; }
-#wrapper table.console tr td:first-child { width: 1%; white-space: nowrap; }
+#catsscore_wrapper tr.odd { background-color: #ffffff; }
+#catsscore_wrapper tr.even { background-color: #f0f0f0; }
+#catsscore_wrapper table.highlight tr:hover { background-color: #ffcc55; }
+#catsscore_wrapper table.console tr td { margin: 0; padding: 1px 10px 1px 1px; }
+#catsscore_wrapper table.console tr td, #catsscore_wrapper table.console tr td a { font-size: 10pt; }
+#catsscore_wrapper table.console tr td:first-child { width: 1%; white-space: nowrap; }
 
-#wrapper p { margin-top: 5px; margin-bottom: 5px }
+#catsscore_wrapper p { margin-top: 5px; margin-bottom: 5px }
 
-#wrapper ul { margin-top: 5px; margin-bottom: 5px }
+#catsscore_wrapper ul { margin-top: 5px; margin-bottom: 5px }
 
-#wrapper h2 { margin-top: 10px; margin-bottom: 10px }
-#wrapper h3 { margin-top: 10px; margin-bottom: 5px }
-#wrapper h4 { margin-top: 10px; margin-bottom: 5px }
-#wrapper code { margin-top: 0; margin-bottom: 0 }
-#wrapper pre { margin-top: 0; margin-bottom: 0 }
+#catsscore_wrapper h2 { margin-top: 10px; margin-bottom: 10px }
+#catsscore_wrapper h3 { margin-top: 10px; margin-bottom: 5px }
+#catsscore_wrapper h4 { margin-top: 10px; margin-bottom: 5px }
+#catsscore_wrapper code { margin-top: 0; margin-bottom: 0 }
+#catsscore_wrapper pre { margin-top: 0; margin-bottom: 0 }
 
-#wrapper .diff_only_a { background-color: #FFA0A0 }
-#wrapper .diff_only_b { background-color: #A0FFA0 }
+#catsscore_wrapper .diff_only_a { background-color: #FFA0A0 }
+#catsscore_wrapper .diff_only_b { background-color: #A0FFA0 }
 
-#wrapper form.embedded { margin: 0 }
-#wrapper a.current_link { font-weight: bold; }
+#catsscore_wrapper form.embedded { margin: 0 }
+#catsscore_wrapper a.current_link { font-weight: bold; }
 
-#wrapper span.TeX { font-family: Arial Unicode Ms, Lucida Sans Unicode, Arial, sans serif; }
-#wrapper span.TeX i { font-family: Times New Roman, serif; }
-#wrapper span.TeX b { font-weight: normal; font-family: Times New Roman, serif; }
-#wrapper span.TeX sup { white-space: nowrap; position: relative; left: 1px; }
-#wrapper span.TeX sub { white-space: nowrap; position: relative; top: 2px; }
-#wrapper span.TeX span.over { border-top: 1px solid black; padding: 0px 3px 0px 1px; }
-#wrapper span.TeX span.num { font-family: Times New Roman, serif; }
-#wrapper span.TeX span.sqrt { border-top: 1px solid black; padding-right: 2px; }
-#wrapper span.TeX span.sqrt_sym { font-size: 18px; }
-#wrapper span.TeX table.frac { border: 0; border-collapse: collapse; display: inline; vertical-align: middle; }
-#wrapper span.TeX table.frac tr.nom td { border-bottom: 1px solid black; }
-#wrapper span.TeX table.limits { border: 0; border-collapse: collapse; display: inline; text-align: center; vertical-align: middle; }
-#wrapper span.TeX table.limits tr { vertical-align: middle; padding: 0; margin: 0; }
-#wrapper span.TeX table.limits tr td.sub { vertical-align: top; padding: 0; margin: 0; font-size: small; }
+#catsscore_wrapper span.TeX { font-family: Arial Unicode Ms, Lucida Sans Unicode, Arial, sans serif; }
+#catsscore_wrapper span.TeX i { font-family: Times New Roman, serif; }
+#catsscore_wrapper span.TeX b { font-weight: normal; font-family: Times New Roman, serif; }
+#catsscore_wrapper span.TeX sup { white-space: nowrap; position: relative; left: 1px; }
+#catsscore_wrapper span.TeX sub { white-space: nowrap; position: relative; top: 2px; }
+#catsscore_wrapper span.TeX span.over { border-top: 1px solid black; padding: 0px 3px 0px 1px; }
+#catsscore_wrapper span.TeX span.num { font-family: Times New Roman, serif; }
+#catsscore_wrapper span.TeX span.sqrt { border-top: 1px solid black; padding-right: 2px; }
+#catsscore_wrapper span.TeX span.sqrt_sym { font-size: 18px; }
+#catsscore_wrapper span.TeX table.frac { border: 0; border-collapse: collapse; display: inline; vertical-align: middle; }
+#catsscore_wrapper span.TeX table.frac tr.nom td { border-bottom: 1px solid black; }
+#catsscore_wrapper span.TeX table.limits { border: 0; border-collapse: collapse; display: inline; text-align: center; vertical-align: middle; }
+#catsscore_wrapper span.TeX table.limits tr { vertical-align: middle; padding: 0; margin: 0; }
+#catsscore_wrapper span.TeX table.limits tr td.sub { vertical-align: top; padding: 0; margin: 0; font-size: small; }
 
-#wrapper table.nobr tr td { white-space: nowrap; }
+#catsscore_wrapper table.nobr tr td { white-space: nowrap; }
 
-#wrapper a.spell { text-decoration: underline; color: red; }
+#catsscore_wrapper a.spell { text-decoration: underline; color: red; }
 
-#wrapper td.problem_radio { width: 1%; height: 100%; padding: 0; margin: 0; }
-#wrapper td.problem_radio label { display: block; width: 100%; height: 100%; }
+#catsscore_wrapper td.problem_radio { width: 1%; height: 100%; padding: 0; margin: 0; }
+#catsscore_wrapper td.problem_radio label { display: block; width: 100%; height: 100%; }
 
-#wrapper table.rank_table tr td p { padding: 0; margin: 0; font-size: 10px; }
+#catsscore_wrapper table.rank_table tr td p { padding: 0; margin: 0; font-size: 10px; }
 
-#wrapper div.problem_text { margin-left: 10px; margin-right: 10px; }
-#wrapper div.problem_text h3, #wrapper div.problem_text h4 {
+#catsscore_wrapper div.problem_text { margin-left: 10px; margin-right: 10px; }
+#catsscore_wrapper div.problem_text h3, #catsscore_wrapper div.problem_text h4 {
     font-style: italic;
     page-break-after: avoid;
 }
 
-#wrapper div.problem_text div { page-break-inside: avoid; }
+#catsscore_wrapper div.problem_text div { page-break-inside: avoid; }
 
-#wrapper @media print { .jsonly { display: none; } }
+#catsscore_wrapper @media print { .jsonly { display: none; } }
 
-#wrapper table.registration tr td { padding: 5px; width: 200px; }
+#catsscore_wrapper table.registration tr td { padding: 5px; width: 200px; }
 
-#wrapper span.timing { color: #808080; font-size: xx-small; }
+#catsscore_wrapper span.timing { color: #808080; font-size: xx-small; }
 
-#wrapper div.problem_submit { float: left; margin: 5px 20px 5px 5px; }
-#wrapper div.problem_submit label { display: inline-block; width: 140px; margin-right: 5px; }
+#catsscore_wrapper div.problem_submit { float: left; margin: 5px 20px 5px 5px; }
+#catsscore_wrapper div.problem_submit label { display: inline-block; width: 140px; margin-right: 5px; }
 
-#wrapper span.jury_message { color: red; }
+#catsscore_wrapper span.jury_message { color: red; }

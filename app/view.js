@@ -184,7 +184,7 @@ CATS.View = Classify({
                 maximum_page: max_page
             }) : "";
             this.$el.html(
-                header + pagination +
+                header + pagination + "<div id='catsscore_wrapper'>" +
                 this.page(skin, page_name)({
                     app: CATS.App,
                     models: params,
@@ -193,7 +193,7 @@ CATS.View = Classify({
                     lang: this.view_state.get("lang") != null ? this.view_state.get("lang") : "ru",
                     next_page: this.with_pagination ?  this.view_state.get("elements_on_page") * (this.view_state.get("page") - 1) : 0,
                     elem_cnt:  this.with_pagination ? this.view_state.get("elements_on_page") : elem_cnt
-                }) +
+                }) + "</div>" +
                 footer
             );
 
