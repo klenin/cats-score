@@ -42,7 +42,6 @@ _.each(app.runs[app.contests[contest_id].runs[0]], function(v, k){
 });
 %>
 </tr>
-    <input type="hidden" id="last_elem_idx" value="<%=app.contests[contest_id].runs.length%>" />
 <%
 var idx = 0;
 _.each(app.contests[contest_id].runs.slice(next_page, next_page + elem_cnt), function(run){

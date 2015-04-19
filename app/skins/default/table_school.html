@@ -28,7 +28,6 @@ var table = app.result_tables[table_id];
             points
         </th>
     </tr>
-    <input type="hidden" id="last_elem_idx" value="<%=table.score_board.length%>" />
     <%
     _.each(table.score_board.slice(next_page, next_page + elem_cnt), function(row){
     %>

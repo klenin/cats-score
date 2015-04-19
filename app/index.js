@@ -11,7 +11,7 @@ function cats_score_init() {
     CATS.App.register_rule(new CATS.Rule.School());
 
     var skins_names = [
-        'header_rank_table', 'header_contests_list',
+        'header_rank_table', 'header_contests_list', 'pagination', 'footer',
         'default/table_acm', 'default/table_school', 'default/history', 'default/contests',
         'ifmo/table_acm', 'ifmo/table_school', 'ifmo/history', 'ifmo/contests',
         'codeforces/table_acm', 'codeforces/table_school', 'codeforces/history', 'codeforces/contests',
@@ -30,6 +30,7 @@ function cats_score_init() {
     //argument is optional
     view.display({
         with_header: true,
+        with_footer: true,
         with_pagination: true,
         with_css: true,
         default_url_hash: "!show_contests_list/codeforces/codeforces"

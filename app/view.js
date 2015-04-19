@@ -12,10 +12,10 @@ CATS.View = Classify({
             skin: null,
             contest_id: null,
             lang: null,
-            next_page: 0,
+            page: 1,
             elements_on_page: 20
         },
-        name: "ViewState",
+        name: "ViewState"
     }),
 
     Router: Backbone.Router.extend({
@@ -25,45 +25,45 @@ CATS.View = Classify({
         },
 
         routes: {
-            "!show_contests_list/:source/:skin": "show_contests_list",
-            "!show_contests_list/:source/:skin/:lang": "show_contests_list_with_lang",
-            "!show_rank_table/:source/:page_name/:skin/:contestid": "show_rank_table",
-            "!show_rank_table/:source/:page_name/:skin/:contestid/:lang": "show_rank_table_with_lang"
+            "!show_contests_list/:source/:skin(/?lang=:lang)(/?page=:page)": "show_contests_list",
+            "!show_rank_table/:source/:page_name/:skin/:contestid(/?=lang:lang)(/?page=:page)": "show_rank_table",
         },
 
-        show_contests_list: function (source, skin) {
-            this.view_state.set({ source: source, page_name: 'contests', state: 'contests_list', skin: skin });
+        show_contests_list: function (source, skin, lang, page) {
+            this.view_state.set({ source: source, page_name: 'contests', state: 'contests_list', skin: skin, lang: lang, page: page });
         },
 
-        show_contests_list_with_lang: function (source, skin, lang) {
-            this.view_state.set({ source: source, page_name: 'contests', state: 'contests_list', skin: skin, lang: lang });
-        },
-
-        show_rank_table: function (source, page_name, skin, contest_id) {
-            this.view_state.set({ source: source, page_name: page_name, state: 'rank_table', skin: skin, contest_id: contest_id });
-        },
-
-        show_rank_table_with_lang: function (source, page_name, skin, contest_id, lang) {
-            this.view_state.set({ source: source, page_name: page_name, state: 'rank_table', skin: skin, contest_id: contest_id, lang: lang });
+        show_rank_table: function (source, page_name, skin, contest_id, lang, page) {
+            this.view_state.set({ source: source, page_name: page_name, state: 'rank_table', skin: skin, contest_id: contest_id, lang: lang, page: page });
         },
 
         generate_url: function() {
+            var url = "";
             switch (this.view_state.get("state")) {
                 case "rank_table":
-                    return "!show_rank_table/" +
-                        this.view_state.get("source") + "/" +
-                        this.view_state.get("page_name") + "/" +
-                        this.view_state.get("skin") + "/" +
-                        this.view_state.get("contest_id") +
-                        (this.view_state.get("lang") != null ? "/" + this.view_state.get("lang") : "");
-                case "contests_list":
-                    return "!show_contests_list/" +
-                        this.view_state.get("source") + "/" +
+                    url += "!show_rank_table/" +
+                        this.view_state.get("source") +
+                        "/" +
+                        this.view_state.get("page_name") +
+                        "/" +
                         this.view_state.get("skin") +
-                        (this.view_state.get("lang") != null ? "/" + this.view_state.get("lang") : "");
+                        "/" +
+                        this.view_state.get("contest_id");
+                    break;
+                case "contests_list":
+                    url += "!show_contests_list/" +
+                        this.view_state.get("source") +
+                        "/" +
+                        this.view_state.get("skin");
+                    break;
                 default :
-                    return null;
+                    break;
             }
+            url +=
+                (this.view_state.get("lang") != null ? "/?lang=" + this.view_state.get("lang") : "") +
+                (this.view_state.get("page") != null ? "/?page=" + this.view_state.get("page") : "");
+
+            return url;
         },
 
         current : function() {
@@ -109,17 +109,11 @@ CATS.View = Classify({
             },
             'change #skin': function () {
                 this.skin($("#skin").val());
-            },
-            'click #next_page': function () {
-                var next_page = this.next_page() + this.view_state.get("elements_on_page");
-                if (next_page > $("#last_elem_idx").val())
-                    next_page = 0;
-                this.next_page(next_page);
             }
         },
 
-        header: function (name) {
-            return _.template(this.get_template(name))({});
+        template: function (name) {
+            return _.template(this.get_template(name));
         },
 
         page: function(skin, page_name) {
@@ -149,7 +143,25 @@ CATS.View = Classify({
             });
         },
 
+        get_table_items_count: function(params) {
+            switch (this.view_state.get("state")) {
+                case "rank_table":
+                    return CATS.App.result_tables[params.table].score_board.length;
+                case "contests_list":
+                    return params.contests.length;
+                default :
+                    return 0;
+            }
+        },
+
         render: function(params){
+            var elem_cnt = this.get_table_items_count(params);
+            var max_page = Math.ceil(elem_cnt / this.view_state.get("elements_on_page"));
+            if (this.with_pagination && this.view_state.get('page') == null || this.view_state.get('page') > max_page) {
+                this.view_state.set('page', 1);
+                return;
+            }
+
             var page_name = this.page_name();
             var source = this.source();
             var skin = this.skin();
@@ -165,16 +177,25 @@ CATS.View = Classify({
             if (page_name == "table")
                 page_name += "_" + scoring;
 
-            var header = this.with_header ? this.header("header_" + this.view_state.get("state")) : "";
-            this.$el.html(header + this.page(skin, page_name)({
-                app: CATS.App,
-                models: params,
-                source: source,
-                skin: skin,
-                lang: this.view_state.get("lang") != null ? this.view_state.get("lang") : "ru",
-                next_page: this.with_pagination ? this.next_page() : 0,
-                elem_cnt:  this.with_pagination ? this.view_state.get("elements_on_page") : CATS.App.result_tables[params.table].score_board.length
-            }));
+            var header = this.with_header ? this.template("header_" + this.view_state.get("state"))({}) : "";
+            var footer = this.with_footer ? this.template("footer")({}) : "";
+            var pagination = this.with_pagination ? this.template("pagination")({
+                current_page: this.view_state.get('page'),
+                maximum_page: max_page
+            }) : "";
+            this.$el.html(
+                header + pagination +
+                this.page(skin, page_name)({
+                    app: CATS.App,
+                    models: params,
+                    source: source,
+                    skin: skin,
+                    lang: this.view_state.get("lang") != null ? this.view_state.get("lang") : "ru",
+                    next_page: this.with_pagination ?  this.view_state.get("elements_on_page") * (this.view_state.get("page") - 1) : 0,
+                    elem_cnt:  this.with_pagination ? this.view_state.get("elements_on_page") : elem_cnt
+                }) +
+                footer
+            );
 
             $("#source").val(this.source());
             $("#page_name").val(this.page_name());
@@ -191,12 +212,6 @@ CATS.View = Classify({
             if (page_name != undefined)
                 this.view_state.set({page_name: page_name})
             return this.view_state.get("page_name");
-        },
-
-        next_page: function (next_page) {
-            if (next_page != undefined)
-                this.view_state.set({next_page: next_page})
-            return this.view_state.get("next_page");
         },
 
         source: function (source) {
