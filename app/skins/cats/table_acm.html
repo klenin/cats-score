@@ -56,7 +56,6 @@ var capt = CATS.Langs.cats[lang];
         <th><%=capt.place%></th>
         <th><%=capt.status%></th>
     </tr>
-    <input type="hidden" id="last_elem_idx" value="<%=table.score_board.length%>" />
     <%
         var use_color = 'odd', last_solved_cnt = 0, idx = 0;
         _.each(table.score_board.slice(next_page, next_page + elem_cnt), function(row) {

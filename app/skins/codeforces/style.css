@@ -1,43 +1,43 @@
-table {
+#catsscore_wrapper  table {
     border-collapse: collapse;
     border-spacing: 0;
 }
 
-.cell-accepted {
+#catsscore_wrapper .cell-accepted {
     color: #0a0;
     font-weight: bold;
 }
 
-.cell-rejected {
+#catsscore_wrapper .cell-rejected {
     color: #00a;
 }
 
-.cell-time {
+#catsscore_wrapper .cell-time {
     font-size: 10px;
     display: block;
 }
 
-.contest-name {
+#catsscore_wrapper .contest-name {
     font-size: 1.5em;
     color: #445f9d;
 }
 
-.datatable td {
+#catsscore_wrapper .datatable td {
     width: auto !important;
     max-width: 20em !important;
     overflow: auto;
 }
 
-.datatable {
+#catsscore_wrapper .datatable {
     width: 100%;
     position: relative;
 }
 
-.datatable table {
+#catsscore_wrapper .datatable table {
     width: 100%;
 }
 
-.datatable td, .datatable th {
+#catsscore_wrapper .datatable td, #catsscore_wrapper .datatable th {
     border-top: 1px solid #e1e1e1;
     border-right: 1px solid #e1e1e1;
     padding: 0.5em;
@@ -46,31 +46,31 @@ table {
     overflow: hidden;
 }
 
-.datatable th {
+#catsscore_wrapper .datatable th {
     font-weight: bold;
 }
 
-.datatable .left {
+#catsscore_wrapper .datatable .left {
     border-left: none;
 }
 
-.datatable .top {
+#catsscore_wrapper .datatable .top {
     border-top: none;
 }
 
-.datatable .bottom {
+#catsscore_wrapper .datatable .bottom {
     border-bottom: none;
 }
 
-.datatable .right {
+#catsscore_wrapper .datatable .right {
     border-right: none;
 }
 
-.datatable .dark {
+#catsscore_wrapper  .datatable .dark {
     background-color: #f8f8f8;
 }
 
-.datatable .lt {
+#catsscore_wrapper .datatable .lt {
     width: 6px;
     height: 6px;
     left: 0;
@@ -78,7 +78,7 @@ table {
     position: absolute;
 }
 
-.datatable .rt {
+#catsscore_wrapper .datatable .rt {
     width: 6px;
     height: 6px;
     right: 0;
@@ -86,7 +86,7 @@ table {
     position: absolute;
 }
 
-.datatable .lb {
+#catsscore_wrapper .datatable .lb {
     width: 4px;
     height: 4px;
     left: 0;
@@ -94,7 +94,7 @@ table {
     position: absolute;
 }
 
-.datatable .rb {
+#catsscore_wrapper .datatable .rb {
     width: 4px;
     height: 4px;
     right: 0;
@@ -102,7 +102,7 @@ table {
     position: absolute;
 }
 
-.datatable .ilt {
+#catsscore_wrapper .datatable .ilt {
     width: 6px;
     height: 6px;
     left: 0;
@@ -110,7 +110,7 @@ table {
     position: absolute;
 }
 
-.datatable .irt {
+#catsscore_wrapper .datatable .irt {
     width: 6px;
     height: 6px;
     right: 0;
@@ -118,6 +118,6 @@ table {
     position: absolute;
 }
 
-.datatable .filter input {
+#catsscore_wrapper .datatable .filter input {
     padding-left: 20px;
 }

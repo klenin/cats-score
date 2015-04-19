@@ -1,12 +1,12 @@
-body {
+#catsscore_wrapper {
     text-align: center;
 }
 
-table {
+#catsscore_wrapper table {
     font-family: monospace;
 }
 
-table.wrapper {
+#catsscore_wrapper table.wrapper {
     text-align: center;
     border-collapse: collapse;
     border: none;
@@ -15,114 +15,114 @@ table.wrapper {
     width: 100%;
 }
 
-table.standings {
+#catsscore_wrapper table.standings {
     border-collapse: collapse;
     border: none;
     margin: 0pt;
     padding: 1pt;
 }
 
-p {
+#catsscore_wrapper p {
     text-align: center;
     font-family: monospace;
 }
 
-small {
+#catsscore_wrapper small {
     font-size: xx-small;
 }
 
-h2 {
+#catsscore_wrapper h2 {
     font-family: helvetica;
     font-size: large;
     text-align: center;
 }
 
-h3 {
+#catsscore_wrapper h3 {
     font-family: helvetica;
     font-size: medium;
 }
 
-th {
+#catsscore_wrapper th {
 }
 
-th.solved {
+#catsscore_wrapper th.solved {
     text-align: center;
     padding-left: 10px;
     padding-right: 10px;
 }
 
-th.penalty {
+#catsscore_wrapper th.penalty {
     text-align: right;
     padding-left: 10px;
     padding-right: 10px;
 }
 
-th.party {
+#catsscore_wrapper th.party {
     text-align: left;
     padding-left: 10px;
 }
 
-th.rank {
+#catsscore_wrapper th.rank {
     text-align: right;
     padding-left: 10px;
     padding-right: 10px;
 }
 
-th.problem {
+#catsscore_wrapper th.problem {
     text-align: center;
     padding-left: 20px;
     padding-right: 20px;
 }
 
-td {
+#catsscore_wrapper td {
     text-align: center;
 }
 
-td.solved {
+#catsscore_wrapper td.solved {
     text-align: right;
     padding-left: 20px;
     padding-right: 20px;
 }
 
-td.penalty {
+#catsscore_wrapper td.penalty {
     text-align: right;
     padding-left: 10px;
     padding-right: 10px;
 }
 
-td.party {
+#catsscore_wrapper td.party {
     text-align: left;
     padding-left: 10px;
 }
 
-td.rank {
+#catsscore_wrapper td.rank {
     text-align: right;
     padding-right: 10px;
 }
 
-td.problem {
+#catsscore_wrapper td.problem {
     text-align: center;
 }
 
-b {
+#catsscore_wrapper b {
     color: #c06060;
     font-weight: normal;
 }
-i {
+#catsscore_wrapper i {
     color: green;
     font-style: normal;
 }
-i.first-to-solve {
+#catsscore_wrapper i.first-to-solve {
     display: block;
     background-color: #c0ffc0;
     font-style: normal;
 }
-em {
+#catsscore_wrapper em {
     color: black;
     background-color: #f0f0a0;
     font-style: normal;
 }
-s {
+#catsscore_wrapper s {
     font-size: x-small;
     font-face: arial;
     font-style: normal;

@@ -6,7 +6,7 @@ var table = app.result_tables[table_id];
 %>
 
 <h2><%=contest.name%></h2>
-<table class="table table-striped table-bordered table-hover">
+<table class="simple-little-table">
     <tr>
         <th>
             place
@@ -28,7 +28,6 @@ var table = app.result_tables[table_id];
             points
         </th>
     </tr>
-    <input type="hidden" id="last_elem_idx" value="<%=table.score_board.length%>" />
     <%
     _.each(table.score_board.slice(next_page, next_page + elem_cnt), function(row){
     %>
