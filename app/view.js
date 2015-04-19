@@ -158,8 +158,7 @@ CATS.View = Classify({
             var elem_cnt = this.get_table_items_count(params);
             var max_page = Math.ceil(elem_cnt / this.view_state.get("elements_on_page"));
             if (this.with_pagination && this.view_state.get('page') == null || this.view_state.get('page') > max_page) {
-                this.view_state.set('page', 1);
-                return;
+                this.view_state.set({page: 1}, {silent: true});
             }
 
             var page_name = this.page_name();
@@ -193,7 +192,7 @@ CATS.View = Classify({
                     lang: this.view_state.get("lang") != null ? this.view_state.get("lang") : "ru",
                     next_page: this.with_pagination ?  this.view_state.get("elements_on_page") * (this.view_state.get("page") - 1) : 0,
                     elem_cnt:  this.with_pagination ? this.view_state.get("elements_on_page") : elem_cnt
-                }) + "</div>" +
+                }) + "</div>" + pagination +
                 footer
             );
 
