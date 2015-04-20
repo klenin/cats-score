@@ -59,7 +59,7 @@ CATS.Adapter.Cats_rank_table = Classify({
                     0;
                 if (prob.is_solved)
                     prob.runs_cnt++;
-                prob.best_run_time = r.tm != undefined ? formated_hours_to_minutes(r.tm[i]) : null;
+                prob.best_run_time = r.tm != undefined ? CATS.App.utils.formated_hours_to_minutes(r.tm[i]) : null;
                 prob.points = r.pt != undefined ? r.pt[i] : null;
                 row.problems.push(prob);
             }

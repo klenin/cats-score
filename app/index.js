@@ -9,6 +9,7 @@ function cats_score_init() {
     CATS.App.register_adapter(new CATS.Adapter.Default([-1]));
     CATS.App.register_rule(new CATS.Rule.Acm());
     CATS.App.register_rule(new CATS.Rule.School());
+    CATS.App.utils = new CATS.Utils();
 
     var skins_names = [
         'header_rank_table', 'header_contests_list', 'pagination', 'footer',

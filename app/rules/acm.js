@@ -12,11 +12,11 @@ CATS.Rule.Acm = Classify({
                 for (var i = 0; i < v['runs_cnt']; ++i) {
                     var run = CATS.Model.Run();
                     run['problem'] = v['problem'];
-                    run['start_processing_time'] = add_time(contest_start_time, 0);
+                    run['start_processing_time'] = CATS.App.utils.add_time(contest_start_time, 0);
                     run['user'] = row['user'];
 
                     if (v['is_solved'] && i + 1 == v['runs_cnt']) {
-                        run['start_processing_time'] = add_time(contest_start_time, v['best_run_time']);
+                        run['start_processing_time'] = CATS.App.utils.add_time(contest_start_time, v['best_run_time']);
                         run['status'] = 'accepted';
                     }
                     CATS.App.add_object(run);
@@ -52,7 +52,7 @@ CATS.Rule.Acm = Classify({
             if (!teams_problems[team_id][p_idx]['is_solved']) {
                 teams_problems[team_id][p_idx]['runs_cnt']++;
                 if (row['status'] == 'accepted') {
-                    teams_problems[team_id][p_idx]['best_run_time'] = get_time_diff(contest_start_time, row['start_processing_time']);
+                    teams_problems[team_id][p_idx]['best_run_time'] = CATS.App.utils.get_time_diff(contest_start_time, row['start_processing_time']);
                     teams_problems[team_id][p_idx]['is_solved'] = true;
                     teams[team_id]['solved_cnt']++;
                     teams[team_id]['penalty'] += (teams_problems[team_id][p_idx]['runs_cnt'] - 1) * self.failed_run_penalty +

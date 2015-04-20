@@ -7,11 +7,13 @@ var CATS = {
     View: null,
     Langs: null,
     Config: {},
+    Utils: null,
     Controller: Classify({
         init: function () {
             //other
             this.adapters = {};
             this.rules = {};
+            this.utils = null;
             //models
             this.users = {};
             this.problems = {};

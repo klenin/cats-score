@@ -11,11 +11,11 @@ CATS.Rule.School = Classify({
                 if (v['points'] > 0) {
                     var run = CATS.Model.Run();
                     run['problem'] = v['problem'];
-                    run['start_processing_time'] = add_time(contest_start_time, 0);
+                    run['start_processing_time'] = CATS.App.utils.add_time(contest_start_time, 0);
                     run['user'] = row['user'];
 
                     if (v['best_run_time'])
-                        run['start_processing_time'] = add_time(contest_start_time, v['best_run_time']);
+                        run['start_processing_time'] = CATS.App.utils.add_time(contest_start_time, v['best_run_time']);
 
                     run['status'] = (v['points'] == CATS.App.problems[run['problem']].max_points) ? 'accepted' : 'wrong_answer';
                     run['points'] = v['points'];
@@ -50,7 +50,7 @@ CATS.Rule.School = Classify({
             var p_idx = contest.get_problem_index(row['problem']);
 
             teams_problems[team_id][p_idx]['runs_cnt']++;
-            teams_problems[team_id][p_idx]['last_run_time'] = get_time_diff(contest_start_time, row['start_processing_time']);
+            teams_problems[team_id][p_idx]['last_run_time'] = CATS.App.utils.get_time_diff(contest_start_time, row['start_processing_time']);
             if (teams_problems[team_id][p_idx]['points'] < row['points']) {
                 teams_problems[team_id][p_idx]['best_run_time'] = teams_problems[team_id][p_idx]['last_run_time'];
                 teams_problems[team_id][p_idx]['points'] = row['points'];

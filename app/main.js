@@ -6,8 +6,7 @@ requirejs.config({
         underscore: "../vendors/underscore.min",
         backbone: "../vendors/backbone.min",
         classify: "../vendors/classify.min",
-        dateformat: "../vendors/date.format",
-        utils: "../app/utils"
+        dateformat: "../vendors/date.format"
     },
     shim: {
         underscore: {
@@ -21,7 +20,7 @@ requirejs.config({
     }
 });
 require(['underscore', 'jquery'], function () {
-    require(['backbone', 'classify', 'dateformat', 'jqpagination', 'utils'], function () {
+    require(['backbone', 'classify', 'dateformat', 'jqpagination'], function () {
         require(['controller'], function () {
             require(['models/entity'], function () {
                 require(['models/event'], function () {
@@ -46,6 +45,7 @@ require(['underscore', 'jquery'], function () {
                         'adapters/codeforces',
                         'adapters/default',
                         'view',
+                        'utils',
                         'skins/langs',
                     ], function () {
                         require([//we cant use skins_names array because optimization module works only with hardcoded array constant. Proof http://requirejs.org/docs/optimization.html
