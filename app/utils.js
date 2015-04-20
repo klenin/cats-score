@@ -24,6 +24,30 @@ CATS.Utils = Classify({
     formated_hours_to_minutes: function (h) {
         var time = h.split(":");
         return time[0] * 60 + time[1] * 1;
+    },
+
+    proxy_get: function(url, callback) {
+        $.get(CATS.Config.proxy_path + "proxy.pl?u=" + encodeURIComponent(url), callback);
+    },
+
+    json_get: function (url, callback) {
+        $.ajax({
+            url: url,
+            dataType: 'json',
+            success: callback
+        });
+    },
+
+    jsonp_get: function (url, callback) {
+        var parseJsonp = function (data) {
+            return data;
+        }
+        $.ajax({
+            url: url + '&jsonp=parseJsonp',
+            dataType: 'jsonp',
+            jsonpCallback: 'parseJsonp',
+            success: callback
+        });
     }
 });
 

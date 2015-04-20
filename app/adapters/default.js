@@ -29,14 +29,6 @@ CATS.Adapter.Default = Classify({
         });
     },
 
-    get_json: function (url, callback) {
-        $.ajax({
-            url: url,
-            dataType: 'json',
-            success: callback
-        });
-    },
-
     add_contest: function(c, v) {
         var contest = CATS.Model.Contest();
         $.extend(contest, c);
@@ -48,7 +40,7 @@ CATS.Adapter.Default = Classify({
 
     get_contests: function(callback) {
         var self = this;
-        this.get_json("app/tests/default_get_contests.json", function(data) {
+        CATS.App.utils.json_get("app/tests/default_get_contests.json", function(data) {
             var contests = [];
             var version = CATS.Model.Version();
             version.id = data[0].id;
@@ -64,7 +56,7 @@ CATS.Adapter.Default = Classify({
 
     get_contest: function(callback) {
         var self = this;
-        this.get_json(
+        CATS.App.utils.json_get(
             "app/tests/default_get_contest_id_" +
             self.contest_id +
             ".json",
