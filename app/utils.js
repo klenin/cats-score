@@ -56,6 +56,9 @@ Array.prototype.top = function () {
 }
 
 String.prototype.to_date = function () {
+    if (this.length == 0)
+        return new Date();
+
     var d = this.split(" ");
     var date = d[0].split(".");
     var time = d[1].split(":");
