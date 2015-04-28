@@ -24,6 +24,8 @@ var CATS = {
             this.compilers = {};
             this.result_tables = {};
             this.last_id = 0;
+
+            this.utils = new CATS.Utils();
         },
 
         add_object: function(obj) {
