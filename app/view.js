@@ -232,8 +232,16 @@ CATS.View = Classify({
         }
     }),
 
-    display : function (defaults) {
+    display : function (options) {
         //$(document).on('click', 'a', function() {return false;});
+        var default_options = {
+            with_header: true,
+            with_footer: true,
+            with_pagination: true,
+            with_css: true,
+            default_url_hash: "!show_contests_list/codeforces/codeforces"
+        };
+
         var templates = this.templates;
         var self = this;
 
@@ -249,7 +257,7 @@ CATS.View = Classify({
             router: router,
             templates: templates,
             css_base_url: self.css_base_url
-        }, defaults));
+        }, default_options, options));
 
         Backbone.history.start();
         view.start();

@@ -28,12 +28,5 @@ function cats_score_init() {
 
     var view = new CATS.View(templates, 'app/skins');
 
-    //argument is optional
-    view.display({
-        with_header: true,
-        with_footer: true,
-        with_pagination: true,
-        with_css: true,
-        default_url_hash: "!show_contests_list/codeforces/codeforces"
-    });
+    view.display({});
 }
