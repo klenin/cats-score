@@ -6,7 +6,9 @@ var CATS = {
     Test: {},
     View: null,
     Langs: null,
-    Config: {},
+    Config: {
+        proxy_path : "/"
+    },
     Utils: null,
     Controller: Classify({
         init: function () {
