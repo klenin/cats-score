@@ -26,7 +26,7 @@ CATS.View = Classify({
 
         routes: {
             "!show_contests_list/:source/:skin(/?lang=:lang)(/?page=:page)": "show_contests_list",
-            "!show_rank_table/:source/:page_name/:skin/:contestid(/?=lang:lang)(/?page=:page)": "show_rank_table",
+            "!show_rank_table/:source/:page_name/:skin/:contestid(/?lang=:lang)(/?page=:page)": "show_rank_table",
         },
 
         show_contests_list: function (source, skin, lang, page) {
