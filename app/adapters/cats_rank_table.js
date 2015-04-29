@@ -76,7 +76,13 @@ CATS.Adapter.Cats_rank_table = Classify({
     },
 
     get_contests: function(callback) {
-        this.add_contest({id: 966412, name: "cats_rank_table_contest", scoring: "acm", start_time: "07.11.2014 18:00".to_date()});
+        this.add_contest({
+            id: 966412,
+            name: "cats_rank_table_contest",
+            scoring: "acm",
+            start_time: "07.11.2014 18:00".to_date(),
+            finish_time: "07.11.2014 20:00".to_date()
+        });
         callback([966412]);
     },
 
