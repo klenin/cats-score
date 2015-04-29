@@ -20,7 +20,7 @@ requirejs.config({
     }
 });
 require(['underscore', 'jquery'], function () {
-    require(['backbone', 'classify', 'dateformat', 'jqpagination'], function () {
+    require(['backbone', 'classify', 'dateformat', 'jqpagination', 'CATS'], function () {
         require(['controller'], function () {
             require(['models/entity'], function () {
                 require(['models/event'], function () {
