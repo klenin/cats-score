@@ -2,13 +2,13 @@
   { "type" : "version", "id" : 1 },
   { "type" : "contest", "id" : "0001", "name" : "synthetic acm contest id 0001", "external_id" : null, "tags" : null, "description" : null,
     "url" : null, "problems_url" : null, "full_name" : null, "affiliation" : null, "start_time" : "Wed Feb 18 2015 23:59:25",
-    "finish_time" : null, "freeze_time" : null, "unfreeze_time" : null, "is_open_registration" : null,
+    "finish_time" : "Wed Feb 19 2015 01:00:25", "freeze_time" : null, "unfreeze_time" : null, "is_open_registration" : null,
     "scoring" : "acm", "is_all_results_visible" : true, "problems" : ["0001", "0002"], "users" : ["0001", "0002"], "prizes" : [],
     "runs" : ["0001", "0002", "0003", "0004", "0005"]
   },
   { "type" : "contest", "id" : "0002", "name" : "synthetic school contest id 0002", "external_id" : null, "tags" : null, "description" : null,
     "url" : null, "problems_url" : null, "full_name" : null, "affiliation" : null, "start_time" : "Wed Feb 18 2015 23:59:25",
-    "finish_time" : null, "freeze_time" : null, "unfreeze_time" : null, "is_open_registration" : null,
+    "finish_time" : "Wed Feb 19 2015 01:00:25", "freeze_time" : null, "unfreeze_time" : null, "is_open_registration" : null,
     "scoring" : "school", "is_all_results_visible" : true, "problems" : ["0001", "0002"], "users" : ["0001", "0002"], "prizes" : [],
     "runs" : ["0001", "0002", "0003", "0004", "0005"]
   }

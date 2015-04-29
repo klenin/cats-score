@@ -20,7 +20,8 @@ CATS.Adapter.Cats_rank_table = Classify({
                     id: con.id,
                     name: "",
                     scoring: con.scoring,
-                    start_time: con.start_date.to_date()
+                    start_time: con.start_date.to_date(),
+                    finish_time: con.finish_date.to_date()
                 });
 
 

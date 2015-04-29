@@ -32,6 +32,12 @@ CATS.Rule.School = Classify({
         var self = this;
         $.each(contest.runs, function (i, row_id) {
             var row = CATS.App.runs[row_id];
+            if (
+                contest.duration_minutes != null &&
+                CATS.App.utils.get_time_diff(contest_start_time, row['start_processing_time']) > contest.duration_minutes
+            )
+                return;
+
             var team_id = row['user'];
             if (teams_problems[team_id] == undefined) {
                 teams_problems[team_id] = [];

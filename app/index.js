@@ -13,6 +13,7 @@ function cats_score_init() {
 
     var skins_names = [
         'header_rank_table', 'header_contests_list', 'pagination', 'footer',
+        'filters/table',
         'default/table_acm', 'default/table_school', 'default/history', 'default/contests',
         'ifmo/table_acm', 'ifmo/table_school', 'ifmo/history', 'ifmo/contests',
         'codeforces/table_acm', 'codeforces/table_school', 'codeforces/history', 'codeforces/contests',

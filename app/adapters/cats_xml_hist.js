@@ -68,6 +68,7 @@ CATS.Adapter.Cats_xml_hist = Classify({
         contest.name = "cats_contest";
         contest.scoring = "acm";
         contest.start_time = "07.11.2014 18:00".to_date();
+        contest.finish_time = "07.11.2014 20:00".to_date();
         CATS.App.add_object(contest);
         return contest;
     },

@@ -19,8 +19,10 @@ CATS.Adapter.Default = Classify({
             $.extend(new_model, v);
             new_model.version = version;
 
-            if (new_model.type == "contest")
+            if (new_model.type == "contest") {
                 new_model.start_time = new Date(new_model.start_time);
+                new_model.finish_time = new Date(new_model.finish_time);
+            }
 
             if (new_model.type == "run")
                 new_model.start_processing_time = new Date(new_model.start_processing_time);
@@ -34,6 +36,7 @@ CATS.Adapter.Default = Classify({
         $.extend(contest, c);
         contest.version = v;
         contest.start_time = new Date(contest.start_time);
+        contest.finish_time = new Date(contest.finish_time);
         CATS.App.add_object(contest);
         return contest;
     },

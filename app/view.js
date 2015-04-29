@@ -96,6 +96,7 @@ CATS.View = Classify({
         el: $("#wrapper"),
 
         initialize: function (options) {
+            this.current_catsscore_wrapper_content_params = null;
             $.extend(this, options);
             this.view_state.bind('change', this.refresh, this);
         },
@@ -109,6 +110,20 @@ CATS.View = Classify({
             },
             'change #skin': function () {
                 this.skin($("#skin").val());
+            },
+            'change #contest_minutes': function () {
+                if (this.current_catsscore_wrapper_content_params == null)
+                    return;
+
+                var params = this.current_catsscore_wrapper_content_params.models;
+                var contest_id = params.contests[0];
+                var result_table = new CATS.Model.Results_table();
+                var contest = CATS.App.contests[contest_id];
+                contest.duration_minutes = $("#contest_minutes").val();
+                CATS.App.rules[contest.scoring].process(contest, result_table);
+                CATS.App.add_object(result_table);
+                this.current_catsscore_wrapper_content_params.models.table = result_table.id;
+                $("#catsscore_wrapper").html(this.page(this.skin(), "table_" + contest.scoring)(this.current_catsscore_wrapper_content_params));
             }
         },
 
@@ -154,6 +169,15 @@ CATS.View = Classify({
             }
         },
 
+        get_filters_params: function(params) {
+            switch (this.page_name()) {
+                case "table":
+                    return {contest_duration: CATS.App.contests[params.contests[0]].compute_duration_minutes()};
+                default :
+                    return {};
+            }
+        },
+
         render: function(params){
             var elem_cnt = this.get_table_items_count(params);
             var max_page = Math.ceil(elem_cnt / this.view_state.get("elements_on_page"));
@@ -182,18 +206,24 @@ CATS.View = Classify({
                 current_page: this.view_state.get('page'),
                 maximum_page: max_page
             }) : "";
+
+            this.current_catsscore_wrapper_content_params = {
+                app: CATS.App,
+                models: params,
+                source: source,
+                skin: skin,
+                lang: this.view_state.get("lang") != null ? this.view_state.get("lang") : "ru",
+                next_page: this.with_pagination ?  this.view_state.get("elements_on_page") * (this.view_state.get("page") - 1) : 0,
+                elem_cnt:  this.with_pagination ? this.view_state.get("elements_on_page") : elem_cnt
+            };
+
             this.$el.html(
-                header + pagination + "<div id='catsscore_wrapper'>" +
-                this.page(skin, page_name)({
-                    app: CATS.App,
-                    models: params,
-                    source: source,
-                    skin: skin,
-                    lang: this.view_state.get("lang") != null ? this.view_state.get("lang") : "ru",
-                    next_page: this.with_pagination ?  this.view_state.get("elements_on_page") * (this.view_state.get("page") - 1) : 0,
-                    elem_cnt:  this.with_pagination ? this.view_state.get("elements_on_page") : elem_cnt
-                }) + "</div>" + pagination +
-                footer
+                header + pagination +
+                this.page("filters", this.page_name())(this.get_filters_params(params)) +
+                "<div id='catsscore_wrapper'>" +
+                this.page(skin, page_name)(this.current_catsscore_wrapper_content_params) +
+                "</div>" +
+                pagination + footer
             );
 
             $("#source").val(this.source());
@@ -204,24 +234,24 @@ CATS.View = Classify({
         },
 
         get_template : function (name) {
-            return this.templates[name];
+            return this.templates[name] != undefined ? this.templates[name] : "";
         },
 
         page_name: function (page_name) {
             if (page_name != undefined)
-                this.view_state.set({page_name: page_name})
+                this.view_state.set({page_name: page_name});
             return this.view_state.get("page_name");
         },
 
         source: function (source) {
             if (source != undefined)
-                this.view_state.set({source: source})
+                this.view_state.set({source: source});
             return this.view_state.get("source");
         },
 
         skin: function (skin) {
             if (skin != undefined)
-                this.view_state.set({skin: skin})
+                this.view_state.set({skin: skin});
             return this.view_state.get("skin");
         },
 
@@ -250,7 +280,7 @@ CATS.View = Classify({
 
         view_state.bind("change", function () {
             router.navigate(router.generate_url());
-        })
+        });
 
         var view = new self.View_logic($.extend({
             view_state: view_state,
@@ -262,6 +292,6 @@ CATS.View = Classify({
         Backbone.history.start();
         view.start();
     }
-})
+});
 
 

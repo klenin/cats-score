@@ -80,7 +80,7 @@ CATS.Adapter.Codeforces = Classify({
         contest.scoring = this.rules_aliases[v['type']];
 
         if (v['phase'] == 'FINISHED')
-            contest.finish_time = contest.start_time + v['durationSeconds'];
+            contest.finish_time = contest.start_time + v['durationSeconds'] * 1000  ;
 
         contest.start_time = new Date(contest.start_time);
         contest.finish_time = new Date(contest.finish_time);
