@@ -3,6 +3,7 @@ CATS.Test.cats_rank_table_json_data = {
         {
             id: '966412',
             start_date: '07.11.2014 18:00',
+            finish_date: '07.11.2014 23:00',
             scoring: 'acm',
             problems: [
                 {id: '966427', code: 'A', name: 'Second Best', text_url: '/main.pl?f=problem_text;cpid=966427;sid=;cid=966412', max_points: null},

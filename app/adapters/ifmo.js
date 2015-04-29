@@ -92,23 +92,20 @@ CATS.Adapter.Ifmo = Classify({
         });
     },
 
-    get_page: function(url, callback) {
-        $.get(CATS.Config.proxy_path + "proxy.pl?u=" + encodeURIComponent(url), callback);
-    },
-
     add_contest: function(v) {
         var contest = CATS.Model.Contest(), contests = [];
         contest.id = v.id;
         contest.name = v.name;
         contest.scoring = "acm";
         contest.start_time = new Date();
+        contest.finish_time = CATS.App.utils.add_time(contest.start_time, 300);
         CATS.App.add_object(contest);
         return contest;
     },
 
     get_contests: function(callback) {
         var self = this;
-        this.get_page("http://neerc.ifmo.ru/past/index.html", function (page) {
+        CATS.App.utils.proxy_get("http://neerc.ifmo.ru/past/index.html", function (page) {
             var contests = [];
             $(page).find('td[class = "neercyear"]').find("a").each(function () {
                 var c = {id: $(this).html().match(/\d+/g)[0], name: $(this).html()};
@@ -121,7 +118,7 @@ CATS.Adapter.Ifmo = Classify({
 
     get_contest: function(callback) {
         var self = this;
-        this.get_page("http://neerc.ifmo.ru/past/" + self.contest_id + "/standings.html", function (page) {
+        CATS.App.utils.proxy_get("http://neerc.ifmo.ru/past/" + self.contest_id + "/standings.html", function (page) {
             callback(page);
         })
     },

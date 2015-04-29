@@ -104,3 +104,11 @@ select {
     box-shadow: inset 1px 1px 2px #ddd8dc;
     background-color: #fff;
 }
+
+#contest_min {
+    font-size: 20px;
+}
+
+#contest_slider {
+    width: 400px;
+}

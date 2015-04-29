@@ -78,7 +78,7 @@ var capt = CATS.Langs.cats[lang];
             <% if (row["problems"][i]["is_solved"]) {%>
                 <%problems_stats[i]['s']++;
             %>
-                <p><%=minutes_to_formated_hours(row["problems"][i]["best_run_time"])%></p>
+                <p><%=app.utils.minutes_to_formated_hours(row["problems"][i]["best_run_time"])%></p>
                 <%="+" + (row["problems"][i]["runs_cnt"] > 1 ? row["problems"][i]["runs_cnt"] - 1 : "")%>
             <%} else {%>
                 <p></p><%=row["problems"][i]["runs_cnt"] > 0 ? ( "-" + row["problems"][i]["runs_cnt"]) : "."%>

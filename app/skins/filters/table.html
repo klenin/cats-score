@@ -1,0 +1,18 @@
+<script>
+    $("#contest_slider").slider({
+        value: <%=contest_duration%>,
+        min: 0,
+        max: <%=contest_duration%>,
+        step: 1,
+        slide: function( event, ui ) {
+            $("#contest_min").html(ui.value);
+            $("#contest_minutes").val(ui.value);
+            $("#contest_minutes").change();
+        }
+    });
+</script>
+<h2>Table filters:</h2>
+<h3>Contest processing minutes:</h3>
+<input type="hidden" id="contest_minutes" value="<%=contest_duration%>">
+<div id="contest_min"><%=contest_duration%></div>
+<div id="contest_slider"></div>

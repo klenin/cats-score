@@ -72,18 +72,6 @@ CATS.Adapter.Codeforces = Classify({
         });
     },
 
-    get_jsonp: function (url, callback) {
-        var parseJsonp = function (data) {
-            return data;
-        }
-        $.ajax({
-            url: url + '&jsonp=parseJsonp',
-            dataType: 'jsonp',
-            jsonpCallback: 'parseJsonp',
-            success: callback
-        });
-    },
-
     add_contest: function(v) {
         var contest = CATS.Model.Contest();
         contest.id = v['id'];
@@ -92,7 +80,7 @@ CATS.Adapter.Codeforces = Classify({
         contest.scoring = this.rules_aliases[v['type']];
 
         if (v['phase'] == 'FINISHED')
-            contest.finish_time = contest.start_time + v['durationSeconds'];
+            contest.finish_time = contest.start_time + v['durationSeconds'] * 1000  ;
 
         contest.start_time = new Date(contest.start_time);
         contest.finish_time = new Date(contest.finish_time);
@@ -102,7 +90,7 @@ CATS.Adapter.Codeforces = Classify({
 
     get_contests: function(callback) {
         var self = this;
-        this.get_jsonp('http://codeforces.ru/api/contest.list?gym=true', function (data) {
+        CATS.App.utils.jsonp_get('http://codeforces.ru/api/contest.list?gym=true', function (data) {
             var contests = [];
             $.each(data.result, function (k, v) {
                 self.add_contest(v);
@@ -114,7 +102,7 @@ CATS.Adapter.Codeforces = Classify({
 
     get_contest: function(callback) {
         var self = this;
-        this.get_jsonp(
+        CATS.App.utils.jsonp_get(
             "http://codeforces.ru/api/contest.standings?contestId=" +
             self.contest_id +
             "&from=1&count=10000000&showUnofficial=true",

@@ -6,12 +6,14 @@ function cats_score_init() {
     CATS.App.register_adapter(new CATS.Adapter.Cats_rank_table([-1], CATS.Test.cats_rank_table_json_data));
     CATS.App.register_adapter(new CATS.Adapter.Ifmo([-1], CATS.Test.ifmo_html_data));
     CATS.App.register_adapter(new CATS.Adapter.Codeforces([-1]));
+    CATS.App.register_adapter(new CATS.Adapter.Cats([-1]));
     CATS.App.register_adapter(new CATS.Adapter.Default([-1]));
     CATS.App.register_rule(new CATS.Rule.Acm());
     CATS.App.register_rule(new CATS.Rule.School());
 
     var skins_names = [
         'header_rank_table', 'header_contests_list', 'pagination', 'footer',
+        'filters/table',
         'default/table_acm', 'default/table_school', 'default/history', 'default/contests',
         'ifmo/table_acm', 'ifmo/table_school', 'ifmo/history', 'ifmo/contests',
         'codeforces/table_acm', 'codeforces/table_school', 'codeforces/history', 'codeforces/contests',
@@ -27,12 +29,5 @@ function cats_score_init() {
 
     var view = new CATS.View(templates, 'app/skins');
 
-    //argument is optional
-    view.display({
-        with_header: true,
-        with_footer: true,
-        with_pagination: true,
-        with_css: true,
-        default_url_hash: "!show_contests_list/codeforces/codeforces"
-    });
+    view.display({});
 }
