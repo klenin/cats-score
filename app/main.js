@@ -47,6 +47,7 @@ require(['underscore', 'jquery'], function () {
                         'adapters/default',
                         'view',
                         'utils',
+                        'extentions',
                         'skins/langs',
                     ], function () {
                         require([//we cant use skins_names array because optimization module works only with hardcoded array constant. Proof http://requirejs.org/docs/optimization.html
