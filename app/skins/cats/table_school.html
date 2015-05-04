@@ -40,7 +40,8 @@ var capt = CATS.Langs.cats[lang];
             <%
             problems_stats[prob_idx] = 0;
             var c = app.problems[contest.problems[i]];
-            max_total_pts += c.max_points * 1;
+            if (c.max_points != null)
+                max_total_pts += c.max_points * 1;
             prob_idx++;
             %>
             <a href="<%=c.text_url%>" alt="<%=c.name%>" title="<%=c.name%>"><%=c.code%></a>
@@ -75,7 +76,7 @@ var capt = CATS.Langs.cats[lang];
     for (var i = 0; i < row["problems"].length; ++i) {
     %>
     <td>
-        <%if (row["problems"][i]["points"] != null) {%>
+        <%if (row["problems"][i]["runs_cnt"] > 0) {%>
             <%=row["problems"][i]["points"]%>
             <%
                 if (row["problems"][i]["points"] != '.') {

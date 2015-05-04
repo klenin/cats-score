@@ -43,7 +43,7 @@ CATS.Utils = Classify({
             return data;
         }
         $.ajax({
-            url: url + '&jsonp=parseJsonp',
+            url: url,
             dataType: 'jsonp',
             jsonpCallback: 'parseJsonp',
             success: callback

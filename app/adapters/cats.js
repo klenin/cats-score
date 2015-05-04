@@ -32,6 +32,8 @@ CATS.Adapter.Cats = Classify({
                         var run = new CATS.Model.Run();
                         run.id = row.id;
                         run.problem = row.problem_id;
+                        if (contest.scoring == "school")
+                            run.points = row['points'];
                         run.user = row.team_id;
                         run.status = self.statuses[row['state']];
                         run.start_processing_time = row['time'].to_date();
@@ -57,7 +59,7 @@ CATS.Adapter.Cats = Classify({
 
     get_contests: function(callback) {
         var self = this;
-        CATS.App.utils.json_get('/cats/main.pl?f=contests;filter=all;sid=;json=1', function (data) {
+        CATS.App.utils.jsonp_get('http://imcs.dvfu.ru/cats/main.pl?f=contests;sid=;rows=1000000;json=parseJsonp', function (data) {
             var contests = [];
             $.each(data.contests, function (k, v) {
                 self.add_contest(v);
@@ -79,11 +81,11 @@ CATS.Adapter.Cats = Classify({
 
     get_users: function(callback) {
         var self = this;
-        CATS.App.utils.json_get('/cats/main.pl?f=users;sid=;cid=' + self.contest_id + ';json=1;', function (data) {
+        CATS.App.utils.jsonp_get('http://imcs.dvfu.ru/cats/main.pl?f=users;sid=;rows=1000000;cid=' + self.contest_id + ';json=parseJsonp;', function (data) {
             var users = [];
             $.each(data, function (k, v) {
                 self.add_user(v);
-                users.push(v['id']);
+                users.push(v['account_id']);
             });
             callback(users);
         });
@@ -108,7 +110,7 @@ CATS.Adapter.Cats = Classify({
 
     get_problems: function(callback) {
         var self = this;
-        CATS.App.utils.json_get('/cats/main.pl?f=problems;sid=;cid=' + self.contest_id + ';json=1;', function (data) {
+        CATS.App.utils.jsonp_get('http://imcs.dvfu.ru/cats/main.pl?f=problems;sid=;rows=1000000;cid=' + self.contest_id + ';json=parseJsonp;', function (data) {
             var problems = [];
             $.each(data.problems, function (k, v) {
                 self.add_problem(v);
@@ -120,8 +122,8 @@ CATS.Adapter.Cats = Classify({
 
     get_history: function(callback) {
         var self = this;
-        CATS.App.utils.json_get(
-            "/cats/main.pl?f=console_content;sid=;cid=" + self.contest_id + ";json=1;i_value=-1;",
+        CATS.App.utils.jsonp_get(
+            "http://imcs.dvfu.ru/cats/main.pl?f=console_content;sid=;rows=1000000;cid=" + self.contest_id + ";json=parseJsonp;i_value=-1;",
             function(data) {
                 callback(data);
             });

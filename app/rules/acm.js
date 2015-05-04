@@ -106,9 +106,13 @@ CATS.Rule.Acm = Classify({
             }
         }
 
-        var last_place = result_table.score_board.length > 0 ?
-            result_table.score_board.top()['place'] + 1 :
-            1;
+        var last_place = result_table.score_board.length < 0 ?
+            1 :
+            (
+                result_table.score_board.top()['solved_cnt'] > 0 ?
+                result_table.score_board.top()['place'] + 1 :
+                    result_table.score_board.top()['place']
+            );
 
         $.each(users_no_runs, function (k, v) {
             if (!v)
