@@ -123,7 +123,7 @@ CATS.Adapter.Cats = Classify({
     get_history: function(callback) {
         var self = this;
         CATS.App.utils.jsonp_get(
-            "http://imcs.dvfu.ru/cats/main.pl?f=console_content;sid=;rows=1000000;cid=" + self.contest_id + ";json=parseJsonp;i_value=-1;",
+            "http://imcs.dvfu.ru/cats/main.pl?f=console_content;filter=all;sid=;rows=1000000;cid=" + self.contest_id + ";json=parseJsonp;i_value=-1;",
             function(data) {
                 callback(data);
             });

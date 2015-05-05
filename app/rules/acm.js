@@ -19,6 +19,8 @@ CATS.Rule.Acm = Classify({
                         run['start_processing_time'] = CATS.App.utils.add_time(contest_start_time, v['best_run_time']);
                         run['status'] = 'accepted';
                     }
+                    else
+                        run['status'] = 'wrong_answer';
                     CATS.App.add_object(run);
                     contest.add_object(run);
                 }

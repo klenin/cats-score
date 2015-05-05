@@ -1,1 +1,89 @@
-chart
+<%
+var contest_id = models.contests[0];
+var contest = app.contests[contest_id];
+%>
+
+<script>
+    var status_color = {
+        'accepted': '#C6F9D2',
+        'wrong_answer': '#CCCCB3',
+        'presentation_error': '#CECEFF',
+        'time_limit_exceeded': '#FFCAFF',
+        'runtime_error': '#D0CCCD',
+        'compilation_error': '#FFCC99',
+        'security_violation': '#FFCBB9',
+        'memory_limit_exceeded': '#EAEC93',
+        'ignore_submit': '#D7FBE6',
+        'idleness_limit_exceeded': '#FFCACA',
+    };
+
+    $.each(status_color, function(s, c) {
+        $("#legend").append("<li style='color:" + c + "'><span style='color:#000'>" + s + "</span></li>");
+    });
+
+    var runs = <%=JSON.stringify(CATS.App.runs)%>;
+    var contest_runs = <%=JSON.stringify(contest.runs)%>;
+    var contest_problems = <%=JSON.stringify(contest.problems)%>;
+    var problems_status = {};
+
+    for (var i = 0; i < contest_problems.length; ++i) {
+        problems_status[contest_problems[i]] = {
+            'accepted': 0,
+            'wrong_answer': 0,
+            'presentation_error': 0,
+            'time_limit_exceeded': 0,
+            'runtime_error': 0,
+            'compilation_error': 0,
+            'security_violation': 0,
+            'memory_limit_exceeded': 0,
+            'ignore_submit': 0,
+            'idleness_limit_exceeded': 0,
+        };
+    };
+
+    for (var i = 0; i < contest_runs.length; ++i) {
+        var run = runs[contest_runs[i]];
+        problems_status[run.problem][run.status]++;
+    }
+    var data = [];
+    $.each(problems_status, function(k, v) {
+        var new_data = [];
+        $.each(v, function(status, count) {
+            new_data.push({
+                value: count,
+                color: status_color[status],
+                highlight: status_color[status],
+                label: status
+            });
+        });
+        data.push(new_data);
+    });
+
+    var ctx = [];
+    for (var i = 0; i < contest_problems.length; ++i) {
+        ctx.push(document.getElementById("submitions_" + contest_problems[i]).getContext("2d"));
+    }
+
+    for (var i = 0; i < ctx.length; ++i) {
+        new Chart(ctx[i]).Pie(data[i]);
+    }
+</script>
+<h3>Legend:</h3>
+<ul id="legend">
+</ul>
+<h3>Submissions per problems:</h3>
+<%
+for (var i = 0; i < contest.problems.length; ++i) {
+var prob = app.problems[contest.problems[i]];
+%>
+<%=(i % 3 == 0 ? '<div class="clear"></div>' : '')%>
+<div class="pie_wrapper">
+<h3><%=prob.name%> (<%=prob.code%>)</h3>
+<canvas class="pie" id="submitions_<%=prob.id%>" width="230"></canvas>
+
+</div>
+
+<%
+};
+%>
+
