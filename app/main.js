@@ -7,7 +7,8 @@ requirejs.config({
         underscore: "../vendors/underscore.min",
         backbone: "../vendors/backbone.min",
         classify: "../vendors/classify.min",
-        dateformat: "../vendors/date.format"
+        dateformat: "../vendors/date.format",
+        chart: "../vendors/chart.min"
     },
     shim: {
         underscore: {
@@ -21,7 +22,7 @@ requirejs.config({
     }
 });
 require(['underscore', 'jquery', 'jqueryui'], function () {
-    require(['backbone', 'classify', 'dateformat', 'jqpagination', 'CATS'], function () {
+    require(['backbone', 'classify', 'dateformat', 'chart', 'jqpagination', 'CATS'], function () {
         require(['controller'], function () {
             require(['models/entity'], function () {
                 require(['models/event'], function () {
@@ -86,7 +87,7 @@ require(['underscore', 'jquery', 'jqueryui'], function () {
                             'text!templates/pages/skins/opencup/table_school.html',
                             'text!templates/pages/skins/opencup/history.html',
                             'text!templates/pages/skins/opencup/contests.html'
-                            //after add new skin make sure add new item to skins_names array in index.js
+                            //after add new skin make sure add new item in index.js
                         ], cats_score_init);
                     });
                 });

@@ -226,7 +226,8 @@ CATS.View = Classify({
 
             var header = this.with_header ?
                 this.template("header_" + this.view_state.get("state"))({
-                    'skin_list' :  this.get_available_skin_names(page_name)
+                    'skin_list' :  this.get_available_skin_names(page_name),
+                    'contest_name' : CATS.App.contests[params.contests[0]].name
                 }) :
                 "";
             var footer = this.with_footer ? this.template("footer")({}) : "";
