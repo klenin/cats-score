@@ -5,7 +5,6 @@ var contest = app.contests[contest_id];
 var table = app.result_tables[table_id];
 %>
 
-<h2><%=contest.name%></h2>
 <table class="simple-little-table">
     <tr>
         <th>
@@ -25,7 +24,7 @@ var table = app.result_tables[table_id];
         };
         %>
         <th>
-            time
+            points
         </th>
     </tr>
     <%
@@ -42,18 +41,17 @@ var table = app.result_tables[table_id];
         for (var i = 0; i < row["problems"].length; ++i) {
         %>
         <td>
-            <% if (row["problems"][i]["best_run_time"]) {%>
-            <p><%="+" + (row["problems"][i]["runs_cnt"] > 1 ? row["problems"][i]["runs_cnt"] - 1 : "")%></p>
-            <small><%=app.utils.minutes_to_formated_hours(row["problems"][i]["best_run_time"])%></small>
+            <% if (row["problems"][i]["points"]) {%>
+            <p><%=row["problems"][i]["points"]%></p>
             <%} else %>
-            <%="-" + (row["problems"][i]["runs_cnt"] > 0 ? row["problems"][i]["runs_cnt"] : "")%>
+            -
         </td>
 
         <%
         };
         %>
         <td>
-            <%=row["penalty"]%>
+            <%=row["points_cnt"]%>
         </td>
     </tr>
     <%

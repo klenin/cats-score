@@ -7,7 +7,8 @@ requirejs.config({
         underscore: "../vendors/underscore.min",
         backbone: "../vendors/backbone.min",
         classify: "../vendors/classify.min",
-        dateformat: "../vendors/date.format"
+        dateformat: "../vendors/date.format",
+        chart: "../vendors/chart.min"
     },
     shim: {
         underscore: {
@@ -21,7 +22,7 @@ requirejs.config({
     }
 });
 require(['underscore', 'jquery', 'jqueryui'], function () {
-    require(['backbone', 'classify', 'dateformat', 'jqpagination', 'CATS'], function () {
+    require(['backbone', 'classify', 'dateformat', 'chart', 'jqpagination', 'CATS'], function () {
         require(['controller'], function () {
             require(['models/entity'], function () {
                 require(['models/event'], function () {
@@ -49,17 +50,44 @@ require(['underscore', 'jquery', 'jqueryui'], function () {
                         'view',
                         'utils',
                         'extentions',
-                        'skins/langs',
+                        'templates/langs',
                     ], function () {
                         require([//we cant use skins_names array because optimization module works only with hardcoded array constant. Proof http://requirejs.org/docs/optimization.html
-                            'text!skins/header_rank_table.html', 'text!skins/header_contests_list.html', 'text!skins/pagination.html', 'text!skins/footer.html',
-                            'text!skins/filters/table.html',
-                            'text!skins/default/table_acm.html', 'text!skins/default/table_school.html', 'text!skins/default/history.html', 'text!skins/default/contests.html',
-                            'text!skins/ifmo/table_acm.html', 'text!skins/ifmo/table_school.html', 'text!skins/ifmo/history.html', 'text!skins/ifmo/contests.html',
-                            'text!skins/codeforces/table_acm.html', 'text!skins/codeforces/table_school.html', 'text!skins/codeforces/history.html', 'text!skins/codeforces/contests.html',
-                            'text!skins/cats/table_acm.html', 'text!skins/cats/table_school.html', 'text!skins/cats/history.html', 'text!skins/cats/contests.html',
-                            'text!skins/opencup/table_acm.html', 'text!skins/opencup/table_school.html', 'text!skins/opencup/history.html', 'text!skins/opencup/contests.html',
-                            //after add new skin make sure add new item to skins_names array in index.js
+                            'text!templates/header_rank_table.html',
+                            'text!templates/header_contests_list.html',
+                            'text!templates/pagination.html',
+                            'text!templates/footer.html',
+                            //pages
+                            'text!templates/pages/chart.html',
+                            //filters
+                            'text!templates/pages/filters/table.html',
+                            //skins
+                            //default
+                            'text!templates/pages/skins/default/table_acm.html',
+                            'text!templates/pages/skins/default/table_school.html',
+                            'text!templates/pages/skins/default/history.html',
+                            'text!templates/pages/skins/default/contests.html',
+                            //ifmo
+                            'text!templates/pages/skins/ifmo/table_acm.html',
+                            'text!templates/pages/skins/ifmo/table_school.html',
+                            'text!templates/pages/skins/ifmo/history.html',
+                            'text!templates/pages/skins/ifmo/contests.html',
+                            //CF
+                            'text!templates/pages/skins/codeforces/table_acm.html',
+                            'text!templates/pages/skins/codeforces/table_school.html',
+                            'text!templates/pages/skins/codeforces/history.html',
+                            'text!templates/pages/skins/codeforces/contests.html',
+                            //CATS
+                            'text!templates/pages/skins/cats/table_acm.html',
+                            'text!templates/pages/skins/cats/table_school.html',
+                            'text!templates/pages/skins/cats/history.html',
+                            'text!templates/pages/skins/cats/contests.html',
+                            //OPENCUP
+                            'text!templates/pages/skins/opencup/table_acm.html',
+                            'text!templates/pages/skins/opencup/table_school.html',
+                            'text!templates/pages/skins/opencup/history.html',
+                            'text!templates/pages/skins/opencup/contests.html'
+                            //after add new skin make sure add new item in index.js
                         ], cats_score_init);
                     });
                 });
