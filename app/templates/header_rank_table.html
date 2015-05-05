@@ -4,7 +4,9 @@
     <select id="page_name">
         <option value="table">table</option>
         <option value="history">history</option>
+        <option value="chart">chart</option>
     </select>
+    <%if (display != 'chart') {%>
     <label for="skin">skin:</label>
     <select id="skin">
         <option value="default">default</option>
@@ -13,4 +15,5 @@
         <option value="cats">cats</option>
         <option value="opencup">opencup</option>
     </select>
+    <%}%>
 </div>

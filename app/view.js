@@ -128,16 +128,28 @@ CATS.View = Classify({
         },
 
         template: function (name) {
-            return _.template(this.get_template(name));
+            var tmpl = this.templates[name];
+            return _.template(tmpl == undefined ? "" : tmpl);
         },
 
         page: function(skin, page_name) {
-            return _.template(this.get_template(skin + '/' + page_name));
+            var tmpl = this.templates.pages.skins[skin][page_name];
+            if (tmpl == undefined)
+                tmpl = this.templates.pages[page_name];
+
+            return _.template(tmpl == undefined ? "" : tmpl);
         },
 
-        define_stylesheet: function (skin) {
+        filters: function(page_name) {
+            var tmpl = this.templates.pages.filters[page_name];
+            return _.template(tmpl == undefined ? "" : tmpl);
+        },
+
+        define_skin_stylesheet: function (skin) {
             $('link#cats_score').detach();
-            $('head').append('<link id="cats_score" rel="stylesheet" href="'  + this.css_base_url + '/' + skin + '/style.css" type="text/css" />');
+            $('head').append(
+                '<link id="cats_score" rel="stylesheet" href="'  + this.css_base_url + '/pages/skins/' + skin + '/style.css" type="text/css" />'
+            );
         },
 
         refresh: function () {
@@ -190,7 +202,7 @@ CATS.View = Classify({
             var skin = this.skin();
 
             if (this.with_css)
-                this.define_stylesheet(skin);
+                this.define_skin_stylesheet(skin);
 
             var scoring = "acm";
             for (var i = 0; i < params.contests.length; ++i) {
@@ -200,12 +212,13 @@ CATS.View = Classify({
             if (page_name == "table")
                 page_name += "_" + scoring;
 
-            var header = this.with_header ? this.template("header_" + this.view_state.get("state"))({}) : "";
+            var header = this.with_header ? this.template("header_" + this.view_state.get("state"))({'display' : this.page_name()}) : "";
             var footer = this.with_footer ? this.template("footer")({}) : "";
-            var pagination = this.with_pagination ? this.template("pagination")({
-                current_page: this.view_state.get('page'),
-                maximum_page: max_page
-            }) : "";
+            var pagination = this.page_name() == 'chart' ? "" :
+                this.with_pagination ? this.template("pagination")({
+                    current_page: this.view_state.get('page'),
+                    maximum_page: max_page
+                }) : "";
 
             this.current_catsscore_wrapper_content_params = {
                 app: CATS.App,
@@ -219,7 +232,7 @@ CATS.View = Classify({
 
             this.$el.html(
                 header + pagination +
-                this.page("filters", this.page_name())(this.get_filters_params(params)) +
+                this.filters(this.page_name())(this.get_filters_params(params)) +
                 "<div id='catsscore_wrapper'>" +
                 this.page(skin, page_name)(this.current_catsscore_wrapper_content_params) +
                 "</div>" +
@@ -231,10 +244,6 @@ CATS.View = Classify({
             $("#skin").val(this.skin());
 
             return this;
-        },
-
-        get_template : function (name) {
-            return this.templates[name] != undefined ? this.templates[name] : "";
         },
 
         page_name: function (page_name) {

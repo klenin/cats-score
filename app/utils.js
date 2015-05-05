@@ -48,6 +48,6 @@ CATS.Utils = Classify({
             jsonpCallback: 'parseJsonp',
             success: callback
         });
-    }
+    },
 });
 
