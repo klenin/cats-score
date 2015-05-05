@@ -145,6 +145,18 @@ CATS.View = Classify({
             return _.template(tmpl == undefined ? "" : tmpl);
         },
 
+        get_available_skin_names: function(page_name) {
+            var all_skins = Object.keys(this.templates.pages.skins);
+            var available_skins = [];
+            for (var i = 0; i < all_skins.length; ++i) {
+                var skin = all_skins[i];
+                if (this.templates.pages.skins[skin][page_name] != undefined)
+                    available_skins.push(skin);
+            }
+
+            return available_skins;
+        },
+
         define_skin_stylesheet: function (skin) {
             $('link#cats_score').detach();
             $('head').append(
@@ -212,7 +224,11 @@ CATS.View = Classify({
             if (page_name == "table")
                 page_name += "_" + scoring;
 
-            var header = this.with_header ? this.template("header_" + this.view_state.get("state"))({'display' : this.page_name()}) : "";
+            var header = this.with_header ?
+                this.template("header_" + this.view_state.get("state"))({
+                    'skin_list' :  this.get_available_skin_names(page_name)
+                }) :
+                "";
             var footer = this.with_footer ? this.template("footer")({}) : "";
             var pagination = this.page_name() == 'chart' ? "" :
                 this.with_pagination ? this.template("pagination")({

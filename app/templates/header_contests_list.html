@@ -9,12 +9,12 @@
         <option value="codeforces">codeforces</option>
         <option value="cats">cats</option>
     </select>
+    <%if (skin_list.length != 0) {%>
     <label for="skin">skin:</label>
     <select id="skin">
-        <option value="default">default</option>
-        <option value="ifmo">ifmo</option>
-        <option value="codeforces">codeforces</option>
-        <option value="cats">cats</option>
-        <option value="opencup">opencup</option>
+        <% for (var i = 0; i < skin_list.length; ++i) {%>
+        <option value="<%=skin_list[i]%>"><%=skin_list[i]%></option>
+        <%}%>
     </select>
+    <%}%>
 </div>
