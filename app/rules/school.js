@@ -29,16 +29,6 @@ CATS.Rule.School = Classify({
     compute_table: function (result_table, contest) {
         var contest_start_time = contest.start_time;
         var teams_problems = {}, teams = {};
-        var self = this;
-
-        var empty_problems_field = [];
-        for (var i = 0; i < contest.problems.length; ++i) {
-            empty_problems_field[i] = result_table.get_empty_problem_for_score_board_row();
-            empty_problems_field[i]['is_solved'] = false;
-            empty_problems_field[i]['runs_cnt'] = 0;
-            empty_problems_field[i]['points'] = 0;
-            empty_problems_field[i]['problem'] = contest.problems[i];
-        }
 
         $.each(contest.runs, function (i, row_id) {
             var row = CATS.App.runs[row_id];
@@ -55,7 +45,7 @@ CATS.Rule.School = Classify({
                 teams[team_id]['penalty'] = 0;
                 teams[team_id]['solved_cnt'] = 0;
 
-                teams_problems[team_id] = JSON.parse(JSON.stringify(empty_problems_field));
+                teams_problems[team_id] = result_table.get_empty_problems_field();
             }
 
             var p_idx = contest.get_problem_index(row['problem']);
@@ -74,6 +64,11 @@ CATS.Rule.School = Classify({
 
         });
 
+        var users_no_runs = {};
+        $.each(contest.users, function (k, v) {
+            users_no_runs[v] = true;
+        });
+
         var teams_arr = [];
         $.each(teams, function (k, v) {
             var points_cnt = 0;
@@ -81,53 +76,14 @@ CATS.Rule.School = Classify({
                 points_cnt += teams_problems[k][i]['runs_cnt'] > 0 ? teams_problems[k][i]['points'] : 0;
 
             teams_arr.push({id: k, solved_cnt : v['solved_cnt'], points_cnt: points_cnt});
-        });
-
-        var users_no_runs = {};
-        $.each(contest.users, function (k, v) {
-            users_no_runs[v] = true;
+            users_no_runs[k] = false;
         });
 
         var group = teams_arr.sort(function (a, b) {
             return b['points_cnt'] - a['points_cnt'];
-        })
-        for (var j = 0; j < group.length; ++j) {
-            var score_board_row = result_table.get_empty_score_board_row();
-            score_board_row['place'] = (j != 0 && group[j - 1]['points_cnt'] == group[j]['points_cnt']) ?
-                result_table.score_board.top()['place'] :
-                result_table.score_board.length + 1;
-            score_board_row['user'] = group[j]['id'];
-            users_no_runs[score_board_row['user']] = false;
-            score_board_row['penalty'] = group[j]['p'];
-            score_board_row['solved_cnt'] = group[j]['solved_cnt'];
-            score_board_row['points_cnt'] = group[j]['points_cnt'];
-            score_board_row['problems'] = teams_problems[group[j]['id']];
-
-            result_table.score_board.push(score_board_row);
-        }
-
-        var last_place = result_table.score_board.length < 0 ?
-            1 :
-            (
-                result_table.score_board.top()['points_cnt'] > 0 ?
-                result_table.score_board.top()['place'] + 1 :
-                result_table.score_board.top()['place']
-            );
-
-        $.each(users_no_runs, function (k, v) {
-            if (!v)
-                return;
-
-            var score_board_row = result_table.get_empty_score_board_row();
-            score_board_row['place'] = last_place;
-            score_board_row['user'] = k;
-            score_board_row['penalty'] = 0;
-            score_board_row['solved_cnt'] = 0;
-            score_board_row['points'] = 0;
-            score_board_row['problems'] = empty_problems_field;
-
-            result_table.score_board.push(score_board_row);
         });
+        result_table.add_group(group, teams_problems);
+        result_table.add_no_run_users(users_no_runs);
     },
 
     process: function (contest, result_table) {
