@@ -10,9 +10,9 @@ var capt = CATS.Langs.cats[lang];
             <th colspan="2"></th>
             <%for(var j = 0; j < models.contests.length; ++j) {%>
             <%
-            $.extend(contest_problems_stats, contest.get_problems_stats());
             var contest_id = models.contests[j];
             var contest = app.contests[contest_id];
+            $.extend(contest_problems_stats, contest.get_problems_stats());
             %>
             <th colspan="<%=contest.problems.length%>"><%=contest.start_time.format("dd.mm.yyyy")%></th>
             <%
@@ -111,10 +111,10 @@ var capt = CATS.Langs.cats[lang];
         <td><%=capt.successful_submits%></td>
             <%for(var j = 0; j < models.contests.length; ++j) {%>
                 <%
-                $.extend(contest_problems_stats, contest.get_problems_stats());
+
                 var contest_id = models.contests[j];
                 var contest = app.contests[contest_id];
-
+                $.extend(contest_problems_stats, contest.get_problems_stats());
                 for (var i = 0; i < contest.problems.length; ++i) {
                     var prob = app.problems[contest.problems[i]];
                     %>

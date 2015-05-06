@@ -89,11 +89,7 @@ CATS.Rule.School = Classify({
     process: function (contest, result_table) {
         if (contest.runs.length == 0 && result_table.score_board.length > 0)
             this.compute_history(result_table, contest);
-        else if (contest.runs.length > 0 && result_table.score_board.length == 0) {
-            result_table.contests.push(contest.id);
+        else if (contest.runs.length > 0 && result_table.score_board.length == 0)
             this.compute_table(result_table, contest);
-        }
-        // else
-        //     alert('ACM rule error. History and table both empty or filled');
     }
 });
