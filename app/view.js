@@ -117,12 +117,11 @@ CATS.View = Classify({
 
                 var params = this.current_catsscore_wrapper_content_params.models;
                 var contest_id = params.contests[0];
-                var result_table = new CATS.Model.Results_table();
+                var result_table = CATS.App.result_tables[params.table];
+                result_table.clean_score_board();
                 var contest = CATS.App.contests[contest_id];
                 contest.duration_minutes = $("#contest_minutes").val();
                 CATS.App.rules[contest.scoring].process(contest, result_table);
-                CATS.App.add_object(result_table);
-                this.current_catsscore_wrapper_content_params.models.table = result_table.id;
                 $("#catsscore_wrapper").html(this.page(this.skin(), "table_" + contest.scoring)(this.current_catsscore_wrapper_content_params));
             }
         },

@@ -121,5 +121,9 @@ CATS.Model.Results_table = Classify(CATS.Model.Entity, {
 
             this.score_board.push(score_board_row);
         }
+    },
+
+    clean_score_board: function () {
+        this.score_board = [];
     }
 });
