@@ -153,7 +153,9 @@ CATS.Model.Results_table = Classify(CATS.Model.Entity, {
         var self = this;
         $.each(old_score_board, function (k, row) {
             var user = CATS.App.users[row['user']];
-            if (self.filters.user == null || user.name.match(new RegExp(self.filters.user))) {
+            if ((self.filters.user == null || user.name.match(new RegExp(self.filters.user))) &&
+                (self.filters.affiliation == null || user.affiliation.match(new RegExp(self.filters.affiliation)))
+            ) {
                 if (self.filters.duration.type == 'scoreboard' &&
                     self.filters.duration.minutes != null)
                     for (var i = 0; i < row['problems'].length; ++i) {
