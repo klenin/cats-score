@@ -73,7 +73,7 @@ CATS.Adapter.Cats = Classify({
         var user = new CATS.Model.User();
         user.id = v['account_id'];
         user.name = v['name'];
-        user.role = v['role'];
+        user.role = v['virtual'] == 1 ? 'virtual' : v['role'];
         user.is_remote = v["remote"];
         CATS.App.add_object(user);
         return user;

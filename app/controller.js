@@ -37,6 +37,7 @@ CATS.Controller = Classify({
     adapter_process_rank_table: function(adapter_name, callback, contest_id) {
         var result_table = new CATS.Model.Results_table();
         var contest_list = (contest_id.indexOf(',') != -1) ? contest_id.split(',') : [contest_id];
+        result_table.contests = contest_list;
         this.adapters[adapter_name].init(contest_list);
         this.adapters[adapter_name].parse(result_table, function () {
             var contest = CATS.App.contests[contest_list[0]];

@@ -1,6 +1,7 @@
 <%
 var table_id = models.table;
 var table = app.result_tables[table_id];
+var contest_problems_stats = [];
 var capt = CATS.Langs.cats[lang];
 %>
     <table width="100%" cellspacing="1" class="bordered rank_table highlight">
@@ -11,6 +12,7 @@ var capt = CATS.Langs.cats[lang];
             <%
             var contest_id = models.contests[j];
             var contest = app.contests[contest_id];
+            $.extend(contest_problems_stats, contest.get_problems_stats());
             %>
             <th colspan="<%=contest.problems.length%>"><%=contest.start_time.format("dd.mm.yyyy")%></th>
             <%
@@ -29,7 +31,6 @@ var capt = CATS.Langs.cats[lang];
         }
         var w = Math.floor(50 / (problems_cnt + 1));
         w = w < 3 ? 3 : w > 10 ? 10 : w;
-        var problems_stats = [], prob_idx = 0;
         %>
         <%for(var j = 0; j < models.contests.length; ++j) {%>
             <%
@@ -39,9 +40,7 @@ var capt = CATS.Langs.cats[lang];
             %>
             <th width="<%=w%>%">
             <%
-                problems_stats[prob_idx] = {s: 0, t: 0};
                 var c = app.problems[contest.problems[i]];
-                prob_idx++;
             %>
                 <a href="<%=c.text_url%>" alt="<%=c.name%>" title="<%=c.name%>"><%=c.code%></a>
             </th>
@@ -76,7 +75,7 @@ var capt = CATS.Langs.cats[lang];
         %>
         <td>
             <% if (row["problems"][i]["is_solved"]) {%>
-                <%problems_stats[i]['s']++;
+                <%
             %>
                 <p><%=app.utils.minutes_to_formated_hours(row["problems"][i]["best_run_time"])%></p>
                 <%="+" + (row["problems"][i]["runs_cnt"] > 1 ? row["problems"][i]["runs_cnt"] - 1 : "")%>
@@ -85,7 +84,6 @@ var capt = CATS.Langs.cats[lang];
             <%
             }
             %>
-            <%problems_stats[i]['t'] += row["problems"][i]["runs_cnt"];%>
         </td>
         <%
         };
@@ -111,17 +109,25 @@ var capt = CATS.Langs.cats[lang];
         <td>&nbsp;</td>
 
         <td><%=capt.successful_submits%></td>
+            <%for(var j = 0; j < models.contests.length; ++j) {%>
+                <%
 
-        <%
-            for (var i = 0; i < problems_cnt; ++i) {
-        %>
-            <td align="center"><p>
-            <%=problems_stats[i]['s'] + "/" + problems_stats[i]['t']%>
-            </p><%=Math.round(problems_stats[i]['s'] / problems_stats[i]['t'] * 100)%>%</td>
-        </th>
-        <%
+                var contest_id = models.contests[j];
+                var contest = app.contests[contest_id];
+                $.extend(contest_problems_stats, contest.get_problems_stats());
+                for (var i = 0; i < contest.problems.length; ++i) {
+                    var prob = app.problems[contest.problems[i]];
+                    %>
+                    <td align="center"><p>
+                        <%=contest_problems_stats[prob.id].sols + "/" + contest_problems_stats[prob.id].runs%>
+                    </p><%=Math.round(contest_problems_stats[prob.id].sols / contest_problems_stats[prob.id].runs * 100)%>%</td>
+                    </th>
+                <%
+                };
+                %>
+            <%
             };
-        %>
+            %>
         <td colspan="4">&nbsp;</td>
 
     </tr>

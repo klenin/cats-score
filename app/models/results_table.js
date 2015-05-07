@@ -4,6 +4,14 @@ CATS.Model.Results_table = Classify(CATS.Model.Entity, {
         this.type = "result_table";
         this.contests = [];
         this.score_board = [];
+        this.filters = {
+            duration: {
+                minutes: null,
+                type: null,
+            },
+            user: null,
+            affiliation: null,
+        };
     },
 
     get_empty_score_board_row: function () {
@@ -59,5 +67,105 @@ CATS.Model.Results_table = Classify(CATS.Model.Entity, {
             }
 
         this.score_board = sb.slice(0, last_idx);
+    },
+
+    get_no_run_place: function (scoring) {
+        return this.score_board.length == 0 ?
+            1 : (
+            (
+                scoring == 'school' ?
+                    this.score_board.top()['points_cnt'] > 0 :
+                (scoring == 'acm' ?
+                    this.score_board.top()['penalty'] > 0 :
+                        false)
+            ) ?
+                this.score_board.top()['place'] + 1 :
+                this.score_board.top()['place']
+            );
+    },
+
+    add_no_run_users: function(users, scoring) {
+        var last_place = this.get_no_run_place(scoring);
+        var self = this;
+        $.each(users, function (k, v) {
+            if (!v)
+                return;
+
+            var score_board_row = self.get_empty_score_board_row();
+            score_board_row['place'] = last_place;
+            score_board_row['user'] = k;
+            score_board_row['penalty'] = 0;
+            score_board_row['solved_cnt'] = 0;
+            score_board_row['points'] = 0;
+            score_board_row['problems'] = self.get_empty_problems_field();
+
+            self.score_board.push(score_board_row);
+        });
+    },
+
+    get_empty_problems_field: function () {
+        var empty_problems_field = [];
+
+        for(var i = 0; i < this.contests.length; ++i) {
+            var contest = CATS.App.contests[this.contests[i]];
+            for (var j = 0; j < contest.problems.length; ++j) {
+                empty_problems_field[j] = this.get_empty_problem_for_score_board_row();
+                empty_problems_field[j]['is_solved'] = false;
+                empty_problems_field[j]['runs_cnt'] = 0;
+                empty_problems_field[j]['points'] = 0;
+                empty_problems_field[j]['problem'] = contest.problems[j];
+            }
+        }
+
+        return empty_problems_field;
+    },
+
+    add_group: function (group, teams_problems, scoring) {
+        for (var j = 0; j < group.length; ++j) {
+            var score_board_row = this.get_empty_score_board_row();
+            score_board_row['place'] = (j != 0 &&
+                    (
+                        scoring == 'school' ?
+                            group[j - 1]['points_cnt'] == group[j]['points_cnt'] :
+                        (scoring == 'acm' ?
+                            group[j - 1]['p'] == group[j]['p'] :
+                            false))
+                    ) ?
+                this.score_board.top()['place'] :
+                this.score_board.length + 1;
+            score_board_row['user'] = group[j]['id'];
+            score_board_row['penalty'] = group[j]['p'];
+            score_board_row['solved_cnt'] = group[j]['solved_cnt'];
+            score_board_row['points_cnt'] = group[j]['points_cnt'];
+            score_board_row['problems'] = teams_problems[group[j]['id']];
+
+            this.score_board.push(score_board_row);
+        }
+    },
+
+    clean_score_board: function () {
+        this.score_board = [];
+    },
+
+    apply_filters: function () {
+        var old_score_board = this.score_board;
+        this.score_board = [];
+        var self = this;
+        $.each(old_score_board, function (k, row) {
+            var user = CATS.App.users[row['user']];
+            if ((self.filters.user == null || user.name.match(new RegExp(self.filters.user))) &&
+                (self.filters.affiliation == null || user.affiliation.match(new RegExp(self.filters.affiliation)))
+            ) {
+                if (self.filters.duration.type == 'scoreboard' &&
+                    self.filters.duration.minutes != null)
+                    for (var i = 0; i < row['problems'].length; ++i) {
+                        if (row['problems'][i].is_solved && row['problems'][i].best_run_time > self.filters.duration.minutes) {
+                            row['problems'][i].is_solved = false;
+                            row['problems'][i].runs_cnt--;
+                        }
+                    }
+                self.score_board.push(row);
+            }
+        });
     }
 });

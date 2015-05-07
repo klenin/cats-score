@@ -13,6 +13,15 @@
 </script>
 <h2>Table filters:</h2>
 <h3>Contest duration minutes:</h3>
-<input type="hidden" id="contest_minutes" value="<%=contest_duration%>">
-<div id="contest_min"><%=contest_duration%></div>
+<input type="hidden" id="contest_minutes" value="<%=contest_duration%>" />
+Duration <span id="contest_min"><%=contest_duration%></span> minutes,
+<label for="restriction_type">restriction type: </label>
+<select id="restriction_type">
+    <option value="history">history</option>
+    <option value="scoreboard">scoreboard</option>
+</select>
 <div id="contest_slider"></div>
+<h3>Restrictions:</h3>
+<label for="user">User: </label><input id="user" value=".*?" />
+<label for="affiliation">Affiliation: </label><input id="affiliation" value=".*?" />
+<br /><br /><br />
