@@ -33,8 +33,9 @@ CATS.Rule.School = Classify({
         $.each(contest.runs, function (i, row_id) {
             var row = CATS.App.runs[row_id];
             if (
-                contest.duration_minutes != null &&
-                CATS.App.utils.get_time_diff(contest_start_time, row['start_processing_time']) > contest.duration_minutes
+                result_table.filters.duration.type == 'history' &&
+                result_table.filters.duration.minutes != null &&
+                CATS.App.utils.get_time_diff(contest_start_time, row['start_processing_time']) > result_table.filters.duration.minutes
             )
                 return;
 
@@ -82,8 +83,9 @@ CATS.Rule.School = Classify({
         var group = teams_arr.sort(function (a, b) {
             return b['points_cnt'] - a['points_cnt'];
         });
-        result_table.add_group(group, teams_problems);
-        result_table.add_no_run_users(users_no_runs);
+        result_table.add_group(group, teams_problems, 'school');
+        result_table.add_no_run_users(users_no_runs, 'school');
+        result_table.apply_filters();
     },
 
     process: function (contest, result_table) {

@@ -36,8 +36,9 @@ CATS.Rule.Acm = Classify({
         $.each(contest.runs, function (i, row_id) {
             var row = CATS.App.runs[row_id];
             if (
-                contest.duration_minutes != null &&
-                CATS.App.utils.get_time_diff(contest_start_time, row['start_processing_time']) > contest.duration_minutes
+                result_table.filters.duration.type == 'history' &&
+                result_table.filters.duration.minutes != null &&
+                CATS.App.utils.get_time_diff(contest_start_time, row['start_processing_time']) > result_table.filters.duration.minutes
             )
                 return;
 
@@ -85,10 +86,11 @@ CATS.Rule.Acm = Classify({
             var group = team_groups[i].sort(function (a, b) {
                 return a['p'] - b['p'];
             });
-            result_table.add_group(group, teams_problems);
+            result_table.add_group(group, teams_problems, 'acm');
         }
 
-        result_table.add_no_run_users(users_no_runs);
+        result_table.add_no_run_users(users_no_runs, 'acm');
+        result_table.apply_filters();
     },
 
     process: function (contest, result_table) {

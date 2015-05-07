@@ -4,6 +4,14 @@ CATS.Model.Results_table = Classify(CATS.Model.Entity, {
         this.type = "result_table";
         this.contests = [];
         this.score_board = [];
+        this.filters = {
+            duration: {
+                minutes: null,
+                type: null,
+            },
+            user: null,
+            affiliation: null,
+        };
     },
 
     get_empty_score_board_row: function () {
@@ -61,18 +69,23 @@ CATS.Model.Results_table = Classify(CATS.Model.Entity, {
         this.score_board = sb.slice(0, last_idx);
     },
 
-    get_no_run_place: function () {
+    get_no_run_place: function (scoring) {
         return this.score_board.length == 0 ?
-            1 :
+            1 : (
             (
-                this.score_board.top()['points_cnt'] > 0 ?
+                scoring == 'school' ?
+                    this.score_board.top()['points_cnt'] > 0 :
+                (scoring == 'acm' ?
+                    this.score_board.top()['penalty'] > 0 :
+                        false)
+            ) ?
                 this.score_board.top()['place'] + 1 :
-                    this.score_board.top()['place']
+                this.score_board.top()['place']
             );
     },
 
-    add_no_run_users: function(users) {
-        var last_place = this.get_no_run_place();
+    add_no_run_users: function(users, scoring) {
+        var last_place = this.get_no_run_place(scoring);
         var self = this;
         $.each(users, function (k, v) {
             if (!v)
@@ -107,10 +120,17 @@ CATS.Model.Results_table = Classify(CATS.Model.Entity, {
         return empty_problems_field;
     },
 
-    add_group: function (group, teams_problems) {
+    add_group: function (group, teams_problems, scoring) {
         for (var j = 0; j < group.length; ++j) {
             var score_board_row = this.get_empty_score_board_row();
-            score_board_row['place'] = (j != 0 && group[j - 1]['points_cnt'] == group[j]['points_cnt']) ?
+            score_board_row['place'] = (j != 0 &&
+                    (
+                        scoring == 'school' ?
+                            group[j - 1]['points_cnt'] == group[j]['points_cnt'] :
+                        (scoring == 'acm' ?
+                            group[j - 1]['p'] == group[j]['p'] :
+                            false))
+                    ) ?
                 this.score_board.top()['place'] :
                 this.score_board.length + 1;
             score_board_row['user'] = group[j]['id'];
@@ -125,5 +145,25 @@ CATS.Model.Results_table = Classify(CATS.Model.Entity, {
 
     clean_score_board: function () {
         this.score_board = [];
+    },
+
+    apply_filters: function () {
+        var old_score_board = this.score_board;
+        this.score_board = [];
+        var self = this;
+        $.each(old_score_board, function (k, row) {
+            var user = CATS.App.users[row['user']];
+            if (self.filters.user == null || user.name.match(new RegExp(self.filters.user))) {
+                if (self.filters.duration.type == 'scoreboard' &&
+                    self.filters.duration.minutes != null)
+                    for (var i = 0; i < row['problems'].length; ++i) {
+                        if (row['problems'][i].is_solved && row['problems'][i].best_run_time > self.filters.duration.minutes) {
+                            row['problems'][i].is_solved = false;
+                            row['problems'][i].runs_cnt--;
+                        }
+                    }
+                self.score_board.push(row);
+            }
+        });
     }
 });

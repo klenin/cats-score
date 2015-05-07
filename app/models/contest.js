@@ -8,7 +8,6 @@ CATS.Model.Contest = Classify(CATS.Model.Entity, {
         this.full_name = null;
         this.affiliation = null;
         this.start_time = null;
-        this.duration_minutes = null;
         this.finish_time = null;
         this.freeze_time = null;
         this.unfreeze_time = null;

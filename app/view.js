@@ -112,18 +112,25 @@ CATS.View = Classify({
                 this.skin($("#skin").val());
             },
             'change #contest_minutes': function () {
-                if (this.current_catsscore_wrapper_content_params == null)
-                    return;
-
-                var params = this.current_catsscore_wrapper_content_params.models;
-                var contest_id = params.contests[0];
-                var result_table = CATS.App.result_tables[params.table];
-                result_table.clean_score_board();
-                var contest = CATS.App.contests[contest_id];
-                contest.duration_minutes = $("#contest_minutes").val();
-                CATS.App.rules[contest.scoring].process(contest, result_table);
-                $("#catsscore_wrapper").html(this.page(this.skin(), "table_" + contest.scoring)(this.current_catsscore_wrapper_content_params));
+                this.update_rank_table({duration: {minutes : $("#contest_minutes").val(), type : $("#restriction_type").val() }});
+            },
+            'change #user': function () {
+                this.update_rank_table({user : $("#user").val()});
             }
+        },
+
+        update_rank_table: function (filters) {
+            if (this.current_catsscore_wrapper_content_params == null)
+                return;
+
+            var params = this.current_catsscore_wrapper_content_params.models;
+            var result_table = CATS.App.result_tables[params.table];
+            result_table.clean_score_board();
+            $.extend(result_table.filters, filters);
+            var contest_id = params.contests[0];
+            var contest = CATS.App.contests[contest_id];
+            CATS.App.rules[contest.scoring].process(contest, result_table);
+            $("#catsscore_wrapper").html(this.page(this.skin(), "table_" + contest.scoring)(this.current_catsscore_wrapper_content_params));
         },
 
         template: function (name) {
