@@ -12,7 +12,7 @@ CATS.Rule.Acm = Classify({
                 for (var i = 0; i < v['runs_cnt']; ++i) {
                     var run = CATS.Model.Run();
                     run['problem'] = v['problem'];
-                    run['start_processing_time'] = CATS.App.utils.add_time(contest_start_time, 0);
+                    run['start_processing_time'] = CATS.App.utils.add_time(contest_start_time, Math.round(contest.compute_duration_minutes() / 2));
                     run['user'] = row['user'];
 
                     if (v['is_solved'] && i + 1 == v['runs_cnt']) {

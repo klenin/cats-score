@@ -163,6 +163,8 @@ CATS.Model.Results_table = Classify(CATS.Model.Entity, {
                             row['problems'][i].is_solved = false;
                             row['problems'][i].runs_cnt = 0;
                         }
+                        if (!row['problems'][i].is_solved)
+                            row['problems'][i].runs_cnt = 0;
                     }
                 self.score_board.push(row);
             }
