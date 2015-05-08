@@ -161,7 +161,7 @@ CATS.Model.Results_table = Classify(CATS.Model.Entity, {
                     for (var i = 0; i < row['problems'].length; ++i) {
                         if (row['problems'][i].is_solved && row['problems'][i].best_run_time > self.filters.duration.minutes) {
                             row['problems'][i].is_solved = false;
-                            row['problems'][i].runs_cnt--;
+                            row['problems'][i].runs_cnt = 0;
                         }
                     }
                 self.score_board.push(row);
