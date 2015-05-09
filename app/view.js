@@ -119,6 +119,9 @@ CATS.View = Classify({
             },
             'change #affiliation': function () {
                 this.update_rank_table({user : $("#affiliation").val()});
+            },
+            'change #role': function () {
+                this.update_rank_table({role: $("#role").val()});
             }
         },
 
