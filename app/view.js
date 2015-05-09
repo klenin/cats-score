@@ -115,10 +115,10 @@ CATS.View = Classify({
                 this.update_rank_table({duration: {minutes : $("#contest_minutes").val(), type : $("#restriction_type").val() }});
             },
             'change #user': function () {
-                this.update_rank_table({user : $("#user").val()});
+                this.update_rank_table({user: $("#user").val()});
             },
             'change #affiliation': function () {
-                this.update_rank_table({user : $("#affiliation").val()});
+                this.update_rank_table({affiliation: $("#affiliation").val()});
             },
             'change #role': function () {
                 this.update_rank_table({role: $("#role").val()});
