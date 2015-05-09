@@ -20,8 +20,7 @@ user: entity
     full_name
     login
     email
-    affiliation: { name: }
-    region { name: }
+    affiliation: { city?, school?, region?, country? }
     role: "in_contest"* | "out_of_contest" | "virtual" | "jury", ? "commentator"
     time_offset: seconds
     is_remote
