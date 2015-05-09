@@ -57,9 +57,11 @@ CATS.Adapter.Cats = Classify({
         return contest;
     },
 
+    url: 'http://imcs.dvfu.ru/cats/main.pl',
+
     get_contests: function(callback) {
         var self = this;
-        CATS.App.utils.jsonp_get('http://imcs.dvfu.ru/cats/main.pl?f=contests;filter=all;sid=;rows=1000000;json=parseJsonp', function (data) {
+        CATS.App.utils.jsonp_get(this.url + '?f=contests;filter=all;sid=;rows=1000000;json=parseJsonp', function (data) {
             var contests = [];
             $.each(data.contests, function (k, v) {
                 self.add_contest(v);
@@ -85,7 +87,7 @@ CATS.Adapter.Cats = Classify({
 
     get_users: function(callback) {
         var self = this;
-        CATS.App.utils.jsonp_get('http://imcs.dvfu.ru/cats/main.pl?f=users;sid=;rows=1000000;cid=' + self.contest_id + ';json=parseJsonp;', function (data) {
+        CATS.App.utils.jsonp_get(this.url + '?f=users;sid=;rows=1000000;cid=' + self.contest_id + ';json=parseJsonp;', function (data) {
             var users = [];
             $.each(data, function (k, v) {
                 self.add_user(v);
@@ -114,7 +116,7 @@ CATS.Adapter.Cats = Classify({
 
     get_problems: function(callback) {
         var self = this;
-        CATS.App.utils.jsonp_get('http://imcs.dvfu.ru/cats/main.pl?f=problems;sid=;rows=1000000;cid=' + self.contest_id + ';json=parseJsonp;', function (data) {
+        CATS.App.utils.jsonp_get(this.url + '?f=problems;sid=;rows=1000000;cid=' + self.contest_id + ';json=parseJsonp;', function (data) {
             var problems = [];
             $.each(data.problems, function (k, v) {
                 self.add_problem(v);
@@ -127,7 +129,7 @@ CATS.Adapter.Cats = Classify({
     get_history: function(callback) {
         var self = this;
         CATS.App.utils.jsonp_get(
-            "http://imcs.dvfu.ru/cats/main.pl?f=console_content;sid=;rows=1000000;cid=" + self.contest_id + ";json=parseJsonp;i_value=-1;",
+            this.url + '?f=console_content;sid=;rows=1000000;cid=' + self.contest_id + ";json=parseJsonp;i_value=-1;",
             function(data) {
                 callback(data);
             });
