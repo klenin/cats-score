@@ -8,7 +8,7 @@ CATS.Model.User = Classify(CATS.Model.Entity, {
         this.full_name = null;
         this.login = null;
         this.email = null;
-        this.affiliation = null;//: { name: }
+        this.affiliation = {};//: { city?, school?, region?, country? }
         this.region = {
             name: null
         };
@@ -17,5 +17,10 @@ CATS.Model.User = Classify(CATS.Model.Entity, {
         this.is_remote = null;
         this.last_ip = null;
         this.last_action_time = null;//: ISO8601
-    }
+    },
+
+    some_affiliation: function() {
+        var a = this.affiliation;
+        return a.school || a.region || a.city || a.country || '';
+    },
 });

@@ -3,67 +3,56 @@ var contest_id = models.contests[0];
 var table_id = models.table;
 var contest = app.contests[contest_id];
 var table = app.result_tables[table_id];
+table.define_openers();
 %>
 <table class="wrapper"><tr><td>
 <table border="0" cellspacing="0" cellpadding="1">
     <tr>
-        <th class="rankl">
-            Rank
-        </th>
-        <th class="party">
-            Team
-        </th>
+        <th class="rankl">Rank</th>
+        <th class="party">Team</th>
         <%
         for (var i = 0; i < contest.problems.length; ++i) {
         var prob = app.problems[contest.problems[i]];
         %>
-        <th class="problem">
-            <%=prob.code%>
-        </th>
+        <th class="problem"><%=prob.code%></th>
         <%
         };
         %>
         <th class="solved">=</th>
-        <th class="penalty">
-            Time
-        </th>
+        <th class="penalty">Time</th>
     </tr>
-    <tr height="3"><td colspan="15"><hr size="1" color="000000"></td></tr>
+    <tr height="3"><td colspan="<%=contest.problems.length + 4%>"><hr size="1" color="000000"></td></tr>
     <%
     var idx = 0, last_solved_cnt = 0, use_color = 'alt';
-    var colors = {alt : {even : "ffffff", odd : "f8f8f8"}, normal: {even : "d0f0ff", odd : "c8e8f8"}};
-    _.each(table.score_board.slice(next_page, next_page + elem_cnt), function(row){
+    var colors = {alt: {even: 'ffffff', odd: 'f8f8f8'}, normal: {even: 'd0f0ff', odd: 'c8e8f8'}};
+    _.each(table.score_board.slice(next_page, next_page + elem_cnt), function(row) {
     idx++;
-    if (last_solved_cnt != row['solved_cnt'])
+    if (last_solved_cnt != row.solved_cnt)
         use_color = use_color == 'normal' ? 'alt' : 'normal';
-
+    last_solved_cnt = row.solved_cnt;
     %>
-    <tr bgcolor='<%= colors[use_color][idx % 2 != 0 ? "even" : "odd"] %>'>
-        <td class="rankl">
-            <%=row["place"]%>
-        </td>
-        <td class="party">
-            <%=app.users[row["user"]].name%>
-        </td>
+    <tr bgcolor="<%=colors[use_color][idx % 2 != 0 ? 'even' : 'odd']%>">
+        <td class="rankl"><%=row.place%></td>
+        <td class="party"><%=app.users[row.user].name%></td>
         <%
-        for (var i = 0; i < row["problems"].length; ++i) {
+        for (var i = 0; i < row.problems.length; ++i) {
+        var p = row.problems[i];
         %>
         <td>
-            <% if (row["problems"][i]["is_solved"]) {%>
-            <i><%="+" + (row["problems"][i]["runs_cnt"] > 1 ? row["problems"][i]["runs_cnt"] - 1 : "")%>
-            <s><br><%=app.utils.minutes_to_formated_hours(row["problems"][i]["best_run_time"])%></s></i>
-            <%} else %>
-            <b><%="-" + (row["problems"][i]["runs_cnt"] > 0 ? row["problems"][i]["runs_cnt"] : "")%></b>
+            <% if (p.is_solved) {%>
+            <i<%=p.opener ? ' class="first-to-solve"' : ''%>>+<%=p.runs_cnt > 1 ? p.runs_cnt - 1 : ''%>
+            <s><br><%=app.utils.minutes_to_formated_hours(p.best_run_time)%></s></i>
+            <%} else if (p.runs_cnt) {%>
+            <b>-<%=p.runs_cnt%></b>
+            <%} else {%>
+            .
+            <%}%>
         </td>
-
         <%
-        last_solved_cnt = row['solved_cnt'];
-        };
+        }
         %>
-        <td><%=last_solved_cnt%></td>
-        <td class="penalty">
-            <%=row["penalty"]%>
-        </td>
+        <td><%=row.solved_cnt%></td>
+        <td class="penalty"><%=row.penalty%></td>
     </tr>
     <%
     });
