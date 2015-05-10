@@ -26,12 +26,16 @@ CATS.Controller = Classify({
         return 'id_' + this.last_id++;
     },
 
-    get_result_table: function() {
-        return this.result_tables[Object.keys(this.result_tables)[0]];
+    get_result_table: function(contest_list) {
+        for (var k in this.result_tables) {
+            if (this.result_tables[k].contests.equals(contest_list))
+                return this.result_tables[k];
+        }
+        return null;
     },
 
-    have_result_table: function() {
-        return Object.keys(this.result_tables).length > 0;
+    have_result_table: function(contest_list) {
+        return this.get_result_table(contest_list) != null;
     },
 
     register_adapter: function(adapter) {
@@ -43,13 +47,16 @@ CATS.Controller = Classify({
     },
 
     adapter_process_rank_table: function(adapter_name, callback, contest_id) {
-        if (this.have_result_table() > 0) {
-            var result_table = this.get_result_table();
-            callback({contests : result_table.contests, table : result_table.id });
+        var contest_list = (contest_id.indexOf(',') != -1) ? contest_id.split(',') : [contest_id];
+
+        if (this.have_result_table(contest_list) > 0) {
+            var result_table = this.get_result_table(contest_list);
+            callback({contests: result_table.contests, table: result_table.id});
             return;
         }
+        
         var result_table = new CATS.Model.Results_table();
-        var contest_list = (contest_id.indexOf(',') != -1) ? contest_id.split(',') : [contest_id];
+
         result_table.contests = contest_list;
         this.adapters[adapter_name].init(contest_list);
         this.adapters[adapter_name].parse(result_table, function () {
