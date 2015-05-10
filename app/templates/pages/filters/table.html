@@ -1,6 +1,6 @@
 <script>
     $("#contest_slider").slider({
-        value: <%=contest_duration%>,
+        value: <%=filters.duration.minutes != null ? filters.duration.minutes : contest_duration%>,
         min: 0,
         max: <%=contest_duration%>,
         step: 1,
@@ -14,7 +14,7 @@
 <h2>Table filters:</h2>
 <h3>Contest duration minutes:</h3>
 <input type="hidden" id="contest_minutes" value="<%=contest_duration%>" />
-Duration <span id="contest_min"><%=contest_duration%></span> minutes,
+Duration <span id="contest_min"><%=filters.duration.minutes != null ? filters.duration.minutes : contest_duration%></span> minutes,
 <label for="restriction_type">restriction type: </label>
 <select id="restriction_type">
     <option value="history">history</option>
@@ -22,7 +22,7 @@ Duration <span id="contest_min"><%=contest_duration%></span> minutes,
 </select>
 <div id="contest_slider"></div>
 <h3>Restrictions:</h3>
-<label for="user">User: </label><input id="user" value=".*?" />
-<label for="affiliation">Affiliation: </label><input id="affiliation" value=".*?" />
-<label for="role">Role: </label><input id="role" value=".*?" />
+<label for="user">User: </label><input id="user" value="<%=filters.user != null ? filters.user : '.*?'%>" />
+<label for="affiliation">Affiliation: </label><input id="affiliation" value="<%=filters.affiliation != null ? filters.affiliation : '.*?'%>" />
+<label for="role">Role: </label><input id="role" value="<%=filters.role != null ? filters.role : '.*?'%>" />
 <br /><br /><br />
