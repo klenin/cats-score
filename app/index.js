@@ -32,7 +32,11 @@ function cats_score_init(
     dj_tbl_acm,
     dj_tbl_sch,
     dj_hist,
-    dj_contests
+    dj_contests,
+    ka_tbl_acm,
+    ka_tbl_sch,
+    ka_hist,
+    ka_contests
 ) {
     CATS.Config.proxy_path = "/cats/score/";
 
@@ -98,6 +102,12 @@ function cats_score_init(
                     table_school : dj_tbl_sch,
                     history : dj_hist,
                     contests : dj_contests,
+                },
+                kattis : {
+                    table_acm : ka_tbl_acm,
+                    table_school : ka_tbl_sch,
+                    history : ka_hist,
+                    contests : ka_contests,
                 },
             }
         }

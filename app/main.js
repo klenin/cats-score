@@ -96,7 +96,12 @@ require(['underscore', 'jquery', 'jqueryui'], function () {
                             'text!templates/pages/skins/domjudge/table_acm.html',
                             'text!templates/pages/skins/domjudge/table_school.html',
                             'text!templates/pages/skins/domjudge/history.html',
-                            'text!templates/pages/skins/domjudge/contests.html'
+                            'text!templates/pages/skins/domjudge/contests.html',
+                            //Kattis
+                            'text!templates/pages/skins/kattis/table_acm.html',
+                            'text!templates/pages/skins/kattis/table_school.html',
+                            'text!templates/pages/skins/kattis/history.html',
+                            'text!templates/pages/skins/kattis/contests.html'
                             //after add new skin make sure add new item in index.js
                         ], cats_score_init);
                     });

@@ -1,0 +1,89 @@
+<%
+var contest_id = models.contests[0];
+var table_id = models.table;
+var contest = app.contests[contest_id];
+var contest_problems_stats = contest.get_problems_stats();
+var table = app.result_tables[table_id];
+table.define_openers();
+%>
+
+<table class="legend">
+    <tr>
+        <td class="first">First to solve problem</td>
+        <td class="solved">Solved problem</td>
+        <td class="failed">Attempted problem</td>
+        <td class="pending">Pending judgement</td>
+    </tr>
+</table>
+
+<table class="standings">
+    <tr>
+        <th>Rk</th>
+        <th>Team</th>
+        <th>Slv.</th>
+        <th>Time</th>
+    <%for (var i = 0; i < contest.problems.length; ++i) {
+        var p = app.problems[contest.problems[i]];%>
+        <th><a href="#<%=p.name%>"><%=p.code%></a></th>
+    <%}%>
+    </tr>
+    <%
+    var idx = 0;
+    var affiliations = {};
+    _.each(table.score_board.slice(next_page, next_page + elem_cnt), function(row){
+    idx++;
+    var user = app.users[row.user];
+    %>
+    <tr>
+        <td class="centered"><%=row.place%></td>
+        <td class="user"><a href="#<%=user.id%>"><%=user.name%></td>
+        <td class="centered"><%=row.solved_cnt%></td>
+        <td class="centered"><%=row.penalty%></td>
+        <%
+        for (var i = 0; i < row.problems.length; ++i) {
+            var p = row.problems[i];
+        %>
+            <% if (p.is_solved) {%>
+            <td class="<%=p.opener ? 'first' : 'solved'%>"><%=p.runs_cnt%><p><%=p.best_run_time%></p></td>
+            <%} else if (p.runs_cnt) {%>
+            <td class="failed"><%=p.runs_cnt%><p>--</p></td>
+            <%} else {%>
+            <td></td>
+            <%}%>
+        <%
+        }
+        %>
+    </tr>
+    <%
+    });
+    %>
+    <tr>
+        <td colspan="4"></td>
+    <%for (var i = 0; i < contest.problems.length; ++i) {
+        var p = app.problems[contest.problems[i]];%>
+        <th><a href="#<%=p.name%>"><%=p.code%></a></th>
+    <%}%>
+    </tr>
+    <tr>
+        <td colspan="4" class="user">Solved / Tries</td>
+        <%
+        for (var i = 0; i < contest.problems.length; ++i) {
+        var s = contest_problems_stats[contest.problems[i]];
+        %>
+        <td class="centered"><%=s.sols%>/<%=s.runs%><br/>(<%=Math.round(s.sols / Math.max(s.runs, 1) * 100)%>%)</td>
+        <%
+        };
+        %>
+    </tr>
+    <tr>
+        <td colspan="4" class="user">Average tries</td>
+        <%
+        for (var i = 0; i < contest.problems.length; ++i) {
+        var s = contest_problems_stats[contest.problems[i]];
+        %>
+        <td class="centered"><%=Math.round(s.runs / Math.max(table.score_board.length, 1) * 100) / 100%></td>
+        <%
+        };
+        %>
+    </tr>
+</table>

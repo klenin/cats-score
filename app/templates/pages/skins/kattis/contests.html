@@ -1,0 +1,20 @@
+<table class="standings">
+<tr>
+    <th>id</th>
+    <th>name</th>
+</tr>
+<%
+var contests = models.contests, idx = 0;
+_.each(contests.slice(next_page, next_page + elem_cnt), function(id){
+idx++;
+%>
+<tr>
+    <td><%=id%></td>
+    <td class="user">
+        <a href="#!show_rank_table/<%=source%>/table/<%=skin%>/<%=id%>"><%=app.contests[id].name%></a>
+    </td>
+</tr>
+<%
+});
+%>
+</table>
