@@ -117,7 +117,7 @@ CATS.Adapter.Cats = Classify({
 
     get_problems: function(callback) {
         var self = this;
-        CATS.App.utils.jsonp_get(this.url + '?f=problems;sid=;rows=1000000;cid=' + self.contest_id + ';json=parseJsonp;', function (data) {
+        CATS.App.utils.jsonp_get(this.url + '?f=problems;sid=;rows=1000000;sort=0;sort_dir=0;cid=' + self.contest_id + ';json=parseJsonp;', function (data) {
             var problems = [];
             $.each(data.problems, function (k, v) {
                 self.add_problem(v);
