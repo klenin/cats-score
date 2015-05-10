@@ -28,7 +28,11 @@ function cats_score_init(
     my_tbl_acm,
     my_tbl_sch,
     my_hist,
-    my_contests
+    my_contests,
+    dj_tbl_acm,
+    dj_tbl_sch,
+    dj_hist,
+    dj_contests
 ) {
     CATS.Config.proxy_path = "/cats/score/";
 
@@ -88,6 +92,12 @@ function cats_score_init(
                     table_school : my_tbl_sch,
                     history : my_hist,
                     contests : my_contests,
+                },
+                domjudge : {
+                    table_acm : dj_tbl_acm,
+                    table_school : dj_tbl_sch,
+                    history : dj_hist,
+                    contests : dj_contests,
                 },
             }
         }
