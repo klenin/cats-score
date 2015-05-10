@@ -29,14 +29,15 @@ var table = app.result_tables[table_id];
         <td class="eye"></td>
         <td class="rank"><%=row.place%></td>
         <td class="party"><a href="#"><%=app.users[row.user].name%></a></td>
-        <td class="party"><a href="#"><%=app.users[row.user].affiliation%></a></td>
+        <td class="party"><a href="#"><%=app.users[row.user].some_affiliation()%></a></td>
         <td><%=row.points_cnt%></td>
         <%
         for (var i = 0; i < row.problems.length; ++i) {
             var p = row.problems[i];
+            var pdef = app.problems[contest.problems[i]];
         %>
             <td>
-            <% if (p.points) {%><div><div class="<%= p.status === 'accepted' ? 'first' : 'solved'%>"><%=p.points%></div></div><%}%>
+            <% if (p.points) {%><div><div class="<%= p.points === pdef.max_points ? 'first' : 'solved'%>"><%=p.points%></div></div><%}%>
             </td>
         <%
         }

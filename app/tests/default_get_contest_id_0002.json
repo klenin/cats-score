@@ -9,11 +9,11 @@
   },
 
   { "type" : "user" , "id" : "0001", "external_id" : null, "tags" : null, "description" : null, "name" : "vasya",
-    "contest" : null, "url" : null, "full_name" : null, "login" : null, "email" : null, "affiliation" : null,
+    "contest" : null, "url" : null, "full_name" : null, "login" : null, "email" : null, "affiliation" : {},
     "region" : { "name" : null } ,"role" : "in_contest", "time_offset" : null, "is_remote" : null, "last_ip" : null, "last_action_time" : null
   },
   { "type" : "user" , "id" : "0002", "external_id" : null, "tags" : null, "description" : null, "name" : "petya",
-    "contest" : null, "url" : null, "full_name" : null, "login" : null, "email" : null, "affiliation" : null,
+    "contest" : null, "url" : null, "full_name" : null, "login" : null, "email" : null, "affiliation" : {},
     "region" : { "name" : null } ,"role" : "in_contest", "time_offset" : null, "is_remote" : null, "last_ip" : null, "last_action_time" : null
   },
 

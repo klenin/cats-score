@@ -62,13 +62,14 @@ var capt = CATS.Langs.cats[lang];
                 use_color = use_color == 'even' ? 'odd' : 'even';
 
             idx++;
+            var user = app.users[row.user];
     %>
     <tr align="center" class='<%=use_color%>' >
         <td align="right">
             <%=idx%>&nbsp;
         </td>
         <td align="left">
-            <a href="<%=app.users[row['user']].description%>" title=""><%=app.users[row["user"]].name%></a>
+            <a href="<%=user.description%>" title="<%=user.affiliation.city%>"><%=user.name%></a>
         </td>
         <%
             for (var i = 0; i < row["problems"].length; ++i) {
