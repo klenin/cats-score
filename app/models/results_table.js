@@ -40,6 +40,8 @@ CATS.Model.Results_table = Classify(CATS.Model.Entity, {
 
     define_openers: function() {
         var sb = this.score_board;
+        if (sb.length == 0)
+            return;
         var openers = [];
         for (var i = 0; i < sb[0]['problems'].length; ++i)
             openers[i] = {min_time: 10000000000, idx: -1};
