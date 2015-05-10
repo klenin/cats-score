@@ -1,0 +1,22 @@
+<table class="scoreboard">
+<tr class="scoreheader">
+    <th>id</th>
+    <th>name</th>
+</tr>
+<%
+var contests = models.contests, idx = 0;
+_.each(contests.slice(next_page, next_page + elem_cnt), function(id){
+idx++;
+%>
+<tr>
+    <td class="scorepl">
+        <%=id%>
+    </td>
+    <td class="scoretn">
+        <a href="#!show_rank_table/<%=source%>/table/<%=skin%>/<%=id%>"><%=app.contests[id].name%></a>
+    </td>
+</tr>
+<%
+});
+%>
+</table>

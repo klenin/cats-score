@@ -1,0 +1,75 @@
+#catsscore_wrapper {
+    font-family: "proxima-nova","Proxima Nova","Open Sans","Helvetice Neue",sans-serif,arial;
+    font-size: 14px;
+}
+
+#catsscore_wrapper a {
+    text-decoration: none;
+    color: #4E92D0;
+}
+
+#catsscore_wrapper th a {
+    display: block;
+    padding: 14px 16px;
+}
+
+#catsscore_wrapper .legend {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    border-collapse: collapse;
+}
+
+#catsscore_wrapper .legend td {
+    text-transform: uppercase;
+    padding: 10px 16px;
+}
+
+#catsscore_wrapper td.solved {
+    background-color: #99FF99;
+}
+
+#catsscore_wrapper td.first {
+    background-color: #008800;
+    color: white;
+    font-weight: bold;
+}
+
+#catsscore_wrapper td.failed {
+    background-color: #FF9999;
+}
+
+#catsscore_wrapper td.pending {
+    background-color: #9999FF;
+}
+
+#catsscore_wrapper .standings {
+    border-collapse: collapse;
+    color: #5A5A64;
+}
+
+#catsscore_wrapper .standings th {
+    background-color: #F7F8F9;
+    border: 2px solid #E7E7E8;
+    color: #898992;
+    text-transform: uppercase;
+}
+
+#catsscore_wrapper .standings td {
+    padding: 4px 16px;
+    border: 1px solid #E7E7E8;
+    text-align: right;
+}
+
+#catsscore_wrapper .standings td p {
+    padding: 0;
+    margin: 0;
+    font-size: small;
+}
+
+#catsscore_wrapper .standings td.centered {
+    text-align: center;
+}
+
+#catsscore_wrapper .standings td.user {
+    text-align: left;
+}

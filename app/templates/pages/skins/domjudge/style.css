@@ -1,0 +1,92 @@
+#catsscore_wrapper .scoreboard {
+    border-collapse: collapse;
+    clear: both;
+    font-family: Lucida, Arial, sanf-serif;
+}
+#catsscore_wrapper .scoreboard td {
+    font-size: small;
+    vertical-align: middle;
+    text-align: center;
+}
+#catsscore_wrapper .scoreboard tr {
+    border-bottom: 1px solid black; 
+    height: 42px;
+}
+#catsscore_wrapper .scoreboard td, #catsscore_wrapper .scoreboard th {
+    border-right: 1px solid silver;
+}
+#catsscore_wrapper .scoreboard a {
+    display: block;
+    padding: 3px;
+    text-decoration: none;
+    color: black;
+}
+
+#catsscore_wrapper .scoreboard .scoretn {
+    padding: 0px;
+    max-width: 15em;
+    text-align: right;
+    font-weight: bold;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+#catsscore_wrapper .scoreboard .scoreaf { white-space: nowrap; border: 0; }
+#catsscore_wrapper .scoreboard .scoreaf img { vertical-align: middle; }
+#catsscore_wrapper .univ {
+    font-size: 80%;
+    font-weight: normal;
+    color: dimgrey;
+}
+
+#catsscore_wrapper .scoreheader {
+    font-variant: small-caps;
+    border-bottom: 2px solid black;
+    white-space: nowrap;
+}
+#catsscore_wrapper .score_correct   { background: #60e760; }
+#catsscore_wrapper .score_first     { background: #1daa1d !important; }
+#catsscore_wrapper .score_pending   { background: #6666FF; }
+#catsscore_wrapper .score_incorrect { background: #e87272; }
+
+#catsscore_wrapper .tc_box { text-align:center;font-size:85%;width:1.2em;display:inline-block;padding:2px;margin:1px;color:black;}
+#catsscore_wrapper .tc_correct   { background: #60e760; }
+#catsscore_wrapper .tc_pending   { background: #6666FF; }
+#catsscore_wrapper .tc_unused    { background: #BBBBBB; }
+#catsscore_wrapper .tc_incorrect { background: #e87272; }
+
+#catsscore_wrapper #scoresolv, #catsscore_wrapper #scoretotal { width: 2.5em; }
+#catsscore_wrapper .scorenc,#catsscore_wrapper .scorett,#catsscore_wrapper .scorepl { text-align: center; width: 2ex; }
+#catsscore_wrapper .scorenc { font-weight: bold; }
+#catsscore_wrapper td.scorenc { border-color: silver; border-right: 0; }
+
+#catsscore_wrapper .scoreprob { width: 3.0em; vertical-align: middle; }
+#catsscore_wrapper .scoreaffil { text-align: center; }
+
+#catsscore_wrapper #scoresummary {
+    border-top: 2px solid black;
+    border-bottom: none;
+    font-variant: small-caps;
+}
+#catsscore_wrapper .scorethisisme .scoretn {
+    background: #ff6600;
+    font-weight: bold;
+}
+
+#catsscore_wrapper .scorelegend {
+    display: inline-block;
+    vertical-align: top;
+}
+
+#catsscore_wrapper .scorelegend td {
+    text-align: center;
+    width: 25ex;
+}
+
+#catsscore_wrapper .circle {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: solid 1px black;
+    display: inline-block;
+}

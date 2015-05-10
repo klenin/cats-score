@@ -36,13 +36,14 @@ CATS.Model.Contest = Classify(CATS.Model.Entity, {
     get_problems_stats: function () {
         var stats = {};
         for(var i = 0; i < this.problems.length; ++i) {
-            stats[this.problems[i]] = {runs: 0, sols: 0}
+            stats[this.problems[i]] = {runs: 0, sols: 0, points:0};
         }
         for(var i = 0; i < this.runs.length; ++i) {
             var run = CATS.App.runs[this.runs[i]];
 
             stats[run.problem].runs++;
             stats[run.problem].sols += run.status == "accepted" ? 1 : 0;
+            stats[run.problem].points += run.points;
         }
 
         return stats;

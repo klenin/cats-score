@@ -1,0 +1,107 @@
+<%
+var contest_id = models.contests[0];
+var table_id = models.table;
+var contest = app.contests[contest_id];
+var contest_problems_stats = contest.get_problems_stats();
+var table = app.result_tables[table_id];
+table.define_openers();
+var default_colors = ['orange', 'dimgrey', 'mediumblue', 'green', 'greenyellow', 'white', 'deeppink', 'darkviolet', 'yellow'];
+%>
+<table class="scoreboard">
+<colgroup>
+    <col id="scorerank" />
+    <col id="scoreaffil" />
+    <col id="scoreteamname" />
+</colgroup>
+<colgroup>
+    <col id="scoresolv" />
+    <col id="scoretotal" />
+</colgroup>
+<colgroup>
+    <%for (var i = 0; i < contest.problems.length; ++i) {%>
+    <col class="scoreprob" />
+    <%}%>
+</colgroup>
+<tr class="scoreheader">
+    <th title="rank" scope="col">rank</th>
+    <th title="team name" scope="col" colspan="2">team</th>
+    <th title="# solved / penalty time" colspan="2" scope="col">score</th>
+    <%for (var i = 0; i < contest.problems.length; ++i) {
+        var p = app.problems[contest.problems[i]];
+        var c = p.color ? p.color : default_colors[i % default_colors.length];
+    %>
+    <th title="problem '<%=p.name%>'" scope="col"><a><%=p.code%> <div class="circle" style="background: <%=c%>;"></div></a></th>
+    <%}%>
+</tr>
+    <%
+    var idx = 0;
+    var affiliations = {};
+    _.each(table.score_board.slice(next_page, next_page + elem_cnt), function(row){
+    idx++;
+    var user = app.users[row.user];
+    affiliations[user.some_affiliation()] = 1;
+    %>
+    <tr id="team:<%=user.id%>">
+        <td class="scorepl"><%=row.place%></td>
+        <td class="scoreaf"><img src="app/templates/pages/skins/domjudge/RUS.png" alt="RUS" title="RUS" /></td>
+        <td class="scoretn"<%=user.role === 'in_contest' ? '' : ' style="background: #ffcc33;"'%>><a href="#<%=user.id%>"><%=user.name%><br />
+          <span class="univ"><%=user.some_affiliation()%></span></a></td>
+        <td class="scorenc"><%=row.solved_cnt%></td>
+        <td class="scorett"><%=row.penalty%></td>
+        <%
+        for (var i = 0; i < row.problems.length; ++i) {
+            var p = row.problems[i];
+        %>
+            <% if (p.is_solved) {%>
+            <td class="score_correct<%=p.opener ? ' score_first' : ''%>"><%=p.runs_cnt%>/<%=p.best_run_time%></td>
+            <%} else if (p.runs_cnt) {%>
+            <td class="score_incorrect"><%=p.runs_cnt%></td>
+            <%} else {%>
+            <td class="score_neutral">0</td>
+            <%}%>
+        <%
+        }
+        %>
+    </tr>
+    <%
+    });
+    %>
+<tr id="scoresummary" title="#submitted / #correct">
+    <td title="total teams"><%=table.score_board.length%></td>
+    <td class="scoreaffil" title="#affiliations / #countries"><%=_.size(affiliations)%> / 1</td>
+    <td title=" ">Summary</td>
+    <td title="total solved" class="scorenc">
+        <%=_.reduce(contest_problems_stats, function(t, s) { return t += s.sols; }, 0)%>
+    </td>
+    <td title=" "></td>
+    <%
+    for (var i = 0; i < contest.problems.length; ++i) {
+    var prob = app.problems[contest.problems[i]];
+    var s = contest_problems_stats[contest.problems[i]];
+    %>
+    <td><%=s.runs%>/<%=s.sols%></td>
+    <%
+    };
+    %>
+</table>
+
+<p><br /><br /></p>
+
+<table id="categ_legend" class="scoreboard scorelegend">
+<thead><tr><th scope="col">Categories</th></tr></thead>
+<tbody>
+<tr><td>Participants</td></tr>
+<tr style="background: #ffcc33;"><td>Spectators</td></tr>
+</tbody>
+</table>
+&nbsp;
+<table id="cell_legend" class="scoreboard scorelegend">
+<thead><tr><th scope="col">Cell colours</th></tr></thead>
+<tbody>
+<tr class="score_first"><td>Solved first</td></tr>
+<tr class="score_correct"><td>Solved</td></tr>
+<tr class="score_incorrect"><td>Tried, incorrect</td></tr>
+<tr class="score_pending"><td>Tried, pending</td></tr>
+<tr class="score_neutral"><td>Untried</td></tr>
+</tbody>
+</table>
