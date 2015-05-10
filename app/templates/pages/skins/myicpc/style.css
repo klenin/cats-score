@@ -1,0 +1,71 @@
+#catsscore_wrapper table.standings {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: small;
+    border-collapse: collapse;
+    margin: 0;
+    padding: 1pt;
+}
+
+#catsscore_wrapper td {
+    text-align: center;
+    font-weight: 600;
+}
+
+#catsscore_wrapper th.minw {
+    min-width: 5em;
+}
+
+#catsscore_wrapper td.eye {
+    width: 20px;
+    background: center no-repeat url(eye.gif);
+}
+
+#catsscore_wrapper a {
+    text-decoration: none;
+    color: #428BCA;
+}
+
+#catsscore_wrapper tr {
+    border-top: 1px solid #DDDDDD;
+}
+
+#catsscore_wrapper tr.even {
+    background-color: #F9F9F9;
+}
+
+#catsscore_wrapper tr.odd {
+    background-color: #E9E9E9;
+}
+
+#catsscore_wrapper td>div {
+    min-width: 45px;
+    max-width: 60px;
+    padding: 0.4em 0.3em;
+    font-size: x-small;
+}
+#catsscore_wrapper div div {
+    margin: auto auto;
+    border-radius: 3px;
+    vertical-align: middle;
+    padding: 3px;
+    color: white;
+}
+
+#catsscore_wrapper div.solved {
+    background-color: #5CB85C;
+}
+
+#catsscore_wrapper div.first {
+    background-color: #5BC0DE;
+}
+
+#catsscore_wrapper div.failed {
+    background-color: #D9534F;
+}
+
+#catsscore_wrapper th.rank, #catsscore_wrapper th.party
+#catsscore_wrapper td.rank, #catsscore_wrapper td.party
+{
+    text-align: left;
+    padding-left: 5px;
+}

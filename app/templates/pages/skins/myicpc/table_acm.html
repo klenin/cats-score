@@ -1,0 +1,55 @@
+<%
+var contest_id = models.contests[0];
+var table_id = models.table;
+var contest = app.contests[contest_id];
+var table = app.result_tables[table_id];
+table.define_openers();
+%>
+<table class="standings">
+    <tr>
+        <th class="eye"></th>
+        <th class="rank">Rk</th>
+        <th class="party minw">Name</th>
+        <th class="party minw">Region</th>
+        <th class="minw">Solved</th>
+        <th class="minw">Time</th>
+        <%
+        for (var i = 0; i < contest.problems.length; ++i) {
+        var prob = app.problems[contest.problems[i]];
+        %>
+        <th class="problem minw"><a href="#"><%=prob.code%></a></th>
+        <%
+        };
+        %>
+    </tr>
+    <%
+    var idx = 0;
+    _.each(table.score_board.slice(next_page, next_page + elem_cnt), function(row){
+    idx++;
+    %>
+    <tr class="<%= idx % 2 ? 'even' : 'odd' %>">
+        <td class="eye"></td>
+        <td class="rank"><%=row.place%></td>
+        <td class="party"><a href="#"><%=app.users[row.user].name%></a></td>
+        <td class="party"><a href="#"><%=app.users[row.user].some_affiliation()%></a></td>
+        <td><%=row.solved_cnt%></td>
+        <td class="penalty"><%=row.penalty%></td>
+        <%
+        for (var i = 0; i < row.problems.length; ++i) {
+            var p = row.problems[i];
+        %>
+            <td>
+            <% if (p.is_solved) {%>
+            <div><div class="<%=p.opener ? 'first' : 'solved'%>"><%=p.runs_cnt%> - <%=p.best_run_time%></div></div>
+            <%} else if (p.runs_cnt) {%>
+            <div><div class="failed"><%=p.runs_cnt%></div></div>
+            <%}%>
+            </td>
+        <%
+        }
+        %>
+    </tr>
+    <%
+    });
+    %>
+</table>

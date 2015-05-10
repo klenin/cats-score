@@ -1,0 +1,48 @@
+<%
+var contest_id = models.contests[0];
+var table_id = models.table;
+var contest = app.contests[contest_id];
+var table = app.result_tables[table_id];
+%>
+<table class="standings">
+    <tr>
+        <th class="eye"></th>
+        <th class="rank">Rk</th>
+        <th class="party minw">Name</th>
+        <th class="party minw">Region</th>
+        <th class="minw">Points</th>
+        <%
+        for (var i = 0; i < contest.problems.length; ++i) {
+        var prob = app.problems[contest.problems[i]];
+        %>
+        <th class="problem minw"><a href="#"><%=prob.code%></a></th>
+        <%
+        };
+        %>
+    </tr>
+    <%
+    var idx = 0;
+    _.each(table.score_board.slice(next_page, next_page + elem_cnt), function(row){
+    idx++;
+    %>
+    <tr class="<%= idx % 2 ? 'even' : 'odd' %>">
+        <td class="eye"></td>
+        <td class="rank"><%=row.place%></td>
+        <td class="party"><a href="#"><%=app.users[row.user].name%></a></td>
+        <td class="party"><a href="#"><%=app.users[row.user].affiliation%></a></td>
+        <td><%=row.points_cnt%></td>
+        <%
+        for (var i = 0; i < row.problems.length; ++i) {
+            var p = row.problems[i];
+        %>
+            <td>
+            <% if (p.points) {%><div><div class="<%= p.status === 'accepted' ? 'first' : 'solved'%>"><%=p.points%></div></div><%}%>
+            </td>
+        <%
+        }
+        %>
+    </tr>
+    <%
+    });
+    %>
+</table>

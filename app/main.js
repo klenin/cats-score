@@ -86,7 +86,12 @@ require(['underscore', 'jquery', 'jqueryui'], function () {
                             'text!templates/pages/skins/opencup/table_acm.html',
                             'text!templates/pages/skins/opencup/table_school.html',
                             'text!templates/pages/skins/opencup/history.html',
-                            'text!templates/pages/skins/opencup/contests.html'
+                            'text!templates/pages/skins/opencup/contests.html',
+                            //MyICPC
+                            'text!templates/pages/skins/myicpc/table_acm.html',
+                            'text!templates/pages/skins/myicpc/table_school.html',
+                            'text!templates/pages/skins/myicpc/history.html',
+                            'text!templates/pages/skins/myicpc/contests.html'
                             //after add new skin make sure add new item in index.js
                         ], cats_score_init);
                     });

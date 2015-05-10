@@ -24,7 +24,11 @@ function cats_score_init(
     oc_tbl_acm,
     oc_tbl_sch,
     oc_hist,
-    oc_contests
+    oc_contests,
+    my_tbl_acm,
+    my_tbl_sch,
+    my_hist,
+    my_contests
 ) {
     CATS.Config.proxy_path = "/cats/score/";
 
@@ -78,6 +82,12 @@ function cats_score_init(
                     table_school : oc_tbl_sch,
                     history : oc_hist,
                     contests : oc_contests,
+                },
+                myicpc : {
+                    table_acm : my_tbl_acm,
+                    table_school : my_tbl_sch,
+                    history : my_hist,
+                    contests : my_contests,
                 },
             }
         }

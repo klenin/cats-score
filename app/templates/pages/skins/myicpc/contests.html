@@ -1,0 +1,30 @@
+<table class="wrapper"><tr><td>
+    <h2>Сontests</h2>
+    <table border="0" cellspacing="0" cellpadding="1">
+    <tr>
+        <th>
+            id
+        </th>
+        <th>
+            name
+        </th>
+    </tr>
+        <tr height="3"><td colspan="15"><hr size="1" color="000000"></td></tr>
+    <%
+    var contests = models.contests, idx = 0;
+    _.each(contests.slice(next_page, next_page + elem_cnt), function(id){
+    idx++;
+    %>
+    <tr class="<%= idx % 2 ? 'odd' : 'even' %>">
+        <td>
+            <%=id%>
+        </td>
+        <td class="party">
+            <a href="#!show_rank_table/<%=source%>/table/<%=skin%>/<%=id%>"><%=app.contests[id].name%></a>
+        </td>
+    </tr>
+    <%
+    });
+    %>
+</table>
+</td></tr></table>
