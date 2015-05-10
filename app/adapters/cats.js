@@ -43,7 +43,7 @@ CATS.Adapter.Cats = Classify({
                     callback();
                 });
             });
-        });
+        }, self.contest_id);
     },
 
     add_contest: function(v) {
@@ -59,9 +59,9 @@ CATS.Adapter.Cats = Classify({
 
     url: 'http://imcs.dvfu.ru/cats/main.pl',
 
-    get_contests: function(callback) {
+    get_contests: function(callback, contest_id) {
         var self = this;
-        var s = self.contest_id > 0 ? 'id%3D' + self.contest_id : '';
+        var s = contest_id != undefined ? 'id%3D' + self.contest_id : '';
         CATS.App.utils.jsonp_get(this.url + '?f=contests;filter=all;rows=1000000;search=' + s + ';json=parseJsonp', function (data) {
             var contests = [];
             $.each(data.contests, function (k, v) {
