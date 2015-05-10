@@ -54,7 +54,7 @@ CATS.Controller = Classify({
             callback({contests: result_table.contests, table: result_table.id});
             return;
         }
-        
+
         var result_table = new CATS.Model.Results_table();
 
         result_table.contests = contest_list;
