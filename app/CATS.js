@@ -7,7 +7,7 @@ var CATS = {
     View: null,
     Langs: null,
     Config: {
-        proxy_path : "/"
+        proxy_path : "/proxy.pl?u="
     },
     Utils: null,
     Controller: null

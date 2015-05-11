@@ -27,7 +27,7 @@ CATS.Utils = Classify({
     },
 
     proxy_get: function(url, callback) {
-        $.get(CATS.Config.proxy_path + "proxy.pl?u=" + encodeURIComponent(url), callback);
+        $.get(CATS.Config.proxy_path + encodeURIComponent(url), callback);
     },
 
     json_get: function (url, callback) {
