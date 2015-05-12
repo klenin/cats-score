@@ -46,6 +46,7 @@ function cats_score_init(
     CATS.App.register_adapter(new CATS.Adapter.Ifmo([-1], CATS.Test.ifmo_html_data));
     CATS.App.register_adapter(new CATS.Adapter.Codeforces([-1]));
     CATS.App.register_adapter(new CATS.Adapter.Cats([-1]));
+    CATS.App.register_adapter(new CATS.Adapter.MyIcpc([-1], 'app/tests/myicpc.xml'));
     CATS.App.register_adapter(new CATS.Adapter.Default([-1]));
     CATS.App.register_rule(new CATS.Rule.Acm());
     CATS.App.register_rule(new CATS.Rule.School());

@@ -1,0 +1,1392 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<contest><info>
+    <length>05:00:00</length>
+    <penalty>20</penalty>
+    <scoreboard-freeze-length>01:00:00</scoreboard-freeze-length>
+    <started>true</started>
+    <starttime>1417936089.112</starttime>
+    <title>ACM ICPC 2014-2015, Northeastern European Regional Contest</title>
+</info><language>
+    <id>1</id>
+    <name>Unknown</name>
+</language><region>
+    <external-id>3</external-id>
+    <name>Uzbekistan</name>
+</region><region>
+    <external-id>4</external-id>
+    <name>Saint-Petersburg</name>
+</region><region>
+    <external-id>1</external-id>
+    <name>Georgia</name>
+</region><region>
+    <external-id>2</external-id>
+    <name>Barnaul</name>
+</region><problem>
+    <id>1</id>
+    <name>Alter Board</name>
+</problem><problem>
+    <id>2</id>
+    <name>Burrito King</name>
+</problem><problem>
+    <id>3</id>
+    <name>Cactus Generator</name>
+</problem><problem>
+    <id>4</id>
+    <name>Damage Assessment</name>
+</problem><problem>
+    <id>5</id>
+    <name>Epic Win!</name>
+</problem><problem>
+    <id>6</id>
+    <name>Filter</name>
+</problem><problem>
+    <id>7</id>
+    <name>Gomoku</name>
+</problem><problem>
+    <id>8</id>
+    <name>Hidden Maze</name>
+</problem><problem>
+    <id>9</id>
+    <name>Improvements</name>
+</problem><problem>
+    <id>10</id>
+    <name>Jokewithpermutation</name>
+</problem><problem>
+    <id>11</id>
+    <name>Knockout Racing</name>
+</problem><team>
+    <external-id>232368</external-id>
+    <id>232368</id>
+    <name>SPb ITMO University 1 (Korotkevich, Minaiev, Vasilyev)</name>
+    <nationality>RUS</nationality>
+    <region>Saint-Petersburg</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232345</external-id>
+    <id>232345</id>
+    <name>Moscow Institute of Physics and Technology 4 (Savinov, Kiyan, Golovanov)</name>
+    <nationality>RUS</nationality>
+    <region>Saint-Petersburg</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232395</external-id>
+    <id>232395</id>
+    <name>Belarusian State University 1 (Hrytskevich, Kolesau, Nekrashevich)</name>
+    <nationality>RUS</nationality>
+    <region>Saint-Petersburg</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232608</external-id>
+    <id>232608</id>
+    <name>SPb Academic University 2 (Stepanov, Smirnov, Podguzov)</name>
+    <nationality>RUS</nationality>
+    <region>Saint-Petersburg</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232370</external-id>
+    <id>232370</id>
+    <name>SPb ITMO University 3 (Belonogov, Zban, Podtelkin)</name>
+    <nationality>RUS</nationality>
+    <region>Saint-Petersburg</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232341</external-id>
+    <id>232341</id>
+    <name>Moscow State University 3 (Shlyunkin, Gorbunov, Akhmedov)</name>
+    <nationality>RUS</nationality>
+    <region>Saint-Petersburg</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232348</external-id>
+    <id>232348</id>
+    <name>Moscow State University 5 (Shapovalov, Volnov, Doykov)</name>
+    <nationality>RUS</nationality>
+    <region>Saint-Petersburg</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232402</external-id>
+    <id>232402</id>
+    <name>Belarusian SU of Information and Radioelectronics 1 (Sobal, Solovyov, Valchok)</name>
+    <nationality>RUS</nationality>
+    <region>Saint-Petersburg</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232337</external-id>
+    <id>232337</id>
+    <name>Moscow State University 1 (Evstropov, Pyaderkin, Omelyanenko)</name>
+    <nationality>RUS</nationality>
+    <region>Saint-Petersburg</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232567</external-id>
+    <id>232567</id>
+    <name>IMCS of Siberian FU 1 (Demidenko, Magdenko, Snetkov)</name>
+    <nationality>RUS</nationality>
+    <region>Barnaul</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232611</external-id>
+    <id>232611</id>
+    <name>Northern Federal University (Chesnokov, Rodionova, Popovich)</name>
+    <nationality>RUS</nationality>
+    <region>Saint-Petersburg</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232412</external-id>
+    <id>232412</id>
+    <name>Saratov State University 3 (Kireev, Sagunov, Gridnev)</name>
+    <nationality>RUS</nationality>
+    <region>Saint-Petersburg</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232401</external-id>
+    <id>232401</id>
+    <name>Belarusian SU of Information and Radioelectronics 2 (Tanasiuk, Berezhnov, Astashkevich)</name>
+    <nationality>RUS</nationality>
+    <region>Saint-Petersburg</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232586</external-id>
+    <id>232586</id>
+    <name>SibSUTI 1 (Borodin, Ponomarev, Turtsev)</name>
+    <nationality>RUS</nationality>
+    <region>Barnaul</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232371</external-id>
+    <id>232371</id>
+    <name>SPb State University 4 (Gordeev, Sayfutdinov, Simonov)</name>
+    <nationality>RUS</nationality>
+    <region>Saint-Petersburg</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232396</external-id>
+    <id>232396</id>
+    <name>Latvia University 1 (Ratnieks, Kuznecovs, Senko)</name>
+    <nationality>RUS</nationality>
+    <region>Saint-Petersburg</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232605</external-id>
+    <id>232605</id>
+    <name>SPb State University 1 (Andreev, Sokolov, Pyshkin)</name>
+    <nationality>RUS</nationality>
+    <region>Saint-Petersburg</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232382</external-id>
+    <id>232382</id>
+    <name>South Ural State University 2 (Kibel, Lyzhin, Bazhanov)</name>
+    <nationality>RUS</nationality>
+    <region>Saint-Petersburg</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232362</external-id>
+    <id>232362</id>
+    <name>Soloviev Rybinsk SATU (Kamenko, Skrynnik, Bolotin)</name>
+    <nationality>RUS</nationality>
+    <region>Saint-Petersburg</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232665</external-id>
+    <id>232665</id>
+    <name>Yerevan SU 1 (Mamikonyan, Harutyunyan, Sahakyan)</name>
+    <nationality>GEO</nationality>
+    <region>Georgia</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232562</external-id>
+    <id>232562</id>
+    <name>Far Eastern S Trans U (Pisaniy, Seredkin, Usmanov)</name>
+    <nationality>RUS</nationality>
+    <region>Barnaul</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232410</external-id>
+    <id>232410</id>
+    <name>Saratov State University 1 (Kudasov, Gusarov, Kudryashov)</name>
+    <nationality>RUS</nationality>
+    <region>Saint-Petersburg</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232416</external-id>
+    <id>232416</id>
+    <name>Mordovian State University (Oreshin, Lapshina, Yunovich)</name>
+    <nationality>RUS</nationality>
+    <region>Saint-Petersburg</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232338</external-id>
+    <id>232338</id>
+    <name>Moscow Institute of Physics and Technology 1 (Semenov, Zhuk, Ivaschenko)</name>
+    <nationality>RUS</nationality>
+    <region>Saint-Petersburg</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232415</external-id>
+    <id>232415</id>
+    <name>Saratov State University 4 (Dalabaev, Kim, Glazov)</name>
+    <nationality>RUS</nationality>
+    <region>Saint-Petersburg</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232459</external-id>
+    <id>232459</id>
+    <name>International IT University 1 (Dauirkhan, Chzhen, Kim)</name>
+    <nationality>UZB</nationality>
+    <region>Uzbekistan</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232411</external-id>
+    <id>232411</id>
+    <name>Saratov State University 2 (Svechnikov, Frolov, Los)</name>
+    <nationality>RUS</nationality>
+    <region>Saint-Petersburg</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232669</external-id>
+    <id>232669</id>
+    <name>American U of Armenia 5 (Zadoori, Gevorgyan, Stepanyan)</name>
+    <nationality>GEO</nationality>
+    <region>Georgia</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232375</external-id>
+    <id>232375</id>
+    <name>Perm State University 1 (Ankudinov, Lizunov, Tsaplin)</name>
+    <nationality>RUS</nationality>
+    <region>Saint-Petersburg</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232414</external-id>
+    <id>232414</id>
+    <name>Ulyanovsk State Technical University (Folunin, Kondratiev, Korneev)</name>
+    <nationality>RUS</nationality>
+    <region>Saint-Petersburg</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232606</external-id>
+    <id>232606</id>
+    <name>SPb State University 3 (Malinovskii, Savchenkov, Avdyukhin)</name>
+    <nationality>RUS</nationality>
+    <region>Saint-Petersburg</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232358</external-id>
+    <id>232358</id>
+    <name>Moscow State Engineering Physics Institute 2 (Khazov, Ignatov, Gridasov)</name>
+    <nationality>RUS</nationality>
+    <region>Saint-Petersburg</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232609</external-id>
+    <id>232609</id>
+    <name>SPb Academic University 1 (Akimov, Karpov, Sluzhaev)</name>
+    <nationality>RUS</nationality>
+    <region>Saint-Petersburg</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232393</external-id>
+    <id>232393</id>
+    <name>Perm State Technical University 2 (Rutin, Ozhgibesov, Abramov)</name>
+    <nationality>RUS</nationality>
+    <region>Saint-Petersburg</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232406</external-id>
+    <id>232406</id>
+    <name>Brest State University (Stain, Tuzik, Sobin)</name>
+    <nationality>RUS</nationality>
+    <region>Saint-Petersburg</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232421</external-id>
+    <id>232421</id>
+    <name>Togliatti State University (Nikonov, Bayditskaya, Finutin)</name>
+    <nationality>RUS</nationality>
+    <region>Saint-Petersburg</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232561</external-id>
+    <id>232561</id>
+    <name>North-Eastern FU (Dyakonov, Fedorov, Prokopiev)</name>
+    <nationality>RUS</nationality>
+    <region>Barnaul</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232433</external-id>
+    <id>232433</id>
+    <name>Tashkent University of Information Technologies 2 (Toshkanov, Samadov, Bozorboyev)</name>
+    <nationality>UZB</nationality>
+    <region>Uzbekistan</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232431</external-id>
+    <id>232431</id>
+    <name>Tashkent University of Information Technologies 1 (Khusain, Hojiyev, Abdukarimov)</name>
+    <nationality>UZB</nationality>
+    <region>Uzbekistan</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232369</external-id>
+    <id>232369</id>
+    <name>SPb State University 2 (Kuzmina, Voronetskiy, Krachun)</name>
+    <nationality>RUS</nationality>
+    <region>Saint-Petersburg</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232342</external-id>
+    <id>232342</id>
+    <name>Moscow Institute of Physics and Technology 3 (Babanin, Dmitriev, Ostanin)</name>
+    <nationality>RUS</nationality>
+    <region>Saint-Petersburg</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232460</external-id>
+    <id>232460</id>
+    <name>Kazakh-British Technical University 3 (Dyussenaliyev, Dyussenaliyev, Zhunussova)</name>
+    <nationality>UZB</nationality>
+    <region>Uzbekistan</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232457</external-id>
+    <id>232457</id>
+    <name>Kazakh-British Technical University 1 (Nurmash, Utemuratov, Mussayev)</name>
+    <nationality>UZB</nationality>
+    <region>Uzbekistan</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232339</external-id>
+    <id>232339</id>
+    <name>Moscow Institute of Physics and Technology 2 (Mashrabov, Tikhomirov, Chebanov)</name>
+    <nationality>RUS</nationality>
+    <region>Saint-Petersburg</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232399</external-id>
+    <id>232399</id>
+    <name>Belarusian State University 4 (Zhyrkevich, Vilcheuski, Vorokh)</name>
+    <nationality>RUS</nationality>
+    <region>Saint-Petersburg</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232588</external-id>
+    <id>232588</id>
+    <name>Novosibirsk SU 2 (Dudin, Kishkanova, Seredkin)</name>
+    <nationality>RUS</nationality>
+    <region>Barnaul</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232435</external-id>
+    <id>232435</id>
+    <name>Tashkent University of Information Technologies 3 (Sharapov, Sharipov, Nasriddinov)</name>
+    <nationality>UZB</nationality>
+    <region>Uzbekistan</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232419</external-id>
+    <id>232419</id>
+    <name>Voronezh State University 1 (Babkin, Viflyantsev, Tretyakova)</name>
+    <nationality>RUS</nationality>
+    <region>Saint-Petersburg</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232618</external-id>
+    <id>232618</id>
+    <name>Free U of Tbilisi 1 (Mandzulashvili, Guliashvili, Svanidze)</name>
+    <nationality>GEO</nationality>
+    <region>Georgia</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232422</external-id>
+    <id>232422</id>
+    <name>Samara State Aerospace University 2 (Bezrukov, Ermakov, Dimitrov)</name>
+    <nationality>RUS</nationality>
+    <region>Saint-Petersburg</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232610</external-id>
+    <id>232610</id>
+    <name>SPb ITMO University 4 (Garder, Kucherenko, Kovsharov)</name>
+    <nationality>RUS</nationality>
+    <region>Saint-Petersburg</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232357</external-id>
+    <id>232357</id>
+    <name>Moscow Institute of Electronic Technology 2 (Zhulikov, Tsyganov, Matrokhin)</name>
+    <nationality>RUS</nationality>
+    <region>Saint-Petersburg</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232373</external-id>
+    <id>232373</id>
+    <name>Ural Federal University 2 (Samoylenko, Averin, Ageev)</name>
+    <nationality>RUS</nationality>
+    <region>Saint-Petersburg</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232347</external-id>
+    <id>232347</id>
+    <name>Higher School of Economics 1 (Kolosov, Samelyuk, Iskhakov)</name>
+    <nationality>RUS</nationality>
+    <region>Saint-Petersburg</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232365</external-id>
+    <id>232365</id>
+    <name>Taurida Vernadsky National University 1 (Ismailov, Derhachov, Lyashko)</name>
+    <nationality>RUS</nationality>
+    <region>Saint-Petersburg</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232423</external-id>
+    <id>232423</id>
+    <name>Kazan Federal University (Gainitdinov, Butin, Yamilov)</name>
+    <nationality>RUS</nationality>
+    <region>Saint-Petersburg</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232366</external-id>
+    <id>232366</id>
+    <name>Sevastopol National Technical University (Antonov, Solodyankin, Burkov)</name>
+    <nationality>RUS</nationality>
+    <region>Saint-Petersburg</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232379</external-id>
+    <id>232379</id>
+    <name>Tyumen State University (Avriskin, Yagudin, Pogodin)</name>
+    <nationality>RUS</nationality>
+    <region>Saint-Petersburg</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232385</external-id>
+    <id>232385</id>
+    <name>Izhevsk State Technical University 3 (Filimonov, Tatarinov, Bulatov)</name>
+    <nationality>RUS</nationality>
+    <region>Saint-Petersburg</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232392</external-id>
+    <id>232392</id>
+    <name>Perm Higher School of Economics (Starkov, Faletov, Kuchev)</name>
+    <nationality>RUS</nationality>
+    <region>Saint-Petersburg</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232384</external-id>
+    <id>232384</id>
+    <name>Orenburg State University (Pilipenko, Larin, Taziev)</name>
+    <nationality>RUS</nationality>
+    <region>Saint-Petersburg</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232614</external-id>
+    <id>232614</id>
+    <name>Petrozavodsk State University 3 (Alkin, Komlev, Ermolin)</name>
+    <nationality>RUS</nationality>
+    <region>Saint-Petersburg</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232354</external-id>
+    <id>232354</id>
+    <name>Moscow Institute of Electronic Technology 1 (Zheglov, Bogolyubskiy, Kishechko)</name>
+    <nationality>RUS</nationality>
+    <region>Saint-Petersburg</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232666</external-id>
+    <id>232666</id>
+    <name>American U of Armenia 1 (Zakaryan, Hovakimyan, Hayrapetyan)</name>
+    <nationality>GEO</nationality>
+    <region>Georgia</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232458</external-id>
+    <id>232458</id>
+    <name>Kazakh-British Technical University 2 (Akhmetzhanov, Orazbayev, Satybaldiyev)</name>
+    <nationality>UZB</nationality>
+    <region>Uzbekistan</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232394</external-id>
+    <id>232394</id>
+    <name>Belarusian State University 2 (Sokal, Shaftsialevich, Paliyevits)</name>
+    <nationality>RUS</nationality>
+    <region>Saint-Petersburg</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232428</external-id>
+    <id>232428</id>
+    <name>Kyrgyz-Russian Slav U (Akparaliev, Pechjorov, Sapozhnikov)</name>
+    <nationality>RUS</nationality>
+    <region>Barnaul</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232461</external-id>
+    <id>232461</id>
+    <name>Nazarbayev University 3 (Kassenov, Serikov, Zarlyk)</name>
+    <nationality>UZB</nationality>
+    <region>Uzbekistan</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232432</external-id>
+    <id>232432</id>
+    <name>Moscow State University - Tashkent 1 (Bistrigova, Soliev, Usmonov)</name>
+    <nationality>UZB</nationality>
+    <region>Uzbekistan</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232405</external-id>
+    <id>232405</id>
+    <name>Belarusian State Economic University (Charnevich, Stsepa, Sashcheka)</name>
+    <nationality>RUS</nationality>
+    <region>Saint-Petersburg</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232615</external-id>
+    <id>232615</id>
+    <name>SPb State Polytechnic University (Svitkin, Geller, Mordberg)</name>
+    <nationality>RUS</nationality>
+    <region>Saint-Petersburg</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232584</external-id>
+    <id>232584</id>
+    <name>Altai STU 1 (Golovin, Kostin, Nikitin)</name>
+    <nationality>RUS</nationality>
+    <region>Barnaul</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232398</external-id>
+    <id>232398</id>
+    <name>Immanuel Kant Baltic Federal University 1 (Platto, Kharybin, Suvorov)</name>
+    <nationality>RUS</nationality>
+    <region>Saint-Petersburg</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232340</external-id>
+    <id>232340</id>
+    <name>Moscow State University 2 (Cherepanov, Dubinin, Mokin)</name>
+    <nationality>RUS</nationality>
+    <region>Saint-Petersburg</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232592</external-id>
+    <id>232592</id>
+    <name>Novosibirsk STU 1 (Lobynya, Obukhov, Zelenskiy)</name>
+    <nationality>RUS</nationality>
+    <region>Barnaul</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232346</external-id>
+    <id>232346</id>
+    <name>Moscow Institute of Physics and Technology 5 (Kuzmichev, Surin, Pershakov)</name>
+    <nationality>RUS</nationality>
+    <region>Saint-Petersburg</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232579</external-id>
+    <id>232579</id>
+    <name>Omsk STU 1 (Khvorykh, Sidorenko, Trubin)</name>
+    <nationality>RUS</nationality>
+    <region>Barnaul</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232372</external-id>
+    <id>232372</id>
+    <name>Ural Federal University 1 (Kuchumov, Borozdin, Kungurtsev)</name>
+    <nationality>RUS</nationality>
+    <region>Saint-Petersburg</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232359</external-id>
+    <id>232359</id>
+    <name>Yaroslavl State University 1 (Pikas, Krainov, Kolobov)</name>
+    <nationality>RUS</nationality>
+    <region>Saint-Petersburg</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232403</external-id>
+    <id>232403</id>
+    <name>Immanuel Kant Baltic Federal University 2 (Balobanov, Koblyk, Mosjagin)</name>
+    <nationality>RUS</nationality>
+    <region>Saint-Petersburg</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232374</external-id>
+    <id>232374</id>
+    <name>Ural Federal University 3 (Krasnoselskikh, Chaplygin, Mukhametianov)</name>
+    <nationality>RUS</nationality>
+    <region>Saint-Petersburg</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232622</external-id>
+    <id>232622</id>
+    <name>Free U of Tbilisi 4 (Matiashvili, Gogolidze, Pataraia)</name>
+    <nationality>GEO</nationality>
+    <region>Georgia</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232383</external-id>
+    <id>232383</id>
+    <name>South Ural State University 3 (Melyokhin, Avetyan, Vasilenko)</name>
+    <nationality>RUS</nationality>
+    <region>Saint-Petersburg</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232467</external-id>
+    <id>232467</id>
+    <name>International IT University 4 (Tlegen, Abuov, Maksut)</name>
+    <nationality>UZB</nationality>
+    <region>Uzbekistan</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232585</external-id>
+    <id>232585</id>
+    <name>Tomsk PU 1 (Kuzivanov, Sannikov, Savvinov)</name>
+    <nationality>RUS</nationality>
+    <region>Barnaul</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232582</external-id>
+    <id>232582</id>
+    <name>Novosibirsk SU 4 (Smirnov, Viktorov, Vishnevskiy)</name>
+    <nationality>RUS</nationality>
+    <region>Barnaul</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232463</external-id>
+    <id>232463</id>
+    <name>Nazarbayev University 1 (Akzholov, Khaitov, Orynkul)</name>
+    <nationality>UZB</nationality>
+    <region>Uzbekistan</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232612</external-id>
+    <id>232612</id>
+    <name>Petrozavodsk State University 1 (Starkov, Ermishin, Krasnov)</name>
+    <nationality>RUS</nationality>
+    <region>Saint-Petersburg</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232404</external-id>
+    <id>232404</id>
+    <name>Latvia University 2 (Klevickis, Larka, Petersons)</name>
+    <nationality>RUS</nationality>
+    <region>Saint-Petersburg</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232360</external-id>
+    <id>232360</id>
+    <name>Vyatka State University (Kazakova, Tutinin, Rylov)</name>
+    <nationality>RUS</nationality>
+    <region>Saint-Petersburg</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232424</external-id>
+    <id>232424</id>
+    <name>Southern Federal University ICTIS (Kravtsun, Druppov, Yakutina)</name>
+    <nationality>RUS</nationality>
+    <region>Saint-Petersburg</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232456</external-id>
+    <id>232456</id>
+    <name>Nazarbayev University 2 (Kanapin, Zhaxybay, Dikhanov)</name>
+    <nationality>UZB</nationality>
+    <region>Uzbekistan</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232466</external-id>
+    <id>232466</id>
+    <name>International IT University 2 (Sultan, Satylkhanov, Mukay)</name>
+    <nationality>UZB</nationality>
+    <region>Uzbekistan</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232376</external-id>
+    <id>232376</id>
+    <name>Ural Federal University 4 (Borzunov, Danilyuk, Vyatskov)</name>
+    <nationality>RUS</nationality>
+    <region>Saint-Petersburg</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232583</external-id>
+    <id>232583</id>
+    <name>Novosibirsk SU 1 (Andreenko, Bobrenok, Gejdarov)</name>
+    <nationality>RUS</nationality>
+    <region>Barnaul</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232378</external-id>
+    <id>232378</id>
+    <name>Ural Federal University 5 (Permyakov, Sivukhin, Pivko)</name>
+    <nationality>RUS</nationality>
+    <region>Saint-Petersburg</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232353</external-id>
+    <id>232353</id>
+    <name>Moscow Aviation Institute 2 (Ilvokhin, Danilychev, Tortsev)</name>
+    <nationality>RUS</nationality>
+    <region>Saint-Petersburg</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232621</external-id>
+    <id>232621</id>
+    <name>Free U of Tbilisi 9 (Chalagashvili, Bezhashvili, Tabatadze)</name>
+    <nationality>GEO</nationality>
+    <region>Georgia</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232580</external-id>
+    <id>232580</id>
+    <name>Novosibirsk SU 3 (Ilin, Isachenko, Malykh)</name>
+    <nationality>RUS</nationality>
+    <region>Barnaul</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232590</external-id>
+    <id>232590</id>
+    <name>Tomsk SU (Kotov, Milovanov, Zhukovskaja)</name>
+    <nationality>RUS</nationality>
+    <region>Barnaul</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232667</external-id>
+    <id>232667</id>
+    <name>Yerevan SU 2 (Galstyan, Karagulyan, Hambardzumyan)</name>
+    <nationality>GEO</nationality>
+    <region>Georgia</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232560</external-id>
+    <id>232560</id>
+    <name>Far Eastern Federal University (Liahuta, Sporyshev, Blinov)</name>
+    <nationality>RUS</nationality>
+    <region>Saint-Petersburg</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232344</external-id>
+    <id>232344</id>
+    <name>Higher School of Economics 2 (Mokriy, Trofimov, Sayranov)</name>
+    <nationality>RUS</nationality>
+    <region>Saint-Petersburg</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232352</external-id>
+    <id>232352</id>
+    <name>Moscow Aviation Institute 1 (Mishonov, Belousov, Yushchenko)</name>
+    <nationality>RUS</nationality>
+    <region>Saint-Petersburg</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232356</external-id>
+    <id>232356</id>
+    <name>Moscow State Engineering Physics Institute 1 (Bodunkov, Tropin, Tarakchyan)</name>
+    <nationality>RUS</nationality>
+    <region>Saint-Petersburg</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232417</external-id>
+    <id>232417</id>
+    <name>Voronezh State University 2 (Zolotuhin, Kuznetsov, Kharitonov)</name>
+    <nationality>RUS</nationality>
+    <region>Saint-Petersburg</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232815</external-id>
+    <id>232815</id>
+    <name>Vilnius University (Ku?inskas, Samerdokas, Namaj?nas)</name>
+    <nationality>RUS</nationality>
+    <region>Saint-Petersburg</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232420</external-id>
+    <id>232420</id>
+    <name>Volgograd State Technical University 2 (Kichatov, Gorbushin, Shumeyko)</name>
+    <nationality>RUS</nationality>
+    <region>Saint-Petersburg</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232387</external-id>
+    <id>232387</id>
+    <name>Tyumen SU of Oil and Gas (Kobzar', Artemov, Kolmakov)</name>
+    <nationality>RUS</nationality>
+    <region>Saint-Petersburg</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232587</external-id>
+    <id>232587</id>
+    <name>Tomsk SU of CSR 1 (Chernousov, Soloviev, Trembovetskiy)</name>
+    <nationality>RUS</nationality>
+    <region>Barnaul</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232351</external-id>
+    <id>232351</id>
+    <name>NU of Science and Technology MISiS 1 (Skoryukina, Chernov, Bulatov)</name>
+    <nationality>RUS</nationality>
+    <region>Saint-Petersburg</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232400</external-id>
+    <id>232400</id>
+    <name>Belarusian State University 3 (Sataneuski, Ivanin, Nalivaika)</name>
+    <nationality>RUS</nationality>
+    <region>Saint-Petersburg</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232468</external-id>
+    <id>232468</id>
+    <name>International IT University 3 (Chesnokov, Magavina, Dushayev)</name>
+    <nationality>UZB</nationality>
+    <region>Uzbekistan</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232581</external-id>
+    <id>232581</id>
+    <name>Tomsk PU 2 (Golub, Iovlev, Vetrov)</name>
+    <nationality>RUS</nationality>
+    <region>Barnaul</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232343</external-id>
+    <id>232343</id>
+    <name>Moscow State University 4 (Kuplyakov, Lakhtanov, Kraskevich)</name>
+    <nationality>RUS</nationality>
+    <region>Saint-Petersburg</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232361</external-id>
+    <id>232361</id>
+    <name>Orel SU Education Science Production Complex (Gasilov, Dobrikov, Yakovlev)</name>
+    <nationality>RUS</nationality>
+    <region>Saint-Petersburg</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232469</external-id>
+    <id>232469</id>
+    <name>Kazakh National University named Al-Farabi 1 (Kovalev, Kapezov, Dautalinov)</name>
+    <nationality>UZB</nationality>
+    <region>Uzbekistan</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232682</external-id>
+    <id>232682</id>
+    <name>Qafqaz U 1 (Valiyev, Ahmadov, Hajiyev)</name>
+    <nationality>GEO</nationality>
+    <region>Georgia</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232407</external-id>
+    <id>232407</id>
+    <name>Tartu University (T?ttar, Lill, Puura)</name>
+    <nationality>RUS</nationality>
+    <region>Saint-Petersburg</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232613</external-id>
+    <id>232613</id>
+    <name>Pskov State University (Shantarin, Shalabod, Kovalenko)</name>
+    <nationality>RUS</nationality>
+    <region>Saint-Petersburg</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232607</external-id>
+    <id>232607</id>
+    <name>SPb ITMO University 2 (Bardashevich, Filippov, Yakutov)</name>
+    <nationality>RUS</nationality>
+    <region>Saint-Petersburg</region>
+    <university>IFMO</university>
+</team><team>
+    <external-id>232380</external-id>
+    <id>232380</id>
+    <name>South Ural State University 1 (Korsun, Shaveynikov, Sapronov)</name>
+    <nationality>RUS</nationality>
+    <region>Saint-Petersburg</region>
+    <university>IFMO</university>
+</team><run>
+    <sended>true</sended>
+    <id>166</id>
+    <judged>true</judged>
+    <language>Unknown</language>
+    <penalty>false</penalty>
+    <problem>1</problem>
+    <result>Unknown</result>
+    <solved>true</solved>
+    <status>Done</status>
+    <team>232431</team>
+    <time>405.000</time>
+    <timestamp>1417936494.112</timestamp>
+</run><run>
+    <sended>true</sended>
+    <id>245</id>
+    <judged>true</judged>
+    <language>Unknown</language>
+    <penalty>true</penalty>
+    <problem>1</problem>
+    <result>Unknown</result>
+    <solved>false</solved>
+    <status>Done</status>
+    <team>232405</team>
+    <time>424.447</time>
+    <timestamp>1417936513.559</timestamp>
+</run><run>
+    <sended>true</sended>
+    <id>195</id>
+    <judged>true</judged>
+    <language>Unknown</language>
+    <penalty>true</penalty>
+    <problem>1</problem>
+    <result>Unknown</result>
+    <solved>false</solved>
+    <status>Done</status>
+    <team>232610</team>
+    <time>435.435</time>
+    <timestamp>1417936524.547</timestamp>
+</run><run>
+    <sended>true</sended>
+    <id>145</id>
+    <judged>true</judged>
+    <language>Unknown</language>
+    <penalty>true</penalty>
+    <problem>1</problem>
+    <result>Unknown</result>
+    <solved>false</solved>
+    <status>Done</status>
+    <team>232421</team>
+    <time>445.988</time>
+    <timestamp>1417936535.100</timestamp>
+</run><run>
+    <sended>true</sended>
+    <id>8</id>
+    <judged>true</judged>
+    <language>Unknown</language>
+    <penalty>false</penalty>
+    <problem>11</problem>
+    <result>Unknown</result>
+    <solved>true</solved>
+    <status>Done</status>
+    <team>232368</team>
+    <time>458.488</time>
+    <timestamp>1417936547.600</timestamp>
+</run><run>
+    <sended>true</sended>
+    <id>130</id>
+    <judged>true</judged>
+    <language>Unknown</language>
+    <penalty>true</penalty>
+    <problem>1</problem>
+    <result>Unknown</result>
+    <solved>false</solved>
+    <status>Done</status>
+    <team>232609</team>
+    <time>467.309</time>
+    <timestamp>1417936556.421</timestamp>
+</run><run>
+    <sended>true</sended>
+    <id>50</id>
+    <judged>true</judged>
+    <language>Unknown</language>
+    <penalty>false</penalty>
+    <problem>11</problem>
+    <result>Unknown</result>
+    <solved>true</solved>
+    <status>Done</status>
+    <team>232567</team>
+    <time>469.000</time>
+    <timestamp>1417936558.112</timestamp>
+</run><run>
+    <sended>true</sended>
+    <id>403</id>
+    <judged>true</judged>
+    <language>Unknown</language>
+    <penalty>true</penalty>
+    <problem>1</problem>
+    <result>Unknown</result>
+    <solved>false</solved>
+    <status>Done</status>
+    <team>232469</team>
+    <time>474.000</time>
+    <timestamp>1417936563.112</timestamp>
+</run><run>
+    <sended>true</sended>
+    <id>146</id>
+    <judged>true</judged>
+    <language>Unknown</language>
+    <penalty>true</penalty>
+    <problem>1</problem>
+    <result>Unknown</result>
+    <solved>false</solved>
+    <status>Done</status>
+    <team>232421</team>
+    <time>476.784</time>
+    <timestamp>1417936565.896</timestamp>
+</run><run>
+    <sended>true</sended>
+    <id>9</id>
+    <judged>true</judged>
+    <language>Unknown</language>
+    <penalty>true</penalty>
+    <problem>1</problem>
+    <result>Unknown</result>
+    <solved>false</solved>
+    <status>Done</status>
+    <team>232345</team>
+    <time>499.113</time>
+    <timestamp>1417936588.225</timestamp>
+</run><run>
+    <sended>true</sended>
+    <id>399</id>
+    <judged>true</judged>
+    <language>Unknown</language>
+    <penalty>true</penalty>
+    <problem>1</problem>
+    <result>Unknown</result>
+    <solved>false</solved>
+    <status>Done</status>
+    <team>232361</team>
+    <time>518.403</time>
+    <timestamp>1417936607.515</timestamp>
+</run><run>
+    <sended>true</sended>
+    <id>10</id>
+    <judged>true</judged>
+    <language>Unknown</language>
+    <penalty>false</penalty>
+    <problem>1</problem>
+    <result>Unknown</result>
+    <solved>true</solved>
+    <status>Done</status>
+    <team>232345</team>
+    <time>519.813</time>
+    <timestamp>1417936608.925</timestamp>
+</run><run>
+    <sended>true</sended>
+    <id>196</id>
+    <judged>true</judged>
+    <language>Unknown</language>
+    <penalty>false</penalty>
+    <problem>1</problem>
+    <result>Unknown</result>
+    <solved>true</solved>
+    <status>Done</status>
+    <team>232610</team>
+    <time>537.954</time>
+    <timestamp>1417936627.066</timestamp>
+</run><run>
+    <sended>true</sended>
+    <id>309</id>
+    <judged>true</judged>
+    <language>Unknown</language>
+    <penalty>true</penalty>
+    <problem>1</problem>
+    <result>Unknown</result>
+    <solved>false</solved>
+    <status>Done</status>
+    <team>232424</team>
+    <time>562.047</time>
+    <timestamp>1417936651.159</timestamp>
+</run><run>
+    <sended>true</sended>
+    <id>1</id>
+    <judged>true</judged>
+    <language>Unknown</language>
+    <penalty>false</penalty>
+    <problem>1</problem>
+    <result>Unknown</result>
+    <solved>true</solved>
+    <status>Done</status>
+    <team>232368</team>
+    <time>570.518</time>
+    <timestamp>1417936659.630</timestamp>
+</run><run>
+    <sended>true</sended>
+    <id>467</id>
+    <judged>true</judged>
+    <language>Unknown</language>
+    <penalty>true</penalty>
+    <problem>11</problem>
+    <result>Unknown</result>
+    <solved>false</solved>
+    <status>Done</status>
+    <team>232380</team>
+    <time>613.870</time>
+    <timestamp>1417936702.982</timestamp>
+</run><run>
+    <sended>true</sended>
+    <id>268</id>
+    <judged>true</judged>
+    <language>Unknown</language>
+    <penalty>true</penalty>
+    <problem>1</problem>
+    <result>Unknown</result>
+    <solved>false</solved>
+    <status>Done</status>
+    <team>232372</team>
+    <time>626.002</time>
+    <timestamp>1417936715.114</timestamp>
+</run><run>
+    <sended>true</sended>
+    <id>211</id>
+    <judged>true</judged>
+    <language>Unknown</language>
+    <penalty>true</penalty>
+    <problem>11</problem>
+    <result>Unknown</result>
+    <solved>false</solved>
+    <status>Done</status>
+    <team>232365</team>
+    <time>642.695</time>
+    <timestamp>1417936731.807</timestamp>
+</run><run>
+    <sended>true</sended>
+    <id>161</id>
+    <judged>true</judged>
+    <language>Unknown</language>
+    <penalty>true</penalty>
+    <problem>10</problem>
+    <result>Unknown</result>
+    <solved>false</solved>
+    <status>Done</status>
+    <team>232433</team>
+    <time>645.000</time>
+    <timestamp>1417936734.112</timestamp>
+</run><run>
+    <sended>true</sended>
+    <id>187</id>
+    <judged>true</judged>
+    <language>Unknown</language>
+    <penalty>false</penalty>
+    <problem>1</problem>
+    <result>Unknown</result>
+    <solved>true</solved>
+    <status>Done</status>
+    <team>232435</team>
+    <time>648.000</time>
+    <timestamp>1417936737.112</timestamp>
+</run><run>
+    <sended>true</sended>
+    <id>114</id>
+    <judged>true</judged>
+    <language>Unknown</language>
+    <penalty>true</penalty>
+    <problem>11</problem>
+    <result>Unknown</result>
+    <solved>false</solved>
+    <status>Done</status>
+    <team>232375</team>
+    <time>663.169</time>
+    <timestamp>1417936752.281</timestamp>
+</run><run>
+    <sended>true</sended>
+    <id>438</id>
+    <judged>true</judged>
+    <language>Unknown</language>
+    <penalty>true</penalty>
+    <problem>1</problem>
+    <result>Unknown</result>
+    <solved>false</solved>
+    <status>Done</status>
+    <team>232607</team>
+    <time>664.050</time>
+    <timestamp>1417936753.162</timestamp>
+</run><run>
+    <sended>true</sended>
+    <id>439</id>
+    <judged>true</judged>
+    <language>Unknown</language>
+    <penalty>true</penalty>
+    <problem>1</problem>
+    <result>Unknown</result>
+    <solved>false</solved>
+    <status>Done</status>
+    <team>232607</team>
+    <time>664.168</time>
+    <timestamp>1417936753.280</timestamp>
+</run><run>
+    <sended>true</sended>
+    <id>139</id>
+    <judged>true</judged>
+    <language>Unknown</language>
+    <penalty>false</penalty>
+    <problem>1</problem>
+    <result>Unknown</result>
+    <solved>true</solved>
+    <status>Done</status>
+    <team>232406</team>
+    <time>665.223</time>
+    <timestamp>1417936754.335</timestamp>
+</run><run>
+    <sended>true</sended>
+    <id>468</id>
+    <judged>true</judged>
+    <language>Unknown</language>
+    <penalty>false</penalty>
+    <problem>11</problem>
+    <result>Unknown</result>
+    <solved>true</solved>
+    <status>Done</status>
+    <team>232380</team>
+    <time>666.029</time>
+    <timestamp>1417936755.141</timestamp>
+</run><run>
+    <sended>true</sended>
+    <id>178</id>
+    <judged>true</judged>
+    <language>Unknown</language>
+    <penalty>true</penalty>
+    <problem>1</problem>
+    <result>Unknown</result>
+    <solved>false</solved>
+    <status>Done</status>
+    <team>232339</team>
+    <time>667.833</time>
+    <timestamp>1417936756.945</timestamp>
+</run><run>
+    <sended>true</sended>
+    <id>123</id>
+    <judged>true</judged>
+    <language>Unknown</language>
+    <penalty>true</penalty>
+    <problem>11</problem>
+    <result>Unknown</result>
+    <solved>false</solved>
+    <status>Done</status>
+    <team>232606</team>
+    <time>674.494</time>
+    <timestamp>1417936763.606</timestamp>
+</run><run>
+    <sended>true</sended>
+    <id>282</id>
+    <judged>true</judged>
+    <language>Unknown</language>
+    <penalty>true</penalty>
+    <problem>11</problem>
+    <result>Unknown</result>
+    <solved>false</solved>
+    <status>Done</status>
+    <team>232374</team>
+    <time>678.357</time>
+    <timestamp>1417936767.469</timestamp>
+</run><run>
+    <sended>true</sended>
+    <id>355</id>
+    <judged>true</judged>
+    <language>Unknown</language>
+    <penalty>true</penalty>
+    <problem>1</problem>
+    <result>Unknown</result>
+    <solved>false</solved>
+    <status>Done</status>
+    <team>232352</team>
+    <time>683.258</time>
+    <timestamp>1417936772.370</timestamp>
+</run><run>
+    <sended>true</sended>
+    <id>104</id>
+    <judged>true</judged>
+    <language>Unknown</language>
+    <penalty>false</penalty>
+    <problem>11</problem>
+    <result>Unknown</result>
+    <solved>true</solved>
+    <status>Done</status>
+    <team>232459</team>
+    <time>692.000</time>
+    <timestamp>1417936781.112</timestamp>
+</run><run>
+    <sended>true</sended>
+    <id>283</id>
+    <judged>true</judged>
+    <language>Unknown</language>
+    <penalty>false</penalty>
+    <problem>11</problem>
+    <result>Unknown</result>
+    <solved>true</solved>
+    <status>Done</status>
+    <team>232374</team>
+    <time>695.212</time>
+    <timestamp>1417936784.324</timestamp>
+</run><run>
+    <sended>true</sended>
+    <id>73</id>
+    <judged>true</judged>
+    <language>Unknown</language>
+    <penalty>true</penalty>
+    <problem>1</problem>
+    <result>Unknown</result>
+    <solved>false</solved>
+    <status>Done</status>
+    <team>232382</team>
+    <time>695.927</time>
+    <timestamp>1417936785.039</timestamp>
+</run><run>
+    <sended>true</sended>
+    <id>179</id>
+    <judged>true</judged>
+    <language>Unknown</language>
+    <penalty>true</penalty>
+    <problem>1</problem>
+    <result>Unknown</result>
+    <solved>false</solved>
+    <status>Done</status>
+    <team>232339</team>
+    <time>698.745</time>
+    <timestamp>1417936787.857</timestamp>
+</run><run>
+    <sended>true</sended>
+    <id>67</id>
+    <judged>true</judged>
+    <language>Unknown</language>
+    <penalty>false</penalty>
+    <problem>1</problem>
+    <result>Unknown</result>
+    <solved>true</solved>
+    <status>Done</status>
+    <team>232396</team>
+    <time>709.601</time>
+    <timestamp>1417936798.713</timestamp>
+</run><run>
+    <sended>true</sended>
+    <id>259</id>
+    <judged>true</judged>
+    <language>Unknown</language>
+    <penalty>true</penalty>
+    <problem>1</problem>
+    <result>Unknown</result>
+    <solved>false</solved>
+    <status>Done</status>
+    <team>232340</team>
+    <time>711.953</time>
+    <timestamp>1417936801.065</timestamp>
+</run><run>
+    <sended>true</sended>
+    <id>212</id>
+    <judged>true</judged>
+    <language>Unknown</language>
+    <penalty>false</penalty>
+    <problem>11</problem>
+    <result>Unknown</result>
+    <solved>true</solved>
+    <status>Done</status>
+    <team>232365</team>
+    <time>717.951</time>
+    <timestamp>1417936807.063</timestamp>
+</run><run>
+    <sended>true</sended>
+    <id>208</id>
+    <judged>true</judged>
+    <language>Unknown</language>
+    <penalty>true</penalty>
+    <problem>11</problem>
+    <result>Unknown</result>
+    <solved>false</solved>
+    <status>Done</status>
+    <team>232347</team>
+    <time>725.476</time>
+    <timestamp>1417936814.588</timestamp>
+</run></contest>
