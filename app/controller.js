@@ -46,7 +46,7 @@ CATS.Controller = Classify({
         this.rules[rule.name] = rule;
     },
 
-    adapter_process_rank_table: function(adapter_name, callback, contest_id) {
+    adapter_process_rank_table: function(callback, contest_id) {
         var contest_list = (contest_id.indexOf(',') != -1) ? contest_id.split(',') : [contest_id];
 
         if (this.have_result_table(contest_list) > 0) {
@@ -55,15 +55,44 @@ CATS.Controller = Classify({
             return;
         }
 
-        var result_table = new CATS.Model.Results_table();
+        var cont_list = [];
+        var self = this;
+        var promises = $.map(contest_list, function(con){
+            var d = $.Deferred();
+            var cont_adapter = con.split(':')[0];
+            var cont_id = con.split(':')[1];
+            cont_list.push(cont_id);
+            var result_table = new CATS.Model.Results_table();
+            result_table.contests.push(cont_id);
+            self.adapters[cont_adapter].parse(cont_id, result_table, function () {
+                var contest = CATS.App.contests[cont_id];
+                CATS.App.rules[contest.scoring].process(contest, result_table);
+                d.resolve();
+            });
+            return d.promise();
+        });
 
-        result_table.contests = contest_list;
-        this.adapters[adapter_name].init(contest_list);
-        this.adapters[adapter_name].parse(result_table, function () {
-            var contest = CATS.App.contests[contest_list[0]];
-            CATS.App.rules[contest.scoring].process(contest, result_table);
+        $.when.apply($, promises).done(function(){
+            var result_table = new CATS.Model.Results_table();
+            result_table.contests = cont_list;
+            var united_contest = new CATS.Model.Contest();
+            united_contest.scoring = "acm";
+            var min_start_time = new Date();
+            for (var i = 0; i < cont_list.length; ++i) {
+                var c = CATS.App.contests[cont_list[i]];
+                if (c.scoring == "school") //суммируются турниры разных правил, выбирем школьные
+                    united_contest.scoring = "school";
+                united_contest.runs = $.unique(united_contest.runs.concat(c.runs));
+                united_contest.problems = united_contest.problems.concat(c.problems);
+                united_contest.users = $.unique(united_contest.users.concat(c.users));
+                if (min_start_time > c.start_time)
+                    min_start_time = c.start_time;
+            }
+            united_contest.start_time = min_start_time;
+            result_table.scoring = united_contest.scoring;
+            CATS.App.rules[united_contest.scoring].process(united_contest, result_table);
             CATS.App.add_object(result_table);
-            callback({contests : contest_list, table : result_table.id });
+            callback({contests: cont_list, table: result_table.id});
         });
     },
 

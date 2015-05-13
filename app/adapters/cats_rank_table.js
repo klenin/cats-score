@@ -1,14 +1,13 @@
 CATS.Adapter.Cats_rank_table = Classify({
 
-    init : function(contest_id, obj) {
+    init : function(obj) {
         if (obj != undefined)
             this.obj = obj;
-        this.contest_id = contest_id;
         this.name = "cats_rank_table";
         this.model = null;
     },
 
-    parse_score_board : function(result_table) {
+    parse_score_board : function(contest_id, result_table) {
         var self = this;
         var obj = this.obj;
         var problem_ids = [], problem_max_points = [];
@@ -86,8 +85,8 @@ CATS.Adapter.Cats_rank_table = Classify({
         callback([966412]);
     },
 
-    parse: function(result_table, callback) {
-        this.parse_score_board(result_table);
+    parse: function(contest_id, result_table, callback) {
+        this.parse_score_board(contest_id, result_table);
         callback();
     }
 });

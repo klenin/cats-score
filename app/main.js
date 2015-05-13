@@ -46,6 +46,7 @@ require(['underscore', 'jquery', 'jqueryui'], function () {
                         'adapters/cats_rank_table',
                         'adapters/ifmo',
                         'adapters/codeforces',
+                        'adapters/myicpc',
                         'adapters/default',
                         'view',
                         'utils',

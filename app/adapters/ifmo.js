@@ -1,9 +1,7 @@
 CATS.Adapter.Ifmo = Classify({
-    init : function(contest_id, page) {
+    init : function(page) {
         if (page != undefined)
             this.page = page;
-
-        this.contest_id = contest_id[0];
 
         this.name = "ifmo";
         this.aliases = {
@@ -14,11 +12,11 @@ CATS.Adapter.Ifmo = Classify({
         }
     },
 
-    parse_score_board: function(result_table) {
+    parse_score_board: function(contest_id, result_table) {
         var page = this.page;
-        var contest = CATS.App.contests[this.contest_id];
+        var contest = CATS.App.contests[contest_id];
         if (contest == undefined)
-            contest = this.add_contest({id: this.contest_id, name: "NEERC " + this.contest_id});
+            contest = this.add_contest({id: contest_id, name: "NEERC " + contest_id});
 
         var self = this;
         var problem_list = [];
@@ -116,19 +114,19 @@ CATS.Adapter.Ifmo = Classify({
         })
     },
 
-    get_contest: function(callback) {
+    get_contest: function(callback, contest_id) {
         var self = this;
-        CATS.App.utils.proxy_get("http://neerc.ifmo.ru/past/" + self.contest_id + "/standings.html", function (page) {
+        CATS.App.utils.proxy_get("http://neerc.ifmo.ru/past/" + contest_id + "/standings.html", function (page) {
             callback(page);
         })
     },
 
-    parse: function(result_table, callback) {
+    parse: function(contest_id, result_table, callback) {
         var self = this;
         this.get_contest(function (page) {
             self.page = page;
-            self.parse_score_board(result_table);
+            self.parse_score_board(contest_id, result_table);
             callback();
-        });
+        }, contest_id);
     }
 });
