@@ -35,20 +35,13 @@ CATS.Utils = Classify({
             // Avoid "not well-formed" error when loading JSON from local file.
             beforeSend: function(req) { req.overrideMimeType('application/json'); },
             url: url,
-            dataType: 'json',
-            success: callback
-        });
-    },
-
-    jsonp_get: function (url, callback) {
-        var parseJsonp = function (data) {
-            return data;
-        }
-        $.ajax({
-            url: url,
-            dataType: 'jsonp',
-            jsonpCallback: 'parseJsonp',
-            success: callback
+            dataType: 'json'
+        }).done(function(data) {
+            console.log( "success " + url);
+            callback(data);
+        })
+        .fail(function() {
+            console.log( "error " );
         });
     },
 });

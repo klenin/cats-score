@@ -1,8 +1,6 @@
 CATS.Adapter.Codeforces = Classify({
 
-    init : function(contest_id) {
-        this.contest_id = contest_id[0];
-        this.cf_table = null;
+    init : function() {
         this.name = "codeforces";
         this.contest_aliases = {
             id : 'id',
@@ -14,11 +12,10 @@ CATS.Adapter.Codeforces = Classify({
         }
     },
 
-    parse_score_board: function(result_table) {
+    parse_score_board: function(contest_id, cf_table, result_table) {
         var self = this;
-        var cf_table = this.cf_table;
 
-        var contest = CATS.App.contests[this.contest_id];
+        var contest = CATS.App.contests[contest_id];
 
         if (contest == undefined)
             contest = this.add_contest(cf_table.contest);
@@ -90,7 +87,7 @@ CATS.Adapter.Codeforces = Classify({
 
     get_contests: function(callback) {
         var self = this;
-        CATS.App.utils.jsonp_get('http://codeforces.ru/api/contest.list?gym=true&jsonp=parseJsonp', function (data) {
+        CATS.App.utils.json_get('http://codeforces.ru/api/contest.list?gym=true&jsonp=?', function (data) {
             var contests = [];
             $.each(data.result, function (k, v) {
                 self.add_contest(v);
@@ -100,23 +97,21 @@ CATS.Adapter.Codeforces = Classify({
         });
     },
 
-    get_contest: function(callback) {
-        var self = this;
-        CATS.App.utils.jsonp_get(
+    get_contest: function(callback, contest_id) {
+        CATS.App.utils.json_get(
             "http://codeforces.ru/api/contest.standings?contestId=" +
-            self.contest_id +
-            "&from=1&count=10000000&showUnofficial=true&jsonp=parseJsonp",
+            contest_id +
+            "&from=1&count=10000000&showUnofficial=true&jsonp=?",
             function( data ) {
                 callback(data.result);
         });
     },
 
-    parse: function(result_table, callback) {
+    parse: function(contest_id, result_table, callback) {
         var self = this;
         this.get_contest(function (cf_table) {
-            self.cf_table = cf_table;
-            self.parse_score_board(result_table);
+            self.parse_score_board(contest_id, cf_table, result_table);
             callback();
-        });
+        }, contest_id);
     }
 });

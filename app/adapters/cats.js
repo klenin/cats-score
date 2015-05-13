@@ -1,8 +1,6 @@
 CATS.Adapter.Cats = Classify({
 
-    init : function(contest_id) {
-        this.contest_id = contest_id[0];
-        this.history = null;
+    init : function() {
         this.name = "cats";
         this.statuses = {
             10 : 'accepted',
@@ -18,16 +16,16 @@ CATS.Adapter.Cats = Classify({
         }
     },
 
-    parse_history: function(result_table, callback) {
+    parse_history: function(contest_id, history, result_table, callback) {
         var self = this;
         var contest = null;
         self.get_contests(function () {
-            contest = CATS.App.contests[self.contest_id];
+            contest = CATS.App.contests[contest_id];
             self.get_users(function (users) {
                 contest.users = users;
                 self.get_problems(function (problems) {
                     contest.problems = problems;
-                    $.each(self.history.reverse(), function (k, row) {
+                    $.each(history.reverse(), function (k, row) {
                         //add run to contest and controller
                         var run = new CATS.Model.Run();
                         run.id = row.id;
@@ -41,9 +39,9 @@ CATS.Adapter.Cats = Classify({
                         contest.add_object(run);
                     });
                     callback();
-                });
-            });
-        }, self.contest_id);
+                }, contest_id);
+            }, contest_id);
+        }, contest_id);
     },
 
     add_contest: function(v) {
@@ -61,8 +59,8 @@ CATS.Adapter.Cats = Classify({
 
     get_contests: function(callback, contest_id) {
         var self = this;
-        var s = contest_id != undefined ? 'id%3D' + self.contest_id : '';
-        CATS.App.utils.jsonp_get(this.url + '?f=contests;filter=all;rows=1000000;search=' + s + ';json=parseJsonp', function (data) {
+        var s = contest_id != undefined ? 'id%3D' + contest_id : '';
+        CATS.App.utils.json_get(this.url + '?f=contests;filter=all;rows=1000000;search=' + s + ';json=?', function (data) {
             var contests = [];
             $.each(data.contests, function (k, v) {
                 self.add_contest(v);
@@ -86,9 +84,9 @@ CATS.Adapter.Cats = Classify({
         return user;
     },
 
-    get_users: function(callback) {
+    get_users: function(callback, contest_id) {
         var self = this;
-        CATS.App.utils.jsonp_get(this.url + '?f=users;sid=;rows=1000000;cid=' + self.contest_id + ';json=parseJsonp;', function (data) {
+        CATS.App.utils.json_get(this.url + '?f=users;sid=;rows=1000000;cid=' + contest_id + ';json=?', function (data) {
             var users = [];
             $.each(data, function (k, v) {
                 self.add_user(v);
@@ -115,9 +113,9 @@ CATS.Adapter.Cats = Classify({
         return problem;
     },
 
-    get_problems: function(callback) {
+    get_problems: function(callback, contest_id) {
         var self = this;
-        CATS.App.utils.jsonp_get(this.url + '?f=problems;sid=;rows=1000000;sort=0;sort_dir=0;cid=' + self.contest_id + ';json=parseJsonp;', function (data) {
+        CATS.App.utils.json_get(this.url + '?f=problems;sid=;rows=1000000;sort=0;sort_dir=0;cid=' + contest_id + ';json=?', function (data) {
             var problems = [];
             $.each(data.problems, function (k, v) {
                 self.add_problem(v);
@@ -127,20 +125,19 @@ CATS.Adapter.Cats = Classify({
         });
     },
 
-    get_history: function(callback) {
+    get_history: function(callback, contest_id) {
         var self = this;
-        CATS.App.utils.jsonp_get(
-            this.url + '?f=console_content;sid=;rows=1000000;cid=' + self.contest_id + ";json=parseJsonp;i_value=-1;",
+        CATS.App.utils.json_get(
+            this.url + '?f=console_content;sid=;rows=1000000;cid=' + contest_id + ";i_value=-1;json=?",
             function(data) {
                 callback(data);
             });
     },
 
-    parse: function(result_table, callback) {
+    parse: function(contest_id, result_table, callback) {
         var self = this;
         this.get_history(function (history) {
-            self.history = history;
-            self.parse_history(result_table, callback);
-        });
+            self.parse_history(contest_id, history, result_table, callback);
+        }, contest_id);
     }
 });

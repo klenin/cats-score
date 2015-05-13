@@ -1,13 +1,11 @@
 CATS.Adapter.Default = Classify({
 
-    init : function(contest_id) {
-        this.contest_id = contest_id[0];
+    init : function() {
         this.contest_data = null;
         this.name = "default";
-
     },
 
-    parse_history: function(result_table) {
+    parse_history: function(contest_id, result_table) {
         var cd = this.contest_data;
         var version = CATS.Model.Version();
         version.id = cd[0].id;
@@ -57,23 +55,23 @@ CATS.Adapter.Default = Classify({
         });
     },
 
-    get_contest: function(callback) {
+    get_contest: function(callback, contest_id) {
         var self = this;
         CATS.App.utils.json_get(
             "app/tests/default_get_contest_id_" +
-            self.contest_id +
+            contest_id +
             ".json",
             function(data) {
                 callback(data);
             });
     },
 
-    parse: function(result_table, callback) {
+    parse: function(contest_id, result_table, callback) {
         var self = this;
         this.get_contest(function(obj) {
             self.contest_data = obj;
-            self.parse_history(result_table);
+            self.parse_history(contest_id, result_table);
             callback();
-        });
+        }, contest_id);
     }
 });

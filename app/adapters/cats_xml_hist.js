@@ -1,9 +1,8 @@
 CATS.Adapter.Cats_xml_hist = Classify({
 
-    init : function(contest_id, page) {
+    init : function(page) {
         if (page != undefined)
             this.page = page;
-        this.contest_id = contest_id[0];
         this.name = "cats_xml_hist";
         this.model = null;
         this.aliases = {
@@ -21,11 +20,11 @@ CATS.Adapter.Cats_xml_hist = Classify({
         }
     },
 
-    parse_history : function(result_table) {
+    parse_history : function(contest_id, result_table) {
         var self = this;
         var page = $.parseXML(this.page);
 
-        var contest = CATS.App.contests[this.contest_id];
+        var contest = CATS.App.contests[contest_id];
         if (contest == undefined)
             contest = this.add_contest();
 
@@ -78,8 +77,8 @@ CATS.Adapter.Cats_xml_hist = Classify({
         callback(["cats_contest"]);
     },
 
-    parse: function(result_table, callback) {
-        this.parse_history(result_table);
+    parse: function(contest_id, result_table, callback) {
+        this.parse_history(contest_id, result_table);
         callback();
     }
 });

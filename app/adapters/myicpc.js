@@ -1,10 +1,9 @@
 CATS.Adapter.MyIcpc = Classify({
 
-    init : function(contest_id, page) {
+    init : function(page) {
         if (page != undefined)
             this.page = page;
         this.xml = null;
-        this.contest_id = contest_id[0];
         this.name = 'myicpc';
         this.model = null;
         this.aliases = {
@@ -45,9 +44,9 @@ CATS.Adapter.MyIcpc = Classify({
         }
     },
 
-    parse_history : function(result_table) {
+    parse_history : function(contest_id, result_table) {
         var self = this;
-        var contest = CATS.App.contests[this.contest_id];
+        var contest = CATS.App.contests[contest_id];
         if (contest == undefined)
             contest = this.add_contest();
 
@@ -108,8 +107,8 @@ CATS.Adapter.MyIcpc = Classify({
         this.get_xml(function () { that.add_contest(); callback(['sample_contest']); });
     },
 
-    parse: function(result_table, callback) {
+    parse: function(contest_id, result_table, callback) {
         var that = this;
-        this.get_xml(function () { that.parse_history(result_table); callback(); });
+        this.get_xml(function () { that.parse_history(contest_id, result_table); callback(); });
     }
 });
