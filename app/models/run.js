@@ -4,6 +4,7 @@ CATS.Model.Run = Classify(CATS.Model.Event, {
         this.type = "run";
         this.problem = null;//*: id
         this.user = null;//*: id
+        this.contest = null;
         this.compiler = null;
         this.source = null;
         this.status = null;

@@ -33,6 +33,7 @@ CATS.Adapter.Cats = Classify({
                         if (contest.scoring == "school")
                             run.points = row['points'];
                         run.user = row.team_id;
+                        run.contest = contest_id;
                         run.status = self.statuses[row['state']];
                         run.start_processing_time = row['time'].to_date();
                         CATS.App.add_object(run);

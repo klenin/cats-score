@@ -76,6 +76,7 @@ CATS.Adapter.MyIcpc = Classify({
             self.node_to_js(run, node, { id: 'id', problem: 'problem', user: 'team' });
             var n = $(node);
             run.status = n.find('solved').text() === 'true' ? 'accepted' : 'wrong_answer';
+            run.contest = contest_id;
             run.start_processing_time = new Date(n.find('timestamp').text() * 1000);
             CATS.App.add_object(run);
             contest.add_object(run);

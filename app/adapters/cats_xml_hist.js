@@ -52,6 +52,7 @@ CATS.Adapter.Cats_xml_hist = Classify({
             run.id = row['id'];
             run.problem = prob.id;
             run.user = user.id;
+            run.contest = contest_id;
             run.status = row['state'];
             run.start_processing_time = row['submit_time'].to_date();
             CATS.App.add_object(run);
