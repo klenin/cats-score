@@ -49,19 +49,22 @@ CATS.Controller = Classify({
     adapter_process_rank_table: function(callback, contest_id) {
         var contest_list = (contest_id.indexOf(',') != -1) ? contest_id.split(',') : [contest_id];
 
-        if (this.have_result_table(contest_list) > 0) {
-            var result_table = this.get_result_table(contest_list);
+        var cont_list = [];
+        for(var i = 0; i < contest_list.length; ++i)
+            cont_list.push(contest_list[i].split(':')[1]);
+
+        if (this.have_result_table(cont_list) > 0) {
+            var result_table = this.get_result_table(cont_list);
             callback({contests: result_table.contests, table: result_table.id});
             return;
         }
 
-        var cont_list = [];
+
         var self = this;
         var promises = $.map(contest_list, function(con){
             var d = $.Deferred();
             var cont_adapter = con.split(':')[0];
             var cont_id = con.split(':')[1];
-            cont_list.push(cont_id);
             var result_table = new CATS.Model.Results_table();
             result_table.contests.push(cont_id);
             self.adapters[cont_adapter].parse(cont_id, result_table, function () {
