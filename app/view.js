@@ -322,8 +322,7 @@ CATS.View = Classify({
 
         start: function () {
             var current = this.router.current();
-            var default_url = this.default_url_hash ? this.default_url_hash : "!show_contests_list/codeforces/codeforces";
-            this.router.navigate(current.params != null ? current.fragment : default_url, {trigger: true});
+            this.router.navigate(current.params != null ? current.fragment : this.default_url_hash, {trigger: true});
         }
     }),
 
