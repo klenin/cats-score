@@ -55,7 +55,7 @@ CATS.Controller = Classify({
 
         if (this.have_result_table(cont_list) > 0) {
             var result_table = this.get_result_table(cont_list);
-            callback({contests: result_table.contests, table: result_table.id});
+            callback({contest: result_table.contest, table: result_table.id});
             return;
         }
 
@@ -70,6 +70,7 @@ CATS.Controller = Classify({
             self.adapters[cont_adapter].parse(cont_id, result_table, function () {
                 var contest = CATS.App.contests[cont_id];
                 CATS.App.rules[contest.scoring].process(contest, result_table);
+                result_table.contest = cont_id;
                 d.resolve();
             });
             return d.promise();
@@ -81,6 +82,7 @@ CATS.Controller = Classify({
             var united_contest = new CATS.Model.Contest();
             united_contest.scoring = "acm";
             var min_start_time = new Date();
+            united_contest.name = "";
             for (var i = 0; i < cont_list.length; ++i) {
                 var c = CATS.App.contests[cont_list[i]];
                 if (c.scoring == "school") //суммируются турниры разных правил, выбирем школьные
@@ -88,14 +90,14 @@ CATS.Controller = Classify({
                 united_contest.runs = $.unique(united_contest.runs.concat(c.runs));
                 united_contest.problems = united_contest.problems.concat(c.problems);
                 united_contest.users = $.unique(united_contest.users.concat(c.users));
-                if (min_start_time > c.start_time)
-                    min_start_time = c.start_time;
+                united_contest.name += c.name + ", ";
             }
-            united_contest.start_time = min_start_time;
             result_table.scoring = united_contest.scoring;
+            result_table.contest = united_contest.id;
             CATS.App.rules[united_contest.scoring].process(united_contest, result_table);
             CATS.App.add_object(result_table);
-            callback({contests: cont_list, table: result_table.id});
+            CATS.App.add_object(united_contest);
+            callback({contest: united_contest.id, table: result_table.id});
         });
     },
 

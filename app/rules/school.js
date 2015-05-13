@@ -13,6 +13,7 @@ CATS.Rule.School = Classify({
                     run['problem'] = v['problem'];
                     run['start_processing_time'] = CATS.App.utils.add_time(contest_start_time, 0);
                     run['user'] = row['user'];
+                    run['contest'] = contest.id;
 
                     if (v['best_run_time'])
                         run['start_processing_time'] = CATS.App.utils.add_time(contest_start_time, v['best_run_time']);
@@ -27,7 +28,6 @@ CATS.Rule.School = Classify({
     },
 
     compute_table: function (result_table, contest) {
-        var contest_start_time = contest.start_time;
         var teams_problems = {}, teams = {};
 
         $.each(contest.runs, function (i, row_id) {
@@ -35,7 +35,7 @@ CATS.Rule.School = Classify({
             if (
                 result_table.filters.duration.type == 'history' &&
                 result_table.filters.duration.minutes != null &&
-                CATS.App.utils.get_time_diff(contest_start_time, row['start_processing_time']) > result_table.filters.duration.minutes
+                CATS.App.utils.get_time_diff(CATS.App.contests[row.contest].start_time, row['start_processing_time']) > result_table.filters.duration.minutes
             )
                 return;
 
@@ -52,7 +52,7 @@ CATS.Rule.School = Classify({
             var p_idx = contest.get_problem_index(row['problem']);
 
             teams_problems[team_id][p_idx]['runs_cnt']++;
-            teams_problems[team_id][p_idx]['last_run_time'] = CATS.App.utils.get_time_diff(contest_start_time, row['start_processing_time']);
+            teams_problems[team_id][p_idx]['last_run_time'] = CATS.App.utils.get_time_diff(CATS.App.contests[row.contest].start_time, row['start_processing_time']);
             if (teams_problems[team_id][p_idx]['points'] < row['points']) {
                 teams_problems[team_id][p_idx]['best_run_time'] = teams_problems[team_id][p_idx]['last_run_time'];
                 teams_problems[team_id][p_idx]['points'] = row['points'];

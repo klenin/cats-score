@@ -135,7 +135,7 @@ CATS.View = Classify({
             var result_table = CATS.App.result_tables[params.table];
             result_table.clean_score_board();
             $.extend(result_table.filters, filters);
-            var contest_id = params.contests[0];
+            var contest_id = params.contest;
             var contest = CATS.App.contests[contest_id];
             CATS.App.rules[contest.scoring].process(contest, result_table);
             if (this.with_pagination) {
@@ -220,9 +220,10 @@ CATS.View = Classify({
         get_filters_params: function(params) {
             switch (this.page_name()) {
                 case "table":
+                    var table = CATS.App.result_tables[params.table];
                     return {
-                        contest_duration: CATS.App.contests[params.contests[0]].compute_duration_minutes(),
-                        filters: CATS.App.result_tables[params.table].filters
+                        contest_duration: CATS.App.contests[table.contests[0]].compute_duration_minutes(),
+                        filters: table.filters
                     };
                 default :
                     return {};
@@ -259,7 +260,7 @@ CATS.View = Classify({
             var header = this.with_header ?
                 this.template("header_" + this.view_state.get("state"))({
                     'skin_list' :  this.get_available_skin_names(page_name),
-                    'contest_name' : CATS.App.contests[params.contests[0]].name
+                    'contest_name' : (params.contest != undefined) ? CATS.App.contests[params.contest].name : ""
                 }) :
                 "";
             var footer = this.with_footer ? this.template("footer")({}) : "";

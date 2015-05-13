@@ -26,23 +26,23 @@
     "max_points" : 100, "last_update_time" : null, "limits" : { "time" : null, "memory" : null }, "baloon_color" : null, "data" : null
   },
 
-  { "type" : "run" , "id" : "10001", "external_id" : null, "tags" : null, "description" : null, "time" : null,
+  { "type" : "run" , "id" : "10001", "contest_id" : "0002", "external_id" : null, "tags" : null, "description" : null, "time" : null,
     "problem" : "0001", "user" : "0001", "compiler" : null, "source" : null, "status" : "accepted", "points" : 100,
     "start_processing_time" : "Thu Feb 19 2015 00:02:21", "finish_processing_time" : null, "processor" : null, "ip" : null, "consumed" : null
   },
-  { "type" : "run" , "id" : "10002", "external_id" : null, "tags" : null, "description" : null, "time" : null,
+  { "type" : "run" , "id" : "10002", "contest_id" : "0002", "external_id" : null, "tags" : null, "description" : null, "time" : null,
     "problem" : "0002", "user" : "0001", "compiler" : null, "source" : null, "status" : "accepted", "points" : 100,
     "start_processing_time" : "Thu Feb 19 2015 00:05:21", "finish_processing_time" : null, "processor" : null, "ip" : null, "consumed" : null
   },
-  { "type" : "run" , "id" : "10003", "external_id" : null, "tags" : null, "description" : null, "time" : null,
+  { "type" : "run" , "id" : "10003", "contest_id" : "0002", "external_id" : null, "tags" : null, "description" : null, "time" : null,
     "problem" : "0001", "user" : "0002", "compiler" : null, "source" : null, "status" : "wrong_answer", "points" : 86,
     "start_processing_time" : "Thu Feb 19 2015 00:03:21", "finish_processing_time" : null, "processor" : null, "ip" : null, "consumed" : null
   },
-  { "type" : "run" , "id" : "10004", "external_id" : null, "tags" : null, "description" : null, "time" : null,
+  { "type" : "run" , "id" : "10004", "contest_id" : "0002", "external_id" : null, "tags" : null, "description" : null, "time" : null,
     "problem" : "0002", "user" : "0002", "compiler" : null, "source" : null, "status" : "presentation_error", "points" : 0,
     "start_processing_time" : "Thu Feb 19 2015 00:06:21", "finish_processing_time" : null, "processor" : null, "ip" : null, "consumed" : null
   },
-  { "type" : "run" , "id" : "10005", "external_id" : null, "tags" : null, "description" : null, "time" : null,
+  { "type" : "run" , "id" : "10005", "contest_id" : "0002", "external_id" : null, "tags" : null, "description" : null, "time" : null,
     "problem" : "0002", "user" : "0002", "compiler" : null, "source" : null, "status" : "wrong_answer", "points" : 60,
     "start_processing_time" : "Thu Feb 19 2015 00:07:21", "finish_processing_time" : null, "processor" : null, "ip" : null, "consumed" : null
   }
