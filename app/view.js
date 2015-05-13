@@ -26,15 +26,15 @@ CATS.View = Classify({
 
         routes: {
             "!show_contests_list/:source/:skin(/?lang=:lang)(/?page=:page)(/?el_per_page=:el_per_page)": "show_contests_list",
-            "!show_rank_table/:source/:page_name/:skin/:contestid(/?lang=:lang)(/?page=:page)(/?el_per_page=:el_per_page)": "show_rank_table",
+            "!show_rank_table/:page_name/:skin/:contestid(/?lang=:lang)(/?page=:page)(/?el_per_page=:el_per_page)": "show_rank_table",
         },
 
         show_contests_list: function (source, skin, lang, page, el_per_page) {
             this.view_state.set({ source: source, page_name: 'contests', state: 'contests_list', skin: skin, lang: lang, page: page, el_per_page: el_per_page });
         },
 
-        show_rank_table: function (source, page_name, skin, contest_id, lang, page, el_per_page) {
-            this.view_state.set({ source: source, page_name: page_name, state: 'rank_table', skin: skin, contest_id: contest_id, lang: lang, page: page, el_per_page: el_per_page });
+        show_rank_table: function (page_name, skin, contest_id, lang, page, el_per_page) {
+            this.view_state.set({page_name: page_name, state: 'rank_table', skin: skin, contest_id: contest_id, lang: lang, page: page, el_per_page: el_per_page });
         },
 
         generate_url: function() {
@@ -42,8 +42,6 @@ CATS.View = Classify({
             switch (this.view_state.get("state")) {
                 case "rank_table":
                     url += "!show_rank_table/" +
-                        this.view_state.get("source") +
-                        "/" +
                         this.view_state.get("page_name") +
                         "/" +
                         this.view_state.get("skin") +
@@ -196,7 +194,7 @@ CATS.View = Classify({
 
         refresh_rank_table: function() {
             var self = this;
-            CATS.App.adapter_process_rank_table(this.source(), function (params) {
+            CATS.App.adapter_process_rank_table(function (params) {
                 self.render(params);
             }, this.view_state.get("contest_id"));
         },

@@ -46,7 +46,7 @@ CATS.Controller = Classify({
         this.rules[rule.name] = rule;
     },
 
-    adapter_process_rank_table: function(adapter_name, callback, contest_id) {
+    adapter_process_rank_table: function(callback, contest_id) {
         var contest_list = (contest_id.indexOf(',') != -1) ? contest_id.split(',') : [contest_id];
 
         if (this.have_result_table(contest_list) > 0) {
@@ -57,13 +57,26 @@ CATS.Controller = Classify({
 
         var result_table = new CATS.Model.Results_table();
 
-        result_table.contests = contest_list;
-        this.adapters[adapter_name].init(contest_list);
-        this.adapters[adapter_name].parse(result_table, function () {
-            var contest = CATS.App.contests[contest_list[0]];
-            CATS.App.rules[contest.scoring].process(contest, result_table);
+        var cont_list = [];
+        var self = this;
+        var promises = $.map(contest_list, function(con){
+            var d = $.Deferred();
+            var cont_adapter = con.split(':')[0];
+            var cont_id = con.split(':')[1];
+            cont_list.push(cont_id);
+            self.adapters[cont_adapter].init([cont_id]);
+            self.adapters[cont_adapter].parse(result_table, function () {
+                var contest = CATS.App.contests[cont_id];
+                CATS.App.rules[contest.scoring].process(contest, result_table);
+                d.resolve();
+            });
+            return d.promise();
+        });
+
+        $.when.apply($, promises).then(function(){
             CATS.App.add_object(result_table);
-            callback({contests : contest_list, table : result_table.id });
+            result_table.contests = cont_list;
+            callback({contests: cont_list, table: result_table.id});
         });
     },
 
