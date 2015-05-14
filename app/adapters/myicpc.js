@@ -6,19 +6,6 @@ CATS.Adapter.MyIcpc = Classify({
         this.xml = null;
         this.name = 'myicpc';
         this.model = null;
-        this.aliases = {
-            'problem_title' : 'problem_title',
-            'failed_test' : 'failed_test',
-            'submit_time' : 'submit_time',
-            'team_name' : 'team_name',
-            'team_id' : 'team_id',
-            'is_remote' : 'is_remote',
-            'state' : 'state',
-            'is_ooc' : 'is_ooc',
-            'id' : 'id',
-            'last_ip' : 'last_ip',
-            'code' : 'code'
-        }
     },
 
     get_xml: function(callback) {
