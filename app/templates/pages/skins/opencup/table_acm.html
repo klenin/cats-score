@@ -134,14 +134,15 @@ table.define_openers();
         <%
         for (var i = 0; i < contest.problems.length; ++i) {
         var prob = app.problems[contest.problems[i]];
+        var st = contest_problems_stats[prob.id];
         %>
         <td class="stnd">
-            <b><%=contest_problems_stats[prob.id].sols%></b>
+            <b><%=st.sols%></b>
             <br>
-            (<%=Math.round(contest_problems_stats[prob.id].sols / contest_problems_stats[prob.id].runs * 100)%>%)
+            (<%=Math.round(st.sols / Math.max(st.runs, 1) * 100)%>%)
         </td>
         <%
-        };
+        }
         %>
     </tr>
     <tr>
@@ -153,15 +154,16 @@ table.define_openers();
         <%
         for (var i = 0; i < contest.problems.length; ++i) {
         var prob = app.problems[contest.problems[i]];
-        var dirt = contest_problems_stats[prob.id].runs - contest_problems_stats[prob.id].sols;
+        var st = contest_problems_stats[prob.id];
+        var dirt = st.runs - st.sols;
         %>
         <td class="stnd">
             <b><%=dirt%></b>
             <br>
-            (<%=Math.round(dirt / contest_problems_stats[prob.id].runs * 100)%>%)
+            (<%=Math.round(dirt / Math.max(st.runs, 1) * 100)%>%)
         </td>
         <%
-        };
+        }
         %>
     </tr>
 </table>

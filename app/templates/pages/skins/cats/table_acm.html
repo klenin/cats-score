@@ -118,16 +118,16 @@ var capt = CATS.Langs.cats[lang];
                 $.extend(contest_problems_stats, contest.get_problems_stats());
                 for (var i = 0; i < contest.problems.length; ++i) {
                     var prob = app.problems[contest.problems[i]];
+                    var st = contest_problems_stats[prob.id];
                     %>
                     <td align="center"><p>
-                        <%=contest_problems_stats[prob.id].sols + "/" + contest_problems_stats[prob.id].runs%>
-                    </p><%=Math.round(contest_problems_stats[prob.id].sols / contest_problems_stats[prob.id].runs * 100)%>%</td>
-                    </th>
+                        <%=st.sols%> /<%=st.runs%>
+                    </p><%=Math.round(st.sols / Math.max(st.runs, 1) * 100)%>%</td>
                 <%
-                };
+                }
                 %>
             <%
-            };
+            }
             %>
         <td colspan="4">&nbsp;</td>
 
