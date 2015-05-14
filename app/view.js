@@ -333,7 +333,7 @@ CATS.View = Classify({
             with_footer: true,
             with_pagination: true,
             with_css: true,
-            default_url_hash: "!show_contests_list/codeforces/codeforces"
+            default_url_hash: "!show_contests_list/default/default"
         };
 
         var templates = this.templates;
