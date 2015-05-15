@@ -24,7 +24,7 @@ CATS.Adapter.Ifmo = Classify({
             var prob_num = 0;
             $(this).find("th.problem").each(function () {
                 var prob = new CATS.Model.Problem();
-                prob.name = $(this).attr("title");
+                prob.id = prob.name = $(this).attr("title");
                 prob.code = $(this).html();
                 CATS.App.add_object(prob);
                 contest.add_object(prob);
