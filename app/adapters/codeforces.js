@@ -85,9 +85,11 @@ CATS.Adapter.Codeforces = Classify({
         return contest;
     },
 
+    url: 'http://codeforces.com',
+
     get_contests: function(callback) {
         var self = this;
-        CATS.App.utils.json_get('http://codeforces.ru/api/contest.list?gym=true&jsonp=?', function (data) {
+        CATS.App.utils.json_get(this.url + '/api/contest.list?gym=true&jsonp=?', function (data) {
             var contests = [];
             $.each(data.result, function (k, v) {
                 self.add_contest(v);
@@ -99,7 +101,7 @@ CATS.Adapter.Codeforces = Classify({
 
     get_contest: function(callback, contest_id) {
         CATS.App.utils.json_get(
-            "http://codeforces.ru/api/contest.standings?contestId=" +
+            this.url + '/api/contest.standings?contestId=' +
             contest_id +
             "&from=1&count=10000000&showUnofficial=true&jsonp=?",
             function( data ) {
