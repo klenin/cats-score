@@ -36,7 +36,8 @@ function cats_score_init(
     ka_tbl_acm,
     ka_tbl_sch,
     ka_hist,
-    ka_contests
+    ka_contests,
+    ur_tbl_acm
 ) {
     CATS.Config.proxy_path = "/cats/score/";
 
@@ -109,6 +110,12 @@ function cats_score_init(
                     table_school : ka_tbl_sch,
                     history : ka_hist,
                     contests : ka_contests,
+                },
+                uri : {
+                    table_acm : ur_tbl_acm,
+                    //table_school : ur_tbl_sch,
+                    //history : ur_hist,
+                    //contests : ur_contests,
                 },
             }
         }

@@ -102,7 +102,9 @@ require(['underscore', 'jquery', 'jqueryui'], function () {
                             'text!templates/pages/skins/kattis/table_acm.html',
                             'text!templates/pages/skins/kattis/table_school.html',
                             'text!templates/pages/skins/kattis/history.html',
-                            'text!templates/pages/skins/kattis/contests.html'
+                            'text!templates/pages/skins/kattis/contests.html',
+                            //URI Online Judge
+                            'text!templates/pages/skins/uri/table_acm.html'
                             //after add new skin make sure add new item in index.js
                         ], cats_score_init);
                     });
