@@ -27,7 +27,13 @@ CATS.Utils = Classify({
     },
 
     proxy_get: function(url, callback) {
-        $.get(CATS.Config.proxy_path + encodeURIComponent(url), callback);
+        CATS.App.utils.json_get(CATS.Config.proxy_path + encodeURIComponent(url) + '&json=?',
+            function(data) { callback($.parseHTML(data.result)); });
+    },
+
+    proxy_get_xml: function(url, callback) {
+        CATS.App.utils.json_get(CATS.Config.proxy_path + encodeURIComponent(url) + '&json=?',
+            function(data) { callback($.parseXML(data.result)); });
     },
 
     json_get: function (url, callback) {
@@ -37,11 +43,11 @@ CATS.Utils = Classify({
             url: url,
             dataType: 'json'
         }).done(function(data) {
-            console.log( "success " + url);
+            console.log("success " + url);
             callback(data);
         })
-        .fail(function() {
-            console.log( "error " );
+        .fail(function(a, b, c) {
+            console.log("error " + a + b + c);
         });
     },
 });

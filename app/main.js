@@ -47,6 +47,7 @@ require(['underscore', 'jquery', 'jqueryui'], function () {
                         'adapters/ifmo',
                         'adapters/codeforces',
                         'adapters/myicpc',
+                        'adapters/aizu',
                         'adapters/default',
                         'view',
                         'utils',
