@@ -27,7 +27,7 @@ CATS.Adapter.MyIcpc = Classify({
     node_to_js: function (dest, node, mapping) {
         var n = $(node);
         for(var k in mapping) {
-            dest[k] = n.find(mapping[k]).text();
+            dest[k] = n.children(mapping[k]).text().trim();
         }
     },
 
@@ -37,16 +37,16 @@ CATS.Adapter.MyIcpc = Classify({
         if (contest == undefined)
             contest = this.add_contest();
 
-        var root = this.xml.find('contest');
-        root.find('problem').each(function(i, node) {
+        var root = this.xml.children('contest');
+        root.children('problem').each(function(i, node) {
             var p = new CATS.Model.Problem();
-            self.node_to_js(p, node, { id: 'id', name: 'title' });
+            self.node_to_js(p, node, { id: 'id', name: 'name' });
             p.code = "_ABCDEFGHIJKLMNOPQRSTUVWXYZ"[p.id];
             CATS.App.add_object(p);
             contest.add_object(p);
         });
 
-        root.find('team').each(function(i, node) {
+        root.children('team').each(function(i, node) {
             var user = new CATS.Model.User();
             self.node_to_js(user, node, { id: 'id', name: 'name' });
             self.node_to_js(user.affiliation, node, {
@@ -58,13 +58,13 @@ CATS.Adapter.MyIcpc = Classify({
             contest.add_object(user);
         });
 
-        root.find('run').each(function(i, node) {
+        root.children('run').each(function(i, node) {
             var run = new CATS.Model.Run();
             self.node_to_js(run, node, { id: 'id', problem: 'problem', user: 'team' });
             var n = $(node);
-            run.status = n.find('solved').text() === 'true' ? 'accepted' : 'wrong_answer';
+            run.status = n.children('solved').text() === 'true' ? 'accepted' : 'wrong_answer';
             run.contest = contest_id;
-            run.start_processing_time = new Date(n.find('timestamp').text() * 1000);
+            run.start_processing_time = new Date(n.children('timestamp').text() * 1000);
             CATS.App.add_object(run);
             contest.add_object(run);
         });
@@ -74,14 +74,14 @@ CATS.Adapter.MyIcpc = Classify({
 
     add_contest: function() {
         var contest = CATS.Model.Contest();
-        var root = this.xml.find('contest');
-        var c = this.xml.find('info').first();
+        var root = this.xml.children('contest');
+        var c = root.children('info').first();
         contest.id = 'sample_contest';
-        contest.name = c.find('title').text();
+        contest.name = c.children('title').text();
         contest.scoring = 'acm';
-        var start_ts = c.find('starttime').text() * 1000;
+        var start_ts = c.children('starttime').text() * 1000;
         contest.start_time = new Date(start_ts);
-        var hms = c.find('length').text().split(':');
+        var hms = c.children('length').text().split(':');
         var f = contest.finish_time = new Date(start_ts);
         f.setHours(f.getHours() + 1*hms[0]);
         f.setMinutes(f.getMinutes() + 1*hms[1]);
