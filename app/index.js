@@ -48,6 +48,7 @@ function cats_score_init(
     CATS.App.register_adapter(new CATS.Adapter.Codeforces());
     CATS.App.register_adapter(new CATS.Adapter.Cats());
     CATS.App.register_adapter(new CATS.Adapter.MyIcpc('app/tests/myicpc.xml'));
+    CATS.App.register_adapter(new CATS.Adapter.Aizu());
     CATS.App.register_adapter(new CATS.Adapter.Default());
     CATS.App.register_rule(new CATS.Rule.Acm());
     CATS.App.register_rule(new CATS.Rule.School());
