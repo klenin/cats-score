@@ -31,6 +31,11 @@ CATS.Utils = Classify({
             function(data) { callback($.parseHTML(data.result)); });
     },
 
+    proxy_get_xml: function(url, callback) {
+        CATS.App.utils.json_get(CATS.Config.proxy_path + encodeURIComponent(url) + '&json=?',
+            function(data) { callback($.parseXML(data.result)); });
+    },
+
     json_get: function (url, callback) {
         $.ajax({
             // Avoid "not well-formed" error when loading JSON from local file.
