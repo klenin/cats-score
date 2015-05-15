@@ -26,6 +26,9 @@
         <table class="standings">
     <tr>
         <th>
+            select
+        </th>
+        <th>
             id
         </th>
         <th>
@@ -39,6 +42,9 @@
     idx++;
     %>
     <tr <%= idx % 2 != 0 ? "class='dark'" : "" %>>
+        <td>
+            <input class="contest_selector" id="<%=source%>:<%=id%>" type="checkbox" <%= checked_contests.indexOf(source + ":" + id) != -1 ? "checked" : ""%>>
+        </td>
         <td>
             <%=id%>
         </td>

@@ -1,5 +1,8 @@
 <table class="scoreboard">
 <tr class="scoreheader">
+    <th>
+        select
+    </th>
     <th>id</th>
     <th>name</th>
 </tr>
@@ -9,6 +12,9 @@ _.each(contests.slice(next_page, next_page + elem_cnt), function(id){
 idx++;
 %>
 <tr>
+    <td class="scorepl">
+        <input class="contest_selector" id="<%=source%>:<%=id%>" type="checkbox" <%= checked_contests.indexOf(source + ":" + id) != -1 ? "checked" : ""%>>
+    </td>
     <td class="scorepl">
         <%=id%>
     </td>

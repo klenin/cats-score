@@ -2,6 +2,9 @@
 <table class="table table-striped table-bordered table-hover">
     <tr>
         <th>
+            select
+        </th>
+        <th>
             id
         </th>
         <th>
@@ -14,6 +17,9 @@
     _.each(contests.slice(next_page, next_page + elem_cnt), function(id){
     %>
     <tr>
+        <td>
+            <input class="contest_selector" id="<%=source%>:<%=id%>" type="checkbox" <%= checked_contests.indexOf(source + ":" + id) != -1 ? "checked" : ""%>>
+        </td>
         <td>
             <%=id%>
         </td>

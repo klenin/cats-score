@@ -18,4 +18,8 @@
         <%}%>
     </select>
     <%}%>
+    <%if (contests.length > 0) {%>
+        <br />
+        <a href="#!show_rank_table/table/<%=skin%>/<%=contests.join()%>">Compute summed table of contests: <%=contests.join()%></a>
+    <%}%>
 </div>

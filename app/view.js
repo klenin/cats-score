@@ -11,6 +11,7 @@ CATS.View = Classify({
             source: null,
             skin: null,
             contest_id: null,
+            checked_contests: [],
             lang: null,
             page: null,
             el_per_page: null
@@ -124,6 +125,28 @@ CATS.View = Classify({
             },
             'change #role': function () {
                 this.update_rank_table({role: $("#role").val()});
+            },
+            'change .contest_selector': function (event) {
+                if (!this.with_header)
+                    return;
+
+                var contests = this.view_state.get('checked_contests');
+
+                if ($(event.currentTarget).is(":checked"))
+                    contests.push($(event.currentTarget).attr("id"));
+                else
+                    contests.delete_value($(event.currentTarget).attr("id"));
+
+                this.view_state.set({checked_contests: $.merge([], contests)});
+
+                var header = this.template("header_contests_list")({
+                    'skin_list' :  this.get_available_skin_names('contests'),
+                    'contests' : this.view_state.get('checked_contests'),
+                    'skin' : this.skin()
+                });
+                $("#catsscore_header").html(header);
+                $("#source").val(this.source());
+                $("#skin").val(this.skin());
             }
         },
 
@@ -260,7 +283,9 @@ CATS.View = Classify({
             var header = this.with_header ?
                 this.template("header_" + this.view_state.get("state"))({
                     'skin_list' :  this.get_available_skin_names(page_name),
-                    'contest_name' : (params.contest != undefined) ? CATS.App.contests[params.contest].name : ""
+                    'contest_name' : (params.contest != undefined) ? CATS.App.contests[params.contest].name : "",
+                    'contests' : this.view_state.get('checked_contests'),
+                    'skin' : this.skin()
                 }) :
                 "";
             var footer = this.with_footer ? this.template("footer")({}) : "";
@@ -276,13 +301,16 @@ CATS.View = Classify({
                 models: params,
                 source: source,
                 skin: skin,
+                checked_contests: this.view_state.get("checked_contests"),
                 lang: this.view_state.get("lang") != null ? this.view_state.get("lang") : "ru",
                 next_page: this.with_pagination ? this.view_state.get("el_per_page") * (this.view_state.get("page") - 1) : 0,
                 elem_cnt:  this.with_pagination ? this.view_state.get("el_per_page") * 1 : pagination_params.elem_cnt
             };
 
             this.$el.html(
+                "<div id='catsscore_header'>" +
                 header +
+                "</div>" +
                 "<div id='catsscore_pagination_wrapper'>" +
                 pagination +
                 "</div>" +
@@ -292,7 +320,9 @@ CATS.View = Classify({
                 "<div id='catsscore_wrapper'>" +
                 this.page(skin, page_name)(this.current_catsscore_wrapper_content_params) +
                 "</div>" +
-                footer
+                "<div id='catsscore_footer'>" +
+                footer +
+                "</div>"
             );
 
             $("#source").val(this.source());

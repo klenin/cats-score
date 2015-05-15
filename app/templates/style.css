@@ -103,6 +103,10 @@ select, input {
     background-color: #fff;
 }
 
+.contest_selector {
+    width: 30px;
+}
+
 .pie_wrapper {
     border: 1px solid #C8BFC4;
     border-radius: 3px;

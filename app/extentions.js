@@ -26,6 +26,16 @@ Array.prototype.equals = function (array) {
     return true;
 }
 
+Array.prototype.delete_value = function (v) {
+    for (var i = 0; i < this.length; ++i) {
+        if (this[i] = v) {
+            this.slice(i, 1);
+            return true;
+        }
+    }
+    return false;
+}
+
 String.prototype.to_date = function () {
     if (this.length == 0)
         return new Date();

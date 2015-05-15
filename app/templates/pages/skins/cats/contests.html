@@ -1,5 +1,8 @@
 <table width="100%" cellspacing="1" class="bordered rank_table highlight"><tr bgcolor="#ccccff">
         <th>
+            select
+        </th>
+        <th>
             id
         </th>
         <th>
@@ -12,6 +15,9 @@
     idx++;
     %>
     <tr class='<%= idx % 2 != 0 ? "even" : "odd" %>'>
+        <td>
+            <input class="contest_selector" id="<%=source%>:<%=id%>" type="checkbox" <%= checked_contests.indexOf(source + ":" + id) != -1 ? "checked" : ""%>>
+        </td>
         <td>
             <%=id%>
         </td>
