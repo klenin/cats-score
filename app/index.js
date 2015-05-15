@@ -39,7 +39,7 @@ function cats_score_init(
     ka_contests,
     ur_tbl_acm
 ) {
-    CATS.Config.proxy_path = "/cats/score/";
+    CATS.Config.proxy_path = "http://imcs.dvfu.ru/cats/main.pl?f=proxy&u=";
 
     CATS.App = new CATS.Controller();
     CATS.App.register_adapter(new CATS.Adapter.Cats_xml_hist(CATS.Test.cats_xml_data));
