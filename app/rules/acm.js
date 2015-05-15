@@ -54,13 +54,15 @@ CATS.Rule.Acm = Classify({
             var p_idx = contest.get_problem_index(row['problem']);
 
             if (!teams_problems[team_id][p_idx]['is_solved']) {
-                teams_problems[team_id][p_idx]['runs_cnt']++;
-                if (row['status'] == 'accepted') {
-                    teams_problems[team_id][p_idx]['best_run_time'] = CATS.App.utils.get_time_diff(CATS.App.contests[row.contest].start_time, row['start_processing_time']);
-                    teams_problems[team_id][p_idx]['is_solved'] = true;
-                    teams[team_id]['solved_cnt']++;
-                    teams[team_id]['penalty'] += (teams_problems[team_id][p_idx]['runs_cnt'] - 1) * self.failed_run_penalty +
-                    teams_problems[team_id][p_idx]['best_run_time'];
+                teams_problems[team_id][p_idx].runs_cnt++;
+                teams_problems[team_id][p_idx].best_run_time =
+                    CATS.App.utils.get_time_diff(CATS.App.contests[row.contest].start_time, row.start_processing_time);
+                if (row.status == 'accepted') {
+                    teams_problems[team_id][p_idx].is_solved = true;
+                    teams[team_id].solved_cnt++;
+                    teams[team_id].penalty +=
+                        (teams_problems[team_id][p_idx].runs_cnt - 1) * self.failed_run_penalty +
+                        teams_problems[team_id][p_idx].best_run_time;
                 }
             }
 
