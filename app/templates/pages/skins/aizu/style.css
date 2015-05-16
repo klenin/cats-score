@@ -1,0 +1,87 @@
+#catsscore_wrapper {
+    font-family: "Tahoma",sans-serif,arial;
+    font-size: 12px;
+}
+
+#catsscore_wrapper a {
+    text-decoration: none;
+    color: black;
+}
+
+#catsscore_wrapper td div {
+    color: red;
+    padding: 3px;
+    width: 2em;
+    height: 2ex;
+    text-align: center;
+    margin: 0 auto auto auto;
+}
+
+#catsscore_wrapper td.solved div, #catsscore_wrapper td.first div {
+    background-image: url(status_icons.png);
+    background-position: 0% -200px;
+    background-repeat: no-repeat;
+    background-clip: border-box;
+    padding-left: 20px;
+}
+
+#catsscore_wrapper td.failed div {
+}
+
+#catsscore_wrapper td.total div {
+    background-color: #BBBBBB;
+    border-bottom: 3px solid #7F8C8D;
+}
+
+#catsscore_wrapper td.pending {
+    background-color: blue;
+}
+
+#catsscore_wrapper .standings {
+    background-color: white;
+    border-collapse: collapse;
+    border-top: 1px solid black;
+}
+
+#catsscore_wrapper .standings th {
+    background-color: #DDDDDD;
+    padding: 8px;
+    border-bottom: 1px solid #BBBBBB;
+}
+
+#catsscore_wrapper .standings th.problem {
+    width: 40px;
+}
+
+#catsscore_wrapper .standings td {
+    padding: 2px;
+    text-align: center;
+    border: 1px solid #BBBBBB;
+}
+
+#catsscore_wrapper .standings td.last {
+    border-right: 0;
+}
+
+#catsscore_wrapper .standings td p {
+    padding: 0;
+    font-size: small;
+    vertical-align: bottom;
+    margin: 0;
+    padding-top: 4px;
+    color: #808080;
+}
+
+#catsscore_wrapper .standings td.rank {
+    vertical-align: middle;
+    padding: 8px;
+}
+
+#catsscore_wrapper .standings .rank {
+    border-left: 0;
+}
+
+#catsscore_wrapper .standings td.user a {
+    font-size: small;
+    color: #067399;
+}
