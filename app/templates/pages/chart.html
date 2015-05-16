@@ -5,20 +5,20 @@ var contest = app.contests[contest_id];
 
 <script>
     var status_color = {
-        'accepted': '#C6F9D2',
-        'wrong_answer': '#CCCCB3',
-        'presentation_error': '#CECEFF',
-        'time_limit_exceeded': '#FFCAFF',
-        'runtime_error': '#D0CCCD',
-        'compilation_error': '#FFCC99',
-        'security_violation': '#FFCBB9',
-        'memory_limit_exceeded': '#EAEC93',
-        'ignore_submit': '#D7FBE6',
-        'idleness_limit_exceeded': '#FFCACA',
+        'accepted': 'green',
+        'wrong_answer': 'black',
+        'presentation_error': 'blue',
+        'time_limit_exceeded': 'red',
+        'runtime_error': 'orange',
+        'compilation_error': 'yellow',
+        'security_violation': 'cyan',
+        'memory_limit_exceeded': 'magenta',
+        'ignore_submit': 'gray',
+        'idleness_limit_exceeded': 'violet',
     };
 
     $.each(status_color, function(s, c) {
-        $("#legend").append("<li style='color:" + c + "'><span style='color:#000'>" + s + "</span></li>");
+        $("#legend").append('<li style="color: ' + c + '"><span>' + s + '</span></li>');
     });
 
     var runs = <%=JSON.stringify(CATS.App.runs)%>;
@@ -61,7 +61,7 @@ var contest = app.contests[contest_id];
 
     var ctx = [];
     for (var i = 0; i < contest_problems.length; ++i) {
-        ctx.push(document.getElementById("submitions_" + contest_problems[i]).getContext("2d"));
+        ctx.push(document.getElementById("submissions_" + contest_problems[i]).getContext("2d"));
     }
 
     for (var i = 0; i < ctx.length; ++i) {
@@ -79,7 +79,7 @@ var prob = app.problems[contest.problems[i]];
 <%=(i % 3 == 0 ? '<div class="clear"></div>' : '')%>
 <div class="pie_wrapper">
 <h2><%=prob.name%> (<%=prob.code%>)</h2>
-<canvas class="pie" id="submitions_<%=prob.id%>" width="230"></canvas>
+<canvas class="pie" id="submissions_<%=prob.id%>" width="230"></canvas>
 
 </div>
 

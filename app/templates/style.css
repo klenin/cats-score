@@ -115,6 +115,14 @@ select, input {
     float: left;
 }
 
+.pie_wrapper h2 {
+    display: block;
+    white-space: nowrap;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 #contest_min {
     font-size: 20px;
 }
@@ -124,21 +132,24 @@ select, input {
 }
 
 ul#legend {
-    list-style: none;
-    font-size: 16px;
 }
 
 ul#legend li {
-    display: inline;
+    display: inline-block;
+    padding: 4px;
+    font-size: 60px;
+    line-height: 30px;
+}
+
+ul#legend li:before {
+    content: "•";
 }
 
 ul#legend li span {
-}
-
-ul#legend li:before{
-    content:"•";
-    padding-top: 40px;
-    font-size: 80px;
+    display: inline-block;
+    color: black;
+    font-size: 14px;
+    vertical-align: top;
 }
 
 .clear {
