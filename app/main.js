@@ -48,6 +48,7 @@ require(['underscore', 'jquery', 'jqueryui'], function () {
                         'adapters/codeforces',
                         'adapters/myicpc',
                         'adapters/aizu',
+                        'adapters/domjudge',
                         'adapters/default',
                         'view',
                         'utils',
