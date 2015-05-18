@@ -26,14 +26,23 @@ CATS.Utils = Classify({
         return time[0] * 60 + time[1] * 1;
     },
 
+    proxy_url: function(url) {
+        return CATS.Config.proxy_path + encodeURIComponent(url) + '&json=?';
+    },
+
     proxy_get: function(url, callback) {
-        CATS.App.utils.json_get(CATS.Config.proxy_path + encodeURIComponent(url) + '&json=?',
+        CATS.App.utils.json_get(CATS.App.utils.proxy_url(url),
             function(data) { callback($.parseHTML(data.result)); });
     },
 
     proxy_get_xml: function(url, callback) {
-        CATS.App.utils.json_get(CATS.Config.proxy_path + encodeURIComponent(url) + '&json=?',
+        CATS.App.utils.json_get(CATS.App.utils.proxy_url(url),
             function(data) { callback($.parseXML(data.result)); });
+    },
+
+    proxy_get_json: function(url, callback) {
+        CATS.App.utils.json_get(CATS.App.utils.proxy_url(url),
+            function(data) { callback($.parseJSON(data.result)); });
     },
 
     json_get: function (url, callback) {
