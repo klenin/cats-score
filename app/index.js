@@ -4,6 +4,7 @@ function cats_score_init(
     pg,
     footer,
     chart,
+    charts,
     tbl_filter,
     d_tbl_acm,
     d_tbl_sch,
@@ -62,6 +63,7 @@ function cats_score_init(
         footer : footer,
         pages : {
             chart : chart,
+            charts : charts,
             filters : {
                 table: tbl_filter,
             },

@@ -8,7 +8,8 @@ requirejs.config({
         backbone: "../vendors/backbone.min",
         classify: "../vendors/classify.min",
         dateformat: "../vendors/date.format",
-        chart: "../vendors/chart.min"
+        chart: "../vendors/chart.min",
+        jqflot: "../vendors/jquery.flot"
     },
     shim: {
         underscore: {
@@ -22,7 +23,7 @@ requirejs.config({
     }
 });
 require(['underscore', 'jquery', 'jqueryui'], function () {
-    require(['backbone', 'classify', 'dateformat', 'chart', 'jqpagination', 'CATS'], function () {
+    require(['backbone', 'classify', 'dateformat', 'chart', 'jqflot', 'jqpagination', 'CATS'], function () {
         require(['controller'], function () {
             require(['models/entity'], function () {
                 require(['models/event'], function () {
@@ -38,6 +39,7 @@ require(['underscore', 'jquery', 'jqueryui'], function () {
                         'models/problem',
                         'models/run',
                         'models/results_table',
+                        'models/chart',
                         'models/user',
                         'rules/acm',
                         'rules/school',
@@ -62,6 +64,7 @@ require(['underscore', 'jquery', 'jqueryui'], function () {
                             'text!templates/footer.html',
                             //pages
                             'text!templates/pages/chart.html',
+                            'text!templates/pages/charts.html',
                             //filters
                             'text!templates/pages/filters/table.html',
                             //skins
