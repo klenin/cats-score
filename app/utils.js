@@ -35,6 +35,20 @@ CATS.Utils = Classify({
             function(data) { callback($.parseHTML(data.result)); });
     },
 
+    cors_get_html: function(url, callback) {
+        $.ajax({
+            url: url,
+            crossDomain: true,
+            dataType: 'html',
+        }).done(function(data) {
+            console.log("success " + url);
+            callback($.parseHTML(data));
+        })
+        .fail(function(a, b, c) {
+            console.log("error " + a + b + c);
+        });
+    },
+
     proxy_get_xml: function(url, callback) {
         CATS.App.utils.json_get(CATS.App.utils.proxy_url(url),
             function(data) { callback($.parseXML(data.result)); });
