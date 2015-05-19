@@ -13,6 +13,7 @@ CATS.Controller = Classify({
         this.runs = {};
         this.compilers = {};
         this.result_tables = {};
+        this.charts = {};
         this.last_id = 0;
 
         this.utils = new CATS.Utils();
@@ -55,7 +56,7 @@ CATS.Controller = Classify({
 
         if (this.have_result_table(cont_list) > 0) {
             var result_table = this.get_result_table(cont_list);
-            callback({contest: result_table.contest, table: result_table.id});
+            callback({chart: result_table.chart, contest: result_table.contest, table: result_table.id});
             return;
         }
 
@@ -97,7 +98,10 @@ CATS.Controller = Classify({
             CATS.App.rules[united_contest.scoring].process(united_contest, result_table);
             CATS.App.add_object(result_table);
             CATS.App.add_object(united_contest);
-            callback({contest: united_contest.id, table: result_table.id});
+            var chart = new CATS.Model.Chart(result_table.id);
+            CATS.App.add_object(chart);
+            result_table.chart = chart.id;
+            callback({chart: chart.id, contest: united_contest.id, table: result_table.id});
         });
     },
 

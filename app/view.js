@@ -147,6 +147,28 @@ CATS.View = Classify({
                 $("#catsscore_header").html(header);
                 $("#source").val(this.source());
                 $("#skin").val(this.skin());
+            },
+            'click #add_series': function () {
+                var params = this.current_catsscore_wrapper_content_params.models;
+                var chart = CATS.App.charts[params.chart];
+                var series_params = {};
+                series_params.period = $("#period").val() * 1;
+                series_params.parameter = $("#parameter").val();
+                series_params.aggregation = $("#aggregation").val();
+                series_params.statuses = [];
+                $("input[name='statuses']").map(function(){
+                    if ($(this).is(":checked"))
+                        series_params.statuses.push($(this).val());
+                });
+                series_params.problems = [];
+                $("input[name='problems']").map(function(){
+                    if ($(this).is(":checked"))
+                        series_params.problems.push($(this).val());
+                });
+                series_params.user = $("#user").val();
+                series_params.affiliation = $("#affiliation").val();
+                chart.add_new_series(series_params);
+                $("#catsscore_wrapper").html(this.page(this.skin(), "charts")(this.current_catsscore_wrapper_content_params));
             }
         },
 
@@ -171,7 +193,6 @@ CATS.View = Classify({
                 $("#catsscore_pagination_wrapper").html(pagination);
             }
             $("#catsscore_wrapper").html(this.page(this.skin(), "table_" + contest.scoring)(this.current_catsscore_wrapper_content_params));
-
         },
 
         template: function (name) {
@@ -197,11 +218,15 @@ CATS.View = Classify({
             var available_skins = [];
             for (var i = 0; i < all_skins.length; ++i) {
                 var skin = all_skins[i];
-                if (this.templates.pages.skins[skin][page_name] != undefined)
+                if (this.available_skin_name(skin, page_name))
                     available_skins.push(skin);
             }
 
             return available_skins;
+        },
+
+        available_skin_name: function(skin_name, page_name) {
+            return this.templates.pages.skins[skin_name][page_name] != undefined;
         },
 
         define_skin_stylesheet: function (skin) {
@@ -268,17 +293,21 @@ CATS.View = Classify({
             return {elem_cnt: elem_cnt, max_page: max_page};
         },
 
+        page_have_pagination: function(page_name) {
+            return page_name == 'table' || page_name == 'contests' || page_name == 'history';
+        },
+
         render: function(params){
             var pagination_params = this.define_pagination_params(params);
             var page_name = this.page_name();
             var source = this.source();
             var skin = this.skin();
 
-            if (this.with_css)
-                this.define_skin_stylesheet(skin);
-
             if (page_name == "table")
                 page_name += "_" + CATS.App.result_tables[params.table].scoring;
+
+            if (this.with_css && this.available_skin_name(skin, page_name))
+                this.define_skin_stylesheet(skin);
 
             var header = this.with_header ?
                 this.template("header_" + this.view_state.get("state"))({
@@ -289,8 +318,8 @@ CATS.View = Classify({
                 }) :
                 "";
             var footer = this.with_footer ? this.template("footer")({}) : "";
-            var pagination = this.page_name() == 'chart' ? "" :
-                this.with_pagination ? this.template("pagination")({
+            var pagination = this.page_have_pagination(this.page_name()) && this.with_pagination ?
+                this.template("pagination")({
                     current_page: this.view_state.get('page'),
                     el_per_page: this.view_state.get('el_per_page'),
                     maximum_page: pagination_params.max_page

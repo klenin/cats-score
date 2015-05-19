@@ -65,7 +65,7 @@ var contest = app.contests[contest_id];
     }
 
     for (var i = 0; i < ctx.length; ++i) {
-        new Chart(ctx[i]).Pie(data[i]);
+        new Chart(ctx[i]).Pie(data[i], {animateRotate : false});
     }
 </script>
 <h3>Legend:</h3>

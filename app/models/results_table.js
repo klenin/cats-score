@@ -4,6 +4,7 @@ CATS.Model.Results_table = Classify(CATS.Model.Entity, {
         this.type = "result_table";
         this.contests = [];
         this.contest = null; //united_contest
+        this.chart = null;
         this.scoring = null;
         this.score_board = [];
         this.filters = {
