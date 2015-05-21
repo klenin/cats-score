@@ -1,6 +1,7 @@
 <script>
     $("#parameter").change(function () {
-        $("#run_cnt_params").css("display", $("#parameter").val() == "run_cnt" ? "block" : "none");
+        $(".parameter_params").css("display", "none");
+        $("#" + $("#parameter").val() + "_params").css("display", "block");
     });
 
     var statuses = {
@@ -40,23 +41,25 @@ var contest = app.contests[contest_id];
         <input type="text" size="20" id="period" value="10">
     </div>
     <div>
-        <label>Parameter(not work):</label>
+        <label>Parameter:</label>
         <select id="parameter">
             <option value="run_cnt">run count</option>
-            <option value="points">points</option>
+            <%if (contest.scoring == "school") {%>
+                <option value="points">points</option>
+            <%}%>
             <option value="place">place</option>
         </select>
     </div>
     <div>
-        <label>Aggregation(not work):</label>
+        <label>Aggregation:</label>
         <select id="aggregation">
-            <option>sum</option>
-            <option>average</option>
-            <option>minimum</option>
-            <option>maximum</option>
+            <option value="sum">sum</option>
+            <option value="avg">average</option>
+            <option value="min">minimum</option>
+            <option value="max">maximum</option>
         </select>
     </div>
-    <div id="run_cnt_params">
+    <div class="parameter_params" id="run_cnt_params">
         <div>
             <label>Problem:</label>
             <div>
@@ -75,13 +78,26 @@ var contest = app.contests[contest_id];
             <div id="statuses">
             </div>
         </div>
+
+        <div>
+            <label>User: <input type="text" size="20" id="user" value=".*?"></label>
+        </div>
+        <div>
+            <label>Affiliation: <input type="text" size="20" id="affiliation" value=".*?"></label>
+        </div>
     </div>
-    <div>
-        <label>User: <input type="text" size="20" id="user" value=".*?"></label>
+    <div class="parameter_params" id="points_params">
+        <div>
+            <label>User: <input type="text" size="20" id="user" value=".*?"></label>
+        </div>
     </div>
-    <div>
-        <label>Affiliation: <input type="text" size="20" id="affiliation" value=".*?"></label>
+
+    <div class="parameter_params" id="place_params">
+        <div>
+            <label>Affiliation: <input type="text" size="20" id="affiliation" value=".*?"></label>
+        </div>
     </div>
+
     <div>
         <label>Color(not work):
             <input class="selector" type="radio" name="color"><span style="background:red">red</span>
