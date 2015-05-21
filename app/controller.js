@@ -4,6 +4,7 @@ CATS.Controller = Classify({
         this.adapters = {};
         this.rules = {};
         this.utils = null;
+        this.contest_filters = { name: null }; // TODO: Make this per-adapter?
         //models
         this.users = {};
         this.problems = {};
@@ -105,9 +106,26 @@ CATS.Controller = Classify({
         });
     },
 
+    contest_filter: function (contest_id) {
+        var name = CATS.App.contest_filters.name;
+        return name === null || CATS.App.contests[contest_id].name.match(new RegExp(name));
+    },
+
+    adapter_filter_contests_list: function(adapter_name, callback) {
+        var self = this;
+        var cc = this.adapters[adapter_name].cached_contests;
+        if (cc === undefined)
+            this.adapter_process_contests_list(adapter_name, callback);
+        else
+            callback({ contests: _.filter(cc, self.contest_filter) });
+    },
+
     adapter_process_contests_list: function(adapter_name, callback) {
-        this.adapters[adapter_name].get_contests(function (contests) {
-            callback({contests : contests});
+        var self = this;
+        var adapter = this.adapters[adapter_name];
+        adapter.get_contests(function (contests) {
+            adapter.cached_contests = contests;
+            callback({ contests: _.filter(contests, self.contest_filter) });
         });
     },
 

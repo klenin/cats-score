@@ -126,6 +126,9 @@ CATS.View = Classify({
             'change #role': function () {
                 this.update_rank_table({role: $("#role").val()});
             },
+            'change #name': function () {
+                this.filter_contests_list({ name: $("#name").val() });
+            },
             'change .contest_selector': function (event) {
                 if (!this.with_header)
                     return;
@@ -247,11 +250,15 @@ CATS.View = Classify({
             }, this.view_state.get("contest_id"));
         },
 
+        filter_contests_list: function (filters) {
+            var self = this;
+            $.extend(CATS.App.contest_filters, filters);
+            CATS.App.adapter_filter_contests_list(this.source(), function (param) { self.render(param); });
+        },
+
         refresh_contests_list: function() {
             var self = this;
-            CATS.App.adapter_process_contests_list(this.source(), function (params) {
-                self.render(params);
-            });
+            CATS.App.adapter_process_contests_list(this.source(), function (param) { self.render(param); });
         },
 
         get_table_items_count: function(params) {
@@ -267,11 +274,15 @@ CATS.View = Classify({
 
         get_filters_params: function(params) {
             switch (this.page_name()) {
-                case "table":
+                case 'table':
                     var table = CATS.App.result_tables[params.table];
                     return {
                         contest_duration: CATS.App.contests[table.contests[0]].compute_duration_minutes(),
                         filters: table.filters
+                    };
+                case 'contests':
+                    return {
+                        filters: CATS.App.contest_filters,
                     };
                 default :
                     return {};
@@ -335,7 +346,6 @@ CATS.View = Classify({
                 next_page: this.with_pagination ? this.view_state.get("el_per_page") * (this.view_state.get("page") - 1) : 0,
                 elem_cnt:  this.with_pagination ? this.view_state.get("el_per_page") * 1 : pagination_params.elem_cnt
             };
-
             this.$el.html(
                 "<div id='catsscore_header'>" +
                 header +
