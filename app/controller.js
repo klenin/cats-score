@@ -83,7 +83,6 @@ CATS.Controller = Classify({
             result_table.contests = cont_list;
             var united_contest = new CATS.Model.Contest();
             united_contest.scoring = "acm";
-            var min_start_time = new Date();
             united_contest.name = "";
             for (var i = 0; i < cont_list.length; ++i) {
                 var c = CATS.App.contests[cont_list[i]];
