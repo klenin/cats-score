@@ -90,6 +90,11 @@ CATS.Model.Chart = Classify(CATS.Model.Entity, {
         }
     },
 
+    delete_series: function(idx) {
+        this.series.splice(idx, 1);
+        this.series_colors.splice(idx, 1);
+    },
+
     aggregation_sum: function(arr) {
         return arr.reduce(function(pv, cv) { return pv + cv; }, 0);
     },

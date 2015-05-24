@@ -173,6 +173,13 @@ CATS.View = Classify({
                 series_params.color = $("input[name='color']:checked").val();
                 chart.add_new_series(series_params);
                 $("#catsscore_wrapper").html(this.page(this.skin(), "charts")(this.current_catsscore_wrapper_content_params));
+            },
+
+            'click .delete_series': function (event) {
+                var params = this.current_catsscore_wrapper_content_params.models;
+                var chart = CATS.App.charts[params.chart];
+                chart.delete_series($(event.currentTarget).attr("idx"));
+                $("#catsscore_wrapper").html(this.page(this.skin(), "charts")(this.current_catsscore_wrapper_content_params));
             }
         },
 
