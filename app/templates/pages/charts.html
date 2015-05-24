@@ -21,7 +21,9 @@
        $("#statuses").append('<input class="selector" name="statuses" type="checkbox" value="' + k + '" checked="checked" />' + v);
     });
 
-    $.plot("#plot", <%=JSON.stringify(app.charts[models.chart].series)%>, {xaxes: [{ position: 'bottom' }], yaxes: [
+    $.plot("#plot", <%=JSON.stringify(app.charts[models.chart].series)%>, {
+    xaxes: [{ position: 'bottom' }],
+    yaxes: [
     <%
         for(var i = 0; i < app.charts[models.chart].series.length; ++i) {
     %>
@@ -29,12 +31,15 @@
     <%
         }
     %>
-    ]});
+    ],
+    colors: <%=JSON.stringify(app.charts[models.chart].series_colors)%>
+    });
     $("#parameter").change();
 </script>
 <%
 var contest_id = models.contest;
 var contest = app.contests[contest_id];
+var chart = app.charts[models.chart];
 %>
 <div class="box">
     <div>
@@ -100,10 +105,14 @@ var contest = app.contests[contest_id];
     </div>
 
     <div>
-        <label>Color(not work):
-            <input class="selector" type="radio" name="color"><span style="background:red">red</span>
-            <input class="selector" type="radio" name="color"><span style="background:green">green</span>
-        </label>
+        <label>Color:</label>
+        <%
+        for(var i = 0; i < chart.colors.length; ++i) {
+        %>
+            <input class="selector" type="radio" name="color" value="<%=chart.colors[i]%>"><span style="background:<%=chart.colors[i]%>"><%=chart.colors[i]%></span>
+        <%
+        };
+        %>
     </div>
     <div><button id="add_series">Add</button></div>
 </div>

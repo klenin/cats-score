@@ -4,6 +4,19 @@ CATS.Model.Chart = Classify(CATS.Model.Entity, {
         this.type = "chart";
         this.table = table;
         this.series = [];
+        this.series_colors = [];
+        this.colors = [
+            'green',
+            'black',
+            'blue',
+            'red',
+            'orange',
+            'yellow',
+            'cyan',
+            'magenta',
+            'gray',
+            'violet',
+        ];
     },
 
     add_new_series: function(params) {
@@ -13,7 +26,8 @@ CATS.Model.Chart = Classify(CATS.Model.Entity, {
         var next_time = CATS.App.utils.add_time(start_time, params.period);
         var new_series = [];
         this['add_' + params.parameter + "_series"](tbl, c, start_time, next_time, new_series, params);
-        this.series.push({data: new_series, xaxis: 1, yaxis: this.series.length + 1});
+        this.series.push({label: params.parameter, data: new_series, xaxis: 1, yaxis: this.series.length + 1});
+        this.series_colors.push(params.color != undefined ? params.color : this.colors[this.series_colors.length % this.colors.length]);
     },
 
     add_run_cnt_series: function(tbl, c, start_time, next_time, new_series, params) {

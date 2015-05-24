@@ -170,6 +170,7 @@ CATS.View = Classify({
                 });
                 series_params.user = $("#user").val();
                 series_params.affiliation = $("#affiliation").val();
+                series_params.color = $("input[name='color']:checked").val();
                 chart.add_new_series(series_params);
                 $("#catsscore_wrapper").html(this.page(this.skin(), "charts")(this.current_catsscore_wrapper_content_params));
             }
