@@ -56,20 +56,24 @@ CATS.Model.Chart = Classify(CATS.Model.Entity, {
     },
 
     add_place_series: function(tbl, c, start_time, next_time, new_series, params) {
-        var sb = tbl.score_board;
-        var targets = [];
-        for(var i = 0; i < sb.length; ++i) {
-            var r = sb[i];
-            var user = CATS.App.users[r.user];
-            if (user.some_affiliation().match(new RegExp(params.affiliation)))
-                targets.push(r.place);
-
-            if (CATS.App.utils.get_time_diff(r.start_processing_time, next_time) < 0) {
-                new_series.push([(new_series.length + 1) * params.period, this["aggregation_" + params.aggregation](targets)]);
-                next_time = CATS.App.utils.add_time(next_time, params.period);
+        var next_period = params.period;
+        var duration = CATS.App.contests[tbl.contests[0]].compute_duration_minutes();
+        while(next_period < duration) {
+            var targets = [];
+            tbl.clean_score_board();
+            $.extend(tbl.filters, {duration: {minutes: next_period, type: "history"}});
+            var contest = CATS.App.contests[tbl.contest];
+            CATS.App.rules[contest.scoring].process(contest, tbl);
+            var sb = tbl.score_board;
+            for (var j = 0; j < sb.length; ++j) {
+                var r = sb[j];
+                var user = CATS.App.users[r.user];
+                if (user.some_affiliation().match(new RegExp(params.affiliation)))
+                    targets.push(r.place);
             }
+            next_period += params.period;
+            new_series.push([(new_series.length + 1) * params.period, this["aggregation_" + params.aggregation](targets)]);
         }
-        new_series.push([(new_series.length + 1) * params.period, this["aggregation_" + params.aggregation](targets)]);
     },
 
     aggregation_sum: function(arr) {
