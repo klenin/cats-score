@@ -6,6 +6,7 @@ function cats_score_init(
     chart,
     charts,
     tbl_filter,
+    cnt_filter,
     d_tbl_acm,
     d_tbl_sch,
     d_hist,
@@ -66,6 +67,7 @@ function cats_score_init(
             charts : charts,
             filters : {
                 table: tbl_filter,
+                contests: cnt_filter,
             },
             skins : {
                 default : {

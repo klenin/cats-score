@@ -22,7 +22,7 @@ CATS.Model.Results_table = Classify(CATS.Model.Entity, {
         return {
             place: null,
             user: null,
-            penalty: null,
+            penalty: 0,
             solved_cnt: 0,
             points_cnt: 0,
             problems: []

@@ -101,9 +101,11 @@ CATS.Adapter.Ifmo = Classify({
         return contest;
     },
 
+    url: 'http://neerc.ifmo.ru/',
+
     get_contests: function(callback) {
         var self = this;
-        CATS.App.utils.proxy_get("http://neerc.ifmo.ru/past/index.html", function (page) {
+        CATS.App.utils.cors_get_html(this.url + 'past/index.html', function (page) {
             var contests = [];
             $(page).find('td[class = "neercyear"]').find("a").each(function () {
                 var c = {id: $(this).html().match(/\d+/g)[0], name: $(this).html()};
@@ -116,9 +118,9 @@ CATS.Adapter.Ifmo = Classify({
 
     get_contest: function(callback, contest_id) {
         var self = this;
-        CATS.App.utils.proxy_get("http://neerc.ifmo.ru/past/" + contest_id + "/standings.html", function (page) {
+        CATS.App.utils.cors_get_html(this.url + 'past/' + contest_id + '/standings.html', function (page) {
             callback(page);
-        })
+        });
     },
 
     parse: function(contest_id, result_table, callback) {

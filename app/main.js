@@ -67,6 +67,7 @@ require(['underscore', 'jquery', 'jqueryui'], function () {
                             'text!templates/pages/charts.html',
                             //filters
                             'text!templates/pages/filters/table.html',
+                            'text!templates/pages/filters/contests.html',
                             //skins
                             //default
                             'text!templates/pages/skins/default/table_acm.html',
