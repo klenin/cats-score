@@ -48,7 +48,7 @@ CATS.Controller = Classify({
         this.rules[rule.name] = rule;
     },
 
-    adapter_process_rank_table: function(callback, contest_id) {
+    adapter_process_rank_table: function(callback, contest_id, filters) {
         var contest_list = (contest_id.indexOf(',') != -1) ? contest_id.split(',') : [contest_id];
 
         var cont_list = [];
@@ -95,6 +95,8 @@ CATS.Controller = Classify({
             }
             result_table.scoring = united_contest.scoring;
             result_table.contest = united_contest.id;
+            if (filters != null)
+                result_table.filters = filters;
             CATS.App.rules[united_contest.scoring].process(united_contest, result_table);
             CATS.App.add_object(result_table);
             CATS.App.add_object(united_contest);
@@ -119,9 +121,11 @@ CATS.Controller = Classify({
             callback({ contests: _.filter(cc, self.contest_filter) });
     },
 
-    adapter_process_contests_list: function(adapter_name, callback) {
+    adapter_process_contests_list: function(adapter_name, callback, filters) {
         var self = this;
         var adapter = this.adapters[adapter_name];
+        if (filters != null)
+            CATS.App.contest_filters = filters;
         adapter.get_contests(function (contests) {
             adapter.cached_contests = contests;
             callback({ contests: _.filter(contests, self.contest_filter) });
