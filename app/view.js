@@ -114,20 +114,20 @@ CATS.View = Classify({
             'change #el_per_page': function () {
                 this.view_state.set({el_per_page: $("#el_per_page").val()});
             },
-            'change #contest_minutes': function () {
-                this.update_rank_table({duration: {minutes : $("#contest_minutes").val(), type : $("#restriction_type").val() }});
+            'change #rnk_contest_minutes': function () {
+                this.update_rank_table({duration: {minutes : $("#rnk_contest_minutes").val(), type : $("#rnk_restriction_type").val() }});
             },
-            'change #user': function () {
-                this.update_rank_table({user: $("#user").val()});
+            'change #rnk_user': function () {
+                this.update_rank_table({user: $("#rnk_user").val()});
             },
-            'change #affiliation': function () {
-                this.update_rank_table({affiliation: $("#affiliation").val()});
+            'change #rnk_affiliation': function () {
+                this.update_rank_table({affiliation: $("#rnk_affiliation").val()});
             },
-            'change #role': function () {
-                this.update_rank_table({role: $("#role").val()});
+            'change #rnk_role': function () {
+                this.update_rank_table({role: $("#rnk_role").val()});
             },
-            'change #name': function () {
-                this.filter_contests_list({ name: $("#name").val() });
+            'change #cont_name': function () {
+                this.filter_contests_list({ name: $("#cont_name").val() });
             },
             'change .contest_selector': function (event) {
                 if (!this.with_header)

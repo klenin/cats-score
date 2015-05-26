@@ -5,24 +5,24 @@
         max: <%=contest_duration%>,
         step: 1,
         slide: function( event, ui ) {
-            $("#contest_min").html(ui.value);
-            $("#contest_minutes").val(ui.value);
-            $("#contest_minutes").change();
+            $("#rnk_contest_min").html(ui.value);
+            $("#rnk_contest_minutes").val(ui.value);
+            $("#rnk_contest_minutes").change();
         }
     });
 </script>
 <h2>Table filters:</h2>
 <h3>Contest duration minutes:</h3>
-<input type="hidden" id="contest_minutes" value="<%=contest_duration%>" />
-Duration <span id="contest_min"><%=filters.duration.minutes != null ? filters.duration.minutes : contest_duration%></span> minutes,
-<label for="restriction_type">restriction type: </label>
-<select id="restriction_type">
+<input type="hidden" id="rnk_contest_minutes" value="<%=contest_duration%>" />
+Duration <span id="rnk_contest_min"><%=filters.duration.minutes != null ? filters.duration.minutes : contest_duration%></span> minutes,
+<label for="rnk_restriction_type">restriction type: </label>
+<select id="rnk_restriction_type">
     <option value="history">history</option>
     <option value="scoreboard">scoreboard</option>
 </select>
 <div id="contest_slider"></div>
 <h3>Restrictions:</h3>
-<label for="user">User: </label><input id="user" value="<%=filters.user != null ? filters.user : '.*?'%>" />
-<label for="affiliation">Affiliation: </label><input id="affiliation" value="<%=filters.affiliation != null ? filters.affiliation : '.*?'%>" />
-<label for="role">Role: </label><input id="role" value="<%=filters.role != null ? filters.role : '.*?'%>" />
+<label for="rnk_user">User: </label><input id="rnk_user" value="<%=filters.user != null ? filters.user : '.*?'%>" />
+<label for="rnk_affiliation">Affiliation: </label><input id="rnk_affiliation" value="<%=filters.affiliation != null ? filters.affiliation : '.*?'%>" />
+<label for="rnk_role">Role: </label><input id="rnk_role" value="<%=filters.role != null ? filters.role : '.*?'%>" />
 <br /><br /><br />
