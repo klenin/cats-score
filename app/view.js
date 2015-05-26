@@ -123,7 +123,7 @@ CATS.View = Classify({
 
         events: {
             'change #page_name': function () {
-                this.page_name($("#page_name").val());
+                this.view_state.set({page_name: $("#page_name").val(), settings: null});
             },
             'change #source': function () {
                 this.source($("#source").val());
