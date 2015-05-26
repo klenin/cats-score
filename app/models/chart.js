@@ -19,6 +19,15 @@ CATS.Model.Chart = Classify(CATS.Model.Entity, {
         ];
     },
 
+    settings: function(settings) {
+        if (settings != undefined) {
+            this.series = settings.series;
+            this.series_colors = settings.series_colors;
+        }
+
+        return {series : this.series, series_colors : this.series_colors};
+    },
+
     add_new_series: function(params) {
         var tbl = CATS.App.result_tables[this.table];
         var c = CATS.App.contests[tbl.contest];

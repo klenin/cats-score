@@ -193,6 +193,7 @@ CATS.View = Classify({
                 series_params.color = $("input[name='color']:checked").val();
                 chart.add_new_series(series_params);
                 $("#catsscore_wrapper").html(this.page(this.skin(), "charts")(this.current_catsscore_wrapper_content_params));
+                this.update_url_settings({chart: chart.settings()});
             },
 
             'click .delete_series': function (event) {
@@ -200,6 +201,7 @@ CATS.View = Classify({
                 var chart = CATS.App.charts[params.chart];
                 chart.delete_series($(event.currentTarget).attr("idx"));
                 $("#catsscore_wrapper").html(this.page(this.skin(), "charts")(this.current_catsscore_wrapper_content_params));
+                this.update_url_settings({chart: chart.settings()});
             }
         },
 
@@ -224,7 +226,7 @@ CATS.View = Classify({
                 $("#catsscore_pagination_wrapper").html(pagination);
             }
             $("#catsscore_wrapper").html(this.page(this.skin(), "table_" + contest.scoring)(this.current_catsscore_wrapper_content_params));
-            this.update_url_settings(result_table.filters);
+            this.update_url_settings({table: result_table.filters});
         },
 
         update_url_settings: function (settings) {
@@ -287,7 +289,7 @@ CATS.View = Classify({
         filter_contests_list: function (filters) {
             var self = this;
             $.extend(CATS.App.contest_filters, filters);
-            this.update_url_settings(CATS.App.contest_filters);
+            this.update_url_settings({contests: CATS.App.contest_filters});
             CATS.App.adapter_filter_contests_list(this.source(), function (param) { self.render(param); });
         },
 

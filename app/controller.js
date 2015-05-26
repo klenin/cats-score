@@ -48,7 +48,7 @@ CATS.Controller = Classify({
         this.rules[rule.name] = rule;
     },
 
-    adapter_process_rank_table: function(callback, contest_id, filters) {
+    adapter_process_rank_table: function(callback, contest_id, settings) {
         var contest_list = (contest_id.indexOf(',') != -1) ? contest_id.split(',') : [contest_id];
 
         var cont_list = [];
@@ -95,12 +95,14 @@ CATS.Controller = Classify({
             }
             result_table.scoring = united_contest.scoring;
             result_table.contest = united_contest.id;
-            if (filters != null)
-                result_table.filters = filters;
+            if (settings != null && settings.table != undefined)
+                result_table.filters = filters.table;
             CATS.App.rules[united_contest.scoring].process(united_contest, result_table);
             CATS.App.add_object(result_table);
             CATS.App.add_object(united_contest);
             var chart = new CATS.Model.Chart(result_table.id);
+            if (settings != null && settings.chart != undefined)
+                chart.settings(settings.chart);
             CATS.App.add_object(chart);
             result_table.chart = chart.id;
             callback({chart: chart.id, contest: united_contest.id, table: result_table.id});
@@ -121,11 +123,11 @@ CATS.Controller = Classify({
             callback({ contests: _.filter(cc, self.contest_filter) });
     },
 
-    adapter_process_contests_list: function(adapter_name, callback, filters) {
+    adapter_process_contests_list: function(adapter_name, callback, settings) {
         var self = this;
         var adapter = this.adapters[adapter_name];
-        if (filters != null)
-            CATS.App.contest_filters = filters;
+        if (settings != null && settings.contests != undefined)
+            CATS.App.contest_filters = settings.contests;
         adapter.get_contests(function (contests) {
             adapter.cached_contests = contests;
             callback({ contests: _.filter(contests, self.contest_filter) });
