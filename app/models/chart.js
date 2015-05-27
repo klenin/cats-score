@@ -20,6 +20,19 @@ CATS.Model.Chart = Classify(CATS.Model.Entity, {
         this.series_id_generator = 0;
     },
 
+    statuses: {
+        accepted: 'OK',
+        wrong_answer: 'WA',
+        presentation_error: 'PE',
+        time_limit_exceeded: 'TL',
+        runtime_error: 'RE',
+        compilation_error: 'CE',
+        security_violation: 'SV',
+        memory_limit_exceeded: 'ML',
+        ignore_submit: 'IS',
+        idleness_limit_exceeded: 'IL',
+    },
+
     settings: function(settings) {
         var self = this;
         if (settings != undefined) {

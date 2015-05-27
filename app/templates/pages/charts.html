@@ -4,23 +4,6 @@
         $("#" + $("#parameter").val() + "_params").css("display", "block");
     });
 
-    var statuses = {
-        'accepted': 'OK',
-        'wrong_answer': 'WA',
-        'presentation_error': 'PE',
-        'time_limit_exceeded': 'TL',
-        'runtime_error': 'RE',
-        'compilation_error': 'CE',
-        'security_violation': 'SV',
-        'memory_limit_exceeded': 'ML',
-        'ignore_submit': 'IS',
-        'idleness_limit_exceeded': 'IL',
-    };
-
-    $.each(statuses, function (k, v) {
-       $("#statuses").append('<input class="selector" name="statuses" type="checkbox" value="' + k + '" checked="checked" />' + v);
-    });
-
     $.plot("#plot", <%=JSON.stringify(app.charts[models.chart].series)%>, {
     xaxes: [{ position: 'bottom' }],
     yaxes: [
@@ -33,7 +16,7 @@
     %>
     ],
     legend: {
-        labelFormatter: function(label, series){
+        labelFormatter: function(label, series) {
           return label + ' <a class="delete_series" data-series="' + series.id + '" href="#" onClick="return false;"> del</a>';
         }
     }
@@ -79,13 +62,20 @@ var chart = app.charts[models.chart];
             %>
                 <input class="selector" type="checkbox" name="problems" checked="checked" value="<%=prs[i]%>" /><strong><%=app.problems[prs[i]].code%></strong>(<%=app.problems[prs[i]].name%>)
             <%
-            };
+            }
             %>
             </div>
         </div>
         <div>
             <label>Result:</label>
             <div id="statuses">
+            <%
+            for(var s in chart.statuses) {
+            %>
+                <label><input class="selector" name="statuses" type="checkbox" value="<%=s%>" checked="checked" title="<%=s%>"/><%=chart.statuses[s]%></label>
+            <%
+            }
+            %>
             </div>
         </div>
 
