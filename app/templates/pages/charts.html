@@ -32,7 +32,6 @@
         }
     %>
     ],
-    colors: <%=JSON.stringify(app.charts[models.chart].series_colors)%>,
     legend: {
         labelFormatter: function(label, series){
           return label + ' <a class="delete_series" data-series="' + series.id + '" href="#" onClick="return false;"> del</a>';
