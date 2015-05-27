@@ -199,7 +199,7 @@ CATS.View = Classify({
             'click .delete_series': function (event) {
                 var params = this.current_catsscore_wrapper_content_params.models;
                 var chart = CATS.App.charts[params.chart];
-                chart.delete_series($(event.currentTarget).attr("idx"));
+                chart.delete_series($(event.currentTarget).data('series'));
                 $("#catsscore_wrapper").html(this.page(this.skin(), "charts")(this.current_catsscore_wrapper_content_params));
                 this.update_url_settings({chart: chart.settings()});
             }

@@ -17,6 +17,7 @@ CATS.Model.Chart = Classify(CATS.Model.Entity, {
             'gray',
             'violet',
         ];
+        this.series_id_generator = 0;
     },
 
     settings: function(settings) {
@@ -35,7 +36,13 @@ CATS.Model.Chart = Classify(CATS.Model.Entity, {
         var next_time = CATS.App.utils.add_time(start_time, params.period);
         var new_series = [];
         this['add_' + params.parameter + "_series"](tbl, c, start_time, next_time, new_series, params);
-        this.series.push({label: params.parameter, data: new_series, xaxis: 1, yaxis: this.series.length + 1});
+        this.series.push({
+            label: params.parameter,
+            data: new_series,
+            xaxis: 1,
+            yaxis: this.series.length + 1,
+            id: ++this.series_id_generator,
+        });
         this.series_colors.push(params.color != undefined ? params.color : this.colors[this.series_colors.length % this.colors.length]);
     },
 
@@ -99,7 +106,8 @@ CATS.Model.Chart = Classify(CATS.Model.Entity, {
         }
     },
 
-    delete_series: function(idx) {
+    delete_series: function(seriesId) {
+        var idx = _.findIndex(this.series, function (s) { return s.id === seriesId; });
         this.series.splice(idx, 1);
         this.series_colors.splice(idx, 1);
     },
