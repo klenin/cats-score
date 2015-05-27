@@ -4,6 +4,7 @@ CATS.Model.Chart = Classify(CATS.Model.Entity, {
         this.type = "chart";
         this.table = table;
         this.series = [];
+        this.series_params = [];
         this.colors = [
             'green',
             'black',
@@ -20,13 +21,18 @@ CATS.Model.Chart = Classify(CATS.Model.Entity, {
     },
 
     settings: function(settings) {
+        var self = this;
         if (settings != undefined) {
-            this.series = settings.series;
+            this.series = [];
+            this.series_params = [];
+            this.series = [];
+            _.each(settings, function (v) { self.add_new_series(v); });
         }
-        return {series : this.series};
+        return this.series_params;
     },
 
     add_new_series: function(params) {
+        this.series_params.push(params);
         var tbl = CATS.App.result_tables[this.table];
         var c = CATS.App.contests[tbl.contest];
         var start_time = CATS.App.contests[tbl.contests[0]].start_time;
@@ -106,6 +112,7 @@ CATS.Model.Chart = Classify(CATS.Model.Entity, {
     delete_series: function(seriesId) {
         var idx = _.findIndex(this.series, function (s) { return s.id === seriesId; });
         this.series.splice(idx, 1);
+        this.series_params.splice(idx, 1);
     },
 
     aggregation_sum: function(arr) {
