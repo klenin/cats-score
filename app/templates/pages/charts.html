@@ -72,7 +72,7 @@ var chart = app.charts[models.chart];
             <%
             for(var s in chart.statuses) {
             %>
-                <label><input class="selector" name="statuses" type="checkbox" value="<%=s%>" checked="checked" title="<%=s%>"/><%=chart.statuses[s]%></label>
+                <label><input class="selector" name="statuses" type="checkbox" value="<%=s%>" checked="checked" title="<%=chart.statuses[s]%>"/><%=s%></label>
             <%
             }
             %>

@@ -21,16 +21,29 @@ CATS.Model.Chart = Classify(CATS.Model.Entity, {
     },
 
     statuses: {
-        accepted: 'OK',
-        wrong_answer: 'WA',
-        presentation_error: 'PE',
-        time_limit_exceeded: 'TL',
-        runtime_error: 'RE',
-        compilation_error: 'CE',
-        security_violation: 'SV',
-        memory_limit_exceeded: 'ML',
-        ignore_submit: 'IS',
-        idleness_limit_exceeded: 'IL',
+        OK: 'accepted',
+        WA: 'wrong_answer',
+        PE: 'presentation_error',
+        TL: 'time_limit_exceeded',
+        RE: 'runtime_error',
+        CE: 'compilation_error',
+        SV: 'security_violation',
+        ML: 'memory_limit_exceeded',
+        IS: 'ignore_submit',
+        IL: 'idleness_limit_exceeded',
+    },
+
+    params_pack: function (p) {
+        var result = _.clone(p);
+        if (result.statuses.length === _.keys(this.statuses).length)
+            delete result.statuses;
+        return result;
+    },
+
+    params_unpack: function (p) {
+        var result = _.clone(p);
+        result.statuses = p.statuses ? p.statuses : _.keys(this.statuses);
+        return result;
     },
 
     settings: function(settings) {
@@ -39,9 +52,9 @@ CATS.Model.Chart = Classify(CATS.Model.Entity, {
             this.series = [];
             this.series_params = [];
             this.series = [];
-            _.each(settings, function (v) { self.add_new_series(v); });
+            _.each(settings, function (v) { self.add_new_series(self.params_unpack(v)); });
         }
-        return this.series_params;
+        return _.map(this.series_params, function (v) { return self.params_pack(v); });
     },
 
     add_new_series: function(params) {
@@ -65,11 +78,13 @@ CATS.Model.Chart = Classify(CATS.Model.Entity, {
     add_run_cnt_series: function(tbl, c, start_time, next_time, new_series, params) {
         var runs = c.runs;
         var targets = [];
+        var self = this;
+        var statuses = _.countBy(params.statuses, function (s) { return self.statuses[s]; });
         for(var i = 0; i < runs.length; ++i) {
             var r = CATS.App.runs[runs[i]];
             var user = CATS.App.users[r.user];
             if (
-                params.statuses.indexOf(r.status) != -1 &&
+                statuses[r.status] &&
                 params.problems.indexOf(r.problem) != -1 &&
                 user.some_affiliation().match(new RegExp(params.affiliation)) &&
                 user.name.match(new RegExp(params.user))
