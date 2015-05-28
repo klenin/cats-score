@@ -33,16 +33,24 @@ CATS.Model.Chart = Classify(CATS.Model.Entity, {
         IL: 'idleness_limit_exceeded',
     },
 
+    get_contest: function () {
+        var t = CATS.App.result_tables[this.table];
+        return CATS.App.contests[t.contest];
+    },
+
     params_pack: function (p) {
         var result = _.clone(p);
         if (result.statuses.length === _.keys(this.statuses).length)
             delete result.statuses;
+        if (result.problems.length === this.get_contest().problems.length)
+            delete result.problems;
         return result;
     },
 
     params_unpack: function (p) {
         var result = _.clone(p);
         result.statuses = p.statuses ? p.statuses : _.keys(this.statuses);
+        result.problems = p.problems ? p.problems : this.get_contest().problems;
         return result;
     },
 
@@ -80,12 +88,13 @@ CATS.Model.Chart = Classify(CATS.Model.Entity, {
         var targets = [];
         var self = this;
         var statuses = _.countBy(params.statuses, function (s) { return self.statuses[s]; });
+        var problems = _.countBy(params.problems, _.identity);
         for(var i = 0; i < runs.length; ++i) {
             var r = CATS.App.runs[runs[i]];
             var user = CATS.App.users[r.user];
             if (
                 statuses[r.status] &&
-                params.problems.indexOf(r.problem) != -1 &&
+                problems[r.problem] &&
                 user.some_affiliation().match(new RegExp(params.affiliation)) &&
                 user.name.match(new RegExp(params.user))
             )
