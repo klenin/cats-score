@@ -175,19 +175,11 @@ CATS.View = Classify({
                 var params = this.current_catsscore_wrapper_content_params.models;
                 var chart = CATS.App.charts[params.chart];
                 var series_params = {};
-                series_params.period = $("#period").val() * 1;
+                series_params.period = 1*$("#period").val();
                 series_params.parameter = $("#parameter").val();
                 series_params.aggregation = $("#aggregation").val();
-                series_params.statuses = [];
-                $("input[name='statuses']").map(function(){
-                    if ($(this).is(":checked"))
-                        series_params.statuses.push($(this).val());
-                });
-                series_params.problems = [];
-                $("input[name='problems']").map(function(){
-                    if ($(this).is(":checked"))
-                        series_params.problems.push($(this).val());
-                });
+                series_params.statuses = $('input[name="statuses"]:checked').map(function() { return $(this).val(); }).get();
+                series_params.problems = $('input[name="problems"]:checked').map(function() { return 1*$(this).val(); }).get();
                 series_params.user = $("#user").val();
                 series_params.affiliation = $("#affiliation").val();
                 series_params.color = $("input[name='color']:checked").val();
