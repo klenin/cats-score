@@ -96,7 +96,7 @@ CATS.Controller = Classify({
             result_table.scoring = united_contest.scoring;
             result_table.contest = united_contest.id;
             if (settings != null && settings.table != undefined)
-                result_table.filters = filters.table;
+                result_table.filters = settings.table;
             CATS.App.rules[united_contest.scoring].process(united_contest, result_table);
             CATS.App.add_object(result_table);
             CATS.App.add_object(united_contest);
