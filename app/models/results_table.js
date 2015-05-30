@@ -37,7 +37,7 @@ CATS.Model.Results_table = Classify(CATS.Model.Entity, {
             runs_cnt: null,
             last_run_time : null,
             best_run_time : null,
-            points : null
+            points : 0
         };
     },
 
