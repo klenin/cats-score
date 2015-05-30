@@ -27,8 +27,8 @@ CATS.View = Classify({
         },
 
         routes: {
-            "!show_contests_list/:source/:skin(/?lang=:lang)(/?page=:page)(/?el_per_page=:el_per_page)(/?settings=:settings)": "show_contests_list",
-            "!show_rank_table/:page_name/:skin/:contestid(/?lang=:lang)(/?page=:page)(/?el_per_page=:el_per_page)(/?settings=:settings)": "show_rank_table",
+            "!show_contests_list/:source/:skin(/lang=:lang)(/page=:page)(/el_per_page=:el_per_page)(/settings=:settings)": "show_contests_list",
+            "!show_rank_table/:page_name/:skin/:contestid(/lang=:lang)(/page=:page)(/el_per_page=:el_per_page)(/settings=:settings)": "show_rank_table",
         },
 
         show_contests_list: function (source, skin, lang, page, el_per_page, settings) {
@@ -78,10 +78,10 @@ CATS.View = Classify({
                     break;
             }
             url +=
-                (this.view_state.get("lang") != null ? "/?lang=" + this.view_state.get("lang") : "") +
-                (this.view_state.get("page") != null ? "/?page=" + this.view_state.get("page") : "") +
-                (this.view_state.get("el_per_page") != null ? "/?el_per_page=" + this.view_state.get("el_per_page") : "") +
-                (this.view_state.get("settings") != null ? "/?settings=" + JSON.stringify(this.view_state.get("settings")) : "");
+                (this.view_state.get("lang") != null ? "/lang=" + this.view_state.get("lang") : "") +
+                (this.view_state.get("page") != null ? "/page=" + this.view_state.get("page") : "") +
+                (this.view_state.get("el_per_page") != null ? "/el_per_page=" + this.view_state.get("el_per_page") : "") +
+                (this.view_state.get("settings") != null ? "/settings=" + JSON.stringify(this.view_state.get("settings")) : "");
 
             return url;
         },
