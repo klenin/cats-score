@@ -92,6 +92,14 @@ CATS.Controller = Classify({
                 united_contest.problems = united_contest.problems.concat(c.problems);
                 united_contest.users = _.uniq(united_contest.users.concat(c.users));
                 united_contest.name += c.name + ", ";
+                if (united_contest.start_time == null) {
+                    united_contest.start_time = c.start_time;
+                    united_contest.finish_time = c.finish_time;
+                }
+                else {
+                    united_contest.start_time = Math.min(united_contest.start_time, c.start_time);
+                    united_contest.finish_time = Math.max(united_contest.finish_time, c.finish_time);
+                }
             }
             result_table.scoring = united_contest.scoring;
             result_table.contest = united_contest.id;
