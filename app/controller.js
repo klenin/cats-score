@@ -102,13 +102,13 @@ CATS.Controller = Classify({
                     united_contest.finish_time = Math.max(united_contest.finish_time, c.finish_time);
                 }
             }
+            CATS.App.add_object(united_contest);
             result_table.scoring = united_contest.scoring;
             result_table.contest = united_contest.id;
             if (settings != null && settings.table != undefined)
                 result_table.filters = settings.table;
             CATS.App.rules[united_contest.scoring].process(united_contest, result_table);
             CATS.App.add_object(result_table);
-            CATS.App.add_object(united_contest);
             var chart = new CATS.Model.Chart(result_table.id);
             if (settings != null && settings.chart != undefined)
                 chart.settings(settings.chart);
