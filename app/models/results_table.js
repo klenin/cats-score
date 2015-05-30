@@ -111,18 +111,15 @@ CATS.Model.Results_table = Classify(CATS.Model.Entity, {
 
     get_empty_problems_field: function () {
         var empty_problems_field = [];
-        var idx = 0;
-        for(var i = 0; i < this.contests.length; ++i) {
-            var contest = CATS.App.contests[this.contests[i]];
-            var prob_cnt = contest.problems.length;
-            for (var j = 0; j < prob_cnt; ++j) {
-                empty_problems_field[idx] = this.get_empty_problem_for_score_board_row();
-                empty_problems_field[idx]['is_solved'] = false;
-                empty_problems_field[idx]['runs_cnt'] = 0;
-                empty_problems_field[idx]['points'] = 0;
-                empty_problems_field[idx]['problem'] = contest.problems[j];
-                idx++;
-            }
+
+        var contest = CATS.App.contests[this.contest];
+        var prob_cnt = contest.problems.length;
+        for (var j = 0; j < prob_cnt; ++j) {
+            empty_problems_field[j] = this.get_empty_problem_for_score_board_row();
+            empty_problems_field[j]['is_solved'] = false;
+            empty_problems_field[j]['runs_cnt'] = 0;
+            empty_problems_field[j]['points'] = 0;
+            empty_problems_field[j]['problem'] = contest.problems[j];
         }
 
         return empty_problems_field;

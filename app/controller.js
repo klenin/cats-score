@@ -72,6 +72,7 @@ CATS.Controller = Classify({
             self.adapters[cont_adapter].parse(cont_id, result_table, function () {
                 var contest = CATS.App.contests[cont_id];
                 result_table.contest = cont_id;
+                result_table.contests = [cont_id];
                 CATS.App.rules[contest.scoring].process(contest, result_table);
                 d.resolve();
             });
