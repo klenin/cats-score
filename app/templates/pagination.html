@@ -1,12 +1,12 @@
 <script>
 $('.pagination').jqPagination({
-    max_page	: <%=maximum_page%>,
+    max_page    : <%=maximum_page%>,
     current_page: <%=current_page%>,
-    paged		: function(page) {
+    paged       : function(page) {
         var url = window.location.hash;
         window.location.hash = url.match("page=") ?
             url.replace(/page=\d*/, "page=" + page) :
-            url + "/?page=" + page;
+            url + "/page=" + page;
     }
 });
 
