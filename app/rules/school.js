@@ -1,4 +1,4 @@
-CATS.Rule.School = Classify({
+CATS.Rule.School = Classify(CATS.Rule.Base, {
 
     init: function (model) {
         this.name = 'school';
@@ -23,21 +23,13 @@ CATS.Rule.School = Classify({
         });
     },
 
-    compute_table: function (result_table, contest) {
+    compute_table_add_runs: function (result_table, contest, runs) {
         var teams_problems = {}, teams = {};
 
-        _.each(contest.runs, function (run_id) {
-            var run = CATS.App.runs[run_id];
-            if (
-                result_table.filters.duration.type === 'history' &&
-                result_table.filters.duration.minutes != null &&
-                run.minutes_since_start() > result_table.filters.duration.minutes
-            )
-                return;
-
+        _.each(runs, function (run) {
             var team_id = run.user;
             if (teams_problems[team_id] === undefined) {
-                teams[team_id] = { penalty: 0, solved_cnt: 0 };
+                teams[team_id] = { solved_cnt: 0 };
                 teams_problems[team_id] = result_table.get_empty_problems_field();
             }
 
@@ -72,10 +64,4 @@ CATS.Rule.School = Classify({
         result_table.apply_filters();
     },
 
-    process: function (contest, result_table) {
-        if (contest.runs.length == 0 && result_table.score_board.length > 0)
-            this.compute_history(result_table, contest);
-        else if (contest.runs.length > 0 && result_table.score_board.length == 0)
-            this.compute_table(result_table, contest);
-    }
 });
