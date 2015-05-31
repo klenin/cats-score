@@ -47,6 +47,7 @@ require(['underscore', 'jquery', 'jqueryui'], function () {
                         'adapters/cats_xml_hist',
                         'adapters/cats_rank_table',
                         'adapters/ifmo',
+                        'adapters/ifmo_xml',
                         'adapters/codeforces',
                         'adapters/myicpc',
                         'adapters/aizu',
