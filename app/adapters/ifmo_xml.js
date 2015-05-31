@@ -6,7 +6,6 @@ CATS.Adapter.Ifmo_xml = Classify(CATS.Adapter.Ifmo, {
             this.page = page;
 
         this.name = 'ifmo_xml';
-        this.minimal_year = 2011;
     },
 
     parse_history : function(contest_id, result_table) {
@@ -17,29 +16,30 @@ CATS.Adapter.Ifmo_xml = Classify(CATS.Adapter.Ifmo, {
         if (contest == undefined)
             contest = this.add_contest({id: contest_id, name: 'NEERC ' + contest_id});
 
-        $(page).find('standings').find('contest').each(function () {
+        $(page).children('standings').children('contest').each(function () {
             var row = {};
-            $(this).find('challenge').find('problem').each(function() {
+            $(this).children('challenge').children('problem').each(function() {
                 var prob = new CATS.Model.Problem();
                 prob.name = prob.id = $(this).attr('name');
                 prob.code = $(this).attr('alias');
                 CATS.App.add_object(prob);
                 contest.add_object(prob);
             });
-            $(this).find('session').each(function() {
+            $(this).children('session').each(function() {
                 var user = new CATS.Model.User();
                 user.name = $(this).attr('party');
                 user.id = $(this).attr('id');
                 CATS.App.add_object(user);
                 contest.add_object(user);
-                $(this).find('problem').each(function() {
+
+                $(this).children('problem').each(function() {
                     var problem_id = CATS.App.get_problem_by_code($(this).attr('alias')).id;
-                    $(this).find('run').each(function() {
+                    $(this).children('run').each(function() {
                         var run = new CATS.Model.Run();
                         run.problem = problem_id;
                         run.user = user.id;
                         run.contest = contest_id;
-                        run.status = $(this).attr('accepted') == 'yes' ? 'accepted' : 'wrong_answer';
+                        run.status = $(this).attr('accepted') === 'yes' ? 'accepted' : 'wrong_answer';
                         run.start_processing_time = CATS.App.utils.add_time(contest.start_time, Math.floor($(this).attr('time') / 60000));
                         CATS.App.add_object(run);
                         contest.add_object(run);
@@ -50,10 +50,10 @@ CATS.Adapter.Ifmo_xml = Classify(CATS.Adapter.Ifmo, {
         });
     },
 
+    minimal_year: 2011,
+
     get_contest: function(callback, contest_id) {
-        CATS.App.utils.cors_get_xml(this.url + 'past/' + contest_id + '/northern/north-' + contest_id + '-standings.xml', function (page) {
-            callback(page);
-        });
+        CATS.App.utils.cors_get_xml(this.url + 'past/' + contest_id + '/northern/north-' + contest_id + '-standings.xml', callback);
     },
 
     parse: function(contest_id, result_table, callback) {
