@@ -21,5 +21,13 @@ CATS.Model.Run = Classify(CATS.Model.Event, {
         this.ip = null;
         //tests: [...TODO]
         this.consumed = null;//?: { time: seconds, memory: bytes }
-    }
+    },
+
+    minutes_since_start: function () {
+        if (this.minutes_since_start_cache === undefined)
+            this.minutes_since_start_cache =
+                (this.start_processing_time - CATS.App.contests[this.contest].start_time) / (1000 * 60);
+        return this.minutes_since_start_cache;
+    },
+
 });

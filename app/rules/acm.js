@@ -40,7 +40,7 @@ CATS.Rule.Acm = Classify({
             if (
                 result_table.filters.duration.type == 'history' &&
                 result_table.filters.duration.minutes != null &&
-                CATS.App.utils.get_time_diff(CATS.App.contests[row.contest].start_time, row['start_processing_time']) > result_table.filters.duration.minutes
+                run.minutes_since_start() > result_table.filters.duration.minutes
             )
                 return;
 
