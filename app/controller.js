@@ -90,6 +90,7 @@ CATS.Controller = Classify({
                 if (c.scoring == "school") //суммируются турниры разных правил, выбирем школьные
                     united_contest.scoring = "school";
                 united_contest.runs = _.uniq(united_contest.runs.concat(c.runs));
+                united_contest.sort_runs();
                 united_contest.problems = united_contest.problems.concat(c.problems);
                 united_contest.users = _.uniq(united_contest.users.concat(c.users));
                 united_contest.name += c.name + ", ";

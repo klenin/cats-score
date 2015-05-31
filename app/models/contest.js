@@ -25,6 +25,12 @@ CATS.Model.Contest = Classify(CATS.Model.Entity, {
             this[obj.type + "s"].push(obj.id);
     },
 
+    sort_runs: function () {
+        this.runs.sort(function (a, b) {
+            return CATS.App.runs[a].start_processing_time - CATS.App.runs[b].start_processing_time;
+        });
+    },
+
     get_problem_index: function (p_id) {
         for(var i = 0; i < this.problems.length; ++i)
             if (this.problems[i] == p_id)

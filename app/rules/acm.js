@@ -27,6 +27,7 @@ CATS.Rule.Acm = Classify({
                 }
             });
         });
+        contest.sort_runs();
     },
 
     compute_table: function (result_table, contest) {
