@@ -12,7 +12,8 @@ CATS.Rule.Acm = Classify({
                 for (var i = 0; i < v['runs_cnt']; ++i) {
                     var run = CATS.Model.Run();
                     run['problem'] = v['problem'];
-                    run['start_processing_time'] = CATS.App.utils.add_time(contest_start_time, Math.round(contest.compute_duration_minutes() / 2));
+                    var d = Math.round((v['best_run_time'] ? v['best_run_time'] : contest.compute_duration_minutes()) / 2);
+                    run['start_processing_time'] = CATS.App.utils.add_time(contest_start_time, d);
                     run['user'] = row['user'];
                     run['contest'] = contest.id;
 
