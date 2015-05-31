@@ -67,15 +67,10 @@ CATS.Model.Chart = Classify(CATS.Model.Entity, {
 
     add_new_series: function(params) {
         this.series_params.push(params);
-        var tbl = CATS.App.result_tables[this.table];
-        var c = CATS.App.contests[tbl.contest];
-        var start_time = CATS.App.contests[tbl.contests[0]].start_time;
-        var next_time = CATS.App.utils.add_time(start_time, params.period);
-        var new_series = [];
-        this['add_' + params.parameter + "_series"](tbl, c, start_time, next_time, new_series, params);
         this.series.push({
             label: params.parameter,
-            data: new_series,
+            data: this.aggregate(
+                params.parameter === 'place' ? this.place_data(params) : this.simple_data(params), params),
             color: params.color != undefined ? params.color : this.colors[this.series.length % this.colors.length],
             xaxis: 1,
             yaxis: this.series.length + 1,
@@ -83,67 +78,59 @@ CATS.Model.Chart = Classify(CATS.Model.Entity, {
         });
     },
 
-    add_run_cnt_series: function(tbl, c, start_time, next_time, new_series, params) {
-        var runs = c.runs;
-        var targets = [];
+    runs_to_values: {
+        run_cnt: function (runs) { return _.map(runs, function () { return 1; }); },
+        points: function (runs) { return _.map(runs, function (r) { return r.points; }); },
+        place: function (runs) { return _.map(runs, function (r) { return r.place; }); },
+    },
+
+    aggregate: function(chain, params) {
+        var self = this;
+        return chain.map(function(runs, period_idx) {
+            return [ period_idx * params.period,
+                self.aggregation[params.aggregation](self.runs_to_values[params.parameter](runs)) ];
+        }).value();
+    },
+
+    simple_data: function(params) {
         var self = this;
         var statuses = _.countBy(params.statuses, function (s) { return self.statuses[s]; });
         var problems = _.countBy(params.problems, _.identity);
-        for(var i = 0; i < runs.length; ++i) {
-            var r = CATS.App.runs[runs[i]];
-            var user = CATS.App.users[r.user];
-            if (
-                statuses[r.status] &&
-                problems[r.problem] &&
-                user.some_affiliation().match(new RegExp(params.affiliation)) &&
-                user.name.match(new RegExp(params.user))
-            )
-                targets.push(1);
-
-            if (CATS.App.utils.get_time_diff(r.start_processing_time, next_time) < 0) {
-                new_series.push([(new_series.length + 1) * params.period, this["aggregation_" + params.aggregation](targets)]);
-                next_time = CATS.App.utils.add_time(next_time, params.period);
-            }
-        }
-        new_series.push([(new_series.length + 1) * params.period, this["aggregation_" + params.aggregation](targets)]);
-    },
-
-    add_points_series: function(tbl, c, start_time, next_time, new_series, params) {
-        var runs = c.runs;
-        var targets = [];
-        for(var i = 0; i < runs.length; ++i) {
-            var r = CATS.App.runs[runs[i]];
-            var user = CATS.App.users[r.user];
-            if (user.name.match(new RegExp(params.user)))
-                targets.push(r.points);
-
-            if (CATS.App.utils.get_time_diff(r.start_processing_time, next_time) < 0) {
-                new_series.push([(new_series.length + 1) * params.period, this["aggregation_" + params.aggregation](targets)]);
-                next_time = CATS.App.utils.add_time(next_time, params.period);
-            }
-        }
-        new_series.push([(new_series.length + 1) * params.period, this["aggregation_" + params.aggregation](targets)]);
-    },
-
-    add_place_series: function(tbl, c, start_time, next_time, new_series, params) {
-        var next_period = params.period;
-        var duration = CATS.App.contests[tbl.contests[0]].compute_duration_minutes();
-        while(next_period < duration) {
-            var targets = [];
-            tbl.clean_score_board();
-            $.extend(tbl.filters, {duration: {minutes: next_period, type: "history"}});
-            var contest = CATS.App.contests[tbl.contest];
-            CATS.App.rules[contest.scoring].process(contest, tbl);
-            var sb = tbl.score_board;
-            for (var j = 0; j < sb.length; ++j) {
-                var r = sb[j];
+        var affiliation_regexp = new RegExp(params.affiliation);
+        var user_regexp = new RegExp(params.user);
+        var contest = this.get_contest();
+        return _.chain(contest.runs).
+            map(function (rid) { return CATS.App.runs[rid]; }).
+            filter(function (r) {
                 var user = CATS.App.users[r.user];
-                if (user.some_affiliation().match(new RegExp(params.affiliation)))
-                    targets.push(r.place);
-            }
-            next_period += params.period;
-            new_series.push([(new_series.length + 1) * params.period, this["aggregation_" + params.aggregation](targets)]);
+                return (
+                    r.start_processing_time <= contest.finish_time &&
+                    statuses[r.status] && problems[r.problem] &&
+                    affiliation_regexp.test(user.some_affiliation()) && user_regexp.test(user.name));
+            }).
+            groupBy(function (r) { return Math.ceil(r.minutes_since_start() / params.period); });
+    },
+
+    place_data: function(params) {
+        var tbl = CATS.App.result_tables[this.table];
+        var contest = CATS.App.contests[tbl.contest];
+        var next_period = params.period;
+        var duration = contest.compute_duration_minutes() + 1;
+
+        var affiliation_regexp = new RegExp(params.affiliation);
+        var user_regexp = new RegExp(params.user);
+
+        var result = [];
+        for(var period_idx = 1; period_idx * params.period <= duration; ++period_idx) {
+            tbl.clean_score_board();
+            tbl.filters.duration = { minutes: period_idx * params.period, type: 'history' };
+            CATS.App.rules[contest.scoring].process(contest, tbl);
+            result[period_idx] = _.filter(tbl.score_board, function (row) {
+                var user = CATS.App.users[row.user];
+                return affiliation_regexp.test(user.some_affiliation()) && user_regexp.test(user.name);
+            });
         }
+        return _.chain(result);
     },
 
     delete_series: function(seriesId) {
@@ -152,19 +139,10 @@ CATS.Model.Chart = Classify(CATS.Model.Entity, {
         this.series_params.splice(idx, 1);
     },
 
-    aggregation_sum: function(arr) {
-        return arr.reduce(function(pv, cv) { return pv + cv; }, 0);
-    },
-
-    aggregation_avg: function(arr) {
-        return arr.reduce(function(pv, cv) { return pv + cv; }, 0) / arr.length;
-    },
-
-    aggregation_min: function(arr) {
-        return Math.min.apply(null, arr);
-    },
-
-    aggregation_max: function(arr) {
-        return Math.max.apply(null, arr);
+    aggregation: {
+        sum: function(arr) { return arr.reduce(function(pv, cv) { return pv + cv; }, 0); },
+        avg: function(arr) { return arr.reduce(function(pv, cv) { return pv + cv; }, 0) / arr.length; },
+        min: _.min,
+        max: _.max,
     },
 });
