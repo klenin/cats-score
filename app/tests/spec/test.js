@@ -15,17 +15,25 @@ describe("Acm rule testing", function() {
             CATS.App.rules[contest.scoring].process(contest, calculated_table);
             orign_table.throw_teams_with_no_solutions();
             calculated_table.throw_teams_with_no_solutions();
+            var continue_place = 0;
             for(var i = 0; i < orign_table.score_board.length; ++i) {
                 var o_row = orign_table.score_board[i];
                 var c_row = calculated_table.score_board[i];
-                if (o_row['user'] != c_row['user'] && o_row['place'] == c_row['place'])
+
+                if (i < orign_table.score_board.length - 1 && orign_table.score_board[i + 1]['place'] == o_row['place'])
+                    continue_place = o_row['place'];
+
+                if (c_row['place'] == continue_place)
                     continue;
 
                 expect(o_row['place']).toEqual(c_row['place']);
                 expect(o_row['user']).toEqual(c_row['user']);
                 expect(o_row['penalty']).toEqual(c_row['penalty']);
-                for (var j = 0; j < o_row['problems'].length; ++j)
+                for (var j = 0; j < o_row['problems'].length; ++j) {
+                    if (c_row['problems'][j]['is_solved'] == false)
+                        c_row['problems'][j]['best_run_time'] == null;
                     expect(o_row['problems'][j]).toEqual(c_row['problems'][j]);
+                }
             }
             done();
         });

@@ -4,6 +4,8 @@ CATS.Adapter.Ifmo = Classify({
             this.page = page;
 
         this.name = 'ifmo';
+        this.minimal_year = 2000;
+        this.url = 'http://neerc.ifmo.ru/';
         this.aliases = {
             'rankl' : 'place',
             'rank' : 'place',
@@ -104,15 +106,13 @@ CATS.Adapter.Ifmo = Classify({
         return contest;
     },
 
-    url: 'http://neerc.ifmo.ru/',
-
     get_contests: function(callback) {
         var self = this;
         CATS.App.utils.cors_get_html(this.url + 'past/index.html', function (page) {
             var contests = [];
             $(page).find('td[class = "neercyear"]').find("a").each(function () {
                 var id = $(this).html().match(/\d+/g)[0];
-                if (id <= 2000)
+                if (id <= self.minimal_year) //other no have online xml document
                     return;
                 var c = {id: id, name: $(this).html()};
                 self.add_contest(c);
