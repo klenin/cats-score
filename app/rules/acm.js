@@ -57,6 +57,7 @@ CATS.Rule.Acm = Classify({
                 teams_problems[team_id][p_idx].runs_cnt++;
                 teams_problems[team_id][p_idx].best_run_time =
                     CATS.App.utils.get_time_diff(CATS.App.contests[row.contest].start_time, row.start_processing_time);
+
                 if (row.status == 'accepted') {
                     teams_problems[team_id][p_idx].is_solved = true;
                     teams[team_id].solved_cnt++;

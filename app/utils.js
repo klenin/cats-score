@@ -35,18 +35,26 @@ CATS.Utils = Classify({
             function(data) { callback($.parseHTML(data.result)); });
     },
 
-    cors_get_html: function(url, callback) {
+    cors_get_content: function(url, callback, type) {
         $.ajax({
             url: url,
             crossDomain: true,
-            dataType: 'html',
+            dataType: type,
         }).done(function(data) {
             console.log("success " + url);
-            callback($.parseHTML(data));
+            callback(data);
         })
-        .fail(function(a, b, c) {
-            console.log("error " + a + b + c);
-        });
+            .fail(function(a, b, c) {
+                console.log("error " + a + b + c);
+            });
+    },
+
+    cors_get_html: function(url, callback) {
+        this.cors_get_content(url, callback, 'html');
+    },
+
+    cors_get_xml: function(url, callback) {
+        this.cors_get_content(url, callback, 'xml');
     },
 
     proxy_get_xml: function(url, callback) {

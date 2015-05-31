@@ -2,15 +2,9 @@
 <div>
     <label for="source">source:</label>
     <select id="source">
-        <option value="default">default</option>
-        <option value="ifmo">ifmo</option>
-        <option value="codeforces">codeforces</option>
-        <option value="myicpc">myicpc</option>
-        <option value="cats">cats</option>
-        <option value="aizu">aizu</option>
-        <option value="domjudge">domjudge</option>
-        <option value="cats_xml_hist">cats_xml_hist</option>
-        <option value="cats_rank_table">cats_rank_table</option>
+        <%$.each(CATS.App.adapters, function (name, adapter) {%>
+        <option value="<%=name%>"><%=name%></option>
+        <%});%>
     </select>
     <%if (skin_list.length != 0) {%>
     <label for="skin">skin:</label>

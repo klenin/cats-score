@@ -1,44 +1,20 @@
+function cats_score_init() {
+    CATS.Config.proxy_path = "http://imcs.dvfu.ru/cats/main.pl?f=proxy&u=";
 
-requirejs.config({
-    baseUrl: 'app/',
-    paths: {
-        jquery: "//yandex.st/jquery/2.0.3/jquery.min",
-        classify: "../vendors/classify.min",
-        dateformat: "../vendors/date.format",
-        utils: "../app/utils"
-    }
-});
-require(['jquery'], function () {
-    require(['classify', 'dateformat', 'utils'], function () {
-        require(['controller'], function () {
-            require(['models/entity'], function () {
-                require(['models/event'], function () {
-                    require([
-                        'tests/cats_xml_data',
-                        'tests/ifmo_html_data',
-                        'models/version',
-                        'models/chat',
-                        'models/compiler',
-                        'models/contest',
-                        'models/prize',
-                        'models/problem',
-                        'models/run',
-                        'models/results_table',
-                        'models/user',
-                        'rules/acm',
-                        'adapters/cats_xml_hist',
-                        'adapters/ifmo',
-                        'tests/spec/test'
-                    ], function () {
-                        CATS.App = new CATS.Controller();
-                        CATS.App.register_adapter(new CATS.Adapter.Cats([-1], CATS.Test.cats_xml_data));
-                        CATS.App.register_adapter(new CATS.Adapter.Ifmo([-1], CATS.Test.ifmo_html_data));
-                        CATS.App.register_rule(new CATS.Rule.Acm());
+    CATS.App = new CATS.Controller();
+    CATS.App.register_adapter(new CATS.Adapter.Cats_xml_hist(CATS.Test.cats_xml_data));
+    CATS.App.register_adapter(new CATS.Adapter.Cats_rank_table(CATS.Test.cats_rank_table_json_data));
+    CATS.App.register_adapter(new CATS.Adapter.Ifmo(CATS.Test.ifmo_html_data));
+    CATS.App.register_adapter(new CATS.Adapter.Codeforces());
+    CATS.App.register_adapter(new CATS.Adapter.Cats());
+    CATS.App.register_adapter(new CATS.Adapter.MyIcpc('app/tests/myicpc.xml'));
+    CATS.App.register_adapter(new CATS.Adapter.Aizu());
+    CATS.App.register_adapter(new CATS.Adapter.Domjudge());
+    CATS.App.register_adapter(new CATS.Adapter.Default());
+    CATS.App.register_rule(new CATS.Rule.Acm());
+    CATS.App.register_rule(new CATS.Rule.School());
 
-                        jasmine.getEnv().execute();
-                    });
-                });
-            });
-        });
+    require(['tests/spec/test'], function () {
+        jasmine.getEnv().execute();
     });
-});
+};

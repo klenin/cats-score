@@ -4,7 +4,7 @@ CATS.Model.Chart = Classify(CATS.Model.Entity, {
         this.type = "chart";
         this.table = table;
         this.series = [];
-        this.series_colors = [];
+        this.series_params = [];
         this.colors = [
             'green',
             'black',
@@ -17,37 +17,84 @@ CATS.Model.Chart = Classify(CATS.Model.Entity, {
             'gray',
             'violet',
         ];
+        this.series_id_generator = 0;
+    },
+
+    statuses: {
+        OK: 'accepted',
+        WA: 'wrong_answer',
+        PE: 'presentation_error',
+        TL: 'time_limit_exceeded',
+        RE: 'runtime_error',
+        CE: 'compilation_error',
+        SV: 'security_violation',
+        ML: 'memory_limit_exceeded',
+        IS: 'ignore_submit',
+        IL: 'idleness_limit_exceeded',
+    },
+
+    get_contest: function () {
+        var t = CATS.App.result_tables[this.table];
+        return CATS.App.contests[t.contest];
+    },
+
+    params_pack: function (p) {
+        var result = _.clone(p);
+        if (result.statuses.length === _.keys(this.statuses).length)
+            delete result.statuses;
+        if (result.problems.length === this.get_contest().problems.length)
+            delete result.problems;
+        return result;
+    },
+
+    params_unpack: function (p) {
+        var result = _.clone(p);
+        result.statuses = p.statuses ? p.statuses : _.keys(this.statuses);
+        result.problems = p.problems ? p.problems : this.get_contest().problems;
+        return result;
     },
 
     settings: function(settings) {
+        var self = this;
         if (settings != undefined) {
-            this.series = settings.series;
-            this.series_colors = settings.series_colors;
+            this.series = [];
+            this.series_params = [];
+            this.series = [];
+            _.each(settings, function (v) { self.add_new_series(self.params_unpack(v)); });
         }
-
-        return {series : this.series, series_colors : this.series_colors};
+        return _.map(this.series_params, function (v) { return self.params_pack(v); });
     },
 
     add_new_series: function(params) {
+        this.series_params.push(params);
         var tbl = CATS.App.result_tables[this.table];
         var c = CATS.App.contests[tbl.contest];
         var start_time = CATS.App.contests[tbl.contests[0]].start_time;
         var next_time = CATS.App.utils.add_time(start_time, params.period);
         var new_series = [];
         this['add_' + params.parameter + "_series"](tbl, c, start_time, next_time, new_series, params);
-        this.series.push({label: params.parameter, data: new_series, xaxis: 1, yaxis: this.series.length + 1});
-        this.series_colors.push(params.color != undefined ? params.color : this.colors[this.series_colors.length % this.colors.length]);
+        this.series.push({
+            label: params.parameter,
+            data: new_series,
+            color: params.color != undefined ? params.color : this.colors[this.series.length % this.colors.length],
+            xaxis: 1,
+            yaxis: this.series.length + 1,
+            id: ++this.series_id_generator,
+        });
     },
 
     add_run_cnt_series: function(tbl, c, start_time, next_time, new_series, params) {
         var runs = c.runs;
         var targets = [];
+        var self = this;
+        var statuses = _.countBy(params.statuses, function (s) { return self.statuses[s]; });
+        var problems = _.countBy(params.problems, _.identity);
         for(var i = 0; i < runs.length; ++i) {
             var r = CATS.App.runs[runs[i]];
             var user = CATS.App.users[r.user];
             if (
-                params.statuses.indexOf(r.status) != -1 &&
-                params.problems.indexOf(r.problem) != -1 &&
+                statuses[r.status] &&
+                problems[r.problem] &&
                 user.some_affiliation().match(new RegExp(params.affiliation)) &&
                 user.name.match(new RegExp(params.user))
             )
@@ -99,9 +146,10 @@ CATS.Model.Chart = Classify(CATS.Model.Entity, {
         }
     },
 
-    delete_series: function(idx) {
+    delete_series: function(seriesId) {
+        var idx = _.findIndex(this.series, function (s) { return s.id === seriesId; });
         this.series.splice(idx, 1);
-        this.series_colors.splice(idx, 1);
+        this.series_params.splice(idx, 1);
     },
 
     aggregation_sum: function(arr) {

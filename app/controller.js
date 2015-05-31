@@ -71,8 +71,9 @@ CATS.Controller = Classify({
             result_table.contests.push(cont_id);
             self.adapters[cont_adapter].parse(cont_id, result_table, function () {
                 var contest = CATS.App.contests[cont_id];
-                CATS.App.rules[contest.scoring].process(contest, result_table);
                 result_table.contest = cont_id;
+                result_table.contests = [cont_id];
+                CATS.App.rules[contest.scoring].process(contest, result_table);
                 d.resolve();
             });
             return d.promise();
@@ -92,14 +93,22 @@ CATS.Controller = Classify({
                 united_contest.problems = united_contest.problems.concat(c.problems);
                 united_contest.users = _.uniq(united_contest.users.concat(c.users));
                 united_contest.name += c.name + ", ";
+                if (united_contest.start_time == null) {
+                    united_contest.start_time = c.start_time;
+                    united_contest.finish_time = c.finish_time;
+                }
+                else {
+                    united_contest.start_time = Math.min(united_contest.start_time, c.start_time);
+                    united_contest.finish_time = Math.max(united_contest.finish_time, c.finish_time);
+                }
             }
+            CATS.App.add_object(united_contest);
             result_table.scoring = united_contest.scoring;
             result_table.contest = united_contest.id;
             if (settings != null && settings.table != undefined)
-                result_table.filters = filters.table;
+                result_table.filters = settings.table;
             CATS.App.rules[united_contest.scoring].process(united_contest, result_table);
             CATS.App.add_object(result_table);
-            CATS.App.add_object(united_contest);
             var chart = new CATS.Model.Chart(result_table.id);
             if (settings != null && settings.chart != undefined)
                 chart.settings(settings.chart);

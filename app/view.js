@@ -27,8 +27,8 @@ CATS.View = Classify({
         },
 
         routes: {
-            "!show_contests_list/:source/:skin(/?lang=:lang)(/?page=:page)(/?el_per_page=:el_per_page)(/?settings=:settings)": "show_contests_list",
-            "!show_rank_table/:page_name/:skin/:contestid(/?lang=:lang)(/?page=:page)(/?el_per_page=:el_per_page)(/?settings=:settings)": "show_rank_table",
+            "!show_contests_list/:source/:skin(/lang=:lang)(/page=:page)(/el_per_page=:el_per_page)(/settings=:settings)": "show_contests_list",
+            "!show_rank_table/:page_name/:skin/:contestid(/lang=:lang)(/page=:page)(/el_per_page=:el_per_page)(/settings=:settings)": "show_rank_table",
         },
 
         show_contests_list: function (source, skin, lang, page, el_per_page, settings) {
@@ -78,10 +78,10 @@ CATS.View = Classify({
                     break;
             }
             url +=
-                (this.view_state.get("lang") != null ? "/?lang=" + this.view_state.get("lang") : "") +
-                (this.view_state.get("page") != null ? "/?page=" + this.view_state.get("page") : "") +
-                (this.view_state.get("el_per_page") != null ? "/?el_per_page=" + this.view_state.get("el_per_page") : "") +
-                (this.view_state.get("settings") != null ? "/?settings=" + JSON.stringify(this.view_state.get("settings")) : "");
+                (this.view_state.get("lang") != null ? "/lang=" + this.view_state.get("lang") : "") +
+                (this.view_state.get("page") != null ? "/page=" + this.view_state.get("page") : "") +
+                (this.view_state.get("el_per_page") != null ? "/el_per_page=" + this.view_state.get("el_per_page") : "") +
+                (this.view_state.get("settings") != null ? "/settings=" + JSON.stringify(this.view_state.get("settings")) : "");
 
             return url;
         },
@@ -175,19 +175,11 @@ CATS.View = Classify({
                 var params = this.current_catsscore_wrapper_content_params.models;
                 var chart = CATS.App.charts[params.chart];
                 var series_params = {};
-                series_params.period = $("#period").val() * 1;
+                series_params.period = 1*$("#period").val();
                 series_params.parameter = $("#parameter").val();
                 series_params.aggregation = $("#aggregation").val();
-                series_params.statuses = [];
-                $("input[name='statuses']").map(function(){
-                    if ($(this).is(":checked"))
-                        series_params.statuses.push($(this).val());
-                });
-                series_params.problems = [];
-                $("input[name='problems']").map(function(){
-                    if ($(this).is(":checked"))
-                        series_params.problems.push($(this).val());
-                });
+                series_params.statuses = $('input[name="statuses"]:checked').map(function() { return $(this).val(); }).get();
+                series_params.problems = $('input[name="problems"]:checked').map(function() { return 1*$(this).val(); }).get();
                 series_params.user = $("#user").val();
                 series_params.affiliation = $("#affiliation").val();
                 series_params.color = $("input[name='color']:checked").val();
@@ -199,7 +191,7 @@ CATS.View = Classify({
             'click .delete_series': function (event) {
                 var params = this.current_catsscore_wrapper_content_params.models;
                 var chart = CATS.App.charts[params.chart];
-                chart.delete_series($(event.currentTarget).attr("idx"));
+                chart.delete_series($(event.currentTarget).data('series'));
                 $("#catsscore_wrapper").html(this.page(this.skin(), "charts")(this.current_catsscore_wrapper_content_params));
                 this.update_url_settings({chart: chart.settings()});
             }
