@@ -1,13 +1,9 @@
 <table width="100%" cellspacing="1" class="bordered rank_table highlight"><tr bgcolor="#ccccff">
-        <th>
-            select
-        </th>
-        <th>
-            id
-        </th>
-        <th>
-            name
-        </th>
+        <th>select</th>
+        <th>id</th>
+        <th>name</th>
+        <th>start</th>
+        <th>finish</th>
     </tr>
     <%
     var contests = models.contests, idx = 0;
@@ -21,9 +17,9 @@
         <td>
             <%=id%>
         </td>
-        <td>
-            <a href="#!show_rank_table/table/<%=skin%>/<%=source%>:<%=id%>"><%=app.contests[id].name%></a>
-        </td>
+        <td><a href="#!show_rank_table/table/<%=skin%>/<%=source%>:<%=id%>"><%=app.contests[id].name%></a></td>
+        <td><%=app.contests[id].start_time.format('dd.mm.yyyy HH:MM')%></td>
+        <td><%=app.contests[id].finish_time.format('dd.mm.yyyy HH:MM')%></td>
     </tr>
     <%
     });
