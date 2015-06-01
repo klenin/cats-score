@@ -120,7 +120,6 @@ CATS.Model.Chart = Classify(CATS.Model.Entity, {
     place_data: function(params) {
         var tbl = CATS.App.result_tables[this.table];
         var contest = CATS.App.contests[tbl.contest];
-        var next_period = params.period;
         var duration = contest.compute_duration_minutes() + 1;
 
         var affiliation_regexp = new RegExp(params.affiliation);
