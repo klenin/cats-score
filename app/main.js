@@ -24,8 +24,8 @@ requirejs.config({
     }
 });
 require(['underscore', 'jquery', 'jqueryui'], function () {
-    require(['backbone', 'classify', 'dateformat', 'chart', 'jqflot', 'jqflotaddon', 'jqpagination', 'CATS'], function () {
-        require(['controller'], function () {
+    require(['backbone', 'classify', 'dateformat', 'chart', 'jqflot', 'jqpagination', 'CATS'], function () {
+        require(['controller', 'jqflotaddon'], function () {
             require(['models/entity'], function () {
                 require(['models/event'], function () {
                     require([
