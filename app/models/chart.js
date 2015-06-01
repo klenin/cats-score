@@ -65,6 +65,12 @@ CATS.Model.Chart = Classify(CATS.Model.Entity, {
         return _.map(this.series_params, function (v) { return self.params_pack(v); });
     },
 
+    parameter_yaxes: {
+        run_cnt: 1,
+        points: 2,
+        place: 3,
+    },
+
     add_new_series: function(params) {
         this.series_params.push(params);
         this.series.push({
@@ -73,7 +79,7 @@ CATS.Model.Chart = Classify(CATS.Model.Entity, {
                 params.parameter === 'place' ? this.place_data(params) : this.simple_data(params), params),
             color: params.color != undefined ? params.color : this.colors[this.series.length % this.colors.length],
             xaxis: 1,
-            yaxis: this.series.length + 1,
+            yaxis: this.parameter_yaxes[params.parameter],
             id: ++this.series_id_generator,
         });
     },

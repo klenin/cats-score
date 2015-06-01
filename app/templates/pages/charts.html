@@ -7,13 +7,9 @@
     $.plot("#plot", <%=JSON.stringify(app.charts[models.chart].series)%>, {
     xaxes: [{ position: 'bottom' }],
     yaxes: [
-    <%
-        for(var i = 0; i < app.charts[models.chart].series.length; ++i) {
-    %>
         { position: 'left' },
-    <%
-        }
-    %>
+        { position: 'left' },
+        { position: 'left' },
     ],
     legend: {
         labelFormatter: function(label, series) {
