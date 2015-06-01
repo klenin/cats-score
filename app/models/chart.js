@@ -78,17 +78,17 @@ CATS.Model.Chart = Classify(CATS.Model.Entity, {
         });
     },
 
-    runs_to_values: {
+    element_to_values: {
         run_cnt: function (runs) { return _.map(runs, function () { return 1; }); },
         points: function (runs) { return _.map(runs, function (r) { return r.points; }); },
-        place: function (runs) { return _.map(runs, function (r) { return r.place; }); },
+        place: function (sb_rows) { return _.map(sb_rows, function (r) { return r.place; }); },
     },
 
     aggregate: function(chain, params) {
         var self = this;
-        return chain.map(function(runs, period_idx) {
+        return chain.map(function(element, period_idx) {
             return [ period_idx * params.period,
-                self.aggregation[params.aggregation](self.runs_to_values[params.parameter](runs)) ];
+                self.aggregation[params.aggregation](self.element_to_values[params.parameter](element)) ];
         }).value();
     },
 
