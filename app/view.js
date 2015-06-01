@@ -179,7 +179,7 @@ CATS.View = Classify({
                 series_params.parameter = $("#parameter").val();
                 series_params.aggregation = $("#aggregation").val();
                 series_params.statuses = $('input[name="statuses"]:checked').map(function() { return $(this).val(); }).get();
-                series_params.problems = $('input[name="problems"]:checked').map(function() { return 1*$(this).val(); }).get();
+                series_params.problems = $('input[name="problems"]:checked').map(function() { return $(this).val(); }).get();
                 series_params.user = $("#user").val();
                 series_params.affiliation = $("#affiliation").val();
                 series_params.color = $("input[name='color']:checked").val();
