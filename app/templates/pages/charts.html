@@ -5,11 +5,11 @@
     });
 
     $.plot("#plot", <%=JSON.stringify(app.charts[models.chart].series)%>, {
-    xaxes: [{ position: 'bottom' }],
+    xaxes: [{ position: 'bottom', axisLabel: 'time' }],
     yaxes: [
-        { position: 'left' },
-        { position: 'left' },
-        { position: 'left' },
+        { position: 'left', axisLabel: 'pieces' },
+        { position: 'left', axisLabel: 'points' },
+        { position: 'left', axisLabel: 'place' },
     ],
     legend: {
         labelFormatter: function(label, series) {

@@ -1,29 +1,30 @@
 requirejs.config({
     baseUrl: 'app/',
     paths: {
-        jquery: "../vendors/jquery.min",
-        jqueryui: "../vendors/jquery-ui.min",
-        jqpagination: "../vendors/jquery.jqpagination.min",
-        underscore: "../vendors/underscore.min",
-        backbone: "../vendors/backbone.min",
-        classify: "../vendors/classify.min",
-        dateformat: "../vendors/date.format",
-        chart: "../vendors/chart.min",
-        jqflot: "../vendors/jquery.flot"
+        jquery: '../vendors/jquery.min',
+        jqueryui: '../vendors/jquery-ui.min',
+        jqpagination: '../vendors/jquery.jqpagination.min',
+        underscore: '../vendors/underscore.min',
+        backbone: '../vendors/backbone.min',
+        classify: '../vendors/classify.min',
+        dateformat: '../vendors/date.format',
+        chart: '../vendors/chart.min',
+        jqflot: '../vendors/jquery.flot',
+        jqflotaddon: '../vendors/jquery.flot.axislabels'
     },
     shim: {
         underscore: {
             exports: '_'
         },
         backbone: {
-            deps: ["underscore", "jquery"],
-            exports: "backbone"
+            deps: ['underscore', 'jquery'],
+            exports: 'backbone'
         },
         waitSeconds: 15
     }
 });
 require(['underscore', 'jquery', 'jqueryui'], function () {
-    require(['backbone', 'classify', 'dateformat', 'chart', 'jqflot', 'jqpagination', 'CATS'], function () {
+    require(['backbone', 'classify', 'dateformat', 'chart', 'jqflot', 'jqflotaddon', 'jqpagination', 'CATS'], function () {
         require(['controller'], function () {
             require(['models/entity'], function () {
                 require(['models/event'], function () {
