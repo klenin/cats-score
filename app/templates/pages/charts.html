@@ -3,39 +3,11 @@ var contest_id = models.contest;
 var contest = app.contests[contest_id];
 var chart = app.charts[models.chart];
 %>
-<script>
-    $("#parameter").change(function () {
-        $(".parameter_params").css("display", "none");
-        $("#" + $("#parameter").val() + "_params").css("display", "block");
-    });
-
-    $.plot("#plot", <%=JSON.stringify(app.charts[models.chart].series)%>, {
-    xaxes: [
-      { position: 'bottom', axisLabel: 'time' },
-      { position: 'bottom', ticks: [
-          <%
-          var idx = 0;
-          _.each(chart.statuses_arr, function (status) {
-          %>
-            [<%=idx++%>, "<%=status%>"],
-          <%
-          });
-          %>
-      ], axisLabel: 'statuses' }
-    ],
-    yaxes: [
-        { position: 'left', axisLabel: 'pieces' },
-        { position: 'left', axisLabel: 'points' },
-        { position: 'left', axisLabel: 'place' },
-    ],
-    legend: {
-        labelFormatter: function(label, series) {
-          return label + ' <a class="delete_series" data-series="' + series.id + '" href="#" onClick="return false;"> del</a>';
-        }
-    }
-    });
-    $("#parameter").change();
-</script>
+<label>Chart type:</label>
+<select id="chart_type">
+    <option value="line">line</option>
+    <option value="pie">pie</option>
+</select>
 <div class="box">
     <div>
         <label>Time period:</label>
@@ -121,6 +93,66 @@ var chart = app.charts[models.chart];
     </div>
     <div><button id="add_series">Add</button></div>
 </div>
-<div id="plot_container">
-<div id="plot"></div>
-</div>
+
+<%if (chart.chart_type == "line") {%>
+<div class="plot_container"><div class="plot" id="plot"></div></div>
+<%}
+else for (var i = 0; i < chart.series.length; ++i) {
+var pp = chart.series_params[i].problems;
+var header = pp.length == 1 ? app.problems[pp[0]].name : "";
+%>
+
+<div class="pie"><h3><%=header%></h3><div class="plot" id="plot_<%=i%>"></div></div>
+<%
+};
+%>
+<script>
+    $("#parameter").change(function () {
+        $(".parameter_params").css("display", "none");
+        $("#" + $("#parameter").val() + "_params").css("display", "block");
+    });
+
+    $("#chart_type").val("<%=chart.chart_type%>");
+
+    <%if (chart.chart_type == "line") {%>
+        $.plot("#plot", <%=JSON.stringify(chart.series)%>, {
+        xaxes: [
+          { position: 'bottom', axisLabel: 'time' },
+          { position: 'bottom', ticks: [
+              <%
+              var idx = 0;
+              _.each(chart.statuses_arr, function (status) {
+              %>
+                [<%=idx++%>, "<%=status%>"],
+              <%
+              });
+              %>
+          ], axisLabel: 'statuses' }
+        ],
+        yaxes: [
+            { position: 'left', axisLabel: 'pieces' },
+            { position: 'left', axisLabel: 'points' },
+            { position: 'left', axisLabel: 'place' },
+        ],
+        legend: {
+            labelFormatter: function(label, series) {
+              return label + ' <a class="delete_series" data-series="' + series.id + '" href="#" onClick="return false;"> del</a>';
+            }
+        }
+        });
+    <%}
+    else {%>
+        var series = <%=JSON.stringify(chart.series_pie_format())%>;
+        for(var i = 0; i < series.length; ++i) {
+            $.plot("#plot_" + i, series[i], {
+                series: {
+                    pie: {show: true}
+                },
+                legend: {
+                    show: false
+                }
+            });
+        }
+    <%}%>
+    $("#parameter").change();
+</script>

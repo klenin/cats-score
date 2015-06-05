@@ -5,6 +5,7 @@ CATS.Model.Chart = Classify(CATS.Model.Entity, {
         this.table = table;
         this.series = [];
         this.series_params = [];
+        this.chart_type = "line";
         this.colors = [
             'green',
             'black',
@@ -123,6 +124,22 @@ CATS.Model.Chart = Classify(CATS.Model.Entity, {
             yaxis: this.parameter_yaxes[params.parameter],
             id: ++this.series_id_generator,
         });
+    },
+
+    series_pie_format: function() {
+        var pies = [];
+        var self = this;
+        var series_idx = 0;
+        _.each(this.series, function (s) {
+            var pie = [];
+            _.each(s.data, function (data) {
+                pie.push({label: self.series_params[series_idx].group_by == "status" ? self.statuses_arr[data[0]] : data[0], data: data[1]})
+            });
+            pies.push(pie);
+            series_idx++;
+        });
+
+        return pies;
     },
 
     element_to_values: {

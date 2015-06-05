@@ -8,9 +8,9 @@ requirejs.config({
         backbone: '../vendors/backbone.min',
         classify: '../vendors/classify.min',
         dateformat: '../vendors/date.format',
-        chart: '../vendors/chart.min',
         jqflot: '../vendors/jquery.flot',
-        jqflotaddon: '../vendors/jquery.flot.axislabels'
+        jqflotaddon: '../vendors/jquery.flot.axislabels',
+        jqflotpie: '../vendors/jquery.flot.pie'
     },
     shim: {
         underscore: {
@@ -24,8 +24,8 @@ requirejs.config({
     }
 });
 require(['underscore', 'jquery', 'jqueryui'], function () {
-    require(['backbone', 'classify', 'dateformat', 'chart', 'jqflot', 'jqpagination', 'CATS'], function () {
-        require(['controller', 'jqflotaddon'], function () {
+    require(['backbone', 'classify', 'dateformat', 'jqflot', 'jqpagination', 'CATS'], function () {
+        require(['controller', 'jqflotaddon', 'jqflotpie'], function () {
             require(['models/entity'], function () {
                 require(['models/event'], function () {
                     require([
@@ -66,7 +66,6 @@ require(['underscore', 'jquery', 'jqueryui'], function () {
                             'text!templates/pagination.html',
                             'text!templates/footer.html',
                             //pages
-                            'text!templates/pages/chart.html',
                             'text!templates/pages/charts.html',
                             //filters
                             'text!templates/pages/filters/table.html',

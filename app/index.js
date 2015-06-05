@@ -3,7 +3,6 @@ function cats_score_init(
     cl_header,
     pg,
     footer,
-    chart,
     charts,
     tbl_filter,
     cnt_filter,
@@ -64,7 +63,6 @@ function cats_score_init(
         pagination : pg,
         footer : footer,
         pages : {
-            chart : chart,
             charts : charts,
             filters : {
                 table: tbl_filter,
