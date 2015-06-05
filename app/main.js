@@ -25,7 +25,20 @@ requirejs.config({
 });
 require(['underscore', 'jquery', 'jqueryui'], function () {
     require(['backbone', 'classify', 'dateformat', 'jqflot', 'jqpagination', 'CATS'], function () {
-        require(['controller', 'jqflotaddon', 'jqflotpie'], function () {
+        require([
+            'adapters/cats',
+            'adapters/cats_xml_hist',
+            'adapters/cats_rank_table',
+            'adapters/ifmo',
+            'adapters/codeforces',
+            'adapters/myicpc',
+            'adapters/aizu',
+            'adapters/domjudge',
+            'adapters/default',
+            'controller',
+            'jqflotaddon',
+            'jqflotpie'
+        ], function () {
             require(['models/entity'], function () {
                 require(['models/event'], function () {
                     require([
@@ -45,16 +58,7 @@ require(['underscore', 'jquery', 'jqueryui'], function () {
                         'rules/base',
                         'rules/acm',
                         'rules/school',
-                        'adapters/cats',
-                        'adapters/cats_xml_hist',
-                        'adapters/cats_rank_table',
-                        'adapters/ifmo',
                         'adapters/ifmo_xml',
-                        'adapters/codeforces',
-                        'adapters/myicpc',
-                        'adapters/aizu',
-                        'adapters/domjudge',
-                        'adapters/default',
                         'view',
                         'utils',
                         'extentions',
