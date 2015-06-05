@@ -178,6 +178,7 @@ CATS.View = Classify({
                 series_params.period = 1*$("#period").val();
                 series_params.parameter = $("#parameter").val();
                 series_params.aggregation = $("#aggregation").val();
+                series_params.group_by = $("#group_by").val();
                 series_params.statuses = $('input[name="statuses"]:checked').map(function() { return $(this).val(); }).get();
                 series_params.problems = $('input[name="problems"]:checked').map(function() { return $(this).val(); }).get();
                 series_params.user = $("#user").val();

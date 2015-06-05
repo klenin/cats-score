@@ -18,6 +18,16 @@ CATS.Model.Chart = Classify(CATS.Model.Entity, {
             'violet',
         ];
         this.series_id_generator = 0;
+        var self = this;
+        this.group_by = {
+            time: function (r) { return Math.ceil(r.minutes_since_start() / _.last(self.series_params).period); },
+            status: function (r) { return r.status; },
+        };
+
+        this.group_by_xaxes_value = {
+            time: function (idx) { return idx * _.last(self.series_params).period; },
+            status: function (idx) { return self.statuses_arr.indexOf(idx); },
+        };
     },
 
     statuses: {
@@ -31,6 +41,32 @@ CATS.Model.Chart = Classify(CATS.Model.Entity, {
         ML: 'memory_limit_exceeded',
         IS: 'ignore_submit',
         IL: 'idleness_limit_exceeded',
+    },
+
+    statuses_arr: [
+        'accepted',
+        'wrong_answer',
+        'presentation_error',
+        'time_limit_exceeded',
+        'runtime_error',
+        'compilation_error',
+        'security_violation',
+        'memory_limit_exceeded',
+        'ignore_submit',
+        'idleness_limit_exceeded',
+    ],
+
+    statuses_color: {
+        accepted: 'green',
+        wrong_answer: 'black',
+        presentation_error: 'blue',
+        time_limit_exceeded: 'red',
+        runtime_error: 'orange',
+        compilation_error: 'yellow',
+        security_violation: 'cyan',
+        memory_limit_exceeded: 'magenta',
+        ignore_submit: 'gray',
+        idleness_limit_exceeded: 'violet',
     },
 
     get_contest: function () {
@@ -71,6 +107,11 @@ CATS.Model.Chart = Classify(CATS.Model.Entity, {
         place: 3,
     },
 
+    parameter_xaxes: {
+        time: 1,
+        status: 2,
+    },
+
     add_new_series: function(params) {
         this.series_params.push(params);
         this.series.push({
@@ -78,7 +119,7 @@ CATS.Model.Chart = Classify(CATS.Model.Entity, {
             data: this.aggregate(
                 params.parameter === 'place' ? this.place_data(params) : this.simple_data(params), params),
             color: params.color != undefined ? params.color : this.colors[this.series.length % this.colors.length],
-            xaxis: 1,
+            xaxis: this.parameter_xaxes[params.group_by],
             yaxis: this.parameter_yaxes[params.parameter],
             id: ++this.series_id_generator,
         });
@@ -93,7 +134,7 @@ CATS.Model.Chart = Classify(CATS.Model.Entity, {
     aggregate: function(chain, params) {
         var self = this;
         return chain.map(function(element, period_idx) {
-            return [ period_idx * params.period,
+            return [ self.group_by_xaxes_value[params.group_by](period_idx) ,
                 self.aggregation[params.aggregation](self.element_to_values[params.parameter](element)) ];
         }).value();
     },
@@ -114,7 +155,7 @@ CATS.Model.Chart = Classify(CATS.Model.Entity, {
                     statuses[r.status] && problems[r.problem] &&
                     affiliation_regexp.test(user.some_affiliation()) && user_regexp.test(user.name));
             }).
-            groupBy(function (r) { return Math.ceil(r.minutes_since_start() / params.period); });
+            groupBy(self.group_by[params.group_by]);
     },
 
     place_data: function(params) {
@@ -149,5 +190,5 @@ CATS.Model.Chart = Classify(CATS.Model.Entity, {
         avg: function(arr) { return arr.reduce(function(pv, cv) { return pv + cv; }, 0) / arr.length; },
         min: _.min,
         max: _.max,
-    },
+    }
 });

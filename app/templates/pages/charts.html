@@ -1,3 +1,8 @@
+<%
+var contest_id = models.contest;
+var contest = app.contests[contest_id];
+var chart = app.charts[models.chart];
+%>
 <script>
     $("#parameter").change(function () {
         $(".parameter_params").css("display", "none");
@@ -5,7 +10,19 @@
     });
 
     $.plot("#plot", <%=JSON.stringify(app.charts[models.chart].series)%>, {
-    xaxes: [{ position: 'bottom', axisLabel: 'time' }],
+    xaxes: [
+      { position: 'bottom', axisLabel: 'time' },
+      { position: 'bottom', ticks: [
+          <%
+          var idx = 0;
+          _.each(chart.statuses_arr, function (status) {
+          %>
+            [<%=idx++%>, "<%=status%>"],
+          <%
+          });
+          %>
+      ], axisLabel: 'statuses' }
+    ],
     yaxes: [
         { position: 'left', axisLabel: 'pieces' },
         { position: 'left', axisLabel: 'points' },
@@ -19,11 +36,6 @@
     });
     $("#parameter").change();
 </script>
-<%
-var contest_id = models.contest;
-var contest = app.contests[contest_id];
-var chart = app.charts[models.chart];
-%>
 <div class="box">
     <div>
         <label>Time period:</label>
@@ -49,6 +61,16 @@ var chart = app.charts[models.chart];
         </select>
     </div>
     <div class="parameter_params" id="run_cnt_params">
+        <div>
+            <label>Group by:</label>
+            <select id="group_by">
+                <%_.each(chart.group_by, function (f, name) {
+                %>
+                    <option value="<%=name%>"><%=name%></option>
+                <%
+                });%>
+            </select>
+        </div>
         <div>
             <label>Problem:</label>
             <div>
