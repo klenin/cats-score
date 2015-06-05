@@ -178,8 +178,9 @@ CATS.View = Classify({
                 series_params.period = 1*$("#period").val();
                 series_params.parameter = $("#parameter").val();
                 series_params.aggregation = $("#aggregation").val();
+                series_params.group_by = $("#group_by").val();
                 series_params.statuses = $('input[name="statuses"]:checked').map(function() { return $(this).val(); }).get();
-                series_params.problems = $('input[name="problems"]:checked').map(function() { return 1*$(this).val(); }).get();
+                series_params.problems = $('input[name="problems"]:checked').map(function() { return $(this).val(); }).get();
                 series_params.user = $("#user").val();
                 series_params.affiliation = $("#affiliation").val();
                 series_params.color = $("input[name='color']:checked").val();
@@ -187,7 +188,13 @@ CATS.View = Classify({
                 $("#catsscore_wrapper").html(this.page(this.skin(), "charts")(this.current_catsscore_wrapper_content_params));
                 this.update_url_settings({chart: chart.settings()});
             },
-
+            'change #chart_type': function () {
+                var params = this.current_catsscore_wrapper_content_params.models;
+                var chart = CATS.App.charts[params.chart];
+                chart.chart_type =  $("#chart_type").val();
+                $("#catsscore_wrapper").html(this.page(this.skin(), "charts")(this.current_catsscore_wrapper_content_params));
+                this.update_url_settings({chart: chart.settings()});
+            },
             'click .delete_series': function (event) {
                 var params = this.current_catsscore_wrapper_content_params.models;
                 var chart = CATS.App.charts[params.chart];

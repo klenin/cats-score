@@ -1,11 +1,15 @@
 #catsscore_wrapper {
-    font-family: "proxima-nova","Proxima Nova","Open Sans","Helvetice Neue",sans-serif,arial;
+    font-family: Ubuntu, sans-serif, Arial;
     font-size: 12px;
 }
 
 #catsscore_wrapper a {
     text-decoration: none;
     color: black;
+}
+
+#catsscore_wrapper td {
+    vertical-align: top;
 }
 
 #catsscore_wrapper td div {
@@ -19,12 +23,9 @@
     font-weight: bold;
 }
 
-#catsscore_wrapper td.solved div {
+#catsscore_wrapper td.solved div, #catsscore_wrapper td.first div {
     background-color: #88C425;
     border-bottom: 3px solid #519548;
-}
-
-#catsscore_wrapper td.first {
 }
 
 #catsscore_wrapper td.failed div {
