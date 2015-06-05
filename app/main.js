@@ -35,6 +35,7 @@ require(['underscore', 'jquery', 'jqueryui'], function () {
             'adapters/aizu',
             'adapters/domjudge',
             'adapters/default',
+            'rules/base',
             'controller',
             'jqflotaddon',
             'jqflotpie'
@@ -55,7 +56,6 @@ require(['underscore', 'jquery', 'jqueryui'], function () {
                         'models/results_table',
                         'models/chart',
                         'models/user',
-                        'rules/base',
                         'rules/acm',
                         'rules/school',
                         'adapters/ifmo_xml',
