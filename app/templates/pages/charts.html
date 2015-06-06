@@ -3,10 +3,7 @@ var contest_id = models.contest;
 var contest = app.contests[contest_id];
 var chart = app.charts[models.chart];
 %>
-<label>Chart examples:</label>
-<div>
-<a href='#!show_rank_table/charts/default/<%=chart.contests_url_param%>/settings=<%=JSON.stringify(chart.gen_submittions_per_problem_params())%>'>Submittions per problems</a>
-</div>
+<h2>Add new series:</h2>
 <div class="box">
     <div>
         <label>Time period:</label>
@@ -98,6 +95,10 @@ var chart = app.charts[models.chart];
         <option value="line">line</option>
         <option value="pie">pie</option>
     </select>
+</div>
+<div>
+    <h2>Chart examples:</h2>
+    <a href='#!show_rank_table/charts/default/<%=chart.contests_url_param%>/settings=<%=JSON.stringify(chart.gen_submittions_per_problem_params())%>'>Submittions per problems</a>
 </div>
 <%if (chart.chart_type == "line") {%>
 <div class="plot_container"><div class="plot" id="plot"></div></div>
