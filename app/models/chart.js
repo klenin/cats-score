@@ -6,6 +6,7 @@ CATS.Model.Chart = Classify(CATS.Model.Entity, {
         this.series = [];
         this.series_params = [];
         this.chart_type = "line";
+        this.contests_url_param = null;
         this.colors = [
             'green',
             'black',
@@ -207,5 +208,14 @@ CATS.Model.Chart = Classify(CATS.Model.Entity, {
         avg: function(arr) { return arr.reduce(function(pv, cv) { return pv + cv; }, 0) / arr.length; },
         min: _.min,
         max: _.max,
+    },
+
+    gen_submittions_per_problem_params: function () {
+        var params = [];
+        var contest = this.get_contest();
+        _.each(contest.problems, function (id) {
+            params.push({"period":10,"parameter":"run_cnt","aggregation":"sum","group_by":"status","problems":[id],"user":".*?","affiliation":".*?"});
+        });
+        return {"chart" : params};
     }
 });
