@@ -7,11 +7,6 @@ var chart = app.charts[models.chart];
 <div>
 <a href='#!show_rank_table/charts/default/<%=chart.contests_url_param%>/settings=<%=JSON.stringify(chart.gen_submittions_per_problem_params())%>'>Submittions per problems</a>
 </div>
-<label>Chart type:</label>
-<select id="chart_type">
-    <option value="line">line</option>
-    <option value="pie">pie</option>
-</select>
 <div class="box">
     <div>
         <label>Time period:</label>
@@ -97,7 +92,13 @@ var chart = app.charts[models.chart];
     </div>
     <div><button id="add_series">Add</button></div>
 </div>
-
+<div>
+    <h2>Chart type:</h2>
+    <select id="chart_type">
+        <option value="line">line</option>
+        <option value="pie">pie</option>
+    </select>
+</div>
 <%if (chart.chart_type == "line") {%>
 <div class="plot_container"><div class="plot" id="plot"></div></div>
 <%}
