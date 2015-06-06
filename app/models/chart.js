@@ -98,9 +98,10 @@ CATS.Model.Chart = Classify(CATS.Model.Entity, {
             this.series = [];
             this.series_params = [];
             this.series = [];
-            _.each(settings, function (v) { self.add_new_series(self.params_unpack(v)); });
+            this.chart_type = settings.chart_type;
+            _.each(settings.params, function (v) { self.add_new_series(self.params_unpack(v)); });
         }
-        return _.map(this.series_params, function (v) { return self.params_pack(v); });
+        return {chart_type: this.chart_type, params: _.map(this.series_params, function (v) { return self.params_pack(v); })};
     },
 
     parameter_yaxes: {
@@ -216,6 +217,6 @@ CATS.Model.Chart = Classify(CATS.Model.Entity, {
         _.each(contest.problems, function (id) {
             params.push({"period":10,"parameter":"run_cnt","aggregation":"sum","group_by":"status","problems":[id],"user":".*?","affiliation":".*?"});
         });
-        return {"chart" : params};
+        return {"chart" : { params : params, chart_type: this.chart_type}};
     }
 });
