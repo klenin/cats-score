@@ -217,6 +217,6 @@ CATS.Model.Chart = Classify(CATS.Model.Entity, {
         _.each(contest.problems, function (id) {
             params.push({"period":10,"parameter":"run_cnt","aggregation":"sum","group_by":"status","problems":[id],"user":".*?","affiliation":".*?"});
         });
-        return {"chart" : { params : params, chart_type: this.chart_type}};
+        return {"chart" : { params : params, chart_type: 'pie'}};
     }
 });
