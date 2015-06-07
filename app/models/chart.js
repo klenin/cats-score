@@ -23,12 +23,12 @@ CATS.Model.Chart = Classify(CATS.Model.Entity, {
         var self = this;
         this.group_by = {
             time: function (r) { return Math.ceil(r.minutes_since_start() / _.last(self.series_params).period); },
-            status: function (r) { return r.status; },
+            status: function (r) { return self.statuses_arr.indexOf(r.status); },
         };
 
         this.group_by_xaxes_value = {
             time: function (idx) { return idx * _.last(self.series_params).period; },
-            status: function (idx) { return self.statuses_arr.indexOf(idx); },
+            status: function (idx) { return idx; },
         };
     },
 
