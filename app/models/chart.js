@@ -6,6 +6,7 @@ CATS.Model.Chart = Classify(CATS.Model.Entity, {
         this.series = [];
         this.series_params = [];
         this.chart_type = "line";
+        this.contests_url_param = null;
         this.colors = [
             'green',
             'black',
@@ -22,12 +23,12 @@ CATS.Model.Chart = Classify(CATS.Model.Entity, {
         var self = this;
         this.group_by = {
             time: function (r) { return Math.ceil(r.minutes_since_start() / _.last(self.series_params).period); },
-            status: function (r) { return r.status; },
+            status: function (r) { return self.statuses_arr.indexOf(r.status); },
         };
 
         this.group_by_xaxes_value = {
             time: function (idx) { return idx * _.last(self.series_params).period; },
-            status: function (idx) { return self.statuses_arr.indexOf(idx); },
+            status: function (idx) { return idx; },
         };
     },
 
@@ -97,9 +98,10 @@ CATS.Model.Chart = Classify(CATS.Model.Entity, {
             this.series = [];
             this.series_params = [];
             this.series = [];
-            _.each(settings, function (v) { self.add_new_series(self.params_unpack(v)); });
+            this.chart_type = settings.chart_type;
+            _.each(settings.params, function (v) { self.add_new_series(self.params_unpack(v)); });
         }
-        return _.map(this.series_params, function (v) { return self.params_pack(v); });
+        return {chart_type: this.chart_type, params: _.map(this.series_params, function (v) { return self.params_pack(v); })};
     },
 
     parameter_yaxes: {
@@ -207,5 +209,14 @@ CATS.Model.Chart = Classify(CATS.Model.Entity, {
         avg: function(arr) { return arr.reduce(function(pv, cv) { return pv + cv; }, 0) / arr.length; },
         min: _.min,
         max: _.max,
+    },
+
+    gen_submittions_per_problem_params: function () {
+        var params = [];
+        var contest = this.get_contest();
+        _.each(contest.problems, function (id) {
+            params.push({"period":10,"parameter":"run_cnt","aggregation":"sum","group_by":"status","problems":[id],"user":".*?","affiliation":".*?"});
+        });
+        return {"chart" : { params : params, chart_type: 'pie'}};
     }
 });
