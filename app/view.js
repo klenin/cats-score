@@ -246,8 +246,8 @@ CATS.View = Classify({
             return _.template(tmpl == undefined ? "" : tmpl);
         },
 
-        filters: function(page_name) {
-            var tmpl = this.templates.pages.filters[page_name];
+        page_settings: function(page_name) {
+            var tmpl = this.templates.pages.settings[page_name];
             return _.template(tmpl == undefined ? "" : tmpl);
         },
 
@@ -308,7 +308,7 @@ CATS.View = Classify({
             }
         },
 
-        get_filters_params: function(params) {
+        get_settings_params: function(params) {
             switch (this.page_name()) {
                 case 'table':
                     var table = CATS.App.result_tables[params.table];
@@ -319,6 +319,12 @@ CATS.View = Classify({
                 case 'contests':
                     return {
                         filters: CATS.App.contest_filters,
+                    };
+                case 'charts':
+                    return {
+                        chart: CATS.App.charts[params.chart],
+                        contest: CATS.App.contests[params.contest],
+                        app: CATS.App,
                     };
                 default :
                     return {};
@@ -386,12 +392,14 @@ CATS.View = Classify({
                 "<div id='catsscore_header'>" +
                 header +
                 "</div>" +
-                "<div id='catsscore_pagination_wrapper'>" +
-                pagination +
-                "</div>" +
-                "<div id='catsscore_filters_wrapper'>" +
-                this.filters(this.page_name())(this.get_filters_params(params)) +
-                "</div>" +
+                "<details><summary><strong>Settings</strong></summary>" +
+                    "<div id='catsscore_pagination_wrapper'>" +
+                    pagination +
+                    "</div>" +
+                    "<div id='catsscore_filters_wrapper'>" +
+                    this.page_settings(this.page_name())(this.get_settings_params(params)) +
+                    "</div>" +
+                "</details>" +
                 "<div id='catsscore_wrapper'>" +
                 this.page(skin, page_name)(this.current_catsscore_wrapper_content_params) +
                 "</div>" +

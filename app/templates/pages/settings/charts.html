@@ -1,0 +1,93 @@
+<h2>Add new series:</h2>
+<div class="box">
+    <div>
+        <label>Time period:</label>
+        <input type="text" size="20" id="period" value="10">
+    </div>
+    <div>
+        <label>Parameter:</label>
+        <select id="parameter">
+            <option value="run_cnt">run count</option>
+            <%if (contest.scoring == "school") {%>
+            <option value="points">points</option>
+            <%}%>
+            <option value="place">place</option>
+        </select>
+    </div>
+    <div>
+        <label>Aggregation:</label>
+        <select id="aggregation">
+            <option value="sum">sum</option>
+            <option value="avg">average</option>
+            <option value="min">minimum</option>
+            <option value="max">maximum</option>
+        </select>
+    </div>
+    <div class="parameter_params" id="run_cnt_params">
+        <div>
+            <label>Group by:</label>
+            <select id="group_by">
+                <%_.each(chart.group_by, function (f, name) {
+                %>
+                <option value="<%=name%>"><%=name%></option>
+                <%
+                });%>
+            </select>
+        </div>
+        <div>
+            <label>Problem:</label>
+            <div>
+                <%
+                var prs = contest.problems;
+                for(var i = 0; i < prs.length; ++i) {
+                %>
+                <input class="selector" type="checkbox" name="problems" checked="checked" value="<%=prs[i]%>" /><strong><%=app.problems[prs[i]].code%></strong>(<%=app.problems[prs[i]].name%>)
+                <%
+                }
+                %>
+            </div>
+        </div>
+        <div>
+            <label>Result:</label>
+            <div id="statuses">
+                <%
+                for(var s in chart.statuses) {
+                %>
+                <label><input class="selector" name="statuses" type="checkbox" value="<%=s%>" checked="checked" title="<%=chart.statuses[s]%>"/><%=s%></label>
+                <%
+                }
+                %>
+            </div>
+        </div>
+    </div>
+    <div class="parameter_params" id="points_params">
+    </div>
+
+    <div class="parameter_params" id="place_params">
+    </div>
+
+    <div>
+        <label>User: <input type="text" size="20" id="user" value=".*?"></label>
+    </div>
+    <div>
+        <label>Affiliation: <input type="text" size="20" id="affiliation" value=".*?"></label>
+    </div>
+    <div>
+        <label>Color:</label>
+        <%
+        for(var i = 0; i < chart.colors.length; ++i) {
+        %>
+        <input class="selector" type="radio" name="color" value="<%=chart.colors[i]%>"><span style="background:<%=chart.colors[i]%>"><%=chart.colors[i]%></span>
+        <%
+        };
+        %>
+    </div>
+    <div><button id="add_series">Add</button></div>
+</div>
+<div>
+    <h2>Chart type:</h2>
+    <select id="chart_type">
+        <option value="line">line</option>
+        <option value="pie">pie</option>
+    </select>
+</div>

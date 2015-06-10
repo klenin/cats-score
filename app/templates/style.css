@@ -83,6 +83,26 @@
     font-size: 15px;
 }
 
+details {
+    border-radius: 3px;
+    background: #EEE;
+    margin: 1em 0;
+    padding: 10px;
+}
+
+summary {
+    background: #333;
+    color: #FFF;
+    border-radius: 3px;
+    padding: 5px 10px;
+    outline: none;
+}
+
+details[open] summary {
+    background: #69c773;
+    color: #333;
+}
+
 label {
     position: relative;
     display: inline-block;

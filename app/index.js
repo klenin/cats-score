@@ -4,8 +4,9 @@ function cats_score_init(
     pg,
     footer,
     charts,
-    tbl_filter,
-    cnt_filter,
+    tbl_set,
+    cnt_set,
+    charts_set,
     d_tbl_acm,
     d_tbl_sch,
     d_hist,
@@ -64,9 +65,10 @@ function cats_score_init(
         footer : footer,
         pages : {
             charts : charts,
-            filters : {
-                table: tbl_filter,
-                contests: cnt_filter,
+            settings : {
+                table: tbl_set,
+                contests: cnt_set,
+                charts: charts_set,
             },
             skins : {
                 default : {
