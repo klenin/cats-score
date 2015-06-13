@@ -411,7 +411,7 @@ CATS.View = Classify({
             $("#source").val(this.source());
             $("#page_name").val(this.page_name());
             $("#skin").val(this.skin());
-
+            $('#progress').detach();
             return this;
         },
 
@@ -459,10 +459,12 @@ CATS.View = Classify({
         var self = this;
 
         var view_state = new self.View_state();
-        var router = new self.Router({ view_state: view_state});
+        var router = new self.Router({ view_state: view_state });
 
         view_state.bind("change", function () {
             router.navigate(router.generate_url());
+            console.log("load");
+            $("body").prepend("<div id='progress'><img src='app/templates/img/loading.gif' /></div>");
         });
 
         var view = new self.View_logic($.extend({
