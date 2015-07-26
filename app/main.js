@@ -35,6 +35,7 @@ require(['underscore', 'jquery', 'jqueryui'], function () {
             'adapters/aizu',
             'adapters/domjudge',
             'adapters/codechef',
+            'adapters/ioinformatics',
             'adapters/default',
             'rules/base',
             'controller',
