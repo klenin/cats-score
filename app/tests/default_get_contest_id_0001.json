@@ -2,8 +2,8 @@
   { "type" : "version", "id" : 1 },
 
   { "type" : "contest", "id" : "0001", "name" : "synthetic acm contest id 0001", "external_id" : null, "tags" : null, "description" : null,
-    "url" : null, "problems_url" : null, "full_name" : null, "affiliation" : null, "start_time" : "Wed Feb 18 2015 23:59:25",
-    "finish_time" : "Wed Feb 19 2015 01:00:25", "freeze_time" : null, "unfreeze_time" : null, "is_open_registration" : null,
+    "url" : null, "problems_url" : null, "full_name" : null, "affiliation" : null, "start_time" : "1994-11-05T08:15:30-05:00",
+    "finish_time" : "1994-11-05T13:15:30-05:00", "freeze_time" : null, "unfreeze_time" : null, "is_open_registration" : null,
     "scoring" : "acm", "is_all_results_visible" : true, "problems" : ["10001", "10002"], "users" : ["0001", "0002"], "prizes" : [],
     "runs" : ["0001", "0002", "0003", "0004", "0005"]
   },
@@ -28,22 +28,22 @@
 
   { "type" : "run" , "id" : "0001", "contest" : "0001", "external_id" : null, "tags" : null, "description" : null, "time" : null,
     "problem" : "10001", "user" : "0001", "compiler" : null, "source" : null, "status" : "accepted", "points" : null,
-    "start_processing_time" : "Thu Feb 19 2015 00:02:21", "finish_processing_time" : null, "processor" : null, "ip" : null, "consumed" : null
+    "start_processing_time" : "1994-11-05T08:16:30-05:00", "finish_processing_time" : null, "processor" : null, "ip" : null, "consumed" : null
   },
   { "type" : "run" , "id" : "0002", "contest" : "0001", "external_id" : null, "tags" : null, "description" : null, "time" : null,
     "problem" : "10002", "user" : "0001", "compiler" : null, "source" : null, "status" : "accepted", "points" : null,
-    "start_processing_time" : "Thu Feb 19 2015 00:05:21", "finish_processing_time" : null, "processor" : null, "ip" : null, "consumed" : null
+    "start_processing_time" : "1994-11-05T08:17:30-05:00", "finish_processing_time" : null, "processor" : null, "ip" : null, "consumed" : null
   },
   { "type" : "run" , "id" : "0003", "contest" : "0001", "external_id" : null, "tags" : null, "description" : null, "time" : null,
     "problem" : "10001", "user" : "0002", "compiler" : null, "source" : null, "status" : "accepted", "points" : null,
-    "start_processing_time" : "Thu Feb 19 2015 00:03:21", "finish_processing_time" : null, "processor" : null, "ip" : null, "consumed" : null
+    "start_processing_time" : "1994-11-05T08:18:30-05:00", "finish_processing_time" : null, "processor" : null, "ip" : null, "consumed" : null
   },
   { "type" : "run" , "id" : "0004", "contest" : "0001", "external_id" : null, "tags" : null, "description" : null, "time" : null,
     "problem" : "10002", "user" : "0002", "compiler" : null, "source" : null, "status" : "presentation_error", "points" : null,
-    "start_processing_time" : "Thu Feb 19 2015 00:06:21", "finish_processing_time" : null, "processor" : null, "ip" : null, "consumed" : null
+    "start_processing_time" : "1994-11-05T08:19:30-05:00", "finish_processing_time" : null, "processor" : null, "ip" : null, "consumed" : null
   },
   { "type" : "run" , "id" : "0005", "contest" : "0001", "external_id" : null, "tags" : null, "description" : null, "time" : null,
     "problem" : "10002", "user" : "0002", "compiler" : null, "source" : null, "status" : "accepted", "points" : null,
-    "start_processing_time" : "Thu Feb 19 2015 00:07:21", "finish_processing_time" : null, "processor" : null, "ip" : null, "consumed" : null
+    "start_processing_time" : "1994-11-05T08:25:30-05:00", "finish_processing_time" : null, "processor" : null, "ip" : null, "consumed" : null
   }
 ]
