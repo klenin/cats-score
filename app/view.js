@@ -464,7 +464,7 @@ CATS.View = Classify({
         view_state.bind("change", function () {
             router.navigate(router.generate_url());
             console.log("load");
-            $("body").prepend("<div id='progress'><img src='app/templates/img/loading.gif' /></div>");
+            if(!$('#progress').length) $("body").prepend("<div id='progress'><img src='app/templates/img/loading.gif' /></div>");
         });
 
         var view = new self.View_logic($.extend({
