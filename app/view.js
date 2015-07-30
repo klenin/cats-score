@@ -267,8 +267,11 @@ CATS.View = Classify({
             return this.templates.pages.skins[skin_name][page_name] != undefined;
         },
 
-        define_skin_stylesheet: function (skin) {
+        detach_skin_stylesheet: function () {
             $('link#cats_score').detach();
+        },
+
+        define_skin_stylesheet: function (skin) {
             $('head').append(
                 '<link id="cats_score" rel="stylesheet" href="'  + this.css_base_url + '/pages/skins/' + skin + '/style.css" type="text/css" />'
             );
@@ -359,6 +362,7 @@ CATS.View = Classify({
             if (page_name == "table")
                 page_name += "_" + CATS.App.result_tables[params.table].scoring;
 
+            this.detach_skin_stylesheet();
             if (this.with_css && this.available_skin_name(skin, page_name))
                 this.define_skin_stylesheet(skin);
 
