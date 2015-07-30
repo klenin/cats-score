@@ -65,7 +65,7 @@
 }
 
 .gigantic.pagination {
-    margin: 10px 0;
+    margin: 0px 10px 10px 0px;
 }
 
 .gigantic.pagination a {
@@ -206,5 +206,9 @@ ul#legend li span {
 .pie {
     width: 500px;
     height: 500px;
+    float: left;
+}
+
+#elements_per_page, #page_selector {
     float: left;
 }

@@ -393,13 +393,13 @@ CATS.View = Classify({
                 header +
                 "</div>" +
                 "<details><summary><strong>Settings</strong></summary>" +
-                    "<div id='catsscore_pagination_wrapper'>" +
-                    pagination +
-                    "</div>" +
                     "<div id='catsscore_filters_wrapper'>" +
                     this.page_settings(this.page_name())(this.get_settings_params(params)) +
                     "</div>" +
                 "</details>" +
+                "<div id='catsscore_pagination_wrapper'>" +
+                pagination +
+                "</div>" +
                 "<div id='catsscore_wrapper'>" +
                 this.page(skin, page_name)(this.current_catsscore_wrapper_content_params) +
                 "</div>" +
