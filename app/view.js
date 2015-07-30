@@ -450,7 +450,6 @@ CATS.View = Classify({
     }),
 
     display : function (options) {
-        //$(document).on('click', 'a', function() {return false;});
         var default_options = {
             with_header: true,
             with_footer: true,
@@ -459,9 +458,7 @@ CATS.View = Classify({
             default_url_hash: "!show_contests_list/default/default"
         };
 
-        var templates = this.templates;
         var self = this;
-
         var view_state = new self.View_state();
         var router = new self.Router({ view_state: view_state });
 
@@ -474,7 +471,7 @@ CATS.View = Classify({
         var view = new self.View_logic($.extend({
             view_state: view_state,
             router: router,
-            templates: templates,
+            templates: self.templates,
             css_base_url: self.css_base_url
         }, default_options, options));
 
