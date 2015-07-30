@@ -96,6 +96,7 @@ summary {
     border-radius: 3px;
     padding: 5px 10px;
     outline: none;
+    cursor: pointer;
 }
 
 details[open] summary {
