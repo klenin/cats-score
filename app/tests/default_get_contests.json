@@ -8,7 +8,7 @@
   },
   { "type" : "contest", "id" : "0002", "name" : "synthetic school contest id 0002", "external_id" : null, "tags" : null, "description" : null,
     "url" : null, "problems_url" : null, "full_name" : null, "affiliation" : null, "start_time" : "1994-11-05T08:15:30-05:00",
-    "finish_time" : "1994-11-05T013:15:30-05:00", "freeze_time" : null, "unfreeze_time" : null, "is_open_registration" : null,
+    "finish_time" : "1994-11-05T13:15:30-05:00", "freeze_time" : null, "unfreeze_time" : null, "is_open_registration" : null,
     "scoring" : "school", "is_all_results_visible" : true, "problems" : ["0001", "0002"], "users" : ["0001", "0002"], "prizes" : [],
     "runs" : ["10001", "10002", "10003", "10004", "10005"]
   }
