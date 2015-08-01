@@ -121,7 +121,9 @@ require(['underscore', 'jquery', 'jqueryui'], function () {
                             //URI Online Judge
                             'text!templates/pages/skins/uri/table_acm.html',
                             //AIZU Online Judge
-                            'text!templates/pages/skins/aizu/table_acm.html'
+                            'text!templates/pages/skins/aizu/table_acm.html',
+                            //IOInformatics
+                            'text!templates/pages/skins/ioinformatics/table_school.html'
                             //after add new skin make sure add new item in index.js
                         ], cats_score_init);
                     });
