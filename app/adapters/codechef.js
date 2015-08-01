@@ -19,7 +19,7 @@ CATS.Adapter.CodeChef = Classify({
         for (var i = 0; i < this.contest.problems.length; ++i) {
             var prob = result_table.get_empty_problem_for_score_board_row();
             prob.problem = this.contest.problems[i];
-            var pv = v.problems_status[prob.problem];
+            var pv = v.problems_status ? v.problems_status[prob.problem] : undefined;
             prob.points = pv == undefined ? 0 : pv.score;
             prob.is_solved = prob.points > 0;
             if (prob.is_solved) {
