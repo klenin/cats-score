@@ -65,7 +65,7 @@
 }
 
 .gigantic.pagination {
-    margin: 10px 0;
+    margin: 0px 10px 10px 0px;
 }
 
 .gigantic.pagination a {
@@ -96,6 +96,7 @@ summary {
     border-radius: 3px;
     padding: 5px 10px;
     outline: none;
+    cursor: pointer;
 }
 
 details[open] summary {
@@ -206,5 +207,9 @@ ul#legend li span {
 .pie {
     width: 500px;
     height: 500px;
+    float: left;
+}
+
+#elements_per_page, #page_selector {
     float: left;
 }

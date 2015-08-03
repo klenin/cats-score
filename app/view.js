@@ -267,8 +267,11 @@ CATS.View = Classify({
             return this.templates.pages.skins[skin_name][page_name] != undefined;
         },
 
-        define_skin_stylesheet: function (skin) {
+        detach_skin_stylesheet: function () {
             $('link#cats_score').detach();
+        },
+
+        define_skin_stylesheet: function (skin) {
             $('head').append(
                 '<link id="cats_score" rel="stylesheet" href="'  + this.css_base_url + '/pages/skins/' + skin + '/style.css" type="text/css" />'
             );
@@ -359,6 +362,7 @@ CATS.View = Classify({
             if (page_name == "table")
                 page_name += "_" + CATS.App.result_tables[params.table].scoring;
 
+            this.detach_skin_stylesheet();
             if (this.with_css && this.available_skin_name(skin, page_name))
                 this.define_skin_stylesheet(skin);
 
@@ -393,13 +397,13 @@ CATS.View = Classify({
                 header +
                 "</div>" +
                 "<details><summary><strong>Settings</strong></summary>" +
-                    "<div id='catsscore_pagination_wrapper'>" +
-                    pagination +
-                    "</div>" +
                     "<div id='catsscore_filters_wrapper'>" +
                     this.page_settings(this.page_name())(this.get_settings_params(params)) +
                     "</div>" +
                 "</details>" +
+                "<div id='catsscore_pagination_wrapper'>" +
+                pagination +
+                "</div>" +
                 "<div id='catsscore_wrapper'>" +
                 this.page(skin, page_name)(this.current_catsscore_wrapper_content_params) +
                 "</div>" +
@@ -446,7 +450,6 @@ CATS.View = Classify({
     }),
 
     display : function (options) {
-        //$(document).on('click', 'a', function() {return false;});
         var default_options = {
             with_header: true,
             with_footer: true,
@@ -455,22 +458,20 @@ CATS.View = Classify({
             default_url_hash: "!show_contests_list/default/default"
         };
 
-        var templates = this.templates;
         var self = this;
-
         var view_state = new self.View_state();
         var router = new self.Router({ view_state: view_state });
 
         view_state.bind("change", function () {
             router.navigate(router.generate_url());
             console.log("load");
-            $("body").prepend("<div id='progress'><img src='app/templates/img/loading.gif' /></div>");
+            if(!$('#progress').length) $("body").prepend("<div id='progress'><img src='app/templates/img/loading.gif' /></div>");
         });
 
         var view = new self.View_logic($.extend({
             view_state: view_state,
             router: router,
-            templates: templates,
+            templates: self.templates,
             css_base_url: self.css_base_url
         }, default_options, options));
 

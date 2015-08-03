@@ -1,0 +1,53 @@
+<%
+var contest_id = models.contest;
+var table_id = models.table;
+var contest = app.contests[contest_id];
+var contest_problems_stats = contest.get_problems_stats();
+var table = app.result_tables[table_id];
+%>
+<div class="mainpage">
+<div class="maincontent">
+<table border="1">
+<tr>
+    <th rowspan="2"><a href="#">Rank</a></th>
+    <th rowspan="2"><a href="#">Contestant</a></th>
+    <th rowspan="2"><a href="#">Country</a></th>
+    <%
+    for (var i = 0; i < contest.problems.length; ++i) {
+    var prob = app.problems[contest.problems[i]];
+    %>
+    <th rowspan="2" class="taskscore"><a href="#" title="<%=prob.name%>"><%=prob.code%></a></th>
+    <%
+    };
+    %>
+    <th colspan="2"><a href="#">Score</a><div class="sorttriangle">▼</div></th>
+    <th rowspan="2">Medal</th></tr>
+<tr><th>Abs.</th><th>Rel.</th></tr>
+    <%
+    var total_points = Math.max(_.chain(contest.problems).
+        map(function (pid) { return CATS.App.problems[pid].max_points; }).
+        reduce(function (t, s) { return t + s; }, 0).value(), 1);
+    _.each(table.score_board.slice(next_page, next_page + elem_cnt), function(row) {
+        var prize_class='gold';
+    %>
+    <tr class="<%=prize_class%>">
+        <td><%=row.place%></td>
+        <td class="leftalign"><a href="#"><%=app.users[row.user].name%></a></td>
+        <td class="leftalign"><a href="#"><%=app.users[row.user].some_affiliation()%></a></td>
+        <%
+        for (var i = 0; i < row.problems.length; ++i) {
+        %>
+        <td class="taskscore"><%=row.problems[i].points%></td>
+        <%
+        };
+        %>
+        <td><%=row.points_cnt%></td>
+        <td><%=(row.points_cnt / total_points * 100).toFixed(2)%>%</td>
+        <td>Gold</td>
+    </tr>
+    <%
+    });
+    %>
+</table>
+</div>
+</div>

@@ -62,6 +62,11 @@ CATS.Utils = Classify({
             function(data) { callback($.parseXML(data.result)); });
     },
 
+    proxy_get_html: function(url, callback) {
+        CATS.App.utils.json_get(CATS.App.utils.proxy_url(url),
+            function(data) { callback($.parseHTML(data.result)); });
+    },
+
     proxy_get_json: function(url, callback) {
         CATS.App.utils.json_get(CATS.App.utils.proxy_url(url),
             function(data) { callback($.parseJSON(data.result)); });

@@ -1,0 +1,111 @@
+.mainpage
+{
+	width: 1060px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	background-color: #E2E2E2;
+	box-shadow: 0px 0px 10px 7px #E2E2E2;
+	border-radius: 15px;
+}
+
+a
+{
+	text-decoration: none;
+}
+
+a:link, a:visited
+{
+	color: #0F3678;
+}
+
+th a:hover, td a:hover, .maincontent a:hover
+{
+	color: green;
+	text-decoration: underline;
+}
+
+
+.maincontent
+{
+	background-color: white;
+	border-radius: 15px;
+	padding: 8px;
+	clear: both;
+	font-family: 'Tahoma', 'Geneva', sans-serif;
+	font-size: 14px;
+	margin-bottom: 8px;
+}
+
+td.gold, .participantmedals .goldcount, .delcontent a div.gold
+{
+	background-color: #FFEE55;
+}
+
+td.silver, .participantmedals .silvercount, .delcontent a div.silver
+{
+	background-color: #CCCCCC;
+}
+
+td.bronze, .participantmedals .bronzecount, .participantmedals, .delcontent a div.bronze
+{
+	background-color: #B87838;
+}
+
+td.nomedal
+{
+	background-color: #E8F4FF;
+}
+
+.goldcount, .silvercount, .bronzecount
+{
+	width: 33.333%;
+	text-align: center;
+	font-size: xx-large;
+	height: 50px;
+	line-height: 50px;
+	min-width: 80px;
+}
+
+table, table tr, table th, table td
+{
+	border-style: solid;
+	border-width: 1px;
+	border-collapse: collapse;
+	border-color: #AAAAAA;
+	text-align: center;
+	padding-left: 3px;
+	padding-right: 3px;
+	background-color: white;
+}
+
+table td.taskscore, table th.taskscore
+{
+	padding-left: 2px;
+	padding-right: 2px;
+	min-width: 35px;
+}
+
+table
+{
+	border-radius: 15px;
+}
+
+table td.leftalign
+{
+	text-align: left;
+}
+
+table th.numcolumn
+{
+	min-width: 20px;
+}
+
+.sorttriangle
+{
+	display: inline;
+	margin-left: 4px;
+	font-size: 9px;
+	vertical-align: middle;
+}

@@ -12,12 +12,17 @@ $('.pagination').jqPagination({
 
 </script>
 <h2>Pagination:</h2>
-<div class="gigantic pagination">
-    <a href="#" class="first" data-action="first">&laquo;</a>
-    <a href="#" class="previous" data-action="previous">&lsaquo;</a>
-    <input type="text" readonly="readonly" />
-    <a href="#" class="next" data-action="next">&rsaquo;</a>
-    <a href="#" class="last" data-action="last">&raquo;</a>
+<div id="page_selector">
+    <div class="gigantic pagination">
+        <a href="#" class="first" data-action="first">&laquo;</a>
+        <a href="#" class="previous" data-action="previous">&lsaquo;</a>
+        <input type="text" readonly="readonly" />
+        <a href="#" class="next" data-action="next">&rsaquo;</a>
+        <a href="#" class="last" data-action="last">&raquo;</a>
+    </div>
 </div>
-<div><label for="el_per_page">elements per page:</label>
-    <input id="el_per_page" value="<%=el_per_page%>" /></div>
+<div id="elements_per_page">
+    <label for="el_per_page">elements per page:</label>
+    <input id="el_per_page" value="<%=el_per_page%>" />
+</div>
+<div class="clear"></div>

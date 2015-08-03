@@ -40,7 +40,8 @@ function cats_score_init(
     ka_hist,
     ka_contests,
     ur_tbl_acm,
-    az_tbl_acm
+    az_tbl_acm,
+    ioi_tbl_sch
 ) {
     CATS.Config.proxy_path = "http://imcs.dvfu.ru/cats/main.pl?f=proxy&u=";
 
@@ -55,6 +56,7 @@ function cats_score_init(
     CATS.App.register_adapter(new CATS.Adapter.Aizu());
     CATS.App.register_adapter(new CATS.Adapter.Domjudge());
     CATS.App.register_adapter(new CATS.Adapter.CodeChef());
+    CATS.App.register_adapter(new CATS.Adapter.IOInformatics());
     CATS.App.register_adapter(new CATS.Adapter.Default());
     CATS.App.register_rule(new CATS.Rule.Acm());
     CATS.App.register_rule(new CATS.Rule.School());
@@ -130,6 +132,10 @@ function cats_score_init(
                     table_acm : az_tbl_acm,
                     //table_school : ur_tbl_sch,
                     //history : ur_hist,
+                    //contests : ur_contests,
+                },
+                ioinformatics : {
+                    table_school : ioi_tbl_sch,
                     //contests : ur_contests,
                 },
             }
