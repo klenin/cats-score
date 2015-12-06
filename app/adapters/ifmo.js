@@ -92,6 +92,9 @@ CATS.Adapter.Ifmo = Classify({
         var self = this;
         CATS.App.utils.cors_get_html(this.url + 'past/index.html', function (page) {
             var contests = [];
+            var c = { id: 'current', name: 'Current' };
+            self.add_contest(c);
+            contests.push(c.id);
             $(page).find('td.neercyear a').each(function () {
                 var year = $(this).text().match(/\d+/g)[0];
                 if (year <= self.minimal_year)
@@ -105,7 +108,8 @@ CATS.Adapter.Ifmo = Classify({
     },
 
     get_contest: function(callback, contest_id) {
-        CATS.App.utils.cors_get_html(this.url + 'past/' + contest_id + '/standings.html', callback);
+        var url_part = contest_id == 'current' ? 'information' : 'past/' + contest_id;
+        CATS.App.utils.cors_get_html(this.url + url_part + '/standings.html', callback);
     },
 
     parse: function(contest_id, result_table, callback) {
