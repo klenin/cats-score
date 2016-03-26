@@ -14,7 +14,10 @@ CATS.Adapter.Ifmo_xml = Classify(CATS.Adapter.Ifmo, {
 
         var contest = CATS.App.contests[contest_id];
         if (contest == undefined)
-            contest = this.add_contest({id: contest_id, name: 'NEERC ' + contest_id});
+            contest = this.add_contest({
+                id: contest_id,
+                name: 'NEERC ' + contest_id}
+            );
 
         $(page).children('standings').children('contest').each(function () {
             var row = {};
@@ -33,14 +36,20 @@ CATS.Adapter.Ifmo_xml = Classify(CATS.Adapter.Ifmo, {
                 contest.add_object(user);
 
                 $(this).children('problem').each(function() {
-                    var problem_id = CATS.App.get_problem_by_code($(this).attr('alias')).id;
+                    var problem_id = CATS.App.get_problem_by_code(
+                        $(this).attr('alias')
+                    ).id;
                     $(this).children('run').each(function() {
                         var run = new CATS.Model.Run();
                         run.problem = problem_id;
                         run.user = user.id;
                         run.contest = contest_id;
-                        run.status = $(this).attr('accepted') === 'yes' ? 'accepted' : 'wrong_answer';
-                        run.start_processing_time = CATS.App.utils.add_time(contest.start_time, Math.floor($(this).attr('time') / 60000));
+                        run.status = $(this).attr('accepted') === 'yes'
+                            ? 'accepted' : 'wrong_answer';
+                        run.start_processing_time = CATS.App.utils.add_time(
+                            contest.start_time,
+                            Math.floor($(this).attr('time') / 60000)
+                        );
                         CATS.App.add_object(run);
                         contest.add_object(run);
                     });
@@ -53,7 +62,11 @@ CATS.Adapter.Ifmo_xml = Classify(CATS.Adapter.Ifmo, {
     minimal_year: 2011,
 
     get_contest: function(callback, contest_id) {
-        CATS.App.utils.cors_get_xml(this.url + 'past/' + contest_id + '/northern/north-' + contest_id + '-standings.xml', callback);
+        CATS.App.utils.cors_get_xml(
+            this.url + 'past/' + contest_id + '/northern/north-' + contest_id
+                + '-standings.xml',
+            callback
+        );
     },
 
     parse: function(contest_id, result_table, callback) {

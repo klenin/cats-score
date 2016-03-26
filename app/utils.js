@@ -75,7 +75,9 @@ CATS.Utils = Classify({
     json_get: function (url, callback) {
         $.ajax({
             // Avoid "not well-formed" error when loading JSON from local file.
-            beforeSend: function(req) { req.overrideMimeType('application/json'); },
+            beforeSend: function(req) {
+                req.overrideMimeType('application/json');
+            },
             url: url,
             dataType: 'json'
         }).done(function(data) {

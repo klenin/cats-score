@@ -128,16 +128,15 @@ CATS.Model.Results_table = Classify(CATS.Model.Entity, {
     add_group: function (group, teams_problems, scoring) {
         for (var j = 0; j < group.length; ++j) {
             var score_board_row = this.get_empty_score_board_row();
-            score_board_row['place'] = (j != 0 &&
-                    (
-                        scoring == 'school' ?
-                            group[j - 1]['points_cnt'] == group[j]['points_cnt'] :
-                        (scoring == 'acm' ?
-                            group[j - 1]['p'] == group[j]['p'] :
-                            false))
-                    ) ?
-                this.score_board.top()['place'] :
-                this.score_board.length + 1;
+            score_board_row['place'] = (j != 0 && (
+                scoring == 'school'
+                    ? group[j - 1]['points_cnt'] == group[j]['points_cnt']
+                    : (scoring == 'acm'
+                        ? group[j - 1]['p'] == group[j]['p']
+                        : false))
+            )
+                ? this.score_board.top()['place']
+                : this.score_board.length + 1;
             score_board_row['user'] = group[j]['id'];
             score_board_row['penalty'] = group[j]['p'];
             score_board_row['solved_cnt'] = group[j]['solved_cnt'];
@@ -158,14 +157,21 @@ CATS.Model.Results_table = Classify(CATS.Model.Entity, {
         var self = this;
         $.each(old_score_board, function (k, row) {
             var user = CATS.App.users[row['user']];
-            if ((self.filters.user == null || user.name.match(new RegExp(self.filters.user))) &&
-                (self.filters.affiliation == null || user.some_affiliation().match(new RegExp(self.filters.affiliation))) &&
-                (self.filters.role == null || user.role.match(new RegExp(self.filters.role)))
+            if ((self.filters.user == null
+                    || user.name.match(new RegExp(self.filters.user))) &&
+                (self.filters.affiliation == null
+                    || user.some_affiliation().match(new RegExp(
+                        self.filters.affiliation
+                    ))) &&
+                (self.filters.role == null
+                    || user.role.match(new RegExp(self.filters.role)))
             ) {
                 if (self.filters.duration.type == 'scoreboard' &&
                     self.filters.duration.minutes != null)
                     for (var i = 0; i < row['problems'].length; ++i) {
-                        if (row['problems'][i].is_solved && row['problems'][i].best_run_time > self.filters.duration.minutes) {
+                        if (row['problems'][i].is_solved
+                            && row['problems'][i].best_run_time >
+                                self.filters.duration.minutes) {
                             row['problems'][i].is_solved = false;
                             row['problems'][i].runs_cnt = 0;
                         }

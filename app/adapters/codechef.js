@@ -19,7 +19,8 @@ CATS.Adapter.CodeChef = Classify({
         for (var i = 0; i < this.contest.problems.length; ++i) {
             var prob = result_table.get_empty_problem_for_score_board_row();
             prob.problem = this.contest.problems[i];
-            var pv = v.problems_status ? v.problems_status[prob.problem] : undefined;
+            var pv = v.problems_status
+                ? v.problems_status[prob.problem] : undefined;
             prob.points = pv == undefined ? 0 : pv.score;
             prob.is_solved = prob.points > 0;
             if (prob.is_solved) {
@@ -70,9 +71,11 @@ CATS.Adapter.CodeChef = Classify({
         var that = this;
         var contest_ids = [];
         CATS.App.utils.proxy_get(this.url + 'contests', function (data) {
-            $(data).find('div.table-questions tr[class!="headerrow"]').each(function(k, v) {
-                contest_ids.push(that.add_contest($(v)).id);
-            });
+            $(data).find('div.table-questions tr[class!="headerrow"]').each(
+                function(k, v) {
+                    contest_ids.push(that.add_contest($(v)).id);
+                }
+            );
             callback(contest_ids);
         });
     },
@@ -80,14 +83,17 @@ CATS.Adapter.CodeChef = Classify({
     parse: function(contest_id, result_table, callback) {
         var that = this;
         CATS.App.utils.proxy_get_json(
-            this.url + 'api/rankings/' + contest_id + '?itemsPerPage=100&order=asc&sort_by=rank&page=1',
+            this.url + 'api/rankings/' + contest_id
+                + '?itemsPerPage=100&order=asc&sort_by=rank&page=1',
             function (data) {
                 that.contest = CATS.App.contests[contest_id];
                 if (that.contest == undefined)
                     that.contest = that.add_contest_json(data.contest_info);
                 result_table.scoring = that.contest.scoring;
                 _.each(data.problems, function (v) { that.add_problem(v); });
-                _.each(data.list, function (v) { that.add_row(result_table, v) });
+                _.each(data.list, function (v) {
+                    that.add_row(result_table, v)
+                });
                 callback();
             }
         );

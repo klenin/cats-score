@@ -49,7 +49,8 @@ CATS.Controller = Classify({
     },
 
     adapter_process_rank_table: function(callback, contest_id, settings) {
-        var contest_list = (contest_id.indexOf(',') != -1) ? contest_id.split(',') : [contest_id];
+        var contest_list = (contest_id.indexOf(',') != -1)
+            ? contest_id.split(',') : [contest_id];
 
         var cont_list = [];
         for(var i = 0; i < contest_list.length; ++i)
@@ -59,7 +60,11 @@ CATS.Controller = Classify({
             var result_table = this.get_result_table(cont_list);
             if (settings != null && settings.chart != undefined)
                 CATS.App.charts[result_table.chart].settings(settings.chart);
-            callback({chart: result_table.chart, contest: result_table.contest, table: result_table.id});
+            callback({
+                chart: result_table.chart,
+                contest: result_table.contest,
+                table: result_table.id
+            });
             return;
         }
 
@@ -71,13 +76,20 @@ CATS.Controller = Classify({
             var cont_id = con.split(':')[1];
             var result_table = new CATS.Model.Results_table();
             result_table.contests.push(cont_id);
-            self.adapters[cont_adapter].parse(cont_id, result_table, function () {
-                var contest = CATS.App.contests[cont_id];
-                result_table.contest = cont_id;
-                result_table.contests = [cont_id];
-                CATS.App.rules[contest.scoring].process(contest, result_table);
-                d.resolve();
-            });
+            self.adapters[cont_adapter].parse(
+                cont_id,
+                result_table,
+                function () {
+                    var contest = CATS.App.contests[cont_id];
+                    result_table.contest = cont_id;
+                    result_table.contests = [cont_id];
+                    CATS.App.rules[contest.scoring].process(
+                        contest,
+                        result_table
+                    );
+                    d.resolve();
+                }
+            );
             return d.promise();
         });
 
@@ -89,7 +101,8 @@ CATS.Controller = Classify({
             united_contest.name = "";
             for (var i = 0; i < cont_list.length; ++i) {
                 var c = CATS.App.contests[cont_list[i]];
-                if (c.scoring == "school") //суммируются турниры разных правил, выбирем школьные
+                //суммируются турниры разных правил, выбирем школьные
+                if (c.scoring == "school")
                     united_contest.scoring = "school";
                 united_contest.runs = _.uniq(united_contest.runs.concat(c.runs));
                 united_contest.sort_runs();
@@ -101,8 +114,14 @@ CATS.Controller = Classify({
                     united_contest.finish_time = c.finish_time;
                 }
                 else {
-                    united_contest.start_time = Math.min(united_contest.start_time, c.start_time);
-                    united_contest.finish_time = Math.max(united_contest.finish_time, c.finish_time);
+                    united_contest.start_time = Math.min(
+                        united_contest.start_time,
+                        c.start_time
+                    );
+                    united_contest.finish_time = Math.max(
+                        united_contest.finish_time,
+                        c.finish_time
+                    );
                 }
             }
             CATS.App.add_object(united_contest);
@@ -110,7 +129,10 @@ CATS.Controller = Classify({
             result_table.contest = united_contest.id;
             if (settings != null && settings.table != undefined)
                 result_table.filters = settings.table;
-            CATS.App.rules[united_contest.scoring].process(united_contest, result_table);
+            CATS.App.rules[united_contest.scoring].process(
+                united_contest,
+                result_table
+            );
             CATS.App.add_object(result_table);
             var chart = new CATS.Model.Chart(result_table.id);
             chart.contests_url_param = contest_list;
@@ -118,13 +140,19 @@ CATS.Controller = Classify({
                 chart.settings(settings.chart);
             CATS.App.add_object(chart);
             result_table.chart = chart.id;
-            callback({chart: chart.id, contest: united_contest.id, table: result_table.id});
+            callback({
+                chart: chart.id,
+                contest: united_contest.id,
+                table: result_table.id
+            });
         });
     },
 
     contest_filter: function (contest_id) {
         var name = CATS.App.contest_filters.name;
-        return name === null || CATS.App.contests[contest_id].name.match(new RegExp(name));
+        return name === null || CATS.App.contests[contest_id].name.match(
+            new RegExp(name)
+        );
     },
 
     adapter_filter_contests_list: function(adapter_name, callback) {

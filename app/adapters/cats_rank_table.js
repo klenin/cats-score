@@ -53,13 +53,14 @@ CATS.Adapter.Cats_rank_table = Classify({
             for(var i = 0; i < problem_ids.length; ++i) {
                 var prob = result_table.get_empty_problem_for_score_board_row();
                 prob.problem = problem_ids[i];
-                prob.is_solved = r.td != undefined ? r.td[i].charAt(0) == '+' : r.pt[i] == problem_max_points[i];
-                prob.runs_cnt = r.td != undefined && r.td[i].throw_first_chars(1) != "" ?
-                    parseInt(r.td[i].throw_first_chars(1)) :
-                    0;
+                prob.is_solved = r.td != undefined
+                    ? r.td[i].charAt(0) == '+' : r.pt[i] == problem_max_points[i];
+                prob.runs_cnt = r.td != undefined && r.td[i].throw_first_chars(1) != ""
+                    ? parseInt(r.td[i].throw_first_chars(1)) : 0;
                 if (prob.is_solved)
                     prob.runs_cnt++;
-                prob.best_run_time = r.tm != undefined ? CATS.App.utils.formated_hours_to_minutes(r.tm[i]) : null;
+                prob.best_run_time = r.tm != undefined
+                    ? CATS.App.utils.formated_hours_to_minutes(r.tm[i]) : null;
                 prob.points = r.pt != undefined ? r.pt[i] : null;
                 row.problems.push(prob);
             }

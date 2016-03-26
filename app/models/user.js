@@ -12,7 +12,8 @@ CATS.Model.User = Classify(CATS.Model.Entity, {
         this.region = {
             name: null
         };
-        this.role = "in_contest";//: "in_contest"* | "out_of_contest" | "virtual" | "jury", ? "commentator"
+        //: "in_contest"* | "out_of_contest" | "virtual" | "jury", ? "commentator"
+        this.role = "in_contest";
         this.time_offset = null;//: seconds
         this.is_remote = null;
         this.last_ip = null;

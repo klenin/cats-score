@@ -55,13 +55,19 @@ CATS.Adapter.Aizu = Classify({
 
     get_contests: function(callback) {
         var self = this;
-        CATS.App.utils.proxy_get_xml(this.url + 'contest_list', function (data) {
-            var contests = [];
-            $.each($(data).find('contest_list').find('contest'), function (k, v) {
-                contests.push(self.add_contest($(v)).id);
-            });
-            callback(contests);
-        });
+        CATS.App.utils.proxy_get_xml(
+            this.url + 'contest_list',
+            function (data) {
+                var contests = [];
+                $.each(
+                    $(data).find('contest_list').find('contest'),
+                    function (k, v) {
+                        contests.push(self.add_contest($(v)).id);
+                    }
+                );
+                callback(contests);
+            }
+        );
     },
 
     parse_history: function (contest, callback) {
@@ -69,15 +75,22 @@ CATS.Adapter.Aizu = Classify({
         CATS.App.utils.proxy_get_xml(
             this.url + 'contest_problem?id=' + contest.id,
             function(data) {
-                $.each($(data).find('contest_problem').find('problem'), function (k, v) {
-                    contest.add_object(self.add_problem($(v)));
-                });
+                $.each(
+                    $(data).find('contest_problem').find('problem'),
+                    function (k, v) {
+                        contest.add_object(self.add_problem($(v)));
+                    }
+                );
                 CATS.App.utils.proxy_get_xml(
                     self.url + 'contest_status_log?id=' + contest.id,
                     function(data) {
-                        $.each($(data).find('contest_status').find('status').get().reverse(), function (k, v) {
-                            self.parse_run(contest, $(v));
-                        });
+                        $.each(
+                            $(data).find('contest_status').find('status')
+                                .get().reverse(),
+                            function (k, v) {
+                                self.parse_run(contest, $(v));
+                            }
+                        );
                         self.model = contest;
                         callback();
                     }
@@ -90,11 +103,14 @@ CATS.Adapter.Aizu = Classify({
         var contest = CATS.App.contests[contest_id];
         if (!contest) {
             var self = this;
-            CATS.App.utils.proxy_get_xml(this.url + 'contest_info?id=' + contest_id, function (data) {
-                contest = self.add_contest($(data).find('contest_info'));
-                //self.contests.push(contest);
-                self.parse_history(contest, callback);
-            });
+            CATS.App.utils.proxy_get_xml(
+                this.url + 'contest_info?id=' + contest_id,
+                function (data) {
+                    contest = self.add_contest($(data).find('contest_info'));
+                    //self.contests.push(contest);
+                    self.parse_history(contest, callback);
+                }
+            );
         }
         else {
             this.parse_history(contest, callback);

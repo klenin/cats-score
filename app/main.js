@@ -24,7 +24,8 @@ requirejs.config({
     }
 });
 require(['underscore', 'jquery', 'jqueryui'], function () {
-    require(['backbone', 'classify', 'dateformat', 'jqflot', 'jqpagination', 'CATS'], function () {
+    require(['backbone', 'classify', 'dateformat', 'jqflot', 'jqpagination',
+        'CATS'], function () {
         require([
             'adapters/cats',
             'adapters/cats_xml_hist',
@@ -66,7 +67,10 @@ require(['underscore', 'jquery', 'jqueryui'], function () {
                         'extentions',
                         'templates/langs',
                     ], function () {
-                        require([//we cant use skins_names array because optimization module works only with hardcoded array constant. Proof http://requirejs.org/docs/optimization.html
+                        require([
+                            //we cant use skins_names array because optimization
+                            //module works only with hardcoded array constant.
+                            //Proof http://requirejs.org/docs/optimization.html
                             'text!templates/header_rank_table.html',
                             'text!templates/header_contests_list.html',
                             'text!templates/pagination.html',

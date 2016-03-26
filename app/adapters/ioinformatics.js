@@ -60,10 +60,15 @@ CATS.Adapter.IOInformatics = Classify({
         var that = this;
         var contest_ids = [];
         CATS.App.utils.proxy_get(this.url + 'olympiads/', function (data) {
-            $(data).find('table[border="1"] tr:not(:first)').each(function(k, v) {
-                var c = $(v).children('td');
-                contest_ids.push(that.add_contest($(c[1]).text(), $(c[3]).text()).id);
-            });
+            $(data).find('table[border="1"] tr:not(:first)').each(
+                function(k, v) {
+                    var c = $(v).children('td');
+                    contest_ids.push(that.add_contest(
+                        $(c[1]).text(),
+                        $(c[3]).text()).id
+                    );
+                }
+            );
             callback(contest_ids);
         });
     },
@@ -83,9 +88,11 @@ CATS.Adapter.IOInformatics = Classify({
                         that.add_problem(url[1] + url[2], $(v1).text(), url[2]);
                     });
                 });
-                $(data).find('table[border="1"] tr:not(:first)').each(function(k, v) {
-                    that.add_row(result_table, $(v).children('td'));
-                });
+                $(data).find('table[border="1"] tr:not(:first)').each(
+                    function(k, v) {
+                        that.add_row(result_table, $(v).children('td'));
+                    }
+                );
                 callback();
             }
         );

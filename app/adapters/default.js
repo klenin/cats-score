@@ -23,7 +23,9 @@ CATS.Adapter.Default = Classify({
             }
 
             if (new_model.type == "run")
-                new_model.start_processing_time = new Date(new_model.start_processing_time);
+                new_model.start_processing_time = new Date(
+                    new_model.start_processing_time
+                );
 
             CATS.App.add_object(new_model);
         });
@@ -41,18 +43,21 @@ CATS.Adapter.Default = Classify({
 
     get_contests: function(callback) {
         var self = this;
-        CATS.App.utils.json_get("app/tests/default_get_contests.json", function(data) {
-            var contests = [];
-            var version = CATS.Model.Version();
-            version.id = data[0].id;
-            $.each(data, function (k, v) {
-                if (v["type"] == "version")
-                    return 1;
-                self.add_contest(v, version);
-                contests.push(v['id']);
-            });
-            callback(contests);
-        });
+        CATS.App.utils.json_get(
+            "app/tests/default_get_contests.json",
+            function(data) {
+                var contests = [];
+                var version = CATS.Model.Version();
+                version.id = data[0].id;
+                $.each(data, function (k, v) {
+                    if (v["type"] == "version")
+                        return 1;
+                    self.add_contest(v, version);
+                    contests.push(v['id']);
+                });
+                callback(contests);
+            }
+        );
     },
 
     get_contest: function(callback, contest_id) {
