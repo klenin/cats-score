@@ -27,8 +27,7 @@ CATS.Model.Contest = Classify(CATS.Model.Entity, {
 
     sort_runs: function () {
         this.runs.sort(function (a, b) {
-            return CATS.App.runs[a].start_processing_time
-                - CATS.App.runs[b].start_processing_time;
+            return CATS.App.runs[a].start_processing_time - CATS.App.runs[b].start_processing_time;
         });
     },
 
@@ -43,14 +42,7 @@ CATS.Model.Contest = Classify(CATS.Model.Entity, {
     get_problems_stats: function () {
         var stats = {};
         for(var i = 0; i < this.problems.length; ++i) {
-            stats[this.problems[i]] = {
-                runs: 0,
-                sols: 0,
-                points: 0,
-                first_accept:
-                this.compute_duration_minutes(),
-                last_accept: 0
-            };
+            stats[this.problems[i]] = {runs: 0, sols: 0, points: 0, first_accept: this.compute_duration_minutes(), last_accept: 0};
         }
         for(var i = 0; i < this.runs.length; ++i) {
             var run = CATS.App.runs[this.runs[i]];
@@ -59,18 +51,9 @@ CATS.Model.Contest = Classify(CATS.Model.Entity, {
             stats[run.problem].sols += run.status == "accepted" ? 1 : 0;
             stats[run.problem].points += run.points;
             if (run.status == 'accepted') {
-                var time = CATS.App.utils.get_time_diff(
-                    this.start_time,
-                    run.start_processing_time
-                );
-                stats[run.problem].first_accept = Math.min(
-                    time,
-                    stats[run.problem].first_accept
-                );
-                stats[run.problem].last_accept = Math.max(
-                    time,
-                    stats[run.problem].last_accept
-                );
+                var time = CATS.App.utils.get_time_diff(this.start_time, run.start_processing_time);
+                stats[run.problem].first_accept = Math.min(time, stats[run.problem].first_accept);
+                stats[run.problem].last_accept = Math.max(time, stats[run.problem].last_accept);
             }
         }
 

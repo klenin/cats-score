@@ -22,18 +22,12 @@ CATS.Model.Chart = Classify(CATS.Model.Entity, {
         this.series_id_generator = 0;
         var self = this;
         this.group_by = {
-            time: function (r) { return Math.ceil(
-                r.minutes_since_start() / _.last(self.series_params).period
-            ); },
-            status: function (r) {
-                return self.statuses_arr.indexOf(r.status);
-            },
+            time: function (r) { return Math.ceil(r.minutes_since_start() / _.last(self.series_params).period); },
+            status: function (r) { return self.statuses_arr.indexOf(r.status); },
         };
 
         this.group_by_xaxes_value = {
-            time: function (idx) {
-                return idx * _.last(self.series_params).period;
-            },
+            time: function (idx) { return idx * _.last(self.series_params).period; },
             status: function (idx) { return idx; },
         };
     },
@@ -105,16 +99,9 @@ CATS.Model.Chart = Classify(CATS.Model.Entity, {
             this.series_params = [];
             this.series = [];
             this.chart_type = settings.chart_type;
-            _.each(settings.params, function (v) {
-                self.add_new_series(self.params_unpack(v));
-            });
+            _.each(settings.params, function (v) { self.add_new_series(self.params_unpack(v)); });
         }
-        return {
-            chart_type: this.chart_type,
-            params: _.map(this.series_params, function (v) {
-                return self.params_pack(v);
-            })
-        };
+        return {chart_type: this.chart_type, params: _.map(this.series_params, function (v) { return self.params_pack(v); })};
     },
 
     parameter_yaxes: {
@@ -132,11 +119,9 @@ CATS.Model.Chart = Classify(CATS.Model.Entity, {
         this.series_params.push(params);
         this.series.push({
             label: params.parameter,
-            data: this.aggregate(params.parameter === 'place'
-                ? this.place_data(params) : this.simple_data(params), params),
-            color: params.color != undefined
-                ? params.color
-                : this.colors[this.series.length % this.colors.length],
+            data: this.aggregate(
+                params.parameter === 'place' ? this.place_data(params) : this.simple_data(params), params),
+            color: params.color != undefined ? params.color : this.colors[this.series.length % this.colors.length],
             xaxis: this.parameter_xaxes[params.group_by],
             yaxis: this.parameter_yaxes[params.parameter],
             id: ++this.series_id_generator,
@@ -150,11 +135,7 @@ CATS.Model.Chart = Classify(CATS.Model.Entity, {
         _.each(this.series, function (s) {
             var pie = [];
             _.each(s.data, function (data) {
-                pie.push({
-                    label: self.series_params[series_idx].group_by == "status"
-                        ? self.statuses_arr[data[0]] : data[0],
-                    data: data[1]
-                })
+                pie.push({label: self.series_params[series_idx].group_by == "status" ? self.statuses_arr[data[0]] : data[0], data: data[1]})
             });
             pies.push(pie);
             series_idx++;
@@ -164,34 +145,22 @@ CATS.Model.Chart = Classify(CATS.Model.Entity, {
     },
 
     element_to_values: {
-        run_cnt: function (runs) { return _.map(runs, function () {
-            return 1;
-        }); },
-        points: function (runs) { return _.map(runs, function (r) {
-            return r.points;
-        }); },
-        place: function (sb_rows) { return _.map(sb_rows, function (r) {
-            return r.place;
-        }); },
+        run_cnt: function (runs) { return _.map(runs, function () { return 1; }); },
+        points: function (runs) { return _.map(runs, function (r) { return r.points; }); },
+        place: function (sb_rows) { return _.map(sb_rows, function (r) { return r.place; }); },
     },
 
     aggregate: function(chain, params) {
         var self = this;
         return chain.map(function(element, period_idx) {
-            return [
-                self.group_by_xaxes_value[params.group_by](period_idx),
-                self.aggregation[params.aggregation](
-                    self.element_to_values[params.parameter](element)
-                )
-            ];
+            return [ self.group_by_xaxes_value[params.group_by](period_idx) ,
+                self.aggregation[params.aggregation](self.element_to_values[params.parameter](element)) ];
         }).value();
     },
 
     simple_data: function(params) {
         var self = this;
-        var statuses = _.countBy(params.statuses, function (s) {
-            return self.statuses[s];
-        });
+        var statuses = _.countBy(params.statuses, function (s) { return self.statuses[s]; });
         var problems = _.countBy(params.problems, _.identity);
         var affiliation_regexp = new RegExp(params.affiliation);
         var user_regexp = new RegExp(params.user);
@@ -203,9 +172,7 @@ CATS.Model.Chart = Classify(CATS.Model.Entity, {
                 return (
                     r.start_processing_time <= contest.finish_time &&
                     statuses[r.status] && problems[r.problem] &&
-                    affiliation_regexp.test(user.some_affiliation())
-                    && user_regexp.test(user.name)
-                );
+                    affiliation_regexp.test(user.some_affiliation()) && user_regexp.test(user.name));
             }).
             groupBy(self.group_by[params.group_by]);
     },
@@ -219,38 +186,27 @@ CATS.Model.Chart = Classify(CATS.Model.Entity, {
         var user_regexp = new RegExp(params.user);
 
         var result = [];
-        for(var period_idx = 1; period_idx * params.period <= duration;
-            ++period_idx) {
+        for(var period_idx = 1; period_idx * params.period <= duration; ++period_idx) {
             tbl.clean_score_board();
-            tbl.filters.duration = {
-                minutes: period_idx * params.period,
-                type: 'history'
-            };
+            tbl.filters.duration = { minutes: period_idx * params.period, type: 'history' };
             CATS.App.rules[contest.scoring].process(contest, tbl);
             result[period_idx] = _.filter(tbl.score_board, function (row) {
                 var user = CATS.App.users[row.user];
-                return affiliation_regexp.test(user.some_affiliation())
-                    && user_regexp.test(user.name);
+                return affiliation_regexp.test(user.some_affiliation()) && user_regexp.test(user.name);
             });
         }
         return _.chain(result);
     },
 
     delete_series: function(seriesId) {
-        var idx = _.findIndex(this.series, function (s) {
-            return s.id === seriesId;
-        });
+        var idx = _.findIndex(this.series, function (s) { return s.id === seriesId; });
         this.series.splice(idx, 1);
         this.series_params.splice(idx, 1);
     },
 
     aggregation: {
-        sum: function(arr) { return arr.reduce(function(pv, cv) {
-            return pv + cv; }, 0);
-        },
-        avg: function(arr) { return arr.reduce(function(pv, cv) {
-            return pv + cv; }, 0) / arr.length;
-        },
+        sum: function(arr) { return arr.reduce(function(pv, cv) { return pv + cv; }, 0); },
+        avg: function(arr) { return arr.reduce(function(pv, cv) { return pv + cv; }, 0) / arr.length; },
         min: _.min,
         max: _.max,
     },
@@ -259,15 +215,7 @@ CATS.Model.Chart = Classify(CATS.Model.Entity, {
         var params = [];
         var contest = this.get_contest();
         _.each(contest.problems, function (id) {
-            params.push({
-                "period":10,
-                "parameter":"run_cnt",
-                "aggregation":"sum",
-                "group_by":"status",
-                "problems":[id],
-                "user":".*?",
-                "affiliation":".*?"
-            });
+            params.push({"period":10,"parameter":"run_cnt","aggregation":"sum","group_by":"status","problems":[id],"user":".*?","affiliation":".*?"});
         });
         return {"chart" : { params : params, chart_type: 'pie'}};
     }

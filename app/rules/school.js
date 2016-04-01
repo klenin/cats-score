@@ -14,12 +14,8 @@ CATS.Rule.School = Classify(CATS.Rule.Base, {
                 run.problem = p.problem;
                 run.user = row.user;
                 run.contest = contest.id;
-                run.start_processing_time = CATS.App.utils.add_time(
-                    contest.start_time,
-                    p.best_run_time ? p.best_run_time : 0
-                );
-                run.status = p.points === CATS.App.problems[run.problem].max_points
-                    ? 'accepted' : 'wrong_answer';
+                run.start_processing_time = CATS.App.utils.add_time(contest.start_time, p.best_run_time ? p.best_run_time : 0);
+                run.status = p.points === CATS.App.problems[run.problem].max_points ? 'accepted' : 'wrong_answer';
                 run.points = p.points;
                 CATS.App.add_object(run);
                 contest.add_object(run);
@@ -52,25 +48,17 @@ CATS.Rule.School = Classify(CATS.Rule.Base, {
 
         });
 
-        var users_no_runs = _.reduce(contest.users, function (r, u) {
-            r[u] = true; return r;
-        }, {});
+        var users_no_runs = _.reduce(contest.users, function (r, u) { r[u] = true; return r; }, {});
 
         var teams_arr = _.map(teams, function (v, team_id) {
             var points_cnt = 0;
             for (var i = 0; i < contest.problems.length; ++i)
                 points_cnt += teams_problems[team_id][i].points;
             users_no_runs[team_id] = false;
-            return {
-                id: team_id,
-                solved_cnt : v.solved_cnt,
-                points_cnt: points_cnt
-            };
+            return { id: team_id, solved_cnt : v.solved_cnt, points_cnt: points_cnt };
         });
 
-        teams_arr.sort(function (a, b) {
-            return b.points_cnt - a.points_cnt;
-        });
+        teams_arr.sort(function (a, b) { return b.points_cnt - a.points_cnt; });
         result_table.add_group(teams_arr, teams_problems, 'school');
         result_table.add_no_run_users(users_no_runs, 'school');
         result_table.apply_filters();

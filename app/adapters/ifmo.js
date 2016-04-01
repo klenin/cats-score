@@ -14,15 +14,10 @@ CATS.Adapter.Ifmo = Classify({
         var page = this.page;
         var contest = CATS.App.contests[contest_id];
         if (contest == undefined)
-            contest = this.add_contest({
-                id: contest_id,
-                name: 'NEERC ' + contest_id
-            });
+            contest = this.add_contest({id: contest_id, name: 'NEERC ' + contest_id});
 
         var self = this;
-        var source_rows = $('<div/>').append(page).find(
-            'table.wrapper table>tbody>tr'
-        );
+        var source_rows = $('<div/>').append(page).find('table.wrapper table>tbody>tr');
         result_table.scoring = 'acm';
 
         var problems = [];
@@ -59,11 +54,8 @@ CATS.Adapter.Ifmo = Classify({
                 prob.is_solved = solved_src.length > 0;
                 if (prob.is_solved) {
                     var runs_cnt_text = solved_src.contents()[0].nodeValue;
-                    prob.runs_cnt = runs_cnt_text === '+'
-                        ? 1 : parseInt(runs_cnt_text) + 1;
-                    prob.best_run_time = parseInt(
-                        solved_src.children('s').text().split(':')[0]
-                    );
+                    prob.runs_cnt = runs_cnt_text === '+' ? 1 : parseInt(runs_cnt_text) + 1;
+                    prob.best_run_time = parseInt(solved_src.children('s').text().split(':')[0]); 
                     ++row.solved_cnt;
                 }
                 else {
@@ -74,10 +66,7 @@ CATS.Adapter.Ifmo = Classify({
                 row.problems.push(prob);
             }
 
-            self.assert(
-                parseInt($(items[i + 2]).text()) === row.solved_cnt,
-                $(items[i + 2]).text()
-            );
+            self.assert(parseInt($(items[i + 2]).text()) === row.solved_cnt, $(items[i + 2]).text());
             self.assert($(items[i + 3]).hasClass('penalty'));
             row.penalty = parseInt($(items[i + 3]).text());
 
@@ -101,32 +90,26 @@ CATS.Adapter.Ifmo = Classify({
 
     get_contests: function(callback) {
         var self = this;
-        CATS.App.utils.cors_get_html(
-            this.url + 'past/index.html',
-            function (page) {
-                var contests = [];
-                var c = { id: 'current', name: 'Current' };
+        CATS.App.utils.cors_get_html(this.url + 'past/index.html', function (page) {
+            var contests = [];
+            var c = { id: 'current', name: 'Current' };
+            self.add_contest(c);
+            contests.push(c.id);
+            $(page).find('td.neercyear a').each(function () {
+                var year = $(this).text().match(/\d+/g)[0];
+                if (year <= self.minimal_year)
+                    return;
+                var c = { id: year, name: $(this).text() };
                 self.add_contest(c);
                 contests.push(c.id);
-                $(page).find('td.neercyear a').each(function () {
-                    var year = $(this).text().match(/\d+/g)[0];
-                    if (year <= self.minimal_year)
-                        return;
-                    var c = { id: year, name: $(this).text() };
-                    self.add_contest(c);
-                    contests.push(c.id);
-                });
-                callback(contests);
-            }
-        );
+            });
+            callback(contests);
+        })
     },
 
     get_contest: function(callback, contest_id) {
-        var url_part = contest_id == 'current'
-            ? 'information' : 'past/' + contest_id;
-        CATS.App.utils.cors_get_html(
-            this.url + url_part + '/standings.html',
-            callback);
+        var url_part = contest_id == 'current' ? 'information' : 'past/' + contest_id;
+        CATS.App.utils.cors_get_html(this.url + url_part + '/standings.html', callback);
     },
 
     parse: function(contest_id, result_table, callback) {

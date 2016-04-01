@@ -61,17 +61,14 @@ CATS.Adapter.Cats = Classify({
     get_contests: function(callback, contest_id) {
         var self = this;
         var s = contest_id != undefined ? 'id%3D' + contest_id : '';
-        CATS.App.utils.json_get(
-            this.url + '?f=contests;filter=all;rows=1000000;search=' + s + ';json=?',
-            function (data) {
-                var contests = [];
-                $.each(data.contests, function (k, v) {
-                    self.add_contest(v);
-                    contests.push(v['id']);
-                });
-                callback(contests);
-            }
-        );
+        CATS.App.utils.json_get(this.url + '?f=contests;filter=all;rows=1000000;search=' + s + ';json=?', function (data) {
+            var contests = [];
+            $.each(data.contests, function (k, v) {
+                self.add_contest(v);
+                contests.push(v['id']);
+            });
+            callback(contests);
+        });
     },
 
     add_user: function(v) {
@@ -90,17 +87,14 @@ CATS.Adapter.Cats = Classify({
 
     get_users: function(callback, contest_id) {
         var self = this;
-        CATS.App.utils.json_get(
-            this.url + '?f=users;sid=;rows=1000000;cid=' + contest_id + ';json=?',
-            function (data) {
-                var users = [];
-                $.each(data, function (k, v) {
-                    self.add_user(v);
-                    users.push(v['account_id']);
-                });
-                callback(users);
-            }
-        );
+        CATS.App.utils.json_get(this.url + '?f=users;sid=;rows=1000000;cid=' + contest_id + ';json=?', function (data) {
+            var users = [];
+            $.each(data, function (k, v) {
+                self.add_user(v);
+                users.push(v['account_id']);
+            });
+            callback(users);
+        });
     },
 
     add_problem: function(v) {
@@ -122,25 +116,20 @@ CATS.Adapter.Cats = Classify({
 
     get_problems: function(callback, contest_id) {
         var self = this;
-        CATS.App.utils.json_get(
-            this.url + '?f=problems;sid=;rows=1000000;sort=0;sort_dir=0;cid=' +
-                contest_id + ';json=?',
-            function (data) {
-                var problems = [];
-                $.each(data.problems, function (k, v) {
-                    self.add_problem(v);
-                    problems.push(v['id']);
-                });
-                callback(problems);
-            }
-        );
+        CATS.App.utils.json_get(this.url + '?f=problems;sid=;rows=1000000;sort=0;sort_dir=0;cid=' + contest_id + ';json=?', function (data) {
+            var problems = [];
+            $.each(data.problems, function (k, v) {
+                self.add_problem(v);
+                problems.push(v['id']);
+            });
+            callback(problems);
+        });
     },
 
     get_history: function(callback, contest_id) {
         var self = this;
         CATS.App.utils.json_get(
-            this.url + '?f=console_content;sid=;rows=1000000;cid=' + contest_id
-                + ";i_value=-1;json=?",
+            this.url + '?f=console_content;sid=;rows=1000000;cid=' + contest_id + ";i_value=-1;json=?",
             function(data) {
                 callback(data);
             });

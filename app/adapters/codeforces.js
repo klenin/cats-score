@@ -57,9 +57,7 @@ CATS.Adapter.Codeforces = Classify({
                 prob['problem'] = problem_list[prob_num++];
                 prob['is_solved'] = v["bestSubmissionTimeSeconds"] != undefined;
                 if (prob['is_solved']) {
-                    prob['best_run_time'] = Math.round(
-                        v["bestSubmissionTimeSeconds"] / 60
-                    ); //we use minutes
+                    prob['best_run_time'] = Math.round(v["bestSubmissionTimeSeconds"] / 60); //we use minutes
                     row['solved_cnt']++;
                 }
                 prob['runs_cnt'] = v["rejectedAttemptCount"] + 1;
@@ -75,12 +73,11 @@ CATS.Adapter.Codeforces = Classify({
         var contest = CATS.Model.Contest();
         contest.id = v['id'];
         contest.name = v['name'];
-        contest.start_time = v['startTimeSeconds'] != undefined
-            ? v['startTimeSeconds'] : 0;
+        contest.start_time = v['startTimeSeconds'] != undefined ? v['startTimeSeconds'] : 0;
         contest.scoring = this.rules_aliases[v['type']];
 
         if (v['phase'] == 'FINISHED')
-            contest.finish_time = contest.start_time + v['durationSeconds'] * 1000;
+            contest.finish_time = contest.start_time + v['durationSeconds'] * 1000  ;
 
         contest.start_time = new Date(contest.start_time);
         contest.finish_time = new Date(contest.finish_time);
@@ -92,17 +89,14 @@ CATS.Adapter.Codeforces = Classify({
 
     get_contests: function(callback) {
         var self = this;
-        CATS.App.utils.json_get(
-            this.url + '/api/contest.list?gym=true&jsonp=?',
-            function (data) {
-                var contests = [];
-                $.each(data.result, function (k, v) {
-                    self.add_contest(v);
-                    contests.push(v['id']);
-                });
-                callback(contests);
-            }
-        );
+        CATS.App.utils.json_get(this.url + '/api/contest.list?gym=true&jsonp=?', function (data) {
+            var contests = [];
+            $.each(data.result, function (k, v) {
+                self.add_contest(v);
+                contests.push(v['id']);
+            });
+            callback(contests);
+        });
     },
 
     get_contest: function(callback, contest_id) {

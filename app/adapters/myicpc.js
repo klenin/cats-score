@@ -14,9 +14,7 @@ CATS.Adapter.MyIcpc = Classify({
             return callback();
         $.ajax({
             // Avoid "not well-formed" error when loading JSON from local file.
-            beforeSend: function(req) {
-                req.overrideMimeType('application/xml');
-            },
+            beforeSend: function(req) { req.overrideMimeType('application/xml'); },
             url: this.page,
             dataType: 'xml',
             success: function (data) {
@@ -62,18 +60,11 @@ CATS.Adapter.MyIcpc = Classify({
 
         root.children('run').each(function(i, node) {
             var run = new CATS.Model.Run();
-            self.node_to_js(run, node, {
-                id: 'id',
-                problem: 'problem',
-                user: 'team'
-            });
+            self.node_to_js(run, node, { id: 'id', problem: 'problem', user: 'team' });
             var n = $(node);
-            run.status = n.children('solved').text() === 'true'
-                ? 'accepted' : 'wrong_answer';
+            run.status = n.children('solved').text() === 'true' ? 'accepted' : 'wrong_answer';
             run.contest = contest_id;
-            run.start_processing_time = new Date(
-                n.children('timestamp').text() * 1000
-            );
+            run.start_processing_time = new Date(n.children('timestamp').text() * 1000);
             CATS.App.add_object(run);
             contest.add_object(run);
         });
@@ -101,17 +92,11 @@ CATS.Adapter.MyIcpc = Classify({
 
     get_contests: function(callback) {
         var that = this;
-        this.get_xml(function () {
-            that.add_contest();
-            callback(['sample_contest']);
-        });
+        this.get_xml(function () { that.add_contest(); callback(['sample_contest']); });
     },
 
     parse: function(contest_id, result_table, callback) {
         var that = this;
-        this.get_xml(function () {
-            that.parse_history(contest_id, result_table);
-            callback();
-        });
+        this.get_xml(function () { that.parse_history(contest_id, result_table); callback(); });
     }
 });

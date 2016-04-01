@@ -15,10 +15,7 @@ CATS.Adapter.Domjudge = Classify({
                 user.name = v.name;
                 //user.is_remote = r.remote;
                 user.role = 'in_contest';
-                user.affiliation = {
-                    country: v.nationality,
-                    university: v.affiliation
-                };
+                user.affiliation = { country: v.nationality, university: v.affiliation };
                 CATS.App.add_object(user);
                 contest.add_object(user);
             });
@@ -51,39 +48,33 @@ CATS.Adapter.Domjudge = Classify({
             self.get_users(contest, function () {
                 self.get_problems(contest, function () {
                     var problems = contest.problems;
-                    CATS.App.utils.proxy_get_json(
-                        self.url + 'scoreboard',
-                        function (data) {
-                            $.each(data, function (k, v) {
-                                var row = result_table.get_empty_score_board_row();
-                                row.user = k;
-                                for(var i = 0; i < problems.length; ++i) {
-                                    var p = result_table
-                                        .get_empty_problem_for_score_board_row();
-                                    var pv = v[problems[i]];
-                                    p.problem = problems[i];
-                                    p.is_solved = pv.is_correct;
-                                    p.runs_cnt = pv.num_submissions;
-                                    p.best_run_time = pv.time;
-                                    row.problems.push(p);
-                                    if (p.is_solved) {
-                                        row.solved_cnt += 1;
-                                        row.penalty += 1 * p.best_run_time
-                                            + 1 * pv.penalty;
-                                    }
+                    CATS.App.utils.proxy_get_json(self.url + 'scoreboard', function (data) {
+                        $.each(data, function (k, v) {
+                            var row = result_table.get_empty_score_board_row();
+                            row.user = k;
+                            for(var i = 0; i < problems.length; ++i) {
+                                var p = result_table.get_empty_problem_for_score_board_row();
+                                var pv = v[problems[i]];
+                                p.problem = problems[i];
+                                p.is_solved = pv.is_correct;
+                                p.runs_cnt = pv.num_submissions;
+                                p.best_run_time = pv.time;
+                                row.problems.push(p);
+                                if (p.is_solved) {
+                                    row.solved_cnt += 1;
+                                    row.penalty += 1*p.best_run_time + 1*pv.penalty;
                                 }
-                                result_table.score_board.push(row);
-                            });
-                            result_table.score_board.sort(function (a, b) {
-                                if (a.solved_cnt != b.solved_cnt)
-                                    return b.solved_cnt - a.solved_cnt;
-                                return a.penalty - b.penalty;
-                            });
-                            for (var i = 0; i < result_table.score_board.length; ++i)
-                                result_table.score_board[i].place = i + 1;
-                            callback();
-                        }
-                    );
+                            }
+                            result_table.score_board.push(row);
+                        });
+                        result_table.score_board.sort(function (a, b) {
+                            if (a.solved_cnt != b.solved_cnt) return b.solved_cnt - a.solved_cnt;
+                            return a.penalty - b.penalty;
+                        });
+                        for (var i = 0; i < result_table.score_board.length; ++i)
+                            result_table.score_board[i].place = i + 1;
+                        callback();
+                    });
                 });
             });
         });
