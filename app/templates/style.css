@@ -1,22 +1,5 @@
-.row {
-    margin-top: 1%;
-}
-
-
-.selectpicker {
-    border-top-right-radius: 4px !important;
-    border-bottom-right-radius: 4px !important;
-    background-image: none !important;
-}
-
-
 .pagination {
     display: inline-block;
-    margin-top: 0px !important;
-    margin-bottom: 10px !important;
-    width: 100%;
-    height: 34px;
-    line-height: 32px;
     border: 1px solid #CDCDCD;
     border-radius: 3px;
 }
@@ -24,8 +7,8 @@
 .pagination a {
     display: block;
     float: left;
-    width: 10%;
-    height: 100%px;
+    width: 20px;
+    height: 30px;
     outline: none;
     border-right: 1px solid #CDCDCD;
     border-left: 1px solid #CDCDCD;
@@ -37,21 +20,26 @@
     font-size: 16px;
     font-family: Times, 'Times New Roman', Georgia, Palatino;
     /* ATTN: need a better font stack */
-}
-
-.pagination a:hover,
-.pagination a:focus,
-.pagination a:active {
-    background-color: #cecece;
-}
-
-.pagination a.disabled,
-.pagination a.disabled:hover,
-.pagination a.disabled:focus,
-.pagination a.disabled:active {
     background-color: #f3f3f3;
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f3f3f3), color-stop(100%, lightgrey));
+    background-image: -webkit-linear-gradient(#f3f3f3, lightgrey);
+    background-image: linear-gradient(#f3f3f3, lightgrey);
+}
+
+.pagination a:hover, .pagination a:focus, .pagination a:active {
+    background-color: #cecece;
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #e4e4e4), color-stop(100%, #cecece));
+    background-image: -webkit-linear-gradient(#e4e4e4, #cecece);
+    background-image: linear-gradient(#e4e4e4, #cecece);
+}
+
+.pagination a.disabled, .pagination a.disabled:hover, .pagination a.disabled:focus, .pagination a.disabled:active {
+    background-color: #f3f3f3;
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f3f3f3), color-stop(100%, lightgrey));
+    background-image: -webkit-linear-gradient(#f3f3f3, lightgrey);
+    background-image: linear-gradient(#f3f3f3, lightgrey);
     color: #A8A8A8;
-    cursor: not-allowed;
+    cursor: default;
 }
 
 .pagination a:first-child {
@@ -68,71 +56,32 @@
     float: left;
     margin: 0;
     padding: 0;
-    width: 60%;
+    width: 120px;
+    height: 30px;
     outline: none;
     border: none;
     vertical-align: middle;
     text-align: center;
 }
 
-
-
-#page_selector {
-    float: left;
+.gigantic.pagination {
+    margin: 0px 10px 10px 0px;
 }
 
-
-#progress {
-    width: 100%;
-    height: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: auto;
-    background: rgba(0, 0, 0, 0.15)
+.gigantic.pagination a {
+    height: 30px;
+    width: 30px;
+    font-size: 20px;
+    line-height: 25px;
 }
 
-#progress > {
-    img {
-        display: block;
-        border: none;
-    }
+.gigantic.pagination input {
+    box-shadow: inset 1px 1px 2px #ddd8dc;
+    width: 200px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 15px;
 }
-
-
-#el_per_page {
-    margin: 0 1%;
-    cursor: pointer;
-}
-
-#el_per_page.active {
-    color: #000;
-    cursor: initial;
-}
-
-#el_per_page.active:hover {
-    color: #000;
-    text-decoration: none;
-}
-
-#el_per_page_input {
-    margin-bottom: 1%;
-    margin-left: 2%;
-    width: 21.5%;
-    height: 28px;
-    text-align: center;
-}
-
-
-#elements_per_page {
-    margin-top: 10px;
-}
-
-
-
 
 details {
     border-radius: 3px;
@@ -155,6 +104,25 @@ details[open] summary {
     color: #333;
 }
 
+label {
+    position: relative;
+    display: inline-block;
+    line-height: 30px;
+    font-size: 15px;
+}
+
+select, input {
+    font-size: 15px;
+    padding-left: 5px;
+    height: 30px;
+    width: 150px;
+    outline: none;
+    color: black;
+    border: 1px solid #C8BFC4;
+    border-radius: 3px;
+    box-shadow: inset 1px 1px 2px #ddd8dc;
+    background-color: #fff;
+}
 
 .contest_selector, .selector {
     width: 30px;
@@ -205,6 +173,9 @@ ul#legend li span {
     vertical-align: top;
 }
 
+.clear {
+    clear: both;
+}
 
 .plot_container {
     box-sizing: border-box;
@@ -236,5 +207,9 @@ ul#legend li span {
 .pie {
     width: 500px;
     height: 500px;
+    float: left;
+}
+
+#elements_per_page, #page_selector {
     float: left;
 }

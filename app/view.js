@@ -145,13 +145,8 @@ CATS.View = Classify({
             'change #skin': function () {
                 this.skin($("#skin").val());
             },
-            'click #el_per_page': function (e) {
-                var num = e.target.innerHTML;
-
-                if (num == 'All') {
-                    num = this.elem_cnt;
-                }
-                this.view_state.set({el_per_page: num});
+            'change #el_per_page': function () {
+                this.view_state.set({el_per_page: $("#el_per_page").val()});
             },
             'change #rnk_contest_minutes': function () {
                 this.update_rank_table({duration: {
@@ -235,15 +230,7 @@ CATS.View = Classify({
                     this.current_catsscore_wrapper_content_params)
                 );
                 this.update_url_settings({chart: chart.settings()});
-            },
-            'click input': function (e) {
-                e.target.select();
-            },
-            'change #el_per_page_input': function (e) {
-                this.view_state.set({
-                    el_per_page: $('#el_per_page_input').val()
-                });
-            },
+            }
         },
 
         update_rank_table: function (filters) {
@@ -447,7 +434,6 @@ CATS.View = Classify({
                     maximum_page: pagination_params.max_page
                 }) : "";
 
-            this.elem_cnt = pagination_params.elem_cnt;
             this.current_catsscore_wrapper_content_params = {
                 app: CATS.App,
                 models: params,
@@ -491,9 +477,6 @@ CATS.View = Classify({
             $("#page_name").val(this.page_name());
             $("#skin").val(this.skin());
             $('#progress').detach();
-
-            $('.selectpicker').selectpicker('render');
-
             return this;
         },
 
