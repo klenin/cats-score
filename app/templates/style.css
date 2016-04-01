@@ -1,3 +1,12 @@
+.row {
+    margin-top: 1%;
+}
+
+
+#catsscore_header .selectpicker {
+    background-image: none;
+}
+
 .pagination {
     display: inline-block;
     border: 1px solid #CDCDCD;
@@ -111,18 +120,6 @@ label {
     font-size: 15px;
 }
 
-select, input {
-    font-size: 15px;
-    padding-left: 5px;
-    height: 30px;
-    width: 150px;
-    outline: none;
-    color: black;
-    border: 1px solid #C8BFC4;
-    border-radius: 3px;
-    box-shadow: inset 1px 1px 2px #ddd8dc;
-    background-color: #fff;
-}
 
 .contest_selector, .selector {
     width: 30px;

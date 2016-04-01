@@ -416,6 +416,9 @@ CATS.View = Classify({
             $("#page_name").val(this.page_name());
             $("#skin").val(this.skin());
             $('#progress').detach();
+
+            $('.selectpicker').selectpicker('render');
+
             return this;
         },
 

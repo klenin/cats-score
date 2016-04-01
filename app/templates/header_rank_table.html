@@ -1,20 +1,28 @@
+<h1>Cats-Score</h1>
 <a href="#!show_contests_list/default/default">Back to contest list</a>
-<h2>Scoreboard parameters:</h2>
-<div>
-    <label for="page_name">display:</label>
-    <select id="page_name">
-        <option value="table">table</option>
-        <option value="history">history</option>
-        <option value="charts">charts</option>
-    </select>
+<h3>Settings</h3>
+
+<div class="row">
+    <div class="col-md-3">
+        <label for="source">Source:</label>
+        <select id="page_name" class="selectpicker form-control">
+            <option value="table">table</option>
+            <option value="history">history</option>
+            <option value="charts">charts</option>
+        </select>
+    </div>
+
     <%if (skin_list.length != 0) {%>
-    <label for="skin">skin:</label>
-    <select id="skin">
-        <% for (var i = 0; i < skin_list.length; ++i) {%>
-        <option value="<%=skin_list[i]%>"><%=skin_list[i]%></option>
-        <%}%>
-    </select>
+    <div class="col-md-3">
+        <label for="skin">Skin:</label>
+        <select id="skin" class="selectpicker form-control">
+            <% for (var i = 0; i < skin_list.length; ++i) {%>
+            <option value="<%=skin_list[i]%>"><%=skin_list[i]%></option>
+            <%}%>
+        </select>
+    </div>
     <%}%>
 </div>
+
 <h2>Contest:</h2>
 <h3><%=contest_name%></h3>
