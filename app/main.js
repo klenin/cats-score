@@ -10,7 +10,9 @@ requirejs.config({
         dateformat: '../vendors/date.format',
         jqflot: '../vendors/jquery.flot',
         jqflotaddon: '../vendors/jquery.flot.axislabels',
-        jqflotpie: '../vendors/jquery.flot.pie'
+        jqflotpie: '../vendors/jquery.flot.pie',
+        bootstrap: '../vendors/bootstrap.min',
+        bootstrap_select: '../vendors/bootstrap-select.min'
     },
     shim: {
         underscore: {
@@ -20,11 +22,14 @@ requirejs.config({
             deps: ['underscore', 'jquery'],
             exports: 'backbone'
         },
+        bootstrap: {
+            deps: ['jquery'],
+        },
         waitSeconds: 15
     }
 });
-require(['underscore', 'jquery', 'jqueryui'], function () {
-    require(['backbone', 'classify', 'dateformat', 'jqflot', 'jqpagination', 'CATS'], function () {
+require(['underscore', 'jquery', 'jqueryui', 'bootstrap'], function () {
+    require(['backbone', 'classify', 'dateformat', 'jqflot', 'jqpagination', 'CATS', 'bootstrap_select'], function () {
         require([
             'adapters/cats',
             'adapters/cats_xml_hist',
