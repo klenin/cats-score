@@ -5,13 +5,13 @@ var contest = app.contests[contest_id];
 var table = app.result_tables[table_id];
 %>
 
-<table class="simple-little-table">
+<table class="table table-striped table-bordered table-hover default-table">
     <tr>
         <th>
-            place
+            Place
         </th>
         <th>
-            team
+            Team
         </th>
         <%
         for (var i = 0; i < contest.problems.length; ++i) {
@@ -24,7 +24,7 @@ var table = app.result_tables[table_id];
         };
         %>
         <th>
-            time
+            Time
         </th>
     </tr>
     <%

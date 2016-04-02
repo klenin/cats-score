@@ -13,81 +13,82 @@ table.define_openers();
         <%
         for (var i = 0; i < contest.problems.length; ++i) {
         var prob = app.problems[contest.problems[i]];
+        var stats = contest_problems_stats[prob.id];
         %>
-        <th class="<%=contest_problems_stats[prob.id].sols > 0 ? 'success' : 'tried'%>" title="<%=prob.name%>">
-            <%=prob.code%>
-            <br><s><%=contest_problems_stats[prob.id].sols%>/<%=contest_problems_stats[prob.id].runs%></s>
+        <th class="<%=stats.sols > 0 ? 'success' : 'tried'%>" title="<%=prob.name%>">
+            <%=prob.code%><br><s><%=stats.sols%>/<%=stats.runs%></s>
         </th>
         <%
-        };
+        }
         %>
         <th class="stnd">Total</th>
         <th class="stnd">Time</th>
         <th class="stnd">Dirt</th>
         <th class="stnd">SE</th>
-        <th class="stnd">Raiting</th>
+        <th class="stnd">Rating</th>
     </tr>
     <input type="hidden" id="last_elem_idx" value="<%=table.score_board.length%>" />
     <%
     var use_color = 'stand01', last_solved_cnt = 0, idx = 0;
-    var winner_problem_stat = {s: 0, r: 0};
+    var winner_problem_stat = { s: 0, r: 0 };
     if (table.score_board[0]) {
         var p_winner = table.score_board[0].problems;
         for(var i = 0; i < p_winner.length; ++i) {
-            if (p_winner[i]["is_solved"])
+            if (p_winner[i].is_solved)
                 winner_problem_stat.s++;
-            winner_problem_stat.r += p_winner[i]["runs_cnt"];
+            winner_problem_stat.r += p_winner[i].runs_cnt;
         }
     }
     _.each(table.score_board.slice(next_page, next_page + elem_cnt), function(row) {
-    if (last_solved_cnt != row['solved_cnt'])
+    if (last_solved_cnt != row.solved_cnt)
         use_color = use_color == 'stand00' ? 'stand01' : 'stand00';
     idx++;
     %>
-    <tr class='<%=use_color%>' >
+    <tr class="<%=use_color%>" >
         <td class="stnd">
             <center>
-            <%=row["place"]%>.
+            <%=row.place%>.
             </center>
         </td>
         <td class="stnd">
-            <%=app.users[row["user"]].name%>
+            <%=app.users[row.user].name%>
         </td>
         <%
-        var team_problem_stat = {s: 0, r: 0};
-        for (var i = 0; i < row["problems"].length; ++i) {
+        var team_problem_stat = { s: 0, r: 0 };
+        for (var i = 0; i < row.problems.length; ++i) {
+        var p = row.problems[i];
         %>
-        <td class="<%= row['problems'][i]['opener'] ? 'opener' : 'stnd' %>">
+        <td class="<%=p.opener ? 'opener' : 'stnd'%>">
             <center>
-            <% if (row["problems"][i]["is_solved"]) {
+            <% if (p.is_solved) {
                 team_problem_stat.s++;
             %>
-                <%="+" + (row["problems"][i]["runs_cnt"] > 1 ? row["problems"][i]["runs_cnt"] - 1 : "")%><br>
-                <font size=1><%=app.utils.minutes_to_formated_hours(row["problems"][i]["best_run_time"])%></font>
+                +<%=p.runs_cnt > 1 ? p.runs_cnt - 1 : ''%><br>
+                <font size=1><%=app.utils.minutes_to_formated_hours(p.best_run_time)%></font>
             <%} else {%>
-                <%if (row["problems"][i]["runs_cnt"] > 0) { %>
-                    <%="-" + row["problems"][i]["runs_cnt"]%>
+                <%if (p.runs_cnt > 0) { %>
+                    -<%=p.runs_cnt%>
                     <br>
-                    <font size=1><%=(row["problems"][i]["last_run_time"] > 0) ? minutes_to_formated_hours(row["problems"][i]["last_run_time"]) : ""%></font>
+                    <font size=1><%=p.last_run_time > 0 ? minutes_to_formated_hours(p.last_run_time) : ''%></font>
                 <%
                 }
                 else {
-                    "-"
+                    %>-<br><font size=1>&nbsp;</font><%
                 }
                 %>
             <%
             }
-            team_problem_stat.r += row["problems"][i]["runs_cnt"];
+            team_problem_stat.r += p.runs_cnt;
             %>
             </center>
         </td>
         <%
         };
-        last_solved_cnt = row['solved_cnt'];
+        last_solved_cnt = row.solved_cnt;
         %>
-        <td class="stnd"><%=row['solved_cnt']%></td>
+        <td class="stnd"><%=row.solved_cnt%></td>
         <td class="stnd">
-            <%=row["penalty"]%>
+            <%=row.penalty%>
         </td>
         <td class="stnd"><%=team_problem_stat.r == 0 ? 0 : Math.round((team_problem_stat.r - team_problem_stat.s) / team_problem_stat.r * 100)%>%</td>
         <td class="stnd">
@@ -95,7 +96,7 @@ table.define_openers();
             var m = table.score_board.length;
             var sum = 0;
             for (var i = 0; i < contest.problems.length; ++i) {
-                if (row["problems"][i]["is_solved"]) {
+                if (row.problems[i].is_solved) {
                     var prob = app.problems[contest.problems[i]];
                     sum += (m - contest_problems_stats[prob.id].sols) / m;
                 }
@@ -104,7 +105,7 @@ table.define_openers();
             <%=Math.round(sum / contest.problems.length * 100) / 100%>
         </td>
         <td class="stnd">
-            <%=Math.round(100*(team_problem_stat.s/winner_problem_stat.s)*(2*m-2)/(m+row['place']-2))%>
+            <%=Math.round(100 * (team_problem_stat.s / winner_problem_stat.s) * (2 * m - 2) / (m + row.place - 2))%>
         </td>
     </tr>
     <%

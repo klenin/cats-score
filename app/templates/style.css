@@ -1,14 +1,29 @@
-.pagination {
+.row {
+    margin-top: 1%;
+}
+
+
+#catsscore_header .selectpicker {
+    background-image: none;
+}
+
+
+#catsscore_pagination_wrapper .pagination {
     display: inline-block;
+    margin-top: 0px;
+    margin-bottom: 10px;
+    width: 100%;
+    height: 34px;
+    line-height: 32px;
     border: 1px solid #CDCDCD;
     border-radius: 3px;
 }
 
-.pagination a {
+#catsscore_pagination_wrapper .pagination a {
     display: block;
     float: left;
-    width: 20px;
-    height: 30px;
+    width: 10%;
+    height: 100%px;
     outline: none;
     border-right: 1px solid #CDCDCD;
     border-left: 1px solid #CDCDCD;
@@ -18,70 +33,75 @@
     text-decoration: none;
     font-weight: bold;
     font-size: 16px;
-    font-family: Times, 'Times New Roman', Georgia, Palatino;
     /* ATTN: need a better font stack */
-    background-color: #f3f3f3;
-    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f3f3f3), color-stop(100%, lightgrey));
-    background-image: -webkit-linear-gradient(#f3f3f3, lightgrey);
-    background-image: linear-gradient(#f3f3f3, lightgrey);
+    font-family: Times, 'Times New Roman', Georgia, Palatino;
 }
 
-.pagination a:hover, .pagination a:focus, .pagination a:active {
+#catsscore_pagination_wrapper .pagination a:hover,
+#catsscore_pagination_wrapper .pagination a:focus,
+#catsscore_pagination_wrapper .pagination a:active {
     background-color: #cecece;
-    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #e4e4e4), color-stop(100%, #cecece));
-    background-image: -webkit-linear-gradient(#e4e4e4, #cecece);
-    background-image: linear-gradient(#e4e4e4, #cecece);
 }
 
-.pagination a.disabled, .pagination a.disabled:hover, .pagination a.disabled:focus, .pagination a.disabled:active {
+#catsscore_pagination_wrapper .pagination a.disabled,
+#catsscore_pagination_wrapper .pagination a.disabled:hover,
+#catsscore_pagination_wrapper .pagination a.disabled:focus,
+#catsscore_pagination_wrapper .pagination a.disabled:active {
     background-color: #f3f3f3;
-    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f3f3f3), color-stop(100%, lightgrey));
-    background-image: -webkit-linear-gradient(#f3f3f3, lightgrey);
-    background-image: linear-gradient(#f3f3f3, lightgrey);
     color: #A8A8A8;
-    cursor: default;
+    cursor: not-allowed;
 }
 
-.pagination a:first-child {
+#catsscore_pagination_wrapper .pagination a:first-child {
     border: none;
     border-radius: 2px 0 0 2px;
 }
 
-.pagination a:last-child {
+#catsscore_pagination_wrapper .pagination a:last-child {
     border: none;
     border-radius: 0 2px 2px 0;
 }
 
-.pagination input {
+#catsscore_pagination_wrapper .pagination input {
     float: left;
     margin: 0;
     padding: 0;
-    width: 120px;
-    height: 30px;
+    width: 60%;
     outline: none;
     border: none;
     vertical-align: middle;
     text-align: center;
 }
 
-.gigantic.pagination {
-    margin: 0px 10px 10px 0px;
+
+#el_per_page {
+    margin: 0 1%;
+    cursor: pointer;
 }
 
-.gigantic.pagination a {
-    height: 30px;
-    width: 30px;
-    font-size: 20px;
-    line-height: 25px;
+#el_per_page.active {
+    color: #000;
+    cursor: initial;
 }
 
-.gigantic.pagination input {
-    box-shadow: inset 1px 1px 2px #ddd8dc;
-    width: 200px;
-    height: 30px;
-    line-height: 30px;
-    font-size: 15px;
+#el_per_page.active:hover {
+    color: #000;
+    text-decoration: none;
 }
+
+#el_per_page_input {
+    margin-bottom: 1%;
+    margin-left: 2%;
+    width: 21.5%;
+    height: 28px;
+    text-align: center;
+}
+
+#elements_per_page {
+    margin-top: 10px;
+}
+
+
 
 details {
     border-radius: 3px;
@@ -104,25 +124,6 @@ details[open] summary {
     color: #333;
 }
 
-label {
-    position: relative;
-    display: inline-block;
-    line-height: 30px;
-    font-size: 15px;
-}
-
-select, input {
-    font-size: 15px;
-    padding-left: 5px;
-    height: 30px;
-    width: 150px;
-    outline: none;
-    color: black;
-    border: 1px solid #C8BFC4;
-    border-radius: 3px;
-    box-shadow: inset 1px 1px 2px #ddd8dc;
-    background-color: #fff;
-}
 
 .contest_selector, .selector {
     width: 30px;
@@ -173,10 +174,6 @@ ul#legend li span {
     vertical-align: top;
 }
 
-.clear {
-    clear: both;
-}
-
 .plot_container {
     box-sizing: border-box;
     width: 850px;
@@ -210,6 +207,6 @@ ul#legend li span {
     float: left;
 }
 
-#elements_per_page, #page_selector {
+#page_selector {
     float: left;
 }
