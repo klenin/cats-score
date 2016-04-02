@@ -9,8 +9,15 @@ $('.pagination').jqPagination({
             url + "/page=" + page;
     }
 });
-
 </script>
+
+<%
+var elements_per_page = [10, 25, 50, 100, 'All'];
+var value = el_per_page;
+if (el_per_page == elem_cnt) {
+    el_per_page = 'All'
+}
+%>
 
 <div class="row">
     <div id="page_selector" class="col-md-3">
@@ -24,7 +31,13 @@ $('.pagination').jqPagination({
     </div>
     <div id="elements_per_page" class="col-md-4 col-md-offset-5 form-inline">
         <label for="el_per_page">Elements per page:</label>
+        <%$.each(elements_per_page, function (i, e) {
+            if (e == el_per_page) {%>
+                <a class="active" id="el_per_page"><%=e%></a>
+            <%} else {%>
+                <a id="el_per_page"><%=e%></a>
+        <%}});%>
         <input id="el_per_page_input" class="form-control" type="text"
-        value="<%=el_per_page%>" />
+        value="<%=value%>" />
     </div>
 </div>

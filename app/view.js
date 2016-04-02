@@ -131,8 +131,17 @@ CATS.View = Classify({
             'change #skin': function () {
                 this.skin($("#skin").val());
             },
-            'change #el_per_page': function () {
-                this.view_state.set({el_per_page: $("#el_per_page").val()});
+            'change #el_per_page_input': function () {
+                var num = $('#el_per_page_input');
+
+                if (num.val() == 'All' || num.val() > this.elem_cnt) {
+                    num.val(this.elem_cnt);
+                }
+                this.view_state.set({ el_per_page: num.val() });
+            },
+            'click #el_per_page': function (e) {
+                $('#el_per_page_input').val(e.target.innerHTML);
+                $('#el_per_page_input').change();
             },
             'change #rnk_contest_minutes': function () {
                 this.update_rank_table({duration: {minutes : $("#rnk_contest_minutes").val(), type : $("#rnk_restriction_type").val() }});
@@ -220,7 +229,8 @@ CATS.View = Classify({
                 var pagination = this.template("pagination")({
                     current_page: this.view_state.get('page'),
                     el_per_page: this.view_state.get('el_per_page'),
-                    maximum_page: pagination_params.max_page
+                    maximum_page: pagination_params.max_page,
+                    elem_cnt: this.elem_cnt
                 });
                 $("#catsscore_pagination_wrapper").html(pagination);
             }
@@ -366,6 +376,8 @@ CATS.View = Classify({
             if (this.with_css && this.available_skin_name(skin, page_name))
                 this.define_skin_stylesheet(skin);
 
+            this.elem_cnt = pagination_params.elem_cnt;
+
             var header = this.with_header ?
                 this.template("header_" + this.view_state.get("state"))({
                     'skin_list' :  this.get_available_skin_names(page_name),
@@ -379,7 +391,8 @@ CATS.View = Classify({
                 this.template("pagination")({
                     current_page: this.view_state.get('page'),
                     el_per_page: this.view_state.get('el_per_page'),
-                    maximum_page: pagination_params.max_page
+                    maximum_page: pagination_params.max_page,
+                    elem_cnt: this.elem_cnt
                 }) : "";
 
             this.current_catsscore_wrapper_content_params = {
