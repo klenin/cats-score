@@ -7,17 +7,23 @@
     background-image: none;
 }
 
-.pagination {
+
+#catsscore_pagination_wrapper .pagination {
     display: inline-block;
+    margin-top: 0px;
+    margin-bottom: 10px;
+    width: 100%;
+    height: 34px;
+    line-height: 32px;
     border: 1px solid #CDCDCD;
     border-radius: 3px;
 }
 
-.pagination a {
+#catsscore_pagination_wrapper .pagination a {
     display: block;
     float: left;
-    width: 20px;
-    height: 30px;
+    width: 10%;
+    height: 100%px;
     outline: none;
     border-right: 1px solid #CDCDCD;
     border-left: 1px solid #CDCDCD;
@@ -27,70 +33,47 @@
     text-decoration: none;
     font-weight: bold;
     font-size: 16px;
-    font-family: Times, 'Times New Roman', Georgia, Palatino;
     /* ATTN: need a better font stack */
-    background-color: #f3f3f3;
-    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f3f3f3), color-stop(100%, lightgrey));
-    background-image: -webkit-linear-gradient(#f3f3f3, lightgrey);
-    background-image: linear-gradient(#f3f3f3, lightgrey);
+    font-family: Times, 'Times New Roman', Georgia, Palatino;
 }
 
-.pagination a:hover, .pagination a:focus, .pagination a:active {
+#catsscore_pagination_wrapper .pagination a:hover,
+#catsscore_pagination_wrapper .pagination a:focus,
+#catsscore_pagination_wrapper .pagination a:active {
     background-color: #cecece;
-    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #e4e4e4), color-stop(100%, #cecece));
-    background-image: -webkit-linear-gradient(#e4e4e4, #cecece);
-    background-image: linear-gradient(#e4e4e4, #cecece);
 }
 
-.pagination a.disabled, .pagination a.disabled:hover, .pagination a.disabled:focus, .pagination a.disabled:active {
+#catsscore_pagination_wrapper .pagination a.disabled,
+#catsscore_pagination_wrapper .pagination a.disabled:hover,
+#catsscore_pagination_wrapper .pagination a.disabled:focus,
+#catsscore_pagination_wrapper .pagination a.disabled:active {
     background-color: #f3f3f3;
-    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f3f3f3), color-stop(100%, lightgrey));
-    background-image: -webkit-linear-gradient(#f3f3f3, lightgrey);
-    background-image: linear-gradient(#f3f3f3, lightgrey);
     color: #A8A8A8;
-    cursor: default;
+    cursor: not-allowed;
 }
 
-.pagination a:first-child {
+#catsscore_pagination_wrapper .pagination a:first-child {
     border: none;
     border-radius: 2px 0 0 2px;
 }
 
-.pagination a:last-child {
+#catsscore_pagination_wrapper .pagination a:last-child {
     border: none;
     border-radius: 0 2px 2px 0;
 }
 
-.pagination input {
+#catsscore_pagination_wrapper .pagination input {
     float: left;
     margin: 0;
     padding: 0;
-    width: 120px;
-    height: 30px;
+    width: 60%;
     outline: none;
     border: none;
     vertical-align: middle;
     text-align: center;
 }
 
-.gigantic.pagination {
-    margin: 0px 10px 10px 0px;
-}
 
-.gigantic.pagination a {
-    height: 30px;
-    width: 30px;
-    font-size: 20px;
-    line-height: 25px;
-}
-
-.gigantic.pagination input {
-    box-shadow: inset 1px 1px 2px #ddd8dc;
-    width: 200px;
-    height: 30px;
-    line-height: 30px;
-    font-size: 15px;
-}
 
 details {
     border-radius: 3px;
@@ -168,10 +151,6 @@ ul#legend li span {
     color: black;
     font-size: 14px;
     vertical-align: top;
-}
-
-.clear {
-    clear: both;
 }
 
 .plot_container {
