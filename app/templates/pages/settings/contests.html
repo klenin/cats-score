@@ -1,2 +1,26 @@
-<h2>Contest filters:</h2>
-<p><label>Name:</label><input id="cont_name" value="<%=filters.name != null ? filters.name : '.*?'%>" /></p>
+<div class="row">
+    <div class="col-md-12">
+        <button id="btn_filters" class="btn btn-black btn-block btn-black>"
+        role="button" data-toggle="collapse" href="#collapse_filters"
+        aria-expanded="false" aria-controls="collapse_filters">
+            <span class="glyphicon glyphicon-triangle-right" aria-hidden="true">
+            </span>
+            Filters
+        </button>
+    </div>
+</div>
+<div id="collapse_filters" class="collapse">
+    <div class="row">
+        <div class="col-md-3">
+            <label>Name:</label>
+            <input id="cont_name" class="form-control"
+            value="<%=filters.name != null ? filters.name : '.*?'%>" />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="bottom-line"></div>
+        </div>
+    </div>
+</div>

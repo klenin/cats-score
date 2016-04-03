@@ -1,28 +1,78 @@
+<%
+var minutes = filters.duration.minutes != null
+    ? filters.duration.minutes : contest_duration;
+%>
+
 <script>
     $("#contest_slider").slider({
-        value: <%=filters.duration.minutes != null ? filters.duration.minutes : contest_duration%>,
+        value: <%=minutes%>,
         min: 0,
         max: <%=contest_duration%>,
         step: 1,
-        slide: function( event, ui ) {
-            $("#rnk_contest_min").html(ui.value);
+        slide: function (event, ui) {
+            $("#rnk_contest_minutes").html(ui.value);
             $("#rnk_contest_minutes").val(ui.value);
             $("#rnk_contest_minutes").change();
         }
     });
 </script>
-<h2>Table filters:</h2>
-<h3>Contest duration minutes:</h3>
-<input type="hidden" id="rnk_contest_minutes" value="<%=contest_duration%>" />
-Duration <span id="rnk_contest_min"><%=filters.duration.minutes != null ? filters.duration.minutes : contest_duration%></span> minutes,
-<label for="rnk_restriction_type">restriction type: </label>
-<select id="rnk_restriction_type">
-    <option value="history">history</option>
-    <option value="scoreboard">scoreboard</option>
-</select>
-<div id="contest_slider"></div>
-<h3>Restrictions:</h3>
-<label for="rnk_user">User: </label><input id="rnk_user" value="<%=filters.user != null ? filters.user : '.*?'%>" />
-<label for="rnk_affiliation">Affiliation: </label><input id="rnk_affiliation" value="<%=filters.affiliation != null ? filters.affiliation : '.*?'%>" />
-<label for="rnk_role">Role: </label><input id="rnk_role" value="<%=filters.role != null ? filters.role : '.*?'%>" />
-<br /><br /><br />
+
+<div class="row">
+    <div class="col-md-12">
+        <button id="btn_filters" class="btn btn-black btn-block btn-black"
+        role="button" data-toggle="collapse" href="#collapse_filters"
+        aria-expanded="false" aria-controls="collapse_filters">
+            <span class="glyphicon glyphicon-triangle-right" aria-hidden="true">
+            </span>
+            Filters
+        </button>
+    </div>
+</div>
+<div id="collapse_filters" class="collapse">
+    <div class="row">
+        <div class="col-md-3">
+            <label for="rnk_user">User: </label>
+            <input id="rnk_user" class="form-control"
+            value="<%=filters.user != null ? filters.user : '.*?'%>" />
+        </div>
+        <div class="col-md-3">
+            <label for="rnk_affiliation">Affiliation: </label>
+            <input id="rnk_affiliation" class="form-control"
+            value="<%=filters.affiliation != null ? filters.affiliation : '.*?'%>" />
+        </div>
+        <div class="col-md-3">
+            <label for="rnk_role">Role: </label>
+            <input id="rnk_role" class="form-control"
+            value="<%=filters.role != null ? filters.role : '.*?'%>" />
+        </div>
+    </div>
+
+    <div id="rnk_contest_time" class="row">
+        <div class="col-md-3">
+            <label for="rnk_contest_min">Contest duration:</label>
+            <p id="rnk_contest_min" class="form-control">
+                <span id="rnk_contest_minutes"><%=minutes%></span>
+                of <%=contest_duration%> minutes
+            </p>
+        </div>
+        <div class="col-md-3">
+            <label for="rnk_restriction_type">Restriction type: </label>
+            <select id="rnk_restriction_type" class="selectpicker form-control">
+                <option value="history">history</option>
+                <option value="scoreboard">scoreboard</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div id="contest_slider"></div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="bottom-line"></div>
+        </div>
+    </div>
+</div>

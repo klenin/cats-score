@@ -210,6 +210,13 @@ CATS.View = Classify({
                 chart.delete_series($(event.currentTarget).data('series'));
                 $("#catsscore_wrapper").html(this.page(this.skin(), "charts")(this.current_catsscore_wrapper_content_params));
                 this.update_url_settings({chart: chart.settings()});
+            },
+            'click #btn_filters': function () {
+                var btn = $('#btn_filters');
+
+                btn.toggleClass('btn-green');
+                $('span', btn).toggleClass('glyphicon-triangle-bottom')
+                    .toggleClass('glyphicon-triangle-right');
             }
         },
 
@@ -409,11 +416,9 @@ CATS.View = Classify({
                 "<div id='catsscore_header'>" +
                 header +
                 "</div>" +
-                "<details><summary><strong>Settings</strong></summary>" +
-                    "<div id='catsscore_filters_wrapper'>" +
+                "<div id='catsscore_filters_wrapper'>" +
                     this.page_settings(this.page_name())(this.get_settings_params(params)) +
-                    "</div>" +
-                "</details>" +
+                "</div>" +
                 "<div id='catsscore_pagination_wrapper'>" +
                 pagination +
                 "</div>" +
