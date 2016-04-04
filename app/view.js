@@ -228,6 +228,9 @@ CATS.View = Classify({
                 btn.toggleClass('btn-green');
                 $('span', btn).toggleClass('glyphicon-triangle-bottom').
                     toggleClass('glyphicon-triangle-right');
+            },
+            'click input': function (e) {
+                e.target.select();
             }
         },
 
