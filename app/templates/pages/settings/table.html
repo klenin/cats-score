@@ -1,6 +1,7 @@
 <%
 var minutes = filters.duration.minutes != null
     ? filters.duration.minutes : contest_duration;
+var types = ['history', 'scoreboard'];
 %>
 
 <script>
@@ -46,9 +47,9 @@ var minutes = filters.duration.minutes != null
         </div>
     </div>
 
-    <div id="rnk_contest_time" class="row">
+    <div class="row">
         <div class="col-md-3">
-            <label for="rnk_contest_min">Contest duration:</label>
+            <label for="rnk_contest_minutes">Contest duration:</label>
             <div class="input-group">
                 <input id="rnk_contest_minutes" type="number"
                 class="form-control" value="<%=minutes%>"
@@ -61,10 +62,15 @@ var minutes = filters.duration.minutes != null
         </div>
         <div class="col-md-3">
             <label for="rnk_restriction_type">Restriction type: </label>
-            <select id="rnk_restriction_type" class="selectpicker form-control">
-                <option value="history">history</option>
-                <option value="scoreboard">scoreboard</option>
-            </select>
+            <div id="rnk_restriction_type" class="btn-group"
+            data-toggle="buttons">
+            <%_.each(types, function (t) { %>
+                <label class="btn btn-default
+                <%=filters.duration.type == t ? 'active' : ''%>">
+                    <input type="radio" name="options" value="<%=t%>"/> <%=t%>
+                </label>
+            <%});%>
+          </div>
         </div>
     </div>
 

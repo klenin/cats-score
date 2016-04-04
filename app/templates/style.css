@@ -140,6 +140,20 @@
     text-align: right;
 }
 
+#catsscore_filters_wrapper .btn-group {
+    width: 100%;
+}
+
+#catsscore_filters_wrapper .btn-group .btn {
+    width: 50%;
+    background-image: none;
+    color: #000;
+}
+
+#catsscore_filters_wrapper .btn-group .btn.active {
+    border: solid 1px #ccc;
+}
+
 #rnk_contest_minutes {
     width: 100px;
 }

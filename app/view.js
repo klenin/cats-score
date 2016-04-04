@@ -143,7 +143,7 @@ CATS.View = Classify({
                 $('#el_per_page_input').val(e.target.innerHTML);
                 $('#el_per_page_input').change();
             },
-            'change #rnk_contest_time': function () {
+            'change #rnk_contest_minutes': function () {
                 var minutes = $("#rnk_contest_minutes");
 
                 if (minutes.val() > this.contest_duration) {
@@ -154,8 +154,11 @@ CATS.View = Classify({
                 });
                 this.update_rank_table({duration: {
                     minutes : minutes.val(),
-                    type : $("#rnk_restriction_type").val()
+                    type : $("#rnk_restriction_type .btn.active input").val()
                 }});
+            },
+            'change #rnk_restriction_type .btn': function () {
+                $("#rnk_contest_minutes").change();
             },
             'change #rnk_user': function () {
                 this.update_rank_table({user: $("#rnk_user").val()});
