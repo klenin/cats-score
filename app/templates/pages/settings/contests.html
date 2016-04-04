@@ -1,15 +1,15 @@
 <div class="row">
     <div class="col-md-12">
-        <button id="btn_filters" class="btn btn-black btn-block btn-black>"
+        <button id="btn_filters" class="btn btn-black btn-block <%=btn_class%>"
         role="button" data-toggle="collapse" href="#collapse_filters"
-        aria-expanded="false" aria-controls="collapse_filters">
-            <span class="glyphicon glyphicon-triangle-right" aria-hidden="true">
+        aria-expanded="<%=expanded%>" aria-controls="collapse_filters">
+            <span class="glyphicon <%=glyphicon%>" aria-hidden="true">
             </span>
             Filters
         </button>
     </div>
 </div>
-<div id="collapse_filters" class="collapse">
+<div id="collapse_filters" class="<%=collapse_class%>">
     <div class="row">
         <div class="col-md-3">
             <label>Name:</label>
