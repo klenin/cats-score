@@ -133,6 +133,17 @@
     border-color: #54C571;
 }
 
+#catsscore_filters_wrapper .input-group-addon {
+    width: 100%;
+    background-color: #fff;
+    color: #000;
+    text-align: right;
+}
+
+#rnk_contest_minutes {
+    width: 100px;
+}
+
 #contest_slider {
     width: 100%;
 }

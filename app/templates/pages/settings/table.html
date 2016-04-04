@@ -10,7 +10,6 @@ var minutes = filters.duration.minutes != null
         max: <%=contest_duration%>,
         step: 1,
         slide: function (event, ui) {
-            $("#rnk_contest_minutes").html(ui.value);
             $("#rnk_contest_minutes").val(ui.value);
             $("#rnk_contest_minutes").change();
         }
@@ -50,10 +49,15 @@ var minutes = filters.duration.minutes != null
     <div id="rnk_contest_time" class="row">
         <div class="col-md-3">
             <label for="rnk_contest_min">Contest duration:</label>
-            <p id="rnk_contest_min" class="form-control">
-                <span id="rnk_contest_minutes"><%=minutes%></span>
-                of <%=contest_duration%> minutes
-            </p>
+            <div class="input-group">
+                <input id="rnk_contest_minutes" type="number"
+                class="form-control" value="<%=minutes%>"
+                min="0" max="<%=contest_duration%>"
+                aria-describedby="rnk_addon">
+                <span class="input-group-addon" id="rnk_addon">
+                    of <%=contest_duration%> minutes
+                </span>
+            </div>
         </div>
         <div class="col-md-3">
             <label for="rnk_restriction_type">Restriction type: </label>

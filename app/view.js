@@ -143,8 +143,19 @@ CATS.View = Classify({
                 $('#el_per_page_input').val(e.target.innerHTML);
                 $('#el_per_page_input').change();
             },
-            'change #rnk_contest_minutes': function () {
-                this.update_rank_table({duration: {minutes : $("#rnk_contest_minutes").val(), type : $("#rnk_restriction_type").val() }});
+            'change #rnk_contest_time': function () {
+                var minutes = $("#rnk_contest_minutes");
+
+                if (minutes.val() > this.contest_duration) {
+                    minutes.val(this.contest_duration);
+                }
+                $("#contest_slider").slider({
+                    value: minutes.val(),
+                });
+                this.update_rank_table({duration: {
+                    minutes : minutes.val(),
+                    type : $("#rnk_restriction_type").val()
+                }});
             },
             'change #rnk_user': function () {
                 this.update_rank_table({user: $("#rnk_user").val()});
@@ -405,6 +416,7 @@ CATS.View = Classify({
                 this.define_skin_stylesheet(skin);
 
             this.elem_cnt = pagination_params.elem_cnt;
+            this.contest_duration = filters.contest_duration;
 
             var header = this.with_header ?
                 this.template("header_" + this.view_state.get("state"))({
