@@ -387,32 +387,14 @@ CATS.View = Classify({
             return page_name == 'table' || page_name == 'contests' || page_name == 'history';
         },
 
-        set_filters_expand_params: function (filters) {
-            if ($('#btn_filters').attr('aria-expanded') == 'true') {
-                return $.extend(filters, {
-                    expanded: true,
-                    btn_class: 'btn-green',
-                    collapse_class: 'collapse in',
-                    glyphicon: 'glyphicon-triangle-bottom',
-                });
-            } else {
-                return $.extend(filters, {
-                    expanded: false,
-                    btn_class: '',
-                    collapse_class: 'collapse',
-                    glyphicon: 'glyphicon-triangle-right',
-                });
-            }
-        },
-
         render: function(params){
             var pagination_params = this.define_pagination_params(params);
             var page_name = this.page_name();
             var source = this.source();
             var skin = this.skin();
-            var filters = this.set_filters_expand_params(
-                this.get_settings_params(params)
-            );
+            var filters = this.get_settings_params(params);
+
+            filters.expanded = $('#collapse_filters').hasClass('in');
 
             if (page_name == "table")
                 page_name += "_" + CATS.App.result_tables[params.table].scoring;

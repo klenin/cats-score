@@ -1,3 +1,15 @@
+<%
+if (expanded) {
+    var btn_class = 'btn-green',
+        collapse_class = 'collapse in',
+        glyphicon = 'glyphicon-triangle-bottom';
+} else {
+    var btn_class = '',
+        collapse_class = 'collapse',
+        glyphicon = 'glyphicon-triangle-right';
+}
+%>
+
 <div class="row">
     <div class="col-md-12">
         <button id="btn_filters" class="btn btn-black btn-block <%=btn_class%>"

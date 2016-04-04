@@ -2,6 +2,16 @@
 var minutes = filters.duration.minutes != null
     ? filters.duration.minutes : contest_duration;
 var types = ['history', 'scoreboard'];
+
+if (expanded) {
+    var btn_class = 'btn-green',
+        collapse_class = 'collapse in',
+        glyphicon = 'glyphicon-triangle-bottom';
+} else {
+    var btn_class = '',
+        collapse_class = 'collapse',
+        glyphicon = 'glyphicon-triangle-right';
+}
 %>
 
 <script>
