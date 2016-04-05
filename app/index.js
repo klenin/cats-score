@@ -49,6 +49,7 @@ function cats_score_init(
     CATS.App.register_adapter(new CATS.Adapter.Cats_xml_hist(CATS.Test.cats_xml_data));
     CATS.App.register_adapter(new CATS.Adapter.Cats_rank_table(CATS.Test.cats_rank_table_json_data));
     CATS.App.register_adapter(new CATS.Adapter.Ifmo(CATS.Test.ifmo_html_data));
+    CATS.App.register_adapter(new CATS.Adapter.IfmoSchool());
     CATS.App.register_adapter(new CATS.Adapter.Ifmo_xml());
     CATS.App.register_adapter(new CATS.Adapter.Codeforces());
     CATS.App.register_adapter(new CATS.Adapter.Cats());
