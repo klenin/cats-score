@@ -35,6 +35,8 @@ require(['underscore', 'jquery', 'jqueryui', 'bootstrap'], function () {
             'adapters/cats_xml_hist',
             'adapters/cats_rank_table',
             'adapters/ifmo',
+            'adapters/ifmo_xml',
+            'adapters/ifmo_school',
             'adapters/codeforces',
             'adapters/myicpc',
             'adapters/aizu',
@@ -65,7 +67,6 @@ require(['underscore', 'jquery', 'jqueryui', 'bootstrap'], function () {
                         'models/user',
                         'rules/acm',
                         'rules/school',
-                        'adapters/ifmo_xml',
                         'view',
                         'utils',
                         'extentions',
@@ -137,5 +138,3 @@ require(['underscore', 'jquery', 'jqueryui', 'bootstrap'], function () {
         });
     });
 });
-
-
