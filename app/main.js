@@ -1,3 +1,9 @@
+window.paceOptions = {
+    elements: {
+        selectors: ['#progress-end']
+    }
+};
+
 requirejs.config({
     baseUrl: 'app/',
     paths: {
@@ -12,7 +18,8 @@ requirejs.config({
         jqflotaddon: '../vendors/jquery.flot.axislabels',
         jqflotpie: '../vendors/jquery.flot.pie',
         bootstrap: '../vendors/bootstrap.min',
-        bootstrap_select: '../vendors/bootstrap-select.min'
+        bootstrap_select: '../vendors/bootstrap-select.min',
+        pace: '../vendors/pace.min'
     },
     shim: {
         underscore: {
@@ -29,7 +36,7 @@ requirejs.config({
     }
 });
 require(['underscore', 'jquery', 'jqueryui', 'bootstrap'], function () {
-    require(['backbone', 'classify', 'dateformat', 'jqflot', 'jqpagination', 'CATS', 'bootstrap_select'], function () {
+    require(['backbone', 'classify', 'dateformat', 'jqflot', 'jqpagination', 'CATS', 'bootstrap_select', 'pace'], function () {
         require([
             'adapters/cats',
             'adapters/cats_xml_hist',
