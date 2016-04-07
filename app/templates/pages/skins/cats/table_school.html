@@ -70,7 +70,8 @@ var capt = CATS.Langs.cats[lang];
         <%=idx%>&nbsp;
     </td>
     <td align="left">
-        <a href="<%=app.users[row['user']].description%>" title=""><%=app.users[row["user"]].name%></a>
+        <a href="<%=app.users[row['user']].description%>"
+            title="<%=app.users[row['user']].some_affiliation()%>"><%=app.users[row["user"]].name%></a>
     </td>
     <%
     for (var i = 0; i < row["problems"].length; ++i) {
