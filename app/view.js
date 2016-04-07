@@ -144,7 +144,21 @@ CATS.View = Classify({
                 $('#el_per_page_input').change();
             },
             'change #rnk_contest_minutes': function () {
-                this.update_rank_table({duration: {minutes : $("#rnk_contest_minutes").val(), type : $("#rnk_restriction_type").val() }});
+                var minutes = $("#rnk_contest_minutes");
+
+                if (minutes.val() > this.contest_duration) {
+                    minutes.val(this.contest_duration);
+                }
+                $("#contest_slider").slider({
+                    value: minutes.val(),
+                });
+                this.update_rank_table({duration: {
+                    minutes : minutes.val(),
+                    type : $("#rnk_restriction_type .btn.active input").val()
+                }});
+            },
+            'change #rnk_restriction_type .btn': function () {
+                $("#rnk_contest_minutes").change();
             },
             'change #rnk_user': function () {
                 this.update_rank_table({user: $("#rnk_user").val()});
@@ -210,6 +224,16 @@ CATS.View = Classify({
                 chart.delete_series($(event.currentTarget).data('series'));
                 $("#catsscore_wrapper").html(this.page(this.skin(), "charts")(this.current_catsscore_wrapper_content_params));
                 this.update_url_settings({chart: chart.settings()});
+            },
+            'click #btn_filters': function () {
+                var btn = $('#btn_filters');
+
+                btn.toggleClass('btn-green');
+                $('span', btn).toggleClass('glyphicon-triangle-bottom').
+                    toggleClass('glyphicon-triangle-right');
+            },
+            'click input': function (e) {
+                e.target.select();
             }
         },
 
@@ -368,6 +392,9 @@ CATS.View = Classify({
             var page_name = this.page_name();
             var source = this.source();
             var skin = this.skin();
+            var filters = this.get_settings_params(params);
+
+            filters.expanded = $('#collapse_filters').hasClass('in');
 
             if (page_name == "table")
                 page_name += "_" + CATS.App.result_tables[params.table].scoring;
@@ -377,6 +404,7 @@ CATS.View = Classify({
                 this.define_skin_stylesheet(skin);
 
             this.elem_cnt = pagination_params.elem_cnt;
+            this.contest_duration = filters.contest_duration;
 
             var header = this.with_header ?
                 this.template("header_" + this.view_state.get("state"))({
@@ -409,11 +437,9 @@ CATS.View = Classify({
                 "<div id='catsscore_header'>" +
                 header +
                 "</div>" +
-                "<details><summary><strong>Settings</strong></summary>" +
-                    "<div id='catsscore_filters_wrapper'>" +
-                    this.page_settings(this.page_name())(this.get_settings_params(params)) +
-                    "</div>" +
-                "</details>" +
+                "<div id='catsscore_filters_wrapper'>" +
+                    this.page_settings(this.page_name())(filters) +
+                "</div>" +
                 "<div id='catsscore_pagination_wrapper'>" +
                 pagination +
                 "</div>" +

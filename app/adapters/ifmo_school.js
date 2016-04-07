@@ -172,7 +172,7 @@ INDEX_BY_POINTER: {
         var page = this.page;
         var contest = CATS.App.contests[contest_id];
         if (contest == undefined)
-            contest = this.add_contest({id: contest_id, name: 'ROI ' + contest_id});
+            contest = this.add_contest({id: contest_id, name: contest_id});
 
         var self = this;
         var source_rows = $('<div/>').append(page).find('table.standings tr');
@@ -247,34 +247,26 @@ INDEX_BY_POINTER: {
 
     get_contests: function(callback) {
         var self = this;
-        CATS.App.utils.cors_get_html(this.url + 'past/index.html', function (page) {
-            var contests = [];
-            var c1 = { id: 'roi', name: 'ROI Current' };
-            self.add_contest(c1);
-            contests.push(c1.id);
-            /*var c = { id: 'current', name: 'Current' };
-            self.add_contest(c);
-            contests.push(c.id);
-            $(page).find('td.neercyear a').each(function () {
-                var year = $(this).text().match(/\d+/g)[0];
-                if (year <= self.minimal_year)
-                    return;
-                var c = { id: year, name: $(this).text() };
-                self.add_contest(c);
-                contests.push(c.id);
-            });*/
-            callback(contests);
-        })
+        var contests = [];
+        var c1 = { id: 'roi2016-1', name: 'ROI 2016 day 1' };
+        self.add_contest(c1);
+        contests.push(c1.id);
+        var c2 = { id: 'roi2016', name: 'ROI 2016 day 1 + 2' };
+        self.add_contest(c2);
+        contests.push(c2.id);
+        callback(contests);
     },
 
     get_contest: function(callback, contest_id) {
-        if (contest_id === 'roi') {
-            CATS.App.utils.proxy_get_html('http://37.29.7.66/~supersecret/standings-roi-2016-day1-abacabadabacaba.html', callback);
+        if (contest_id === 'roi2016-1') {
+            CATS.App.utils.proxy_get_html('http://rosoi.net/upload/standings-roi-2016-day1.html', callback);
+            return;
+        }
+        if (contest_id === 'roi2016') {
+            CATS.App.utils.proxy_get_html('http://rosoi.net/upload/standings-roi-2016-day2.html', callback);
             return;
         }
         return;
-        var url_part = contest_id == 'current' ? 'information' : 'past/' + contest_id;
-        CATS.App.utils.cors_get_html(this.url + url_part + '/standings.html', callback);
     },
 
     parse: function(contest_id, result_table, callback) {

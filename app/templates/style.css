@@ -3,7 +3,7 @@
 }
 
 
-#catsscore_header .selectpicker {
+#wrapper .selectpicker {
     background-image: none;
 }
 
@@ -102,6 +102,68 @@
 }
 
 
+#catsscore_filters_wrapper .btn-black {
+    background-color: #333;
+    color: #fff;
+    text-align: left;
+    font-size: 18px;
+}
+
+#catsscore_filters_wrapper .btn-black:hover {
+    color: #fff;
+}
+
+#catsscore_filters_wrapper .btn-green {
+    background-color: #54C571;
+    color: #000;
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+
+#catsscore_filters_wrapper .btn-green:hover {
+    color: #000;
+}
+
+#catsscore_filters_wrapper .bottom-line {
+    margin-bottom: 30px;
+    margin-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: solid 5px;
+    border-radius: 4px;
+    border-color: #54C571;
+}
+
+#catsscore_filters_wrapper .input-group-addon {
+    width: 100%;
+    background-color: #fff;
+    color: #000;
+    text-align: right;
+}
+
+#catsscore_filters_wrapper .btn-group {
+    width: 100%;
+}
+
+#catsscore_filters_wrapper .btn-group .btn {
+    width: 50%;
+    background-image: none;
+    color: #000;
+}
+
+#catsscore_filters_wrapper .btn-group .btn.active {
+    border: solid 1px #ccc;
+}
+
+#rnk_contest_minutes {
+    width: 100px;
+}
+
+#contest_slider {
+    width: 100%;
+}
+
+
+
 
 details {
     border-radius: 3px;
@@ -143,14 +205,6 @@ details[open] summary {
     width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
-}
-
-#contest_min {
-    font-size: 20px;
-}
-
-#contest_slider {
-    width: 400px;
 }
 
 ul#legend {
