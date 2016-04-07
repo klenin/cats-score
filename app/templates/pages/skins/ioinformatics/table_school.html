@@ -28,7 +28,7 @@ var table = app.result_tables[table_id];
         map(function (pid) { return CATS.App.problems[pid].max_points; }).
         reduce(function (t, s) { return t + s; }, 0).value(), 1);
     _.each(table.score_board.slice(next_page, next_page + elem_cnt), function(row) {
-        var prize_class='gold';
+        var prize_class=row.prize;
     %>
     <tr class="<%=prize_class%>">
         <td><%=row.place%></td>
@@ -43,7 +43,7 @@ var table = app.result_tables[table_id];
         %>
         <td><%=row.points_cnt%></td>
         <td><%=(row.points_cnt / total_points * 100).toFixed(2)%>%</td>
-        <td>Gold</td>
+        <td><%=row.prize%></td>
     </tr>
     <%
     });
