@@ -38,23 +38,26 @@ th a:hover, td a:hover, .maincontent a:hover
 	margin-bottom: 8px;
 }
 
-td.gold, .participantmedals .goldcount, .delcontent a div.gold
-{
+.gold td,
+.participantmedals .goldcount,
+.delcontent a div.gold {
 	background-color: #FFEE55;
 }
 
-td.silver, .participantmedals .silvercount, .delcontent a div.silver
-{
+.silver td,
+.participantmedals .silvercount,
+.delcontent a div.silver {
 	background-color: #CCCCCC;
 }
 
-td.bronze, .participantmedals .bronzecount, .participantmedals, .delcontent a div.bronze
-{
+.bronze td,
+.participantmedals .bronzecount,
+.participantmedals,
+.delcontent a div.bronze {
 	background-color: #B87838;
 }
 
-td.nomedal
-{
+.nomedal td {
 	background-color: #E8F4FF;
 }
 
