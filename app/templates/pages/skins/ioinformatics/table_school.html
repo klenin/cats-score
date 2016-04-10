@@ -41,7 +41,7 @@ var table = app.result_tables[table_id];
         <%
         };
         %>
-        <td><%=row.points_cnt%></td>
+        <td><%=row.points_cnt.toFixed(2)%></td>
         <td><%=(row.points_cnt / total_points * 100).toFixed(2)%>%</td>
         <td><%=row.prize%></td>
     </tr>
