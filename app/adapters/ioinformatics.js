@@ -34,6 +34,7 @@ CATS.Adapter.IOInformatics = Classify({
             pd.max_points = Math.max(pd.max_points, prob.points);
             row.problems.push(prob);
         }
+        row.prize = $(tds[5 + this.contest.problems.length]).text();
         result_table.score_board.push(row);
     },
 
