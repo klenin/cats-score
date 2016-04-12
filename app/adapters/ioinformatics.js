@@ -20,7 +20,11 @@ CATS.Adapter.IOInformatics = Classify({
         for (var i = 0; i < this.contest.problems.length; ++i) {
             var prob = result_table.get_empty_problem_for_score_board_row();
             prob.problem = this.contest.problems[i];
-            prob.points = $(tds[i + 3]).text();
+            prob.points = parseFloat($(tds[i + 3]).text());
+            if (isNaN(prob.points)) {
+                prob.points = 0;
+            }
+
             prob.is_solved = prob.points > 0;
             if (prob.is_solved) {
                 row.solved_cnt++;
@@ -30,6 +34,7 @@ CATS.Adapter.IOInformatics = Classify({
             pd.max_points = Math.max(pd.max_points, prob.points);
             row.problems.push(prob);
         }
+        row.prize = $(tds[5 + this.contest.problems.length]).text();
         result_table.score_board.push(row);
     },
 

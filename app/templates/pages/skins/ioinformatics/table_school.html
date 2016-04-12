@@ -4,6 +4,12 @@ var table_id = models.table;
 var contest = app.contests[contest_id];
 var contest_problems_stats = contest.get_problems_stats();
 var table = app.result_tables[table_id];
+
+var prize_class = {
+    Gold: 'gold',
+    Silver: 'silver',
+    Bronze: 'bronze',
+}
 %>
 <div class="mainpage">
 <div class="maincontent">
@@ -28,9 +34,8 @@ var table = app.result_tables[table_id];
         map(function (pid) { return CATS.App.problems[pid].max_points; }).
         reduce(function (t, s) { return t + s; }, 0).value(), 1);
     _.each(table.score_board.slice(next_page, next_page + elem_cnt), function(row) {
-        var prize_class=row.prize;
     %>
-    <tr class="<%=prize_class%>">
+    <tr class="<%=prize_class[row.prize]%>">
         <td><%=row.place%></td>
         <td class="leftalign"><a href="#"><%=app.users[row.user].name%></a></td>
         <td class="leftalign"><a href="#"><%=app.users[row.user].some_affiliation()%></a></td>
@@ -41,7 +46,7 @@ var table = app.result_tables[table_id];
         <%
         };
         %>
-        <td><%=row.points_cnt%></td>
+        <td><%=row.points_cnt.toFixed(2)%></td>
         <td><%=(row.points_cnt / total_points * 100).toFixed(2)%>%</td>
         <td><%=row.prize%></td>
     </tr>
