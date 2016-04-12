@@ -9,7 +9,7 @@
     text-align: center;
 }
 #catsscore_wrapper .scoreboard tr {
-    border-bottom: 1px solid black; 
+    border-bottom: 1px solid black;
     height: 42px;
 }
 #catsscore_wrapper .scoreboard td, #catsscore_wrapper .scoreboard th {
@@ -89,4 +89,18 @@
     border-radius: 50%;
     border: solid 1px black;
     display: inline-block;
+}
+
+
+.pace .pace-progress {
+  background: #e87272;
+}
+
+.pace .pace-progress-inner {
+  box-shadow: 0 0 10px #e87272, 0 0 5px #e87272;
+}
+
+.pace .pace-activity {
+  border-top-color: #e87272;
+  border-left-color: #e87272;
 }
