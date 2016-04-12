@@ -20,7 +20,7 @@ if (el_per_page >= elem_cnt) {
 %>
 
 <div class="row">
-    <div id="page_selector" class="col-md-3">
+    <div id="page_selector" class="col-md-4">
         <div class="pagination">
             <a href="#" class="first" data-action="first">&laquo;</a>
             <a href="#" class="previous" data-action="previous">&lsaquo;</a>
@@ -29,7 +29,7 @@ if (el_per_page >= elem_cnt) {
             <a href="#" class="last" data-action="last">&raquo;</a>
         </div>
     </div>
-    <div id="elements_per_page" class="col-md-4 col-md-offset-5 form-inline">
+    <div id="elements_per_page" class="col-md-5 col-md-offset-3 form-inline">
         <label for="el_per_page">Elements per page:</label>
         <%$.each(elements_per_page, function (i, e) {%>
             <a class="<%=e == el_per_page ? 'active' : ''%>" id="el_per_page"><%=e%></a>
