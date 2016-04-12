@@ -4,7 +4,7 @@ var minutes = filters.duration.minutes != null
 var types = ['history', 'scoreboard'];
 
 if (expanded) {
-    var btn_class = 'btn-green',
+    var btn_class = 'open',
         collapse_class = 'collapse in',
         glyphicon = 'glyphicon-triangle-bottom';
 } else {
@@ -29,7 +29,7 @@ if (expanded) {
 
 <div class="row">
     <div class="col-md-12">
-        <button id="btn_filters" class="btn btn-black btn-block <%=btn_class%>"
+        <button id="btn_filters" class="btn btn-filter btn-block <%=btn_class%>"
         role="button" data-toggle="collapse" href="#collapse_filters"
         aria-expanded="<%=expanded%>" aria-controls="collapse_filters">
             <span class="glyphicon <%=glyphicon%>" aria-hidden="true">
@@ -87,12 +87,6 @@ if (expanded) {
     <div class="row">
         <div class="col-md-6">
             <div id="contest_slider"></div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-12">
-            <div class="bottom-line"></div>
         </div>
     </div>
 </div>

@@ -103,35 +103,18 @@
 }
 
 
-#catsscore_filters_wrapper .btn-black {
+#catsscore_filters_wrapper .btn-filter {
     background-color: #333;
     color: #fff;
     text-align: left;
     font-size: 18px;
 }
 
-#catsscore_filters_wrapper .btn-black:hover {
-    color: #fff;
-}
-
-#catsscore_filters_wrapper .btn-green {
+#catsscore_filters_wrapper .btn-filter.open {
     background-color: #54C571;
     color: #000;
     border-bottom-right-radius: 0px;
     border-bottom-left-radius: 0px;
-}
-
-#catsscore_filters_wrapper .btn-green:hover {
-    color: #000;
-}
-
-#catsscore_filters_wrapper .bottom-line {
-    margin-bottom: 30px;
-    margin-top: 10px;
-    padding-bottom: 10px;
-    border-bottom: solid 5px;
-    border-radius: 4px;
-    border-color: #54C571;
 }
 
 #catsscore_filters_wrapper .input-group-addon {
@@ -161,6 +144,10 @@
 
 #contest_slider {
     width: 100%;
+}
+
+#collapse_filters {
+    margin-bottom: 40px;
 }
 
 
