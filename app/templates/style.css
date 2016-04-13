@@ -169,30 +169,6 @@
 }
 
 
-
-
-details {
-    border-radius: 3px;
-    background: #eee;
-    margin: 1em 0;
-    padding: 10px;
-}
-
-summary {
-    background: #333;
-    color: #fff;
-    border-radius: 3px;
-    padding: 5px 10px;
-    outline: none;
-    cursor: pointer;
-}
-
-details[open] summary {
-    background: #69c773;
-    color: #333;
-}
-
-
 .contest_selector, .selector {
     width: 30px;
 }
