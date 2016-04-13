@@ -3,8 +3,9 @@
 }
 
 
-#wrapper .selectpicker {
-    background-image: none;
+#catsscore_header .selectpicker {
+    -webkit-box-shadow: box-shadow;
+    box-shadow: unset;
 }
 
 
@@ -14,7 +15,7 @@
     width: 100%;
     height: 30px;
     line-height: 30px;
-    border: 1px solid #CDCDCD;
+    border: 1px solid #cdcdcd;
     border-radius: 4px;
 }
 
@@ -24,8 +25,8 @@
     width: 10%;
     height: 100%;
     outline: none;
-    border-right: 1px solid #CDCDCD;
-    border-left: 1px solid #CDCDCD;
+    border-right: 1px solid #cdcdcd;
+    border-left: 1px solid #cdcdcd;
     color: #555555;
     text-align: center;
     text-decoration: none;
@@ -46,7 +47,7 @@
 #catsscore_pagination_wrapper .pagination a.disabled:focus,
 #catsscore_pagination_wrapper .pagination a.disabled:active {
     background-color: #f3f3f3;
-    color: #A8A8A8;
+    color: #a8a8a8;
     cursor: not-allowed;
 }
 
@@ -111,7 +112,7 @@
 }
 
 #catsscore_filters_wrapper .btn-filter.open {
-    background-color: #54C571;
+    background-color: #54c571;
     color: #000;
     border-bottom-right-radius: 0px;
     border-bottom-left-radius: 0px;
@@ -138,40 +139,33 @@
     border: solid 1px #ccc;
 }
 
+#catsscore_filters_wrapper .slider {
+    margin: 0% 0.7%;
+    width: 98.6%;
+}
+
+#catsscore_filters_wrapper .slider-handle {
+    background: #54c571;
+    border-radius: 4px;
+}
+
+#catsscore_filters_wrapper .slider-tick {
+    border-radius: 4px;
+}
+
+#catsscore_filters_wrapper .slider-selection,
+#catsscore_filters_wrapper .slider-tick.in-selection {
+    background-image: -webkit-linear-gradient(top, #f9f9f9 0, #f5f5f5 100%);
+    background-image: -o-linear-gradient(top, #f9f9f9 0, #f5f5f5 100%);
+    background-image: linear-gradient(to bottom, #f9f9f9 0, #f5f5f5 100%);
+}
+
 #rnk_contest_minutes {
     width: 100px;
 }
 
-#contest_slider {
-    width: 100%;
-}
-
 #collapse_filters {
     margin-bottom: 40px;
-}
-
-
-
-
-details {
-    border-radius: 3px;
-    background: #EEE;
-    margin: 1em 0;
-    padding: 10px;
-}
-
-summary {
-    background: #333;
-    color: #FFF;
-    border-radius: 3px;
-    padding: 5px 10px;
-    outline: none;
-    cursor: pointer;
-}
-
-details[open] summary {
-    background: #69c773;
-    color: #333;
 }
 
 
@@ -180,7 +174,7 @@ details[open] summary {
 }
 
 .pie_wrapper {
-    border: 1px solid #C8BFC4;
+    border: 1px solid #c8bfc4;
     border-radius: 3px;
     width: 230px;
     height: 230px;
