@@ -15,15 +15,16 @@ if (expanded) {
 %>
 
 <script>
-    $("#contest_slider").slider({
+    $('#contest_slider').slider({
         value: <%=minutes%>,
         min: 0,
         max: <%=contest_duration%>,
-        step: 1,
-        slide: function (event, ui) {
-            $("#rnk_contest_minutes").val(ui.value);
-            $("#rnk_contest_minutes").change();
+        formatter: function(value) {
+            return value;
         }
+    }).on('slide', function (e) {
+        $("#rnk_contest_minutes").val(e.value);
+        $("#rnk_contest_minutes").change();
     });
 </script>
 
@@ -86,7 +87,7 @@ if (expanded) {
 
     <div class="row">
         <div class="col-md-6">
-            <div id="contest_slider"></div>
+            <input id="contest_slider" type="text"/>
         </div>
     </div>
 </div>

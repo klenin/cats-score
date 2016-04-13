@@ -2,7 +2,6 @@ requirejs.config({
     baseUrl: 'app/',
     paths: {
         jquery: '../vendors/jquery.min',
-        jqueryui: '../vendors/jquery-ui.min',
         jqpagination: '../vendors/jquery.jqpagination.min',
         underscore: '../vendors/underscore.min',
         backbone: '../vendors/backbone.min',
@@ -12,7 +11,8 @@ requirejs.config({
         jqflotaddon: '../vendors/jquery.flot.axislabels',
         jqflotpie: '../vendors/jquery.flot.pie',
         bootstrap: '../vendors/bootstrap.min',
-        bootstrap_select: '../vendors/bootstrap-select.min'
+        bootstrap_select: '../vendors/bootstrap-select.min',
+        bootstrap_slider: '../vendors/bootstrap-slider.min'
     },
     shim: {
         underscore: {
@@ -28,8 +28,8 @@ requirejs.config({
         waitSeconds: 15
     }
 });
-require(['underscore', 'jquery', 'jqueryui', 'bootstrap'], function () {
-    require(['backbone', 'classify', 'dateformat', 'jqflot', 'jqpagination', 'CATS', 'bootstrap_select'], function () {
+require(['underscore', 'jquery', 'bootstrap'], function () {
+    require(['backbone', 'classify', 'dateformat', 'jqflot', 'jqpagination', 'CATS', 'bootstrap_select', 'bootstrap_slider'], function () {
         require([
             'adapters/cats',
             'adapters/cats_xml_hist',
