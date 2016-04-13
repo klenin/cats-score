@@ -140,13 +140,24 @@
 }
 
 #catsscore_filters_wrapper .slider {
-    width: 100%;
+    margin: 0% 0.7%;
+    width: 98.6%;
 }
 
 #catsscore_filters_wrapper .slider-handle {
-    background-color: #54c571;
-    background-image: none;
+    background: #54c571;
     border-radius: 4px;
+}
+
+#catsscore_filters_wrapper .slider-tick {
+    border-radius: 4px;
+}
+
+#catsscore_filters_wrapper .slider-selection,
+#catsscore_filters_wrapper .slider-tick.in-selection {
+    background-image: -webkit-linear-gradient(top, #f9f9f9 0, #f5f5f5 100%);
+    background-image: -o-linear-gradient(top, #f9f9f9 0, #f5f5f5 100%);
+    background-image: linear-gradient(to bottom, #f9f9f9 0, #f5f5f5 100%);
 }
 
 #rnk_contest_minutes {

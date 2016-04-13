@@ -1,6 +1,6 @@
 <%
 var minutes = filters.duration.minutes != null
-    ? filters.duration.minutes : contest_duration;
+    ? filters.duration.minutes : current_contest_duration;
 var types = ['history', 'scoreboard'];
 
 if (expanded) {
@@ -15,16 +15,24 @@ if (expanded) {
 %>
 
 <script>
+    var duration = <%=contest_duration%>,
+        current = <%=current_contest_duration%>,
+        position = current > duration / 2 ? current * 100 / duration : 50;
+
     $('#contest_slider').slider({
         value: <%=minutes%>,
-        min: 0,
-        max: <%=contest_duration%>,
+        ticks: [0, current, duration],
+        ticks_positions: [0, position, 100],
+        ticks_labels: ['', current == duration ? '' : 'Current time', ''],
+        ticks_snap_bounds: 1,
         formatter: function(value) {
             return value;
         }
-    }).on('slide', function (e) {
-        $("#rnk_contest_minutes").val(e.value);
-        $("#rnk_contest_minutes").change();
+    }).on('change', function (e) {
+        if (e.value.newValue > current) {
+            e.value.newValue = current;
+        }
+        $("#rnk_contest_minutes").val(e.value.newValue).change();
     });
 </script>
 
@@ -86,7 +94,7 @@ if (expanded) {
     </div>
 
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-12">
             <input id="contest_slider" type="text"/>
         </div>
     </div>

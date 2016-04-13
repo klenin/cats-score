@@ -227,8 +227,8 @@ CATS.View = Classify({
                 var btn = $('#btn_filters');
 
                 btn.toggleClass('open');
-                $('span', btn).toggleClass('glyphicon-triangle-bottom').
-                    toggleClass('glyphicon-triangle-right');
+                $('span', btn).toggleClass('glyphicon-triangle-bottom').toggleClass('glyphicon-triangle-right');
+                $('#contest_slider').click();
             },
             'click input': function (e) {
                 e.target.select();
@@ -349,6 +349,7 @@ CATS.View = Classify({
                     var table = CATS.App.result_tables[params.table];
                     return {
                         contest_duration: CATS.App.contests[table.contests[0]].compute_duration_minutes(),
+                        current_contest_duration: CATS.App.contests[table.contests[0]].compute_current_duration_minutes(),
                         filters: table.filters
                     };
                 case 'contests':

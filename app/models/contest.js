@@ -62,5 +62,9 @@ CATS.Model.Contest = Classify(CATS.Model.Entity, {
 
     compute_duration_minutes: function () {
         return CATS.App.utils.get_time_diff(this.start_time, this.finish_time);
+    },
+
+    compute_current_duration_minutes: function () {
+        return CATS.App.utils.get_time_diff(this.start_time, new Date);
     }
 });
