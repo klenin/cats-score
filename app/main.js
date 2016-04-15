@@ -1,9 +1,3 @@
-window.paceOptions = {
-    elements: {
-        selectors: ['#progress-end']
-    }
-};
-
 requirejs.config({
     baseUrl: 'app/',
     paths: {
@@ -36,7 +30,8 @@ requirejs.config({
     }
 });
 require(['underscore', 'jquery', 'jqueryui', 'bootstrap'], function () {
-    require(['backbone', 'classify', 'dateformat', 'jqflot', 'jqpagination', 'CATS', 'bootstrap_select', 'pace'], function () {
+    require(['pace', 'backbone', 'classify', 'dateformat', 'jqflot', 'jqpagination', 'CATS', 'bootstrap_select'], function (pace) {
+        pace.start({ elements: { selectors: ['#progress-end'] } });
         require([
             'adapters/cats',
             'adapters/cats_xml_hist',
