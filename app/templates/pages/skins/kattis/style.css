@@ -73,3 +73,18 @@
 #catsscore_wrapper .standings td.user {
     text-align: left;
 }
+
+
+.pace .pace-progress {
+  background: #008800;
+}
+
+.pace .pace-progress-inner {
+  box-shadow: 0 0 10px #008800, 0 0 5px #008800;
+}
+
+.pace .pace-activity {
+  border-top-color: #008800;
+  border-left-color: #008800;
+}
+

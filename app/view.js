@@ -453,7 +453,7 @@ CATS.View = Classify({
             $("#source").val(this.source());
             $("#page_name").val(this.page_name());
             $("#skin").val(this.skin());
-            $('#progress').detach();
+            $("body").append('<div id="progress-end">');
 
             $('.selectpicker').selectpicker('render');
 
@@ -506,7 +506,9 @@ CATS.View = Classify({
         view_state.bind("change", function () {
             router.navigate(router.generate_url());
             console.log("load");
-            if(!$('#progress').length) $("body").prepend("<div id='progress'><img src='app/templates/img/loading.gif' /></div>");
+
+            $('#progress-end').detach();
+            Pace.restart();
         });
 
         var view = new self.View_logic($.extend({
