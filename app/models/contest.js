@@ -69,7 +69,7 @@ CATS.Model.Contest = Classify(CATS.Model.Entity, {
 
         return CATS.App.utils.get_time_diff(
             this.start_time,
-            time < this.finish_time && time > this.start_time ? time : this.finish_time
+            this.start_time <= time && time <= this.finish_time  ? time : this.finish_time
         );
     }
 });
