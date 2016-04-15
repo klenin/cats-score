@@ -129,3 +129,16 @@
     text-decoration: none;
     font-weight: bold;
 }
+
+.pace .pace-progress {
+  background: #d0f0ff;
+}
+
+.pace .pace-progress-inner {
+  box-shadow: 0 0 10px #d0f0ff, 0 0 5px #d0f0ff;
+}
+
+.pace .pace-activity {
+  border-top-color: #d0f0ff;
+  border-left-color: #d0f0ff;
+}

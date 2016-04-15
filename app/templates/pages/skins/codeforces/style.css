@@ -121,3 +121,17 @@
 #catsscore_wrapper .datatable .filter input {
     padding-left: 20px;
 }
+
+
+.pace .pace-progress {
+  background: #e1e1e1;
+}
+
+.pace .pace-progress-inner {
+  box-shadow: 0 0 10px #e1e1e1, 0 0 5px #e1e1e1;
+}
+
+.pace .pace-activity {
+  border-top-color: #e1e1e1;
+  border-left-color: #e1e1e1;
+}

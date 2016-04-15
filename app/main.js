@@ -12,7 +12,8 @@ requirejs.config({
         jqflotpie: '../vendors/jquery.flot.pie',
         bootstrap: '../vendors/bootstrap.min',
         bootstrap_select: '../vendors/bootstrap-select.min',
-        bootstrap_slider: '../vendors/bootstrap-slider.min'
+        bootstrap_slider: '../vendors/bootstrap-slider.min',
+        pace: '../vendors/pace.min'
     },
     shim: {
         underscore: {
@@ -29,7 +30,8 @@ requirejs.config({
     }
 });
 require(['underscore', 'jquery', 'bootstrap'], function () {
-    require(['backbone', 'classify', 'dateformat', 'jqflot', 'jqpagination', 'CATS', 'bootstrap_select', 'bootstrap_slider'], function () {
+    require(['pace', 'backbone', 'classify', 'dateformat', 'jqflot', 'jqpagination', 'CATS', 'bootstrap_select', 'bootstrap_slider'], function (pace) {
+        pace.start({ elements: { selectors: ['#progress-end'] } });
         require([
             'adapters/cats',
             'adapters/cats_xml_hist',
