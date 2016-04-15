@@ -54,7 +54,7 @@ CATS.Rule.School = Classify(CATS.Rule.Base, {
         var teams_arr = _.map(teams, function (v, team_id) {
             var points_cnt = 0;
             for (var i = 0; i < contest.problems.length; ++i)
-                points_cnt += parseFloat(teams_problems[team_id][i].points);
+                points_cnt += teams_problems[team_id][i].points;
             users_no_runs[team_id] = false;
             return {
                 id: team_id,
