@@ -225,11 +225,12 @@ CATS.View = Classify({
                 this.update_url_settings({chart: chart.settings()});
             },
             'click #btn_filters': function () {
-                var btn = $('#btn_filters');
+                if (!$('#collapse_filters').hasClass('collapsing')) {
+                    var btn = $('#btn_filters');
 
-                btn.toggleClass('open');
-                $('span', btn).toggleClass('glyphicon-triangle-bottom').toggleClass('glyphicon-triangle-right');
-                $('#contest_slider').click();
+                    btn.toggleClass('open');
+                    $('span', btn).toggleClass('glyphicon-triangle-bottom').toggleClass('glyphicon-triangle-right');
+                }
             },
             'click input': function (e) {
                 e.target.select();
