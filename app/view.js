@@ -150,6 +150,7 @@ CATS.View = Classify({
                     minutes.val(this.contest_duration);
                 }
                 $("#contest_slider").slider('setValue', parseInt(minutes.val()));
+                Pace.hide();
                 this.update_rank_table({duration: {
                     minutes : minutes.val(),
                     type : $("#rnk_restriction_type .btn.active input").val()
