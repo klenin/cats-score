@@ -3,13 +3,15 @@ requirejs.config({
     paths: {
         jquery: '../vendors/jquery.min',
         jqpagination: '../vendors/jquery.jqpagination.min',
+        jqresize: '../vendors/jquery.ba-resize.min',
         underscore: '../vendors/underscore.min',
         backbone: '../vendors/backbone.min',
         classify: '../vendors/classify.min',
         dateformat: '../vendors/date.format',
-        jqflot: '../vendors/jquery.flot',
-        jqflotaddon: '../vendors/jquery.flot.axislabels',
-        jqflotpie: '../vendors/jquery.flot.pie',
+        jqflot: '../vendors/jquery.flot.min',
+        jqflot_axislabels: '../vendors/jquery.flot.axislabels',
+        jqflot_pie: '../vendors/jquery.flot.pie.min',
+        jqflot_resize: '../vendors/jquery.flot.resize.min',
         bootstrap: '../vendors/bootstrap.min',
         bootstrap_select: '../vendors/bootstrap-select.min',
         bootstrap_slider: '../vendors/bootstrap-slider.min',
@@ -30,7 +32,7 @@ requirejs.config({
     }
 });
 require(['underscore', 'jquery', 'bootstrap'], function () {
-    require(['pace', 'backbone', 'classify', 'dateformat', 'jqflot', 'jqpagination', 'CATS', 'bootstrap_select', 'bootstrap_slider'], function (pace) {
+    require(['pace', 'backbone', 'classify', 'dateformat', 'jqresize', 'jqflot', 'jqpagination', 'CATS', 'bootstrap_select', 'bootstrap_slider'], function (pace) {
         pace.start({ elements: { selectors: ['#progress-end'] } });
         require([
             'adapters/cats',
@@ -48,8 +50,9 @@ require(['underscore', 'jquery', 'bootstrap'], function () {
             'adapters/default',
             'rules/base',
             'controller',
-            'jqflotaddon',
-            'jqflotpie'
+            'jqflot_axislabels',
+            'jqflot_pie',
+            'jqflot_resize'
         ], function () {
             require(['models/entity'], function () {
                 require(['models/event'], function () {

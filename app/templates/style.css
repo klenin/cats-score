@@ -2,6 +2,11 @@
     margin-top: 1%;
 }
 
+#catsscore .container {
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
 
 #catsscore_header .selectpicker,
 #catsscore_filters_wrapper .selectpicker {
