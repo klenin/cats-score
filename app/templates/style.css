@@ -9,7 +9,8 @@
 
 
 #catsscore_header .selectpicker,
-#catsscore_filters_wrapper .selectpicker {
+#catsscore_filters_wrapper .selectpicker,
+#catsscore_wrapper .selectpicker {
     -webkit-box-shadow: box-shadow;
     box-shadow: unset;
 }

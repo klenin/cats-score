@@ -15,7 +15,8 @@ requirejs.config({
         bootstrap: '../vendors/bootstrap.min',
         bootstrap_select: '../vendors/bootstrap-select.min',
         bootstrap_slider: '../vendors/bootstrap-slider.min',
-        pace: '../vendors/pace.min'
+        bootstrap_colorpicker: '../vendors/bootstrap-colorpicker.min',
+        pace: '../vendors/pace.min',
     },
     shim: {
         underscore: {
@@ -52,7 +53,8 @@ require(['underscore', 'jquery', 'bootstrap'], function () {
             'controller',
             'jqflot_axislabels',
             'jqflot_pie',
-            'jqflot_resize'
+            'jqflot_resize',
+            'bootstrap_colorpicker'
         ], function () {
             require(['models/entity'], function () {
                 require(['models/event'], function () {

@@ -3,69 +3,142 @@ var contest_id = models.contest;
 var contest = app.contests[contest_id];
 var chart = app.charts[models.chart];
 %>
-<div>
-    <h2>Chart examples:</h2>
-    <a href='#!show_rank_table/charts/default/<%=chart.contests_url_param%>/settings=<%=JSON.stringify(chart.gen_submittions_per_problem_params())%>'>Submittions per problems</a>
+
+<div class="row">
+    <div class="col-md-3">
+        <h2>Add new series:</h2>
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label for="chart_type" class="col-sm-5 control-label">Chart type:</label>
+                <div class="col-sm-7">
+                    <select id="chart_type" class="selectpicker form-control">
+                        <option value="line">line</option>
+                        <option value="pie">pie</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="parameter" class="col-sm-5 control-label">X-axis:</label>
+                <div class="col-sm-7">
+                    <select id="parameter" class="selectpicker form-control">
+                        <option value="run_cnt">run count</option>
+                        <%if (contest.scoring == "school") {%>
+                        <option value="points">points</option>
+                        <%}%>
+                        <option value="place">place</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="group_by" class="col-sm-5 control-label">Y-axis:</label>
+                <div class="col-sm-7">
+                    <select id="group_by" class="selectpicker form-control">
+                        <%_.each(chart.group_by, function (f, name) {
+                        %>
+                        <option value="<%=name%>"><%=name%></option>
+                        <%
+                        });%>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="aggregation" class="col-sm-5 control-label">Aggregation:</label>
+                <div class="col-sm-7">
+                    <select id="aggregation" class="selectpicker form-control">
+                        <option value="sum">sum</option>
+                        <option value="avg">average</option>
+                        <option value="min">minimum</option>
+                        <option value="max">maximum</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="period" class="col-sm-5 control-label">Time period:</label>
+                <div class="col-sm-7">
+                    <input type="text" size="20" id="period" class="form-control" value="10">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="color" class="col-sm-5 control-label">Color:</label>
+                <div class="col-sm-7">
+                    <div id="colorpicker" class="input-group colorpicker-component">
+                        <input type="text" value="black" class="form-control" />
+                        <span class="input-group-addon"><i></i></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <button id="add_series" class="btn btn-default btn-block">Add</button>
+                </div>
+            </div>
+        </div>
+
+        <h2>Chart examples:</h2>
+        <a href='#!show_rank_table/charts/default/<%=chart.contests_url_param%>/settings=<%=JSON.stringify(chart.gen_submittions_per_problem_params())%>'>Submittions per problems</a>
+    </div>
+    <div class="col-md-9">
+        <%if (chart.chart_type == "line") {%>
+        <div class="plot_container"><div class="plot" id="plot"></div></div>
+        <%}
+        else for (var i = 0; i < chart.series.length; ++i) {
+        var pp = chart.series_params[i].problems;
+        var header = pp.length == 1 ? app.problems[pp[0]].name : "";
+        %>
+
+        <div class="pie"><h3><%=header%></h3><div class="plot" id="plot_<%=i%>"></div></div>
+        <%
+        };
+        %>
+    </div>
 </div>
-<%if (chart.chart_type == "line") {%>
-<div class="plot_container"><div class="plot" id="plot"></div></div>
-<%}
-else for (var i = 0; i < chart.series.length; ++i) {
-var pp = chart.series_params[i].problems;
-var header = pp.length == 1 ? app.problems[pp[0]].name : "";
-%>
-
-<div class="pie"><h3><%=header%></h3><div class="plot" id="plot_<%=i%>"></div></div>
-<%
-};
-%>
 <script>
-    $("#parameter").change(function () {
-        $(".parameter_params").css("display", "none");
-        $("#" + $("#parameter").val() + "_params").css("display", "block");
-    });
-
-    $("#chart_type").val("<%=chart.chart_type%>");
-
-    <%if (chart.chart_type == "line") {%>
-        $.plot("#plot", <%=JSON.stringify(chart.series)%>, {
-        xaxes: [
-          { position: 'bottom', axisLabel: 'time' },
-          { position: 'bottom', ticks: [
-              <%
-              var idx = 0;
-              _.each(chart.statuses_arr, function (status) {
-              %>
-                [<%=idx++%>, "<%=status%>"],
-              <%
-              });
-              %>
-          ], axisLabel: 'statuses' }
-        ],
-        yaxes: [
-            { position: 'left', axisLabel: 'pieces' },
-            { position: 'left', axisLabel: 'points' },
-            { position: 'left', axisLabel: 'place' },
-        ],
-        legend: {
-            labelFormatter: function(label, series) {
-              return label + ' <a class="delete_series" data-series="' + series.id + '" href="#" onClick="return false;"> del</a>';
-            }
-        }
+        $("#parameter").change(function () {
+                $(".parameter_params").css("display", "none");
+                $("#" + $("#parameter").val() + "_params").css("display", "block");
         });
-    <%}
-    else {%>
-        var series = <%=JSON.stringify(chart.series_pie_format())%>;
-        for(var i = 0; i < series.length; ++i) {
-            $.plot("#plot_" + i, series[i], {
-                series: {
-                    pie: {show: true}
-                },
+
+        $("#chart_type").val("<%=chart.chart_type%>");
+
+        <%if (chart.chart_type == "line") {%>
+                $.plot("#plot", <%=JSON.stringify(chart.series)%>, {
+                xaxes: [
+                    { position: 'bottom', axisLabel: 'time' },
+                    { position: 'bottom', ticks: [
+                            <%
+                            var idx = 0;
+                            _.each(chart.statuses_arr, function (status) {
+                            %>
+                                [<%=idx++%>, "<%=status%>"],
+                            <%
+                            });
+                            %>
+                    ], axisLabel: 'statuses' }
+                ],
+                yaxes: [
+                        { position: 'left', axisLabel: 'pieces' },
+                        { position: 'left', axisLabel: 'points' },
+                        { position: 'left', axisLabel: 'place' },
+                ],
                 legend: {
-                    show: false
+                        labelFormatter: function(label, series) {
+                            return label + ' <a class="delete_series" data-series="' + series.id + '" href="#" onClick="return false;"> del</a>';
+                        }
                 }
-            });
-        }
-    <%}%>
-    $("#parameter").change();
+                });
+        <%}
+        else {%>
+                var series = <%=JSON.stringify(chart.series_pie_format())%>;
+                for(var i = 0; i < series.length; ++i) {
+                        $.plot("#plot_" + i, series[i], {
+                                series: {
+                                        pie: {show: true}
+                                },
+                                legend: {
+                                        show: false
+                                }
+                        });
+                }
+        <%}%>
+        $("#parameter").change();
 </script>

@@ -205,7 +205,7 @@ CATS.View = Classify({
                 series_params.problems = $('#problem').val();
                 series_params.user = $("#user").val();
                 series_params.affiliation = $("#affiliation").val();
-                series_params.color = $("input[name='color']:checked").val();
+                series_params.color = $('#colorpicker').colorpicker('getValue');
                 chart.add_new_series(series_params);
                 $("#catsscore_wrapper").html(this.page(this.skin(), "charts")(this.current_catsscore_wrapper_content_params));
                 this.update_url_settings({chart: chart.settings()});
@@ -237,6 +237,16 @@ CATS.View = Classify({
             }
         },
 
+        call_plugins: function () {
+            var params = this.current_catsscore_wrapper_content_params.models;
+
+            $('.selectpicker').selectpicker('render');
+            $('#problem, #status').selectpicker('selectAll');
+            $('#colorpicker').colorpicker({
+                colorSelectors: CATS.App.charts[params.chart].colors,
+            });
+        },
+
         update_rank_table: function (filters) {
             if (this.current_catsscore_wrapper_content_params == null)
                 return;
@@ -263,6 +273,7 @@ CATS.View = Classify({
         },
 
         update_url_settings: function (settings) {
+            this.call_plugins();
             this.view_state.set({settings: settings}, {silent: true});
             window.history.pushState('', '', '#' + this.router.generate_url());
         },
@@ -388,7 +399,7 @@ CATS.View = Classify({
             return page_name == 'table' || page_name == 'contests' || page_name == 'history';
         },
 
-        render: function(params){
+        render: function (params) {
             var pagination_params = this.define_pagination_params(params);
             var page_name = this.page_name();
             var source = this.source();
@@ -457,8 +468,7 @@ CATS.View = Classify({
             $("#skin").val(this.skin());
             $("body").append('<div id="progress-end">');
 
-            $('.selectpicker').selectpicker('render');
-            $('#problem, #status').selectpicker('selectAll');
+            this.call_plugins();
 
             return this;
         },

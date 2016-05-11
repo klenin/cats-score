@@ -8,8 +8,8 @@ CATS.Model.Chart = Classify(CATS.Model.Entity, {
         this.chart_type = "line";
         this.contests_url_param = null;
         this.colors = [
-            'green',
             'black',
+            'green',
             'blue',
             'red',
             'orange',
@@ -17,7 +17,7 @@ CATS.Model.Chart = Classify(CATS.Model.Entity, {
             'cyan',
             'magenta',
             'gray',
-            'violet',
+            'violet'
         ];
         this.series_id_generator = 0;
         var self = this;
