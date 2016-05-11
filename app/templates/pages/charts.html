@@ -18,19 +18,7 @@ var chart = app.charts[models.chart];
                 </div>
             </div>
             <div class="form-group">
-                <label for="parameter" class="col-sm-5 control-label">X-axis:</label>
-                <div class="col-sm-7">
-                    <select id="parameter" class="selectpicker form-control">
-                        <option value="run_cnt">run count</option>
-                        <%if (contest.scoring == "school") {%>
-                        <option value="points">points</option>
-                        <%}%>
-                        <option value="place">place</option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="group_by" class="col-sm-5 control-label">Y-axis:</label>
+                <label for="group_by" class="col-sm-5 control-label">X-axis:</label>
                 <div class="col-sm-7">
                     <select id="group_by" class="selectpicker form-control">
                         <%_.each(chart.group_by, function (f, name) {
@@ -38,6 +26,18 @@ var chart = app.charts[models.chart];
                         <option value="<%=name%>"><%=name%></option>
                         <%
                         });%>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="parameter" class="col-sm-5 control-label">Y-axis:</label>
+                <div class="col-sm-7">
+                    <select id="parameter" class="selectpicker form-control">
+                        <option value="run_cnt">run count</option>
+                        <%if (contest.scoring == "school") {%>
+                        <option value="points">points</option>
+                        <%}%>
+                        <option value="place">place</option>
                     </select>
                 </div>
             </div>
