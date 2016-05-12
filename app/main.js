@@ -34,7 +34,10 @@ requirejs.config({
 });
 require(['underscore', 'jquery', 'bootstrap'], function () {
     require(['pace', 'backbone', 'classify', 'dateformat', 'jqresize', 'jqflot', 'jqpagination', 'CATS', 'bootstrap_select', 'bootstrap_slider'], function (pace) {
-        pace.start({ elements: { selectors: ['#progress-end'] } });
+        pace.start({
+            restartOnPushState: false,
+            elements: { selectors: ['#progress-end'] }
+        });
         require([
             'adapters/cats',
             'adapters/cats_xml_hist',
