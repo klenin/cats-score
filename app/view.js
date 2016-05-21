@@ -246,6 +246,11 @@ CATS.View = Classify({
             });
         },
 
+        make_responsive: function () {
+            $('.container').removeClass('non-responsive-container');
+            $('#page_name').parent().removeClass('col-xs-3').addClass('col-md-3')
+        },
+
         update_rank_table: function (filters) {
             if (this.current_catsscore_wrapper_content_params == null)
                 return;
@@ -273,6 +278,7 @@ CATS.View = Classify({
 
         update_url_settings: function (settings) {
             this.call_plugins();
+            this.make_responsive();
             this.view_state.set({settings: settings}, {silent: true});
             window.history.pushState('', '', '#' + this.router.generate_url());
         },
@@ -410,6 +416,7 @@ CATS.View = Classify({
             if (page_name == "table")
                 page_name += "_" + CATS.App.result_tables[params.table].scoring;
 
+            this.make_responsive();
             this.detach_skin_stylesheet();
             if (this.with_css && this.available_skin_name(skin, page_name))
                 this.define_skin_stylesheet(skin);

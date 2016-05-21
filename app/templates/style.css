@@ -7,6 +7,10 @@
     padding-left: 10px;
 }
 
+#catsscore .container.non-responsive-container {
+    width: 1170px;
+}
+
 
 #catsscore_header .selectpicker,
 #catsscore_filters_wrapper .selectpicker,
