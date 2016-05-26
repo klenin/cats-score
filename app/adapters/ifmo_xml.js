@@ -1,3 +1,4 @@
+define([ 'adapters/ifmo' ], function() {
 CATS.Adapter.Ifmo_xml = Classify(CATS.Adapter.Ifmo, {
     init : function(page) {
         this.$$parent();
@@ -64,4 +65,5 @@ CATS.Adapter.Ifmo_xml = Classify(CATS.Adapter.Ifmo, {
             callback();
         }, contest_id);
     }
+});
 });
