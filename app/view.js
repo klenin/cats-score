@@ -248,9 +248,10 @@ CATS.View = Classify({
 
             $('.selectpicker').selectpicker('render');
             $('#problem, #status').selectpicker('selectAll');
-            $('#colorpicker').colorpicker({
-                colorSelectors: CATS.App.charts[params.chart].colors,
-            });
+            if (params.chart)
+                $('#colorpicker').colorpicker({
+                    colorSelectors: CATS.App.charts[params.chart].colors,
+                });
         },
 
         make_responsive: function () {
@@ -546,5 +547,3 @@ CATS.View = Classify({
         view.start();
     }
 });
-
-
