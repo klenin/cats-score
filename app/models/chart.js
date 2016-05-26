@@ -8,8 +8,8 @@ CATS.Model.Chart = Classify(CATS.Model.Entity, {
         this.chart_type = "line";
         this.contests_url_param = null;
         this.colors = [
-            'green',
             'black',
+            'green',
             'blue',
             'red',
             'orange',
@@ -17,7 +17,7 @@ CATS.Model.Chart = Classify(CATS.Model.Entity, {
             'cyan',
             'magenta',
             'gray',
-            'violet',
+            'violet'
         ];
         this.series_id_generator = 0;
         var self = this;
@@ -204,6 +204,11 @@ CATS.Model.Chart = Classify(CATS.Model.Entity, {
         this.series_params.splice(idx, 1);
     },
 
+    delete_all: function () {
+        this.series = [];
+        this.series_params = [];
+    },
+
     aggregation: {
         sum: function(arr) { return arr.reduce(function(pv, cv) { return pv + cv; }, 0); },
         avg: function(arr) { return arr.reduce(function(pv, cv) { return pv + cv; }, 0) / arr.length; },
@@ -217,6 +222,6 @@ CATS.Model.Chart = Classify(CATS.Model.Entity, {
         _.each(contest.problems, function (id) {
             params.push({"period":10,"parameter":"run_cnt","aggregation":"sum","group_by":"status","problems":[id],"user":".*?","affiliation":".*?"});
         });
-        return {"chart" : { params : params, chart_type: 'pie'}};
+        return {"chart": { params: params, chart_type: 'pie'}};
     }
 });

@@ -7,13 +7,14 @@ requirejs.config({
         backbone: '../vendors/backbone.min',
         classify: '../vendors/classify.min',
         dateformat: '../vendors/date.format',
-        jqflot: '../vendors/jquery.flot',
-        jqflotaddon: '../vendors/jquery.flot.axislabels',
-        jqflotpie: '../vendors/jquery.flot.pie',
+        jqflot: '../vendors/jquery.flot.min',
+        jqflot_axislabels: '../vendors/jquery.flot.axislabels',
+        jqflot_pie: '../vendors/jquery.flot.pie.min',
         bootstrap: '../vendors/bootstrap.min',
         bootstrap_select: '../vendors/bootstrap-select.min',
         bootstrap_slider: '../vendors/bootstrap-slider.min',
-        pace: '../vendors/pace.min'
+        bootstrap_colorpicker: '../vendors/bootstrap-colorpicker.min',
+        pace: '../vendors/pace.min',
     },
     shim: {
         underscore: {
@@ -31,7 +32,10 @@ requirejs.config({
 });
 require(['underscore', 'jquery', 'bootstrap'], function () {
     require(['pace', 'backbone', 'classify', 'dateformat', 'jqflot', 'jqpagination', 'CATS', 'bootstrap_select', 'bootstrap_slider'], function (pace) {
-        pace.start({ elements: { selectors: ['#progress-end'] } });
+        pace.start({
+            restartOnPushState: false,
+            elements: { selectors: ['#progress-end'] }
+        });
         require([
             'adapters/cats',
             'adapters/cats_xml_hist',
@@ -48,8 +52,9 @@ require(['underscore', 'jquery', 'bootstrap'], function () {
             'adapters/default',
             'rules/base',
             'controller',
-            'jqflotaddon',
-            'jqflotpie'
+            'jqflot_axislabels',
+            'jqflot_pie',
+            'bootstrap_colorpicker'
         ], function () {
             require(['models/entity'], function () {
                 require(['models/event'], function () {
