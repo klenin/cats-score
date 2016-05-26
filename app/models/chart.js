@@ -198,10 +198,12 @@ CATS.Model.Chart = Classify(CATS.Model.Entity, {
         return _.chain(result);
     },
 
-    delete_series: function(seriesId) {
-        var idx = _.findIndex(this.series, function (s) { return s.id === seriesId; });
-        this.series.splice(idx, 1);
-        this.series_params.splice(idx, 1);
+    delete_series: function(id) {
+        if (this.chart_type == 'line') {
+            id = _.findIndex(this.series, function (s) { return s.id === id; });
+        }
+        this.series.splice(id, 1);
+        this.series_params.splice(id, 1);
     },
 
     delete_all: function () {

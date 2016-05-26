@@ -74,10 +74,10 @@ var chart = app.charts[models.chart];
             </div>
         </div>
 
-        <h2>Remove <%=chart.chart_type == 'line' ? 'series' : 'pies'%>:</h2>
+        <h2>Edit <%=chart.chart_type == 'line' ? 'series' : 'pies'%>:</h2>
         <div class="row">
             <div class="col-xs-12">
-                <button id="remove_all" class="btn btn-default btn-block">Remove all</button>
+                <button id="delete_all" class="btn btn-default btn-block">Delete all</button>
             </div>
         </div>
 
@@ -184,7 +184,7 @@ var chart = app.charts[models.chart];
                 col = $('#plot_' + i).parent().parent();
 
             a.detach();
-            col.append(a).append('<button id="pie_btn_' + i + '" type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>');
+            col.append(a).append('<button type="button" class="close delete_series" data-series="' + i + '" data-dismiss="modal" aria-label="Close"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>');
             $('table, div', a).css({ left: 280 })
 
         }
