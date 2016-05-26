@@ -223,6 +223,13 @@ CATS.View = Classify({
                 $("#catsscore_wrapper").html(this.page(this.skin(), "charts")(this.current_catsscore_wrapper_content_params));
                 this.update_url_settings({chart: chart.settings()});
             },
+            'click #remove_all': function () {
+                var params = this.current_catsscore_wrapper_content_params.models;
+                var chart = CATS.App.charts[params.chart];
+                chart.delete_all();
+                $("#catsscore_wrapper").html(this.page(this.skin(), "charts")(this.current_catsscore_wrapper_content_params));
+                this.update_url_settings({ chart: chart.settings() });
+            },
             'click #btn_filters': function () {
                 if (!$('#collapse_filters').hasClass('collapsing')) {
                     var btn = $('#btn_filters');
