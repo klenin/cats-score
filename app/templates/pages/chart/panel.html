@@ -17,20 +17,11 @@ var chart = app.charts[models.chart];
     </div>
     <%}%>
     <div class="form-group">
-        <label for="group_by" class="col-xs-5 control-label">X-axis:</label>
+        <label for="parameter" class="col-xs-5 control-label"><%=chart.chart_type == 'pie' ? 'Parameter' : 'Y-axis'%>:</label>
         <div class="col-xs-7">
-            <select id="group_by" class="selectpicker form-control">
-                <%_.each(chart.group_by, function (f, name) {
-                %>
-                <option value="<%=name%>"><%=name%></option>
-                <%
-                });%>
-            </select>
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="parameter" class="col-xs-5 control-label">Y-axis:</label>
-        <div class="col-xs-7">
+            <%if (chart.selected) {%>
+            <input id="parameter" class="form-control" type="text" value="<%=chart.series_params[id].parameter%>" disabled>
+            <%} else {%>
             <select id="parameter" class="selectpicker form-control">
                 <option value="run_cnt">run count</option>
                 <%if (contest.scoring == "school") {%>
@@ -38,39 +29,89 @@ var chart = app.charts[models.chart];
                 <%}%>
                 <option value="place">place</option>
             </select>
+            <%}%>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="group_by" class="col-xs-5 control-label"><%=chart.chart_type == 'pie' ? 'Group by' : 'X-axis'%>:</label>
+        <div class="col-xs-7">
+            <%if (chart.selected) {%>
+            <input id="group_by" class="form-control" type="text" value="<%=chart.series_params[id].group_by%>" disabled>
+            <%} else {%>
+            <select id="group_by" class="selectpicker form-control">
+                <%_.each(chart.group_by, function (f, name) {%>
+                <option value="<%=name%>"><%=name%></option>
+                <%});%>
+            </select>
+            <%}%>
         </div>
     </div>
     <div class="form-group">
         <label for="aggregation" class="col-xs-5 control-label">Aggregation:</label>
         <div class="col-xs-7">
+            <%if (chart.selected) {%>
+            <input id="aggregation" class="form-control" type="text" value="<%=chart.series_params[id].aggregation%>" disabled>
+            <%} else {%>
             <select id="aggregation" class="selectpicker form-control">
                 <option value="sum">sum</option>
                 <option value="avg">average</option>
                 <option value="min">minimum</option>
                 <option value="max">maximum</option>
             </select>
+            <%}%>
         </div>
     </div>
     <div class="form-group">
         <label for="period" class="col-xs-5 control-label">Time period:</label>
         <div class="col-xs-7">
-            <input type="text" size="20" id="period" class="form-control" value="10">
+            <input type="text" size="20" id="period" class="form-control" <%=!chart.selected ? 'value="10"' : 'value="' + chart.series_params[id].period + '" disabled' %>>
         </div>
     </div>
     <div class="form-group">
         <label for="color" class="col-xs-5 control-label">Color:</label>
         <div class="col-xs-7">
+            <%if (chart.chart_type == 'line') {%>
             <div id="colorpicker" class="input-group colorpicker-component">
                 <input type="text" value="black" class="form-control" />
                 <span class="input-group-addon"><i></i></span>
             </div>
+            <%} else {%>
+                <select id="colorscheme" class="selectpicker form-control">
+                <option value="default">Default</option>
+            </select>
+            <%}%>
         </div>
     </div>
+    <%if (!chart.selected) {%>
     <div class="form-group">
         <div class="col-xs-12">
             <button id="add_series" class="btn btn-default btn-block">Add</button>
         </div>
     </div>
+    <%} else {%>
+    <div class="form-group">
+        <label for="selected_problem" class="col-xs-5 control-label">Problem:</label>
+        <div class="col-xs-7">
+            <select id="selected_problem" class="selectpicker form-control" multiple>
+                <%_.each(chart.series_params[id].problems, function (p) {%>
+                <option value="<%=p%>" data-subtext="<%=app.problems[p].name%>" selected disabled>
+                    <%=app.problems[p].code%>
+                </option>
+                <%})%>
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="selected_status" class="col-xs-5 control-label">Status:</label>
+        <div class="col-xs-7">
+            <select id="selected_status" class="selectpicker form-control" multiple>
+                <%_.each(chart.series_params[id].statuses, function (s) {%>
+                <option selected disabled><%=s%></option>
+                <%})%>
+            </select>
+        </div>
+    </div>
+    <%}%>
     <div class="form-group">
         <div class="col-xs-12">
             <button id="delete_all" class="btn btn-default btn-block">Delete all</button>

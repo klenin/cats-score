@@ -7,12 +7,12 @@ var chart = app.charts[models.chart];
 <%}
 else for (var i = 0; i < chart.series.length; ++i) {
     var pp = chart.series_params[i].problems;
-    var header = pp.length == 1 ? app.problems[pp[0]].name : "";%>
+    var header = pp.length == 1 ? app.problems[pp[0]].name : 'Pie ' + (i + 1);%>
     <%if (i % 2 == 0) {%>
     <div class="row">
     <%}%>
     <div class="col-xs-6">
-        <div class="panel panel-default pie-container">
+        <div class="panel panel-default pie-container" data-series="<%=i%>">
             <div class="panel-body">
                 <h3><%=header%></h3>
                 <div class="pie">

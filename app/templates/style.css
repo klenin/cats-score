@@ -259,6 +259,14 @@
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6)
 }
 
+#catsscore_wrapper input[disabled] {
+    background-color: #fff;
+    color: #000;
+    cursor: default;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
 #page_selector {
     float: left;
 }

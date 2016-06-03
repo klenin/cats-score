@@ -241,7 +241,10 @@ CATS.View = Classify({
                     $(chart.selected).removeClass('active');
                     chart.selected = current.addClass('active');
                 }
-                $('#charts_panel').html(this.chart_template('panel')(this.current_catsscore_wrapper_content_params));
+                $('#charts_panel').html(this.chart_template('panel')(_.extend(
+                    { id: current.data('series') },
+                    this.current_catsscore_wrapper_content_params
+                )));
                 this.call_plugins();
             },
             'click #btn_filters': function () {
