@@ -212,6 +212,7 @@ CATS.View = Classify({
                 var chart = this.current_chart();
                 chart.chart_type =  $('#chart_type').val();
                 $('#charts_body').html(this.chart_template('body')(this.current_catsscore_wrapper_content_params));
+                $('#charts_panel').html(this.chart_template('panel')(this.current_catsscore_wrapper_content_params));
                 this.update_url_settings({chart: chart.settings()});
             },
             'click .delete_series': function (e) {
