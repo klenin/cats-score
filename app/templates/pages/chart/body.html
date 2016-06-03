@@ -1,0 +1,112 @@
+<%
+var chart = app.charts[models.chart];
+%>
+
+<%if (chart.chart_type == 'line') {%>
+<div class="plot-container"><div class="plot" id="plot"></div></div>
+<%}
+else for (var i = 0; i < chart.series.length; ++i) {
+    var pp = chart.series_params[i].problems;
+    var header = pp.length == 1 ? app.problems[pp[0]].name : "";%>
+    <%if (i % 2 == 0) {%>
+    <div class="row">
+    <%}%>
+    <div class="col-xs-6">
+        <div class="panel panel-default pie-container">
+            <div class="panel-body">
+                <h3><%=header%></h3>
+                <div class="pie">
+                    <div class="plot" id="plot_<%=i%>"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%if (i % 2 != 0) {%>
+    </div>
+    <%}%>
+<%};%>
+
+<script>
+    $('#parameter').change(function () {
+        $('.parameter_params').css('display', 'none');
+        $('#' + $('#parameter').val() + '_params').css('display', 'block');
+    });
+
+    $('#chart_type').val('<%=chart.chart_type%>');
+
+    <%if (chart.chart_type == "line") {%>
+        $.plot('#plot', <%=JSON.stringify(chart.series)%>, {
+        xaxes: [
+            { position: 'bottom', axisLabel: 'time' },
+            { position: 'bottom', ticks: [
+                <%
+                var idx = 0;
+                _.each(chart.statuses_arr, function (status) {
+                %>
+                    [<%=idx++%>, '<%=status%>'],
+                <%
+                });
+                %>
+            ], axisLabel: 'statuses' }
+        ],
+        yaxes: [
+            { position: 'left', axisLabel: 'pieces' },
+            { position: 'left', axisLabel: 'points' },
+            { position: 'left', axisLabel: 'place' },
+        ],
+        legend: {
+            labelFormatter: function(label, series) {
+                return label + ' <a class="delete_series" data-series="' + series.id + '" href="#" onClick="return false;"> del</a>';
+            }
+        }
+        });
+    <%}
+    else {%>
+        var series = <%=JSON.stringify(chart.series_pie_format())%>;
+        for(var i = 0; i < series.length; ++i) {
+            $.plot('#plot_' + i, series[i], {
+                series: {
+                    pie: { show: true }
+                },
+                grid: {
+                    hoverable: true,
+                    clickable: true
+                }
+            });
+            $('#plot_' + i).bind('plothover', function (e, pos, obj) {
+                if (!obj) {
+                    return;
+                }
+
+                var elem = $(e.target),
+                    eRect = e.target.getBoundingClientRect(),
+                    bRect = document.body.getBoundingClientRect(),
+                    rect = {
+                        top: eRect.top - bRect.top,
+                        left: eRect.left - bRect.left
+                    },
+                    tooltip = obj.series.label + ': ' + parseFloat(obj.series.percent).toFixed(2) + '% ';
+
+                if (elem.attr('data-original-title') != tooltip) {
+                    elem.attr('data-original-title', tooltip).tooltip('show');
+                }
+                $('.tooltip', elem.parent()).css({
+                    left: pos.pageX - rect.left + 40,
+                    top: pos.pageY - rect.top + 30
+                })
+            });
+
+            var a = $('#plot_' + i + '>.legend'),
+                col = $('#plot_' + i).parent().parent();
+
+            a.detach();
+            col.append(a).append('<button type="button" class="close delete_series" data-series="' + i + '" data-dismiss="modal" aria-label="Close"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>');
+            $('table, div', a).css({ left: 280 })
+
+        }
+    <%}%>
+    $('#parameter').change();
+
+    $('.container').addClass('non-responsive-container');
+    $('#page_name').parent().removeClass('col-xs-3').addClass('col-xs-3')
+</script>
