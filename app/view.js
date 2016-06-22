@@ -215,6 +215,34 @@ CATS.View = Classify({
                 $('#charts_panel').html(this.chart_template('panel')(this.current_catsscore_wrapper_content_params));
                 this.update_url_settings({chart: chart.settings()});
             },
+
+            'change .param': function (e) {
+                var chart = this.current_chart();
+                if (!chart.selected) {
+                    return;
+                }
+                // TODO: Remove #parameter change in body.html to get rid of infinite loop.
+                // TODO: Find what's wrong with period and aggregation.
+                switch (e.target.id) {
+                    case 'group_by':
+                        chart.change_series({ group_by: e.target.value })
+                        break;
+                    case 'aggregation':
+                        chart.change_series({ aggregation: e.target.value })
+                        break;
+                    case 'period':
+                        chart.change_series({ period: 1 * e.target.value })
+                        break;
+                    case 'selected_status':
+                        chart.change_series({ statuses: $('#selected_status').val() })
+                        break;
+                    case 'selected_problem':
+                        chart.change_series({ problems: $('#selected_problem').val() })
+                        break;
+                }
+                $('#charts_body').html(this.chart_template('body')(this.current_catsscore_wrapper_content_params));
+            },
+
             'click .delete_series': function (e) {
                 var chart = this.current_chart(),
                     id = $(e.currentTarget).data('series');

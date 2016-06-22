@@ -201,7 +201,23 @@ CATS.Model.Chart = Classify(CATS.Model.Entity, {
         return _.chain(result);
     },
 
-    delete_series: function(id) {
+    change_series: function (param) {
+        var that = this,
+            id = _.findIndex(this.series, function (s) { return s.id == that.selected; }),
+            params = this.series_params[id];
+
+        _.extendOwn(params, param);
+        _.extendOwn(this.series[id], {
+            label: params.parameter,
+            data: this.aggregate(
+                params.parameter === 'place' ? this.place_data(params) : this.simple_data(params), params),
+            color: params.color != undefined ? params.color : this.colors[this.series.length % this.colors.length],
+            xaxis: this.parameter_xaxes[params.group_by],
+            yaxis: this.parameter_yaxes[params.parameter],
+        });
+    },
+
+    delete_series: function (id) {
         id = _.findIndex(this.series, function (s) { return s.id === id; });
         this.series.splice(id, 1);
         this.series_params.splice(id, 1);
