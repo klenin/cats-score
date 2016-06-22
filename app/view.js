@@ -216,36 +216,32 @@ CATS.View = Classify({
                 this.update_url_settings({chart: chart.settings()});
             },
             'click .delete_series': function (e) {
-                var chart = this.current_chart();
-                this.unselect(chart)
-                e.stopPropagation();
-                chart.delete_series($(e.currentTarget).data('series'));
+                var chart = this.current_chart(),
+                    id = $(e.currentTarget).data('series');
+                chart.delete_series(id);
+                if (chart.selected != id) { e.stopPropagation(); }
                 $('#charts_body').html(this.chart_template('body')(this.current_catsscore_wrapper_content_params));
                 this.update_url_settings({chart: chart.settings()});
             },
             'click #delete_all': function (e) {
                 var chart = this.current_chart();
-                this.unselect(chart);
                 chart.delete_all();
                 $('#charts_body').html(this.chart_template('body')(this.current_catsscore_wrapper_content_params));
+                $('#charts_panel').html(this.chart_template('panel')(this.current_catsscore_wrapper_content_params));
                 this.update_url_settings({ chart: chart.settings() });
             },
             'click .pie-container': function (e) {
                 var chart = this.current_chart(),
-                    current = $(e.currentTarget);
+                    current = $(e.currentTarget).toggleClass('active'),
+                    id = current.data('series');
 
-                // TODO: It's better to keep 'selected' as ID, but at this state pies' IDs change if one's deleted. Find a way to make IDs stable.
-                if (current.hasClass('active')) {
-                    chart.selected = null;
-                    current.removeClass('active');
+                if (id != chart.selected) {
+                    $('#pie_' + chart.selected).removeClass('active');
+                    chart.selected = id;
                 } else {
-                    $(chart.selected).removeClass('active');
-                    chart.selected = current.addClass('active');
+                    chart.selected = null;
                 }
-                $('#charts_panel').html(this.chart_template('panel')(_.extend(
-                    { id: current.data('series') },
-                    this.current_catsscore_wrapper_content_params
-                )));
+                $('#charts_panel').html(this.chart_template('panel')(this.current_catsscore_wrapper_content_params));
                 this.call_plugins();
             },
             'click #btn_filters': function () {
@@ -263,15 +259,6 @@ CATS.View = Classify({
 
         current_chart: function () {
             return CATS.App.charts[this.current_catsscore_wrapper_content_params.models.chart];
-        },
-
-        // NOTE: Temporary function, unnecessary when ID's problem is solved (l:236)
-        unselect: function (chart) {
-            if (chart.selected) {
-                chart.selected.removeClass('active');
-                chart.selected = null;
-                $('#charts_panel').html(this.chart_template('panel')(this.current_catsscore_wrapper_content_params));
-            }
         },
 
         call_plugins: function () {

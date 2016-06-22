@@ -137,7 +137,10 @@ CATS.Model.Chart = Classify(CATS.Model.Entity, {
             _.each(s.data, function (data) {
                 pie.push({label: self.series_params[series_idx].group_by == "status" ? self.statuses_arr[data[0]] : data[0], data: data[1]})
             });
-            pies.push(pie);
+            pies.push({
+                id: s.id,
+                data: pie
+            });
             series_idx++;
         });
 
@@ -199,14 +202,13 @@ CATS.Model.Chart = Classify(CATS.Model.Entity, {
     },
 
     delete_series: function(id) {
-        if (this.chart_type == 'line') {
-            id = _.findIndex(this.series, function (s) { return s.id === id; });
-        }
+        id = _.findIndex(this.series, function (s) { return s.id === id; });
         this.series.splice(id, 1);
         this.series_params.splice(id, 1);
     },
 
     delete_all: function () {
+        this.selected = null;
         this.series = [];
         this.series_params = [];
     },

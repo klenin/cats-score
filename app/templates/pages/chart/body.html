@@ -7,16 +7,17 @@ var chart = app.charts[models.chart];
 <%}
 else for (var i = 0; i < chart.series.length; ++i) {
     var pp = chart.series_params[i].problems;
-    var header = pp.length == 1 ? app.problems[pp[0]].name : 'Pie ' + (i + 1);%>
+    var header = pp.length == 1 ? app.problems[pp[0]].name : 'Pie ' + (i + 1);
+    var id = chart.series[i].id%>
     <%if (i % 2 == 0) {%>
     <div class="row">
     <%}%>
     <div class="col-xs-6">
-        <div class="panel panel-default pie-container" data-series="<%=i%>">
+        <div class="panel panel-default pie-container <%=chart.selected == id ? 'active' : ''%>" id="pie_<%=id%>" data-series="<%=id%>">
             <div class="panel-body">
                 <h3><%=header%></h3>
                 <div class="pie">
-                    <div class="plot" id="plot_<%=i%>"></div>
+                    <div class="plot" id="plot_<%=id%>"></div>
                 </div>
             </div>
         </div>
@@ -64,7 +65,8 @@ else for (var i = 0; i < chart.series.length; ++i) {
     else {%>
         var series = <%=JSON.stringify(chart.series_pie_format())%>;
         for(var i = 0; i < series.length; ++i) {
-            $.plot('#plot_' + i, series[i], {
+            var id = series[i].id;
+            $.plot('#plot_' + id, series[i].data, {
                 series: {
                     pie: { show: true }
                 },
@@ -73,7 +75,7 @@ else for (var i = 0; i < chart.series.length; ++i) {
                     clickable: true
                 }
             });
-            $('#plot_' + i).bind('plothover', function (e, pos, obj) {
+            $('#plot_' + id).bind('plothover', function (e, pos, obj) {
                 if (!obj) {
                     return;
                 }
@@ -96,11 +98,11 @@ else for (var i = 0; i < chart.series.length; ++i) {
                 })
             });
 
-            var a = $('#plot_' + i + '>.legend'),
-                col = $('#plot_' + i).parent().parent();
+            var a = $('#plot_' + id + '>.legend'),
+                col = $('#plot_' + id).parent().parent();
 
             a.detach();
-            col.append(a).append('<button type="button" class="close delete_series" data-series="' + i + '" data-dismiss="modal" aria-label="Close"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>');
+            col.append(a).append('<button type="button" class="close delete_series" data-series="' + id + '" data-dismiss="modal" aria-label="Close"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>');
             $('table, div', a).css({ left: 280 })
 
         }
