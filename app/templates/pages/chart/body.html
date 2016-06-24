@@ -7,7 +7,7 @@ var chart = app.charts[models.chart];
 <%}
 else for (var i = 0; i < chart.series.length; ++i) {
     var pp = chart.series_params[i].problems;
-    var header = pp.length == 1 ? app.problems[pp[0]].name : 'Pie ' + (i + 1);
+    var header = pp && pp.length == 1 ? app.problems[pp[0]].name : 'Pie ' + (i + 1);
     var id = chart.series[i].id%>
     <%if (i % 2 == 0) {%>
     <div class="row">
@@ -59,6 +59,9 @@ else for (var i = 0; i < chart.series.length; ++i) {
         var series = <%=JSON.stringify(chart.series_pie_format())%>;
         for(var i = 0; i < series.length; ++i) {
             var id = series[i].id;
+            if (series[i].data.length == 0) {
+                continue;
+            }
             $.plot('#plot_' + id, series[i].data, {
                 series: {
                     pie: { show: true }
