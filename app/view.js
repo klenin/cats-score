@@ -221,9 +221,11 @@ CATS.View = Classify({
                 if (!chart.selected) {
                     return;
                 }
-                // TODO: Remove #parameter change in body.html to get rid of infinite loop.
                 // TODO: Find what's wrong with period and aggregation.
                 switch (e.target.id) {
+                    case 'parameter':
+                        chart.change_series({ parameter: e.target.value })
+                        break;
                     case 'group_by':
                         chart.change_series({ group_by: e.target.value })
                         break;
