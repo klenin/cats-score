@@ -22,7 +22,12 @@ CATS.Model.Chart = Classify(CATS.Model.Entity, {
         this.series_id_generator = 0;
         var self = this;
         this.group_by = {
-            time: function (r) { return Math.ceil(r.minutes_since_start() / _.last(self.series_params).period); },
+            // NOTE: Don't like this ID's manipulation, think how to improve.
+            time: function (r) {
+                var selected = self.selected;
+                    id = _.findIndex(self.series, function (s) { return s.id == selected; });
+                return Math.ceil(r.minutes_since_start() / (self.series_params[id] || _.last(self.series_params)).period);
+            },
             status: function (r) { return self.statuses_arr.indexOf(r.status); },
         };
 
