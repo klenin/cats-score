@@ -22,7 +22,12 @@ CATS.Model.Chart = Classify(CATS.Model.Entity, {
         this.series_id_generator = 0;
         var self = this;
         this.group_by = {
-            time: function (r) { return Math.ceil(r.minutes_since_start() / _.last(self.series_params).period); },
+            // NOTE: Don't like this ID's manipulation, think how to improve.
+            time: function (r) {
+                var selected = self.selected;
+                    id = _.findIndex(self.series, function (s) { return s.id == selected; });
+                return Math.ceil(r.minutes_since_start() / (self.series_params[id] || _.last(self.series_params)).period);
+            },
             status: function (r) { return self.statuses_arr.indexOf(r.status); },
         };
 
@@ -137,7 +142,10 @@ CATS.Model.Chart = Classify(CATS.Model.Entity, {
             _.each(s.data, function (data) {
                 pie.push({label: self.series_params[series_idx].group_by == "status" ? self.statuses_arr[data[0]] : data[0], data: data[1]})
             });
-            pies.push(pie);
+            pies.push({
+                id: s.id,
+                data: pie
+            });
             series_idx++;
         });
 
@@ -198,13 +206,30 @@ CATS.Model.Chart = Classify(CATS.Model.Entity, {
         return _.chain(result);
     },
 
-    delete_series: function(seriesId) {
-        var idx = _.findIndex(this.series, function (s) { return s.id === seriesId; });
-        this.series.splice(idx, 1);
-        this.series_params.splice(idx, 1);
+    change_series: function (param) {
+        var that = this,
+            id = _.findIndex(this.series, function (s) { return s.id == that.selected; }),
+            params = this.series_params[id];
+
+        _.extendOwn(params, param);
+        _.extendOwn(this.series[id], {
+            label: params.parameter,
+            data: this.aggregate(
+                params.parameter === 'place' ? this.place_data(params) : this.simple_data(params), params),
+            color: params.color != undefined ? params.color : this.colors[this.series.length % this.colors.length],
+            xaxis: this.parameter_xaxes[params.group_by],
+            yaxis: this.parameter_yaxes[params.parameter],
+        });
+    },
+
+    delete_series: function (id) {
+        id = _.findIndex(this.series, function (s) { return s.id === id; });
+        this.series.splice(id, 1);
+        this.series_params.splice(id, 1);
     },
 
     delete_all: function () {
+        this.selected = null;
         this.series = [];
         this.series_params = [];
     },
