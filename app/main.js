@@ -89,10 +89,6 @@ require(['underscore', 'jquery', 'bootstrap'], function () {
                             'text!templates/pages/charts.html',
                             'text!templates/pages/chart/panel.html',
                             'text!templates/pages/chart/body.html',
-                            //settings
-                            // 'text!templates/pages/settings/table.html',
-                            // 'text!templates/pages/settings/contests.html',
-                            // 'text!templates/pages/settings/charts.html',
                             //skins
                             //default
                             'text!templates/pages/skins/default/table_acm.html',
