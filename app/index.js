@@ -1,14 +1,12 @@
 function cats_score_init(
     rt_header,
     cl_header,
+    filters,
     pg,
     footer,
     charts,
     charts_p,
     charts_b,
-    tbl_set,
-    cnt_set,
-    charts_set,
     d_tbl_acm,
     d_tbl_sch,
     d_hist,
@@ -67,6 +65,7 @@ function cats_score_init(
     var templates = {
         header_rank_table: rt_header,
         header_contests_list: cl_header,
+        filters: filters,
         pagination: pg,
         footer: footer,
         pages: {
@@ -74,11 +73,6 @@ function cats_score_init(
             chart: {
                 panel: charts_p,
                 body: charts_b
-            },
-            settings: {
-                table: tbl_set,
-                contests: cnt_set,
-                charts: charts_set
             },
             skins: {
                 default: {
