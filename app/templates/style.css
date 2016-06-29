@@ -140,7 +140,7 @@
     width: 100%;
 }
 
-#catsscore_filters_wrapper .btn-group .btn {
+#catsscore_filters_wrapper .btn-group label.btn {
     width: 50%;
     background-image: none;
     color: #000;
