@@ -59,40 +59,39 @@ else for (var i = 0; i < chart.series.length; ++i) {
         var series = <%=JSON.stringify(chart.series_pie_format())%>;
         for(var i = 0; i < series.length; ++i) {
             var id = series[i].id;
-            if (series[i].data.length == 0) {
-                continue;
-            }
-            $.plot('#plot_' + id, series[i].data, {
-                series: {
-                    pie: { show: true }
-                },
-                grid: {
-                    hoverable: true,
-                    clickable: true
-                }
-            });
-            $('#plot_' + id).bind('plothover', function (e, pos, obj) {
-                if (!obj) {
-                    return;
-                }
-
-                var elem = $(e.target),
-                    eRect = e.target.getBoundingClientRect(),
-                    bRect = document.body.getBoundingClientRect(),
-                    rect = {
-                        top: eRect.top - bRect.top,
-                        left: eRect.left - bRect.left
+            if (series[i].data.length != 0) {
+                $.plot('#plot_' + id, series[i].data, {
+                    series: {
+                        pie: { show: true }
                     },
-                    tooltip = obj.series.label + ': ' + parseFloat(obj.series.percent).toFixed(2) + '% ';
+                    grid: {
+                        hoverable: true,
+                        clickable: true
+                    }
+                });
+                $('#plot_' + id).bind('plothover', function (e, pos, obj) {
+                    if (!obj) {
+                        return;
+                    }
 
-                if (elem.attr('data-original-title') != tooltip) {
-                    elem.attr('data-original-title', tooltip).tooltip('show');
-                }
-                $('.tooltip', elem.parent()).css({
-                    left: pos.pageX - rect.left + 40,
-                    top: pos.pageY - rect.top + 30
-                })
-            });
+                    var elem = $(e.target),
+                        eRect = e.target.getBoundingClientRect(),
+                        bRect = document.body.getBoundingClientRect(),
+                        rect = {
+                            top: eRect.top - bRect.top,
+                            left: eRect.left - bRect.left
+                        },
+                        tooltip = obj.series.label + ': ' + parseFloat(obj.series.percent).toFixed(2) + '% ';
+
+                    if (elem.attr('data-original-title') != tooltip) {
+                        elem.attr('data-original-title', tooltip).tooltip('show');
+                    }
+                    $('.tooltip', elem.parent()).css({
+                        left: pos.pageX - rect.left + 40,
+                        top: pos.pageY - rect.top + 30
+                    });
+                });
+            }
 
             var a = $('#plot_' + id + '>.legend'),
                 col = $('#plot_' + id).parent().parent();

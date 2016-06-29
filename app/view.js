@@ -123,13 +123,13 @@ CATS.View = Classify({
 
         events: {
             'change #page_name': function () {
-                this.view_state.set({page_name: $("#page_name").val(), settings: null});
+                this.view_state.set({ page_name: $('#page_name').val(), settings: null });
             },
             'change #source': function () {
-                this.source($("#source").val());
+                this.source($('#source').val());
             },
             'change #skin': function () {
-                this.skin($("#skin").val());
+                this.skin($('#skin').val());
             },
             'change #el_per_page_input': function () {
                 var num = $('#el_per_page_input');
@@ -146,35 +146,71 @@ CATS.View = Classify({
             'change #filter_name': function () {
                 switch (this.page_name()) {
                     case 'contests':
-                        this.filter_contests_list({ name: $("#filter_name").val() });
+                        this.filter_contests_list({ name: $('#filter_name').val() });
                         break;
                     case 'table':
-                        this.update_rank_table({user: $("#filter_name").val()});
+                        this.update_rank_table({ user: $('#filter_name').val() });
                         break;
+                    case 'charts':
+                        if (this.current_chart().filter == 'all') {
+                            this.filter_charts({ user: $('#filter_name').val() });
+                        }
                 }
             },
             'change #filter_affiliation': function () {
-                if (this.page_name() == 'table') {
-                    this.update_rank_table({affiliation: $("#filter_affiliation").val()});
+                switch (this.page_name()) {
+                    case 'table':
+                        this.update_rank_table({ affiliation: $('#filter_affiliation').val() });
+                        break;
+                    case 'charts':
+                        if (this.current_chart().filter == 'all') {
+                            this.filter_charts({ affiliation: $('#filter_affiliation').val() });
+                        }
                 }
             },
             'change #filter_role': function () {
-                this.update_rank_table({role: $("#filter_role").val()});
+                this.update_rank_table({ role: $('#filter_role').val() });
             },
             'change #filter_contest_minutes': function () {
-                var minutes = $("#filter_contest_minutes");
+                var minutes = $('#filter_contest_minutes');
 
                 if (minutes.val() > this.contest_duration) {
                     minutes.val(this.contest_duration);
                 }
-                $("#contest_slider").slider('setValue', parseInt(minutes.val()));
+                $('#contest_slider').slider('setValue', parseInt(minutes.val()));
                 this.update_rank_table({duration: {
-                    minutes : minutes.val(),
-                    type : $("#filter_restriction_type .btn.active input").val()
+                    minutes: minutes.val(),
+                    type: $('#filter_restriction_type .btn.active input').val()
                 }});
             },
             'change #filter_restriction_type .btn': function () {
-                $("#filter_contest_minutes").change();
+                $('#filter_contest_minutes').change();
+            },
+            'change #filter_problems': function () {
+                if (this.current_chart().filter == 'all') {
+                    this.filter_charts({ problems: _.map($('#filter_problems').val(), Number) });
+                }
+            },
+            'change #filter_statuses': function () {
+                if (this.current_chart().filter == 'all') {
+                    this.filter_charts({ statuses: $('#filter_statuses').val() });
+                }
+            },
+            'change #filter_type label.active input': function (e) {
+                if (e.target.value == 'new') {
+                    $('#filter_problems').removeAttr('title');
+                    $('#filter_user, #filter_affiliation').val('');
+                } else {
+                    _.each(this.current_chart().get_filters(), function (value, key) {
+                        if ((key == 'problems' || key == 'statuses') && value == 'Various options') {
+                            $('#filter_' + key).attr('title', value).selectpicker('deselectAll');
+                        } else {
+                            $('#filter_' + key).val(value);
+                        }
+                    });
+                }
+                this.current_chart().filter = e.target.value;
+                this.call_plugins();
             },
             'change .contest_selector': function (event) {
                 if (!this.with_header)
@@ -182,34 +218,37 @@ CATS.View = Classify({
 
                 var contests = this.view_state.get('checked_contests');
 
-                if ($(event.currentTarget).is(":checked"))
-                    contests.push($(event.currentTarget).attr("id"));
+                if ($(event.currentTarget).is(':checked'))
+                    contests.push($(event.currentTarget).attr('id'));
                 else
-                    contests.delete_value($(event.currentTarget).attr("id"));
+                    contests.delete_value($(event.currentTarget).attr('id'));
 
                 this.view_state.set({checked_contests: $.merge([], contests)});
 
-                var header = this.template("header_contests_list")({
+                var header = this.template('header_contests_list')({
                     'skin_list' :  this.get_available_skin_names('contests'),
                     'contests' : this.view_state.get('checked_contests'),
                     'skin' : this.skin()
                 });
-                $("#catsscore_header").html(header);
-                $("#source").val(this.source());
-                $("#skin").val(this.skin());
+                $('#catsscore_header').html(header);
+                $('#source').val(this.source());
+                $('#skin').val(this.skin());
             },
             'click #add_series': function () {
-                var chart = this.current_chart();
-                var series_params = {};
+                var chart = this.current_chart(),
+                    series_params = {},
+                    type = $('#filter_type .btn.active input').val();
                 series_params.period = 1*$('#period').val();
                 series_params.parameter = $('#parameter').val();
-                series_params.aggregation = $('#aggregation').val();
                 series_params.group_by = $('#group_by').val();
-                series_params.statuses = $('#filter_status').val()
-                series_params.problems = $('#filter_problem').val();
-                series_params.user = $('#filter_name').val();
-                series_params.affiliation = $('#filter_affiliation').val();
+                series_params.aggregation = $('#aggregation').val();
                 series_params.color = $('#colorpicker').colorpicker('getValue');
+                if (type == 'new') {
+                    series_params.user = $('#filter_name').val();
+                    series_params.affiliation = $('#filter_affiliation').val();
+                    series_params.statuses = $('#filter_statuses').val();
+                    series_params.problems = _.map($('#filter_problems').val(), Number);
+                }
                 chart.add_new_series(series_params);
                 $('#charts_body').html(this.chart_template('body')(this.current_catsscore_wrapper_content_params));
                 this.update_url_settings({chart: chart.settings()});
@@ -239,14 +278,15 @@ CATS.View = Classify({
                     case 'period':
                         chart.change_series({ period: 1 * e.target.value })
                         break;
-                    case 'selected_status':
-                        chart.change_series({ statuses: $('#selected_status').val() })
+                    case 'selected_statuses':
+                        chart.change_series({ statuses: $('#selected_statuses').val() })
                         break;
-                    case 'selected_problem':
-                        chart.change_series({ problems: $('#selected_problem').val() })
+                    case 'selected_problems':
+                        chart.change_series({ problems: _.map($('#selected_problems').val(), Number) })
                         break;
                 }
                 $('#charts_body').html(this.chart_template('body')(this.current_catsscore_wrapper_content_params));
+                this.update_url_settings({chart: chart.settings()});
             },
             'click .delete_series': function (e) {
                 var chart = this.current_chart(),
@@ -296,9 +336,7 @@ CATS.View = Classify({
 
         call_plugins: function () {
             var params = this.current_catsscore_wrapper_content_params.models;
-
             $('.selectpicker').selectpicker('render');
-            $('#filter_problem, #filter_status').selectpicker('selectAll');
             if (params.chart)
                 $('#colorpicker').colorpicker({
                     colorSelectors: CATS.App.charts[params.chart].colors,
@@ -402,6 +440,13 @@ CATS.View = Classify({
             $.extend(CATS.App.contest_filters, filters);
             this.update_url_settings({contests: CATS.App.contest_filters});
             CATS.App.adapter_filter_contests_list(this.source(), function (param) { self.render(param); });
+        },
+
+        filter_charts: function (filters) {
+            var chart = this.current_chart();
+            chart.change_all_series(filters);
+            $('#charts_body').html(this.chart_template('body')(this.current_catsscore_wrapper_content_params));
+            this.update_url_settings({chart: chart.settings()});
         },
 
         refresh_contests_list: function() {

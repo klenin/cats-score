@@ -20,6 +20,7 @@ CATS.Model.Chart = Classify(CATS.Model.Entity, {
             'violet'
         ];
         this.series_id_generator = 0;
+        this.filter = 'new';
         var self = this;
         this.group_by = {
             // NOTE: Don't like this ID's manipulation, think how to improve.
@@ -83,9 +84,9 @@ CATS.Model.Chart = Classify(CATS.Model.Entity, {
 
     params_pack: function (p) {
         var result = _.clone(p);
-        if (result.statuses.length === _.keys(this.statuses).length)
+        if (result.statuses && result.statuses.length === _.keys(this.statuses).length)
             delete result.statuses;
-        if (result.problems.length === this.get_contest().problems.length)
+        if (result.problems && result.problems.length === this.get_contest().problems.length)
             delete result.problems;
         return result;
     },
@@ -122,15 +123,39 @@ CATS.Model.Chart = Classify(CATS.Model.Entity, {
 
     add_new_series: function(params) {
         this.series_params.push(params);
-        this.series.push({
+        this.series.push(this.get_series_object(params, 'new'));
+    },
+
+    change_series: function (param) {
+        var that = this,
+            idx = _.findIndex(this.series, function (s) { return s.id == that.selected; }),
+            params = this.series_params[idx];
+
+        _.extendOwn(params, param);
+        _.extendOwn(this.series[idx], this.get_series_object(params));
+    },
+
+    change_all_series: function (param) {
+        var that = this;
+        _.each(this.series_params, function (obj, idx) {
+            _.extendOwn(obj, param);
+            _.extendOwn(that.series[idx], that.get_series_object(obj));
+        });
+    },
+
+    get_series_object: function (params, type) {
+        var object = {
             label: params.parameter,
             data: this.aggregate(
                 params.parameter === 'place' ? this.place_data(params) : this.simple_data(params), params),
             color: params.color != undefined ? params.color : this.colors[this.series.length % this.colors.length],
             xaxis: this.parameter_xaxes[params.group_by],
-            yaxis: this.parameter_yaxes[params.parameter],
-            id: ++this.series_id_generator,
-        });
+            yaxis: this.parameter_yaxes[params.parameter]
+        }
+        if (type == 'new') {
+            object.id = ++this.series_id_generator;
+        }
+        return object;
     },
 
     series_pie_format: function() {
@@ -206,26 +231,10 @@ CATS.Model.Chart = Classify(CATS.Model.Entity, {
         return _.chain(result);
     },
 
-    change_series: function (param) {
-        var that = this,
-            id = _.findIndex(this.series, function (s) { return s.id == that.selected; }),
-            params = this.series_params[id];
-
-        _.extendOwn(params, param);
-        _.extendOwn(this.series[id], {
-            label: params.parameter,
-            data: this.aggregate(
-                params.parameter === 'place' ? this.place_data(params) : this.simple_data(params), params),
-            color: params.color != undefined ? params.color : this.colors[this.series.length % this.colors.length],
-            xaxis: this.parameter_xaxes[params.group_by],
-            yaxis: this.parameter_yaxes[params.parameter],
-        });
-    },
-
     delete_series: function (id) {
-        id = _.findIndex(this.series, function (s) { return s.id === id; });
-        this.series.splice(id, 1);
-        this.series_params.splice(id, 1);
+        idx = _.findIndex(this.series, function (s) { return s.id === id; });
+        this.series.splice(idx, 1);
+        this.series_params.splice(idx, 1);
     },
 
     delete_all: function () {
@@ -241,11 +250,23 @@ CATS.Model.Chart = Classify(CATS.Model.Entity, {
         max: _.max,
     },
 
+    get_filters: function () {
+        var filters = {},
+            params = ['user', 'affiliation', 'problems', 'statuses'];
+        // TODO: Stop iterating, if 'Various options' is set. Tried removing from params - got ghost undefined element.
+        _.each(this.series_params, function (p) {
+            _.each(params, function(key) {
+                filters[key] = (filters[key] == null || _.isEqual(filters[key], p[key])) ?  p[key] : 'Various options';
+            });
+        });
+        return filters;
+    },
+
     gen_submittions_per_problem_params: function () {
         var params = [];
         var contest = this.get_contest();
         _.each(contest.problems, function (id) {
-            params.push({"period":10,"parameter":"run_cnt","aggregation":"sum","group_by":"status","problems":[id],"user":".*?","affiliation":".*?"});
+            params.push({"period":10,"parameter":"run_cnt","aggregation":"sum","group_by":"status","problems":[id],"user":"","affiliation":""});
         });
         return {"chart": { params: params, chart_type: 'pie'}};
     }

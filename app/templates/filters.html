@@ -27,16 +27,16 @@ if (page != 'history') {%>
     <div class="row">
         <div class="col-md-3">
             <label for="filter_name">Name:</label>
-            <input id="filter_name" class="form-control"
-            value="<%=filters.name != null ? filters.name : '.*?'%>" />
+            <input id="filter_name" class="form-control" placeholder=".*?"
+            value="<%=filters.name != null ? filters.name : ''%>" />
         </div>
     <%if (page == 'contests') {%>
     </div>
     <%} else {%>
         <div class="col-md-3">
             <label for="filter_affiliation">Affiliation: </label>
-            <input id="filter_affiliation" class="form-control"
-            value="<%=filters.affiliation != null ? filters.affiliation : '.*?'%>" />
+            <input id="filter_affiliation" class="form-control"placeholder=".*?"
+            value="<%=filters.affiliation != null ? filters.affiliation : ''%>" />
         </div>
         <%if (page == 'table') {
             var minutes = filters.duration.minutes != null ? filters.duration.minutes : current_contest_duration;
@@ -44,8 +44,8 @@ if (page != 'history') {%>
             var types = ['history', 'scoreboard'];%>
         <div class="col-md-3">
             <label for="filter_role">Role: </label>
-            <input id="filter_role" class="form-control"
-            value="<%=filters.role != null ? filters.role : '.*?'%>" />
+            <input id="filter_role" class="form-control" placeholder=".*?"
+            value="<%=filters.role != null ? filters.role : ''%>" />
         </div>
     </div>
     <div class="row">
@@ -67,7 +67,7 @@ if (page != 'history') {%>
                     <input type="radio" name="options" value="<%=t%>"/> <%=t%>
                 </label>
             <%});%>
-          </div>
+            </div>
         </div>
     </div>
     <div class="row">
@@ -99,8 +99,8 @@ if (page != 'history') {%>
 
         <%} else if (page == 'charts') {%>
         <div class="col-xs-3">
-            <label for="filter_problem">Problem:</label>
-            <select id="filter_problem" class="selectpicker form-control" multiple data-actions-box="true">
+            <label for="filter_problems">Problem:</label>
+            <select id="filter_problems" class="selectpicker form-control" multiple data-actions-box="true">
             <%_.each(contest.problems, function (p) { %>
                 <option value="<%=p%>" data-subtext="<%=app.problems[p].name%>">
                     <%=app.problems[p].code%>
@@ -109,13 +109,27 @@ if (page != 'history') {%>
             </select>
         </div>
         <div class="col-xs-3">
-            <label for="filter_status">Status:</label>
-            <select id="filter_status" class="selectpicker form-control" multiple
+            <label for="filter_statuses">Status:</label>
+            <select id="filter_statuses" class="selectpicker form-control" multiple
             data-actions-box="true">
                 <%_.each(chart.statuses, function (status, code) {%>
                 <option data-subtext="<%=status%>"><%=code%></option>
                 <%});%>
             </select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <label for="filter_type">Filter: </label>
+            <div id="filter_type" class="btn-group"
+            data-toggle="buttons">
+                <label class="btn btn-default active">
+                    <input type="radio" name="options" value="new"/>new series
+                </label>
+                <label class="btn btn-default">
+                    <input type="radio" name="options" value="all"/>existing series
+                </label>
+            </div>
         </div>
     </div>
         <%}%>

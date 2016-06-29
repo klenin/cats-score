@@ -90,9 +90,9 @@ var selected = chart.series_params[_.findIndex(
     </div>
     <%} else {%>
     <div class="form-group">
-        <label for="selected_problem" class="col-xs-5 control-label">Problem:</label>
+        <label for="selected_problems" class="col-xs-5 control-label">Problem:</label>
         <div class="col-xs-7">
-            <select id="selected_problem" class="selectpicker form-control param" multiple>
+            <select id="selected_problems" class="selectpicker form-control param" multiple>
                 <%_.each(contest.problems, function (p) {%>
                 <option value="<%=p%>" data-subtext="<%=app.problems[p].name%>" <%=_.indexOf(selected.problems, p) != -1 ? 'selected' : ''%>>
                     <%=app.problems[p].code%>
@@ -102,9 +102,9 @@ var selected = chart.series_params[_.findIndex(
         </div>
     </div>
     <div class="form-group">
-        <label for="selected_status" class="col-xs-5 control-label">Status:</label>
+        <label for="selected_statuses" class="col-xs-5 control-label">Status:</label>
         <div class="col-xs-7">
-            <select id="selected_status" class="selectpicker form-control param" multiple>
+            <select id="selected_statuses" class="selectpicker form-control param" multiple>
                 <%_.each(chart.statuses, function (status, code) {%>
                 <option data-subtext="<%=status%>" <%=_.indexOf(selected.statuses, code) != -1 ? 'selected' : ''%>><%=code%></option>
                 <%})%>
