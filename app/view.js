@@ -198,7 +198,7 @@ CATS.View = Classify({
             },
             'change #filter_type label.active input': function (e) {
                 if (e.target.value == 'new') {
-                    $('#filter_problems').removeAttr('title');
+                    $('#filter_problems, #filter_statuses').removeAttr('title');
                     $('#filter_user, #filter_affiliation').val('');
                 } else {
                     _.each(this.current_chart().get_filters(), function (value, key) {

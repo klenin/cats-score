@@ -11,7 +11,7 @@ requirejs.config({
         jqflot_axislabels: '../vendors/jquery.flot.axislabels',
         jqflot_pie: '../vendors/jquery.flot.pie.min',
         bootstrap: '../vendors/bootstrap.min',
-        bootstrap_select: '../vendors/bootstrap-select.min',
+        bootstrap_select: '../vendors/bootstrap-select',
         bootstrap_slider: '../vendors/bootstrap-slider.min',
         bootstrap_colorpicker: '../vendors/bootstrap-colorpicker.min',
         pace: '../vendors/pace.min',
