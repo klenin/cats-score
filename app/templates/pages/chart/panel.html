@@ -90,9 +90,21 @@ var selected = chart.series_params[_.findIndex(
     </div>
     <%} else {%>
     <div class="form-group">
-        <label for="selected_problems" class="col-xs-5 control-label">Problem:</label>
+        <label for="name" class="col-xs-5 control-label">Name:</label>
         <div class="col-xs-7">
-            <select id="selected_problems" class="selectpicker form-control param" multiple>
+            <input type="text" id="name" class="form-control param" placeholder=".*?" value="<%=selected.name%>">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="affiliation" class="col-xs-5 control-label">Affiliation:</label>
+        <div class="col-xs-7">
+            <input type="text" id="affiliation" class="form-control param" placeholder=".*?" value="<%=selected.affiliation%>">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="problems" class="col-xs-5 control-label">Problem:</label>
+        <div class="col-xs-7">
+            <select id="problems" class="selectpicker form-control param" multiple data-actions-box="true">
                 <%_.each(contest.problems, function (p) {%>
                 <option value="<%=p%>" data-subtext="<%=app.problems[p].name%>" <%=_.indexOf(selected.problems, p) != -1 ? 'selected' : ''%>>
                     <%=app.problems[p].code%>
@@ -102,9 +114,9 @@ var selected = chart.series_params[_.findIndex(
         </div>
     </div>
     <div class="form-group">
-        <label for="selected_statuses" class="col-xs-5 control-label">Status:</label>
+        <label for="statuses" class="col-xs-5 control-label">Status:</label>
         <div class="col-xs-7">
-            <select id="selected_statuses" class="selectpicker form-control param" multiple>
+            <select id="statuses" class="selectpicker form-control param" multiple data-actions-box="true">
                 <%_.each(chart.statuses, function (status, code) {%>
                 <option data-subtext="<%=status%>" <%=_.indexOf(selected.statuses, code) != -1 ? 'selected' : ''%>><%=code%></option>
                 <%})%>
@@ -121,3 +133,19 @@ var selected = chart.series_params[_.findIndex(
 
 <h2>Chart examples:</h2>
 <a href='#!show_rank_table/charts/default/<%=chart.contests_url_param%>/settings=<%=JSON.stringify(chart.gen_submittions_per_problem_params())%>'>Submittions per problems</a>
+
+<script>
+    $(window).on('scroll', function () {
+        var rect = document.getElementById('charts_body').getBoundingClientRect(),
+            body = $('#charts_body'),
+            panel = $('#charts_panel');
+
+        if (rect.top <= 0 && panel.css('position') != 'fixed') {
+            body.css('left', panel.width() + 30 + 'px');
+            $('#charts_panel').css({ position: 'fixed', width: '22%', top: 0 });
+        } else if (panel.css('position') == 'fixed' && rect.top > 0) {
+            panel.css({ position: 'relative', width: '25%', top: 'auto' });
+            body.css('left', 'auto');
+        }
+    });
+</script>

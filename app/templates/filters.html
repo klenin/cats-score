@@ -110,8 +110,7 @@ if (page != 'history') {%>
         </div>
         <div class="col-xs-3">
             <label for="filter_statuses">Status:</label>
-            <select id="filter_statuses" class="selectpicker form-control" multiple
-            data-actions-box="true">
+            <select id="filter_statuses" class="selectpicker form-control" multiple data-actions-box="true">
                 <%_.each(chart.statuses, function (status, code) {%>
                 <option data-subtext="<%=status%>"><%=code%></option>
                 <%});%>

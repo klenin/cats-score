@@ -261,30 +261,15 @@ CATS.View = Classify({
                 this.update_url_settings({chart: chart.settings()});
             },
             'change .param': function (e) {
-                var chart = this.current_chart();
+                var chart = this.current_chart(),
+                    param = {};
                 if (!chart.selected) {
                     return;
                 }
-                switch (e.target.id) {
-                    case 'parameter':
-                        chart.change_series({ parameter: e.target.value })
-                        break;
-                    case 'group_by':
-                        chart.change_series({ group_by: e.target.value })
-                        break;
-                    case 'aggregation':
-                        chart.change_series({ aggregation: e.target.value })
-                        break;
-                    case 'period':
-                        chart.change_series({ period: 1 * e.target.value })
-                        break;
-                    case 'selected_statuses':
-                        chart.change_series({ statuses: $('#selected_statuses').val() })
-                        break;
-                    case 'selected_problems':
-                        chart.change_series({ problems: _.map($('#selected_problems').val(), Number) })
-                        break;
-                }
+                param[e.target.id] = e.target.type != 'select-multiple' ?
+                    e.target.value : e.target.id === 'statuses' ?
+                        $('#' + e.target.id).val() : _.map($('#' + e.target.id).val(), Number);
+                chart.change_series(param);
                 $('#charts_body').html(this.chart_template('body')(this.current_catsscore_wrapper_content_params));
                 this.update_url_settings({chart: chart.settings()});
             },
