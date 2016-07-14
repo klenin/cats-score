@@ -3,7 +3,9 @@ var chart = app.charts[models.chart];
 %>
 
 <%if (chart.chart_type == 'line') {%>
-<div class="plot-container"><div class="plot" id="plot"></div></div>
+<div class="panel panel-default plot-container">
+    <div class="panel-body plot" id="plot"></div>
+</div>
 <%}
 else for (var i = 0; i < chart.series.length; ++i) {
     var pp = chart.series_params[i].problems;
@@ -50,7 +52,8 @@ else for (var i = 0; i < chart.series.length; ++i) {
             ],
             legend: {
                 labelFormatter: function(label, series) {
-                    return label + ' <a class="delete_series" data-series="' + series.id + '" href="#" onClick="return false;"> del</a>';
+                    return label +
+                    '<button type="button" class="close close-line delete_series" data-series="' + series.id + '" data-dismiss="modal" aria-label="Close"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>';
                 }
             }
         });
@@ -97,7 +100,7 @@ else for (var i = 0; i < chart.series.length; ++i) {
                 col = $('#plot_' + id).parent().parent();
 
             a.detach();
-            col.append(a).append('<button type="button" class="close delete_series" data-series="' + id + '" data-dismiss="modal" aria-label="Close"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>');
+            col.append(a).append('<button type="button" class="close close-pie delete_series" data-series="' + id + '" data-dismiss="modal" aria-label="Close"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>');
             $('table, div', a).css({ left: 280 })
 
         }
