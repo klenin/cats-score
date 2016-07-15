@@ -273,7 +273,7 @@ CATS.View = Classify({
                 $('#charts_body').html(this.chart_template('body')(this.current_catsscore_wrapper_content_params));
                 this.update_url_settings({chart: chart.settings()});
             },
-            'click .delete_series': function (e) {
+            'click .delete-series': function (e) {
                 var chart = this.current_chart(),
                     id = $(e.currentTarget).data('series');
                 chart.delete_series(id);
@@ -301,6 +301,43 @@ CATS.View = Classify({
                 }
                 $('#charts_panel').html(this.chart_template('panel')(this.current_catsscore_wrapper_content_params));
                 this.call_plugins();
+            },
+            'click .label-line': function (e) {
+                var id = $(e.target).data('series');
+                var idx = _.findIndex(this.current_chart().series, function (s) {
+                    return s.id === id;
+                });
+
+                this.current_chart().select_plot_line(idx);
+                $('#charts_panel').html(this.chart_template('panel')(this.current_catsscore_wrapper_content_params));
+                this.call_plugins();
+            },
+            'plotclick #plot': function (e, pos, obj) {
+                this.current_chart().select_plot_line((obj) ? obj.seriesIndex : -1);
+                $('#charts_panel').html(this.chart_template('panel')(this.current_catsscore_wrapper_content_params));
+                this.call_plugins();
+            },
+            'plothover .pie > .plot': function (e, pos, obj) {
+                if (!obj) {
+                    return;
+                }
+
+                var elem = $(e.target),
+                    eRect = e.target.getBoundingClientRect(),
+                    bRect = document.body.getBoundingClientRect(),
+                    rect = {
+                        top: eRect.top - bRect.top,
+                        left: eRect.left - bRect.left
+                    },
+                    tooltip = obj.series.label + ': ' + parseFloat(obj.series.percent).toFixed(2) + '% ';
+
+                if (elem.attr('data-original-title') != tooltip) {
+                    elem.attr('data-original-title', tooltip).tooltip('show');
+                }
+                $('.tooltip', elem.parent()).css({
+                    left: pos.pageX - rect.left + 40,
+                    top: pos.pageY - rect.top + 30
+                });
             },
             'click #btn_filters': function () {
                 if (!$('#collapse_filters').hasClass('collapsing')) {
@@ -359,9 +396,13 @@ CATS.View = Classify({
         },
 
         update_url_settings: function (settings) {
+            if (this.page_name() == 'charts') {
+                this.current_chart().init_plot();
+            }
+
             this.call_plugins();
             this.make_responsive();
-            this.view_state.set({settings: settings}, {silent: true});
+            this.view_state.set({ settings: settings }, { silent: true });
             window.history.pushState('', '', '#' + this.router.generate_url());
         },
 
@@ -377,10 +418,7 @@ CATS.View = Classify({
 
         page: function(skin, page_name) {
             var tmpl = this.templates.pages.skins[skin][page_name];
-            if (tmpl == undefined)
-                tmpl = this.templates.pages[page_name];
-
-            return _.template(tmpl == undefined ? "" : tmpl);
+            return (tmpl == undefined) ? this.chart_template(page_name) : _.template(tmpl);
         },
 
         get_available_skin_names: function(page_name) {
@@ -560,6 +598,7 @@ CATS.View = Classify({
             if (page_name == 'charts') {
                 $('#charts_panel').html(this.chart_template('panel')(this.current_catsscore_wrapper_content_params));
                 $('#charts_body').html(this.chart_template('body')(this.current_catsscore_wrapper_content_params));
+                this.current_chart().init_plot();
             }
 
             $('#source').val(this.source());

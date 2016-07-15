@@ -269,5 +269,97 @@ CATS.Model.Chart = Classify(CATS.Model.Entity, {
             params.push({"period":10,"parameter":"run_cnt","aggregation":"sum","group_by":"status","problems":[id],"user":"","affiliation":""});
         });
         return {"chart": { params: params, chart_type: 'pie'}};
+    },
+
+    init_plot: function () {
+        if (this.chart_type == 'line') {
+            this.init_line_chart();
+        } else {
+            this.init_pie_chart();
+        }
+
+        if (!$('.container').addClass('non-responsive-container')) {
+            $('.container').addClass('non-responsive-container');
+            $('.col-md-12').removeClass('col-md-12').addClass('col-xs-12');
+            $('.col-md-3').removeClass('col-md-3').addClass('col-xs-3');
+        }
+    },
+
+    init_line_chart: function () {
+        var statuses = [];
+        _.each(this.statuses_arr, function (status, i) {
+            statuses.push([i, status]);
+        });
+
+        this.plotObj = $.plot('#plot', this.series, {
+            xaxes: [
+                { position: 'bottom', axisLabel: 'time' },
+                { position: 'bottom', ticks: statuses, axisLabel: 'statuses' }
+            ],
+            yaxes: [
+                { position: 'left', axisLabel: 'pieces' },
+                { position: 'left', axisLabel: 'points' },
+                { position: 'left', axisLabel: 'place' },
+            ],
+            legend: {
+                container: $('#legend'),
+                labelFormatter: function (label, series) {
+                    var text = '<a class = label-line data-series="' + series.id + '">' + label + '</a>',
+                        delete_btn = '<button type="button" class="close delete-line delete-series" data-series="' + series.id + '" data-dismiss="modal" aria-label="Close"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>';
+                    return text + delete_btn;
+                }
+            },
+            grid: {
+                hoverable: true,
+                clickable: true
+            },
+            series : {
+                lines: { show: true }, points: { show: true }
+            }
+        });
+    },
+
+    init_pie_chart: function () {
+        var series = this.series_pie_format();
+
+        for (var i = 0; i < series.length; ++i) {
+            var id = series[i].id;
+
+            if (series[i].data.length == 0) {
+                break;
+            }
+
+            $.plot('#plot_' + id, series[i].data, {
+                series: {
+                    pie: { show: true }
+                },
+                grid: {
+                    hoverable: true,
+                    clickable: true
+                },
+                legend: {
+                    container: $('#legend_' + id)
+                }
+            });
+
+            var col = $('#plot_' + id).parent().parent();
+
+            col.append('<button type="button" class="close delete-pie delete-series" data-series="' + id + '" data-dismiss="modal" aria-label="Close"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>');
+        }
+    },
+
+    select_plot_line: function (index) {
+        var series = $.map(this.plotObj.getData(), function (series, idx) {
+            if (idx === index) {
+                series.shadowSize = 10;
+            } else {
+                series.shadowSize = 0;
+            }
+            return series;
+        });
+
+        this.plotObj.setData(series);
+        this.plotObj.draw();
+        this.selected = this.series[index].id;
     }
 });

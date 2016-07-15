@@ -86,7 +86,7 @@ require(['underscore', 'jquery', 'bootstrap'], function () {
                             'text!templates/pagination.html',
                             'text!templates/footer.html',
                             //pages
-                            'text!templates/pages/charts.html',
+                            'text!templates/pages/chart/base.html',
                             'text!templates/pages/chart/panel.html',
                             'text!templates/pages/chart/body.html',
                             //skins

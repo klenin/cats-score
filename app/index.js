@@ -4,9 +4,9 @@ function cats_score_init(
     filters,
     pg,
     footer,
-    charts,
-    charts_p,
-    charts_b,
+    chart_base,
+    chart_panel,
+    chart_body,
     d_tbl_acm,
     d_tbl_sch,
     d_hist,
@@ -69,10 +69,10 @@ function cats_score_init(
         pagination: pg,
         footer: footer,
         pages: {
-            charts: charts,
             chart: {
-                panel: charts_p,
-                body: charts_b
+                charts: chart_base,
+                panel: chart_panel,
+                body: chart_body
             },
             skins: {
                 default: {
