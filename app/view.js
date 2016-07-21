@@ -273,6 +273,18 @@ CATS.View = Classify({
                 $('#charts_body').html(this.chart_template('body')(this.current_catsscore_wrapper_content_params));
                 this.update_url_settings({chart: chart.settings()});
             },
+            'changeColor #colorpicker': function (e) {
+                // TODO: Merge with the previous one.
+                var chart = this.current_chart();
+
+                if (!chart.selected) {
+                    return;
+                }
+
+                chart.change_series({ color: $('#colorpicker').colorpicker('getValue')});
+                $('#charts_body').html(this.chart_template('body')(this.current_catsscore_wrapper_content_params));
+                this.update_url_settings({chart: chart.settings()});
+            },
             'click .delete-series': function (e) {
                 var chart = this.current_chart(),
                     id = $(e.currentTarget).data('series');

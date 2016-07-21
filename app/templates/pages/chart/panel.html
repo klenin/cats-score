@@ -71,7 +71,7 @@ var color = (index != -1) ? chart.series[index].color : null;
         <div class="col-xs-7">
             <%if (chart.chart_type == 'line') {%>
             <div id="colorpicker" class="input-group colorpicker-component">
-                <input type="text" value="<%=color ? color : 'black'%>" class="form-control param" />
+                <input type="text" id="color" value="<%=color ? color : 'black'%>" class="form-control" />
                 <span class="input-group-addon"><i></i></span>
             </div>
             <%} else {%>

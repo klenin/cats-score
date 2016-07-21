@@ -152,6 +152,8 @@ CATS.Model.Chart = Classify(CATS.Model.Entity, {
             xaxis: this.parameter_xaxes[params.group_by],
             yaxis: this.parameter_yaxes[params.parameter]
         }
+        // TODO: What about merging 'series' and 'series_params'?
+        params.color = object.color;
         if (type == 'new') {
             object.id = ++this.series_id_generator;
         }
