@@ -317,6 +317,9 @@ CATS.Model.Chart = Classify(CATS.Model.Entity, {
                 lines: { show: true }, points: { show: true }
             }
         });
+
+        var that = this;
+        this.select_plot_line(_.findIndex(this.series, function (s) { return s.id == that.selected; }));
     },
 
     init_pie_chart: function () {
@@ -360,6 +363,6 @@ CATS.Model.Chart = Classify(CATS.Model.Entity, {
 
         this.plotObj.setData(series);
         this.plotObj.draw();
-        this.selected = this.series[index].id;
+        this.selected = (index != -1) ? this.series[index].id : null;
     }
 });

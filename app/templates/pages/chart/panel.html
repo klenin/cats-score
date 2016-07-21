@@ -1,10 +1,9 @@
 <%
 var contest = app.contests[models.contest];
 var chart = app.charts[models.chart];
-var selected = chart.series_params[_.findIndex(
-    chart.series,
-    function (s) { return s.id === chart.selected; }
-)];
+var index = _.findIndex(chart.series, function (s) { return s.id === chart.selected; })
+var selected = chart.series_params[index];
+var color = (index != -1) ? chart.series[index].color : null;
 %>
 
 <h2><%=selected ? 'Edit ' + chart.chart_type : 'Add new series'%></h2>
@@ -72,7 +71,7 @@ var selected = chart.series_params[_.findIndex(
         <div class="col-xs-7">
             <%if (chart.chart_type == 'line') {%>
             <div id="colorpicker" class="input-group colorpicker-component">
-                <input type="text" value="black" class="form-control" />
+                <input type="text" value="<%=color ? color : 'black'%>" class="form-control param" />
                 <span class="input-group-addon"><i></i></span>
             </div>
             <%} else {%>
