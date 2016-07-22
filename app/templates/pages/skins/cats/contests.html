@@ -12,7 +12,7 @@
     %>
     <tr class='<%= idx % 2 != 0 ? "even" : "odd" %>'>
         <td>
-            <input class="contest_selector" id="<%=source%>:<%=id%>" type="checkbox" <%= checked_contests.indexOf(source + ":" + id) != -1 ? "checked" : ""%>>
+            <input class="contest-selector" id="<%=source%>:<%=id%>" type="checkbox" <%= checked_contests.indexOf(source + ":" + id) != -1 ? "checked" : ""%>>
         </td>
         <td>
             <%=id%>

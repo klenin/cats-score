@@ -11,7 +11,7 @@ requirejs.config({
         jqflot_axislabels: '../vendors/jquery.flot.axislabels',
         jqflot_pie: '../vendors/jquery.flot.pie.min',
         bootstrap: '../vendors/bootstrap.min',
-        bootstrap_select: '../vendors/bootstrap-select.min',
+        bootstrap_select: '../vendors/bootstrap-select',
         bootstrap_slider: '../vendors/bootstrap-slider.min',
         bootstrap_colorpicker: '../vendors/bootstrap-colorpicker.min',
         pace: '../vendors/pace.min',
@@ -82,14 +82,13 @@ require(['underscore', 'jquery', 'bootstrap'], function () {
                         require([//we cant use skins_names array because optimization module works only with hardcoded array constant. Proof http://requirejs.org/docs/optimization.html
                             'text!templates/header_rank_table.html',
                             'text!templates/header_contests_list.html',
+                            'text!templates/filters.html',
                             'text!templates/pagination.html',
                             'text!templates/footer.html',
                             //pages
-                            'text!templates/pages/charts.html',
-                            //settings
-                            'text!templates/pages/settings/table.html',
-                            'text!templates/pages/settings/contests.html',
-                            'text!templates/pages/settings/charts.html',
+                            'text!templates/pages/chart/base.html',
+                            'text!templates/pages/chart/panel.html',
+                            'text!templates/pages/chart/body.html',
                             //skins
                             //default
                             'text!templates/pages/skins/default/table_acm.html',
