@@ -135,7 +135,9 @@ require(['underscore', 'jquery', 'bootstrap'], function () {
                             //AIZU Online Judge
                             'text!templates/pages/skins/aizu/table_acm.html',
                             //IOInformatics
-                            'text!templates/pages/skins/ioinformatics/table_school.html'
+                            'text!templates/pages/skins/ioinformatics/table_school.html',
+                            //CMS
+                            'text!templates/pages/skins/cms/table_school.html'
                             //after add new skin make sure add new item in index.js
                         ], cats_score_init);
                     });

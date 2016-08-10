@@ -1,0 +1,108 @@
+<%
+var table_id = models.table;
+var table = app.result_tables[table_id];
+var capt = CATS.Langs.cats[lang];
+
+var get_score_class = function (score, max_score) {
+    if (score <= 0) {
+        return "score_0";
+    }
+    else if (score >= max_score) {
+        return "score_100";
+    }
+    else {
+        var rel_score = parseInt(score / max_score * 10) * 10;
+        return "score_" + rel_score + "_" + (rel_score + 10);
+    }
+};
+
+window.toggle_sel = function(item) {
+    $(item).parent().toggleClass("selected color1");
+};
+
+%>
+<table id="Scoreboard">
+    <colgroup id="Scoreboard_cols">            
+        <col class="sel"/>
+        <col class="rank"/>
+        <col class="f_name"/> <col/><col/><col/><col/><col/><col/><col/><col/><col/>
+        <col class="l_name"/> <col/><col/><col/><col/><col/><col/><col/><col/><col/>
+        <col class="team"/>
+<%for(var j = 0; j < table.contests.length; ++j) {
+    var contest_id = table.contests[j];
+    var contest = app.contests[contest_id];
+    for (var i = 0; i < contest.problems.length; ++i) {
+    %>
+        <col class="score task"/><col/><col/>
+    <%}%>
+        <col class="score contest"/><col/><col/><col/>
+<%}%>
+        <col class="score global"/><col/><col/><col/><col/>
+    </colgroup>
+    <thead id="Scoreboard_head">
+    <tr>
+        <th class="sel"></th>
+        <th class="rank">Rank</th>
+        <th colspan="10" class="f_name">First Named</th>
+        <th colspan="10" class="l_name">Last Name</th>
+        <th class="team">Team</th>
+<%
+var total_max_pts = 0;
+for(var j = 0; j < table.contests.length; ++j) {
+    var contest_id = table.contests[j];
+    var contest = app.contests[contest_id];
+    contest.total_max_points = 0;
+    for (var i = 0; i < contest.problems.length; ++i) {
+        var p = app.problems[contest.problems[i]];
+        contest.total_max_points += p.max_points * 1;
+        total_max_pts += p.max_points * 1;
+   %>
+        <th colspan="3" class="score task"><abbr title="<%=p.name%>"><%=p.code%></abbr></th>
+    <%}%>
+        <th colspan="4" class="score contest"><abbr title="<%=contest.name%>">
+            <%=contest.name%></abbr></th>
+<%}%>            
+        <th colspan="5" class="score global">Global</th>
+    </thead>
+
+    <tbody id="Scoreboard_body">
+<%
+_.each(table.score_board.slice(next_page, next_page + elem_cnt), function(row) {
+    var user = app.users[row.user];
+    var name_parts = user.name.split(' ');
+%>
+<tr class="user">
+    <td class="sel" onclick="toggle_sel(this)"></td>
+    <td class="rank"><%=row.place%></td>
+    <td colspan="10" class="f_name"><%=name_parts[0]%></td>
+    <td colspan="10" class="l_name"><%=name_parts[1]%></td>
+    <td class="team">
+        <img src="app/templates/pages/skins/cms/images/flag.png" title="<%=user.some_affiliation()%>"/>
+    </td>
+<%
+var total_pts = 0, pidx = 0;
+for(var j = 0; j < table.contests.length; ++j) {
+    var contest_id = table.contests[j];
+    var contest = app.contests[contest_id];
+    var contest_total_pts = 0;
+    for (var i = 0; i < contest.problems.length; ++i) {
+        var pr = app.problems[contest.problems[i]];
+        var pts = row.problems[pidx++].points * 1;
+        contest_total_pts += pts;
+        total_pts += pts;
+%>
+    <td colspan="3" class="score task <%=get_score_class(pts, pr.max_points)%>"><%=pts%></td>
+<%
+    }
+%>
+    <td colspan="4" class="score contest <%=get_score_class(contest_total_pts, contest.total_max_points)%>">
+        <%=contest_total_pts%></td>
+<%
+}
+%>
+    <td colspan="5" class="score global <%=get_score_class(total_pts, total_max_pts)%>"><%=total_pts%></td>
+<%
+});
+%>            
+    </tbody>
+</table>

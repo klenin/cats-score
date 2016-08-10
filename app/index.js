@@ -41,7 +41,8 @@ function cats_score_init(
     ka_contests,
     ur_tbl_acm,
     az_tbl_acm,
-    ioi_tbl_sch
+    ioi_tbl_sch,
+    cms_tbl_sch
 ) {
     CATS.Config.proxy_path = "http://imcs.dvfu.ru/cats/main.pl?f=proxy&u=";
 
@@ -137,6 +138,10 @@ function cats_score_init(
                 },
                 ioinformatics: {
                     table_school: ioi_tbl_sch
+                    //contests: ur_contests,
+                },
+                cms: {
+                    table_school: cms_tbl_sch
                     //contests: ur_contests,
                 }
             }
