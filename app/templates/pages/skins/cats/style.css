@@ -7,6 +7,14 @@
     width: 100%;
 }
 
+#catsscore_wrapper th {
+    text-align: center;
+}
+
+#catsscore_wrapper table {
+    border-spacing: 1px;
+}
+
 #catsscore_wrapper table.iface { width: 100%; border-collapse : collapse; }
 #catsscore_wrapper table.iface tr td { padding: 0; }
 

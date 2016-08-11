@@ -1,4 +1,10 @@
-#catsscore_wrapper TABLE.standings{
+#catsscore_wrapper TH {
+    text-align: center;
+}
+#catsscore_wrapper TH, #catsscore_wrapper TD {
+    padding: 1px;
+}
+#catsscore_wrapper TABLE.standings {
     display: table;
     border-collapse: separate;
     border-spacing: 2px;

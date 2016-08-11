@@ -1,3 +1,7 @@
+#catsscore_wrapper th {
+    text-align: center;
+}
+
 #catsscore_wrapper table.standings {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: small;

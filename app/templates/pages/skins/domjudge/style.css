@@ -1,3 +1,7 @@
+#catsscore_wrapper th {
+    padding: 2px;
+}
+
 #catsscore_wrapper .scoreboard {
     border-collapse: collapse;
     clear: both;
