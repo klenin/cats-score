@@ -616,7 +616,8 @@ CATS.View = Classify({
             $('#source').val(this.source());
             $('#page_name').val(this.page_name());
             $('#skin').val(this.skin());
-            $('body').append('<div id="progress-end">');
+            if ($('#progress-end').length === 0)
+                $('body').append('<div id="progress-end">');
 
             this.call_plugins();
 
