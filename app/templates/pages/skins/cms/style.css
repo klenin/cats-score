@@ -349,113 +349,113 @@
 
 /* Color 1: Blue */
 
-#Scoreboard_body tr.color1 td.sel {
+#Scoreboard_body tr.selected[data-color="1"] td.sel {
     background-color: rgb(52,101,164);
 }
 
-#Scoreboard_body tr.color1 td.sel:hover {
+#Scoreboard_body tr.selected[data-color="1"] td.sel:hover {
     background-color: rgb(32,74,135);
 }
 
-#Scoreboard_body tr.color1 td.sel:active {
+#Scoreboard_body tr.selected[data-color="1"] td.sel:active {
     background-color: rgb(26,59,108);
 }
 
 /* Color 2: Butter */
 
-#Scoreboard_body tr.color2 td.sel {
+#Scoreboard_body tr.selected[data-color="2"] td.sel {
     background-color: rgb(237,212,0);
 }
 
-#Scoreboard_body tr.color2 td.sel:hover {
+#Scoreboard_body tr.selected[data-color="2"] td.sel:hover {
     background-color: rgb(196,160,0);
 }
 
-#Scoreboard_body tr.color2 td.sel:active {
+#Scoreboard_body tr.selected[data-color="2"] td.sel:active {
     background-color: rgb(157,128,0);
 }
 
 /* Color 3: Red */
 
-#Scoreboard_body tr.color3 td.sel {
+#Scoreboard_body tr.selected[data-color="3"] td.sel {
     background-color: rgb(204,0,0);
 }
 
-#Scoreboard_body tr.color3 td.sel:hover {
+#Scoreboard_body tr.selected[data-color="3"] td.sel:hover {
     background-color: rgb(164,0,0);
 }
 
-#Scoreboard_body tr.color3 td.sel:active {
+#Scoreboard_body tr.selected[data-color="3"] td.sel:active {
     background-color: rgb(131,0,0);
 }
 
 /* Color 4: Chameleon */
 
-#Scoreboard_body tr.color4 td.sel {
+#Scoreboard_body tr.selected[data-color="4"] td.sel {
     background-color: rgb(115,210,22);
 }
 
-#Scoreboard_body tr.color4 td.sel:hover {
+#Scoreboard_body tr.selected[data-color="4"] td.sel:hover {
     background-color: rgb(78,154,6);
 }
 
-#Scoreboard_body tr.color4 td.sel:active {
+#Scoreboard_body tr.selected[data-color="4"] td.sel:active {
     background-color: rgb(62,123,5);
 }
 
 /* Color 5: Orange */
 
-#Scoreboard_body tr.color5 td.sel {
+#Scoreboard_body tr.selected[data-color="5"] td.sel {
     background-color: rgb(245,121,0);
 }
 
-#Scoreboard_body tr.color5 td.sel:hover {
+#Scoreboard_body tr.selected[data-color="5"] td.sel:hover {
     background-color: rgb(206,92,0);
 }
 
-#Scoreboard_body tr.color5 td.sel:active {
+#Scoreboard_body tr.selected[data-color="5"] td.sel:active {
     background-color: rgb(165,74,0);
 }
 
 /* Color 6: Plum */
 
-#Scoreboard_body tr.color6 td.sel {
+#Scoreboard_body tr.selected[data-color="6"] td.sel {
     background-color: rgb(117,80,123);
 }
 
-#Scoreboard_body tr.color6 td.sel:hover {
+#Scoreboard_body tr.selected[data-color="6"] td.sel:hover {
     background-color: rgb(92,53,102);
 }
 
-#Scoreboard_body tr.color6 td.sel:active {
+#Scoreboard_body tr.selected[data-color="6"] td.sel:active {
     background-color: rgb(74,42,82);
 }
 
 /* Color 7: Aluminium */
 
-#Scoreboard_body tr.color7 td.sel {
+#Scoreboard_body tr.selected[data-color="7"] td.sel {
     background-color: rgb(136,138,133);
 }
 
-#Scoreboard_body tr.color7 td.sel:hover {
+#Scoreboard_body tr.selected[data-color="7"] td.sel:hover {
     background-color: rgb(85,87,83);
 }
 
-#Scoreboard_body tr.color7 td.sel:active {
+#Scoreboard_body tr.selected[data-color="7"] td.sel:active {
     background-color: rgb(68,70,66);
 }
 
 /* Color 8: Chocolate */
 
-#Scoreboard_body tr.color8 td.sel {
+#Scoreboard_body tr.selected[data-color="8"] td.sel {
     background-color: rgb(193,125,17);
 }
 
-#Scoreboard_body tr.color8 td.sel:hover {
+#Scoreboard_body tr.selected[data-color="8"] td.sel:hover {
     background-color: rgb(143,89,2);
 }
 
-#Scoreboard_body tr.color8 td.sel:active {
+#Scoreboard_body tr.selected[data-color="8"] td.sel:active {
     background-color: rgb(114,71,2);
 }
 

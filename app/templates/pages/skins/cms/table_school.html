@@ -16,8 +16,27 @@ var get_score_class = function (score, max_score) {
     }
 };
 
+if (!table.used_colors)
+    table.used_colors = [0, 0, 0, 0, 0, 0, 0, 0];
+
 window.toggle_sel = function(item) {
-    $(item).parent().toggleClass("selected color1");
+    var row = $(item).parent();
+    row.toggleClass("selected");
+    var sb = table.score_board[row.attr("data-num")]    ;
+    if (row.hasClass("selected")) {
+        var min_index = 0;
+        for (var i = 1; i < table.used_colors.length; ++i)
+            if (table.used_colors[i] < table.used_colors[min_index])
+                min_index = i;
+        ++table.used_colors[min_index];
+        sb.row_color = min_index + 1;
+        row.attr("data-color", sb.row_color);
+    }
+    else {
+        --table.used_colors[sb.row_color - 1];
+        row.removeAttr("data-color");
+        delete sb.row_color;
+    }
 };
 
 %>
@@ -67,40 +86,44 @@ for(var j = 0; j < table.contests.length; ++j) {
 
     <tbody id="Scoreboard_body">
 <%
+var idx = next_page;
 _.each(table.score_board.slice(next_page, next_page + elem_cnt), function(row) {
     var user = app.users[row.user];
     var name_parts = user.name.split(' ');
+    var rc = row.row_color ? ' data-color="' + row.row_color + '"' : '';
 %>
-<tr class="user">
-    <td class="sel" onclick="toggle_sel(this)"></td>
-    <td class="rank"><%=row.place%></td>
-    <td colspan="10" class="f_name"><%=name_parts[0]%></td>
-    <td colspan="10" class="l_name"><%=name_parts[1]%></td>
-    <td class="team">
-        <img src="app/templates/pages/skins/cms/images/flag.png" title="<%=user.some_affiliation()%>"/>
-    </td>
+    <tr class="user<%=rc ? ' selected' : ''%>" data-num="<%=idx%>"<%=rc%>>
+        <td class="sel" onclick="toggle_sel(this)"></td>
+        <td class="rank"><%=row.place%></td>
+        <td colspan="10" class="f_name"><%=name_parts[0]%></td>
+        <td colspan="10" class="l_name"><%=name_parts[1]%></td>
+        <td class="team">
+            <img src="app/templates/pages/skins/cms/images/flag.png" title="<%=user.some_affiliation()%>"/>
+        </td>
 <%
-var total_pts = 0, pidx = 0;
-for(var j = 0; j < table.contests.length; ++j) {
-    var contest_id = table.contests[j];
-    var contest = app.contests[contest_id];
-    var contest_total_pts = 0;
-    for (var i = 0; i < contest.problems.length; ++i) {
-        var pr = app.problems[contest.problems[i]];
-        var pts = row.problems[pidx++].points * 1;
-        contest_total_pts += pts;
-        total_pts += pts;
+    ++idx;
+    var total_pts = 0, pidx = 0;
+    for(var j = 0; j < table.contests.length; ++j) {
+        var contest_id = table.contests[j];
+        var contest = app.contests[contest_id];
+        var contest_total_pts = 0;
+        for (var i = 0; i < contest.problems.length; ++i) {
+            var pr = app.problems[contest.problems[i]];
+            var pts = row.problems[pidx++].points * 1;
+            contest_total_pts += pts;
+            total_pts += pts;
 %>
-    <td colspan="3" class="score task <%=get_score_class(pts, pr.max_points)%>"><%=pts%></td>
+      <td colspan="3" class="score task <%=get_score_class(pts, pr.max_points)%>"><%=pts%></td>
+<%
+        }
+%>
+        <td colspan="4" class="score contest <%=get_score_class(contest_total_pts, contest.total_max_points)%>">
+            <%=contest_total_pts%></td>
 <%
     }
 %>
-    <td colspan="4" class="score contest <%=get_score_class(contest_total_pts, contest.total_max_points)%>">
-        <%=contest_total_pts%></td>
-<%
-}
-%>
-    <td colspan="5" class="score global <%=get_score_class(total_pts, total_max_pts)%>"><%=total_pts%></td>
+        <td colspan="5" class="score global <%=get_score_class(total_pts, total_max_pts)%>"><%=total_pts%></td>
+    </tr>
 <%
 });
 %>            
