@@ -17,11 +17,12 @@ CATS.Adapter.Ifmo = Classify({
             contest = this.add_contest({id: contest_id, name: 'NEERC ' + contest_id});
 
         var self = this;
-        var source_rows = $('<div/>').append(page).find('table.wrapper table>tbody>tr');
+        var tt = $('<div/>').append(page).find('table.wrapper table.standings');
+        var header = tt.find('thead>tr');
+        var source_rows = tt.find('tbody>tr');
         result_table.scoring = 'acm';
-
         var problems = [];
-        $(source_rows[0]).children('th.problem').each(function () {
+        header.children('th.problem').each(function () {
             var prob = $.extend(new CATS.Model.Problem(), {
                 id: $(this).text(),
                 name: $(this).attr('title'),
@@ -31,7 +32,6 @@ CATS.Adapter.Ifmo = Classify({
             contest.add_object(prob);
             problems.push(prob.id);
         });
-        source_rows.splice(0, 1);
         _.each(source_rows, function (source_row) {
             var items = $(source_row).children('td');
             if (!$(items[0]).hasClass('rankl')) return;
