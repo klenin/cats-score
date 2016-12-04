@@ -2,17 +2,19 @@ requirejs.config({
     baseUrl: 'app/',
     paths: {
         jquery: '../vendors/jquery.min',
-        jqueryui: '../vendors/jquery-ui.min',
         jqpagination: '../vendors/jquery.jqpagination.min',
         underscore: '../vendors/underscore.min',
         backbone: '../vendors/backbone.min',
         classify: '../vendors/classify.min',
         dateformat: '../vendors/date.format',
-        jqflot: '../vendors/jquery.flot',
-        jqflotaddon: '../vendors/jquery.flot.axislabels',
-        jqflotpie: '../vendors/jquery.flot.pie',
+        jqflot: '../vendors/jquery.flot.min',
+        jqflot_axislabels: '../vendors/jquery.flot.axislabels',
+        jqflot_pie: '../vendors/jquery.flot.pie.min',
         bootstrap: '../vendors/bootstrap.min',
-        bootstrap_select: '../vendors/bootstrap-select.min'
+        bootstrap_select: '../vendors/bootstrap-select',
+        bootstrap_slider: '../vendors/bootstrap-slider.min',
+        bootstrap_colorpicker: '../vendors/bootstrap-colorpicker.min',
+        pace: '../vendors/pace.min',
     },
     shim: {
         underscore: {
@@ -28,8 +30,12 @@ requirejs.config({
         waitSeconds: 15
     }
 });
-require(['underscore', 'jquery', 'jqueryui', 'bootstrap'], function () {
-    require(['backbone', 'classify', 'dateformat', 'jqflot', 'jqpagination', 'CATS', 'bootstrap_select'], function () {
+require(['underscore', 'jquery', 'bootstrap'], function () {
+    require(['pace', 'backbone', 'classify', 'dateformat', 'jqflot', 'jqpagination', 'CATS', 'bootstrap_select', 'bootstrap_slider'], function (pace) {
+        pace.start({
+            restartOnPushState: false,
+            elements: { selectors: ['#progress-end'] }
+        });
         require([
             'adapters/cats',
             'adapters/cats_xml_hist',
@@ -46,8 +52,9 @@ require(['underscore', 'jquery', 'jqueryui', 'bootstrap'], function () {
             'adapters/default',
             'rules/base',
             'controller',
-            'jqflotaddon',
-            'jqflotpie'
+            'jqflot_axislabels',
+            'jqflot_pie',
+            'bootstrap_colorpicker'
         ], function () {
             require(['models/entity'], function () {
                 require(['models/event'], function () {
@@ -75,14 +82,13 @@ require(['underscore', 'jquery', 'jqueryui', 'bootstrap'], function () {
                         require([//we cant use skins_names array because optimization module works only with hardcoded array constant. Proof http://requirejs.org/docs/optimization.html
                             'text!templates/header_rank_table.html',
                             'text!templates/header_contests_list.html',
+                            'text!templates/filters.html',
                             'text!templates/pagination.html',
                             'text!templates/footer.html',
                             //pages
-                            'text!templates/pages/charts.html',
-                            //settings
-                            'text!templates/pages/settings/table.html',
-                            'text!templates/pages/settings/contests.html',
-                            'text!templates/pages/settings/charts.html',
+                            'text!templates/pages/chart/base.html',
+                            'text!templates/pages/chart/panel.html',
+                            'text!templates/pages/chart/body.html',
                             //skins
                             //default
                             'text!templates/pages/skins/default/table_acm.html',
@@ -129,7 +135,9 @@ require(['underscore', 'jquery', 'jqueryui', 'bootstrap'], function () {
                             //AIZU Online Judge
                             'text!templates/pages/skins/aizu/table_acm.html',
                             //IOInformatics
-                            'text!templates/pages/skins/ioinformatics/table_school.html'
+                            'text!templates/pages/skins/ioinformatics/table_school.html',
+                            //CMS
+                            'text!templates/pages/skins/cms/table_school.html'
                             //after add new skin make sure add new item in index.js
                         ], cats_score_init);
                     });

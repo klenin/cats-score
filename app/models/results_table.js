@@ -138,7 +138,8 @@ CATS.Model.Results_table = Classify(CATS.Model.Entity, {
                     ) ?
                 this.score_board.top()['place'] :
                 this.score_board.length + 1;
-            score_board_row.prize = score_board_row.place < 19 ? 'gold' : score_board_row.place <= 108 ? 'silver' : '';
+            score_board_row.prize = group[j].prize ? group[j].prize :  score_board_row.place < 19 ?
+                'Gold' : score_board_row.place <= 108 ? 'Silver' : '';
             score_board_row['user'] = group[j]['id'];
             score_board_row['penalty'] = group[j]['p'];
             score_board_row['solved_cnt'] = group[j]['solved_cnt'];

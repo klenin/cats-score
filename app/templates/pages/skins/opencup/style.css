@@ -1,4 +1,10 @@
-#catsscore_wrapper TABLE.standings{
+#catsscore_wrapper TH {
+    text-align: center;
+}
+#catsscore_wrapper TH, #catsscore_wrapper TD {
+    padding: 1px;
+}
+#catsscore_wrapper TABLE.standings {
     display: table;
     border-collapse: separate;
     border-spacing: 2px;
@@ -582,4 +588,18 @@
 #catsscore_wrapper .memorial {
     padding: 0px 8px;
     border: 2px solid #000000;
+}
+
+
+.pace .pace-progress {
+  background: #b0c7f0;
+}
+
+.pace .pace-progress-inner {
+  box-shadow: 0 0 10px #b0c7f0, 0 0 5px #b0c7f0;
+}
+
+.pace .pace-activity {
+  border-top-color: #b0c7f0;
+  border-left-color: #b0c7f0;
 }

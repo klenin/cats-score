@@ -17,6 +17,7 @@ CATS.Rule.School = Classify(CATS.Rule.Base, {
                 run.start_processing_time = CATS.App.utils.add_time(contest.start_time, p.best_run_time ? p.best_run_time : 0);
                 run.status = p.points === CATS.App.problems[run.problem].max_points ? 'accepted' : 'wrong_answer';
                 run.points = p.points;
+                run.prize = row.prize;
                 CATS.App.add_object(run);
                 contest.add_object(run);
             });
@@ -45,7 +46,7 @@ CATS.Rule.School = Classify(CATS.Rule.Base, {
                 tp.is_solved = true;
                 teams[team_id].solved_cnt++;
             }
-
+            teams[team_id].prize = run.prize;
         });
 
         var users_no_runs = _.reduce(contest.users, function (r, u) { r[u] = true; return r; }, {});
@@ -55,7 +56,12 @@ CATS.Rule.School = Classify(CATS.Rule.Base, {
             for (var i = 0; i < contest.problems.length; ++i)
                 points_cnt += teams_problems[team_id][i].points;
             users_no_runs[team_id] = false;
-            return { id: team_id, solved_cnt : v.solved_cnt, points_cnt: points_cnt };
+            return {
+                id: team_id,
+                solved_cnt : v.solved_cnt,
+                points_cnt: points_cnt,
+                prize: v.prize
+            };
         });
 
         teams_arr.sort(function (a, b) { return b.points_cnt - a.points_cnt; });

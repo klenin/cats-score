@@ -8,8 +8,8 @@ CATS.Model.Chart = Classify(CATS.Model.Entity, {
         this.chart_type = "line";
         this.contests_url_param = null;
         this.colors = [
-            'green',
             'black',
+            'green',
             'blue',
             'red',
             'orange',
@@ -17,12 +17,18 @@ CATS.Model.Chart = Classify(CATS.Model.Entity, {
             'cyan',
             'magenta',
             'gray',
-            'violet',
+            'violet'
         ];
         this.series_id_generator = 0;
+        this.filter = 'new';
         var self = this;
         this.group_by = {
-            time: function (r) { return Math.ceil(r.minutes_since_start() / _.last(self.series_params).period); },
+            // NOTE: Don't like this ID's manipulation, think how to improve.
+            time: function (r) {
+                var selected = self.selected;
+                    id = _.findIndex(self.series, function (s) { return s.id == selected; });
+                return Math.ceil(r.minutes_since_start() / (self.series_params[id] || _.last(self.series_params)).period);
+            },
             status: function (r) { return self.statuses_arr.indexOf(r.status); },
         };
 
@@ -78,9 +84,9 @@ CATS.Model.Chart = Classify(CATS.Model.Entity, {
 
     params_pack: function (p) {
         var result = _.clone(p);
-        if (result.statuses.length === _.keys(this.statuses).length)
+        if (result.statuses && result.statuses.length === _.keys(this.statuses).length)
             delete result.statuses;
-        if (result.problems.length === this.get_contest().problems.length)
+        if (result.problems && result.problems.length === this.get_contest().problems.length)
             delete result.problems;
         return result;
     },
@@ -117,15 +123,41 @@ CATS.Model.Chart = Classify(CATS.Model.Entity, {
 
     add_new_series: function(params) {
         this.series_params.push(params);
-        this.series.push({
+        this.series.push(this.get_series_object(params, 'new'));
+    },
+
+    change_series: function (param) {
+        var that = this,
+            idx = _.findIndex(this.series, function (s) { return s.id == that.selected; }),
+            params = this.series_params[idx];
+
+        _.extendOwn(params, param);
+        _.extendOwn(this.series[idx], this.get_series_object(params));
+    },
+
+    change_all_series: function (param) {
+        var that = this;
+        _.each(this.series_params, function (obj, idx) {
+            _.extendOwn(obj, param);
+            _.extendOwn(that.series[idx], that.get_series_object(obj));
+        });
+    },
+
+    get_series_object: function (params, type) {
+        var object = {
             label: params.parameter,
             data: this.aggregate(
                 params.parameter === 'place' ? this.place_data(params) : this.simple_data(params), params),
             color: params.color != undefined ? params.color : this.colors[this.series.length % this.colors.length],
             xaxis: this.parameter_xaxes[params.group_by],
-            yaxis: this.parameter_yaxes[params.parameter],
-            id: ++this.series_id_generator,
-        });
+            yaxis: this.parameter_yaxes[params.parameter]
+        }
+        // TODO: What about merging 'series' and 'series_params'?
+        params.color = object.color;
+        if (type == 'new') {
+            object.id = ++this.series_id_generator;
+        }
+        return object;
     },
 
     series_pie_format: function() {
@@ -137,7 +169,10 @@ CATS.Model.Chart = Classify(CATS.Model.Entity, {
             _.each(s.data, function (data) {
                 pie.push({label: self.series_params[series_idx].group_by == "status" ? self.statuses_arr[data[0]] : data[0], data: data[1]})
             });
-            pies.push(pie);
+            pies.push({
+                id: s.id,
+                data: pie
+            });
             series_idx++;
         });
 
@@ -198,10 +233,16 @@ CATS.Model.Chart = Classify(CATS.Model.Entity, {
         return _.chain(result);
     },
 
-    delete_series: function(seriesId) {
-        var idx = _.findIndex(this.series, function (s) { return s.id === seriesId; });
+    delete_series: function (id) {
+        idx = _.findIndex(this.series, function (s) { return s.id === id; });
         this.series.splice(idx, 1);
         this.series_params.splice(idx, 1);
+    },
+
+    delete_all: function () {
+        this.selected = null;
+        this.series = [];
+        this.series_params = [];
     },
 
     aggregation: {
@@ -211,12 +252,119 @@ CATS.Model.Chart = Classify(CATS.Model.Entity, {
         max: _.max,
     },
 
+    get_filters: function () {
+        var filters = {},
+            params = ['user', 'affiliation', 'problems', 'statuses'];
+        // TODO: Stop iterating, if 'Various options' is set. Tried removing from params - got ghost undefined element.
+        _.each(this.series_params, function (p) {
+            _.each(params, function(key) {
+                filters[key] = (filters[key] == null || _.isEqual(filters[key], p[key])) ?  p[key] : 'Various options';
+            });
+        });
+        return filters;
+    },
+
     gen_submittions_per_problem_params: function () {
         var params = [];
         var contest = this.get_contest();
         _.each(contest.problems, function (id) {
-            params.push({"period":10,"parameter":"run_cnt","aggregation":"sum","group_by":"status","problems":[id],"user":".*?","affiliation":".*?"});
+            params.push({"period":10,"parameter":"run_cnt","aggregation":"sum","group_by":"status","problems":[id],"user":"","affiliation":""});
         });
-        return {"chart" : { params : params, chart_type: 'pie'}};
+        return {"chart": { params: params, chart_type: 'pie'}};
+    },
+
+    init_plot: function () {
+        if (this.chart_type == 'line') {
+            this.init_line_chart();
+        } else {
+            this.init_pie_chart();
+        }
+
+        if (!$('.container').addClass('non-responsive-container')) {
+            $('.container').addClass('non-responsive-container');
+            $('.col-md-12').removeClass('col-md-12').addClass('col-xs-12');
+            $('.col-md-3').removeClass('col-md-3').addClass('col-xs-3');
+        }
+    },
+
+    init_line_chart: function () {
+        var statuses = [];
+        _.each(this.statuses_arr, function (status, i) {
+            statuses.push([i, status]);
+        });
+
+        this.plotObj = $.plot('#plot', this.series, {
+            xaxes: [
+                { position: 'bottom', axisLabel: 'time' },
+                { position: 'bottom', ticks: statuses, axisLabel: 'statuses' }
+            ],
+            yaxes: [
+                { position: 'left', axisLabel: 'pieces' },
+                { position: 'left', axisLabel: 'points' },
+                { position: 'left', axisLabel: 'place' },
+            ],
+            legend: {
+                container: $('#legend'),
+                labelFormatter: function (label, series) {
+                    var text = '<a class = label-line data-series="' + series.id + '">' + label + '</a>',
+                        delete_btn = '<button type="button" class="close delete-line delete-series" data-series="' + series.id + '" data-dismiss="modal" aria-label="Close"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>';
+                    return text + delete_btn;
+                }
+            },
+            grid: {
+                hoverable: true,
+                clickable: true
+            },
+            series : {
+                lines: { show: true }, points: { show: true }
+            }
+        });
+
+        var that = this;
+        this.select_plot_line(_.findIndex(this.series, function (s) { return s.id == that.selected; }));
+    },
+
+    init_pie_chart: function () {
+        var series = this.series_pie_format();
+
+        for (var i = 0; i < series.length; ++i) {
+            var id = series[i].id;
+
+            if (series[i].data.length == 0) {
+                break;
+            }
+
+            $.plot('#plot_' + id, series[i].data, {
+                series: {
+                    pie: { show: true }
+                },
+                grid: {
+                    hoverable: true,
+                    clickable: true
+                },
+                legend: {
+                    container: $('#legend_' + id)
+                }
+            });
+
+            var col = $('#plot_' + id).parent().parent();
+
+            col.append('<button type="button" class="close delete-pie delete-series" data-series="' + id + '" data-dismiss="modal" aria-label="Close"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>');
+        }
+    },
+
+    select_plot_line: function (index) {
+        var series = $.map(this.plotObj.getData(), function (series, idx) {
+            if (idx === index) {
+                series.shadowSize = 10;
+            } else {
+                series.shadowSize = 0;
+            }
+            return series;
+        });
+
+        this.plotObj.setData(series);
+        this.plotObj.draw();
+        this.selected = (index != -1) ? this.series[index].id : null;
     }
 });

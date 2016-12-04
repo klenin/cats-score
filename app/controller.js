@@ -59,6 +59,7 @@ CATS.Controller = Classify({
             var result_table = this.get_result_table(cont_list);
             if (settings != null && settings.chart != undefined)
                 CATS.App.charts[result_table.chart].settings(settings.chart);
+            result_table.contests = cont_list;
             callback({chart: result_table.chart, contest: result_table.contest, table: result_table.id});
             return;
         }

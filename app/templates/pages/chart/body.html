@@ -1,0 +1,36 @@
+<%
+var chart = app.charts[models.chart];
+%>
+
+<%if (chart.chart_type == 'line') {%>
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="plot-container">
+            <div class="plot" id="plot"></div>
+        </div>
+        <div class="legend-container" id="legend"></div>
+    </div>
+</div>
+<%}
+else for (var i = 0; i < chart.series.length; ++i) {
+    var pp = chart.series_params[i].problems;
+    var header = pp && pp.length == 1 ? app.problems[pp[0]].name : 'Pie ' + (i + 1);
+    var id = chart.series[i].id%>
+    <%if (i % 2 == 0) {%>
+    <div class="row">
+    <%}%>
+    <div class="col-xs-6">
+        <div class="panel panel-default pie-container <%=chart.selected == id ? 'active' : ''%>" id="pie_<%=id%>" data-series="<%=id%>">
+            <div class="panel-body">
+                <h3><%=header%></h3>
+                <div class="pie">
+                    <div class="plot" id="plot_<%=id%>"></div>
+                </div>
+                <div class="pie-legend-container" id="legend_<%=id%>"></div>
+            </div>
+        </div>
+    </div>
+    <%if (i % 2 != 0) {%>
+    </div>
+    <%}%>
+<%};%>

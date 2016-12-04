@@ -7,6 +7,14 @@
     width: 100%;
 }
 
+#catsscore_wrapper th {
+    text-align: center;
+}
+
+#catsscore_wrapper table {
+    border-spacing: 1px;
+}
+
 #catsscore_wrapper table.iface { width: 100%; border-collapse : collapse; }
 #catsscore_wrapper table.iface tr td { padding: 0; }
 
@@ -213,3 +221,17 @@
 #catsscore_wrapper div.problem_submit label { display: inline-block; width: 140px; margin-right: 5px; }
 
 #catsscore_wrapper span.jury_message { color: red; }
+
+
+.pace .pace-progress {
+  background: #ccccff;
+}
+
+.pace .pace-progress-inner {
+  box-shadow: 0 0 10px #ccccff, 0 0 5px #ccccff;
+}
+
+.pace .pace-activity {
+  border-top-color: #ccccff;
+  border-left-color: #ccccff;
+}
