@@ -10,6 +10,23 @@ CATS.Adapter.Ifmo = Classify({
         if (!b) throw "Assertion failed " + msg;
     },
 
+    parse_contest_dates: function (contest, timingText) {
+console.log(timingText);
+        var tp = timingText.match(/(\d+):(\d+):(\d+)\s+of\s+(\d+):(\d+):(\d+)/);
+        contest.start_time = new Date();
+        contest.start_time.setHours(contest.start_time.getHours() - tp[1]);
+        contest.start_time.setMinutes(contest.start_time.getMinutes() - tp[2]);
+        contest.start_time.setSeconds(contest.start_time.getSeconds() - tp[3]);
+
+        contest.finish_time = new Date(contest.start_time);
+        contest.finish_time.setHours(contest.finish_time.getHours() + 1*tp[4]);
+        contest.finish_time.setMinutes(contest.finish_time.getMinutes() + 1*tp[5]);
+        contest.finish_time.setSeconds(contest.finish_time.getSeconds() + 1*tp[6]);
+
+        contest.freeze_time = new Date(contest.finish_time);
+        contest.freeze_time.setHours(contest.finish_time.getHours() - 1);
+    },
+
     parse_score_board: function(contest_id, result_table) {
         var page = this.page;
         var contest = CATS.App.contests[contest_id];
@@ -17,9 +34,11 @@ CATS.Adapter.Ifmo = Classify({
             contest = this.add_contest({id: contest_id, name: 'NEERC ' + contest_id});
 
         var self = this;
-        var tt = $('<div/>').append(page).find('table.wrapper table.standings');
-        var header = tt.find('thead>tr');
-        var source_rows = tt.find('tbody>tr');
+        var wrapper = $('<div/>').append(page).find('table.wrapper');
+        self.parse_contest_dates(contest, wrapper.find('tbody>tr>td>center>p').first().text());
+        var standings = wrapper.find('table.standings');
+        var header = standings.find('thead>tr');
+        var source_rows = standings.find('tbody>tr');
         result_table.scoring = 'acm';
         var problems = [];
         header.children('th.problem').each(function () {
