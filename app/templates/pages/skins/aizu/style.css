@@ -23,6 +23,11 @@
     background-repeat: no-repeat;
     background-clip: border-box;
     padding-left: 20px;
+    height: 25px;
+}
+
+#catsscore_wrapper td.failed div {
+    height: 25px;
 }
 
 #catsscore_wrapper td.failed div {
@@ -31,6 +36,7 @@
 #catsscore_wrapper td.total div {
     background-color: #BBBBBB;
     border-bottom: 3px solid #7F8C8D;
+    height: 25px;
 }
 
 #catsscore_wrapper td.pending {
@@ -50,7 +56,8 @@
 }
 
 #catsscore_wrapper .standings th.problem {
-    width: 40px;
+    width: 70px;
+    text-align: center;
 }
 
 #catsscore_wrapper .standings td {
