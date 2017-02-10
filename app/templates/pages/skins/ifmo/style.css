@@ -4,6 +4,7 @@
 
 #catsscore_wrapper table {
     font-family: monospace;
+    width: 100%;
 }
 
 #catsscore_wrapper table.wrapper {

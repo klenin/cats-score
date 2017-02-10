@@ -50,6 +50,7 @@
 #catsscore_wrapper .standings {
     border-collapse: collapse;
     color: #5A5A64;
+    width: 100%;
 }
 
 #catsscore_wrapper .standings th {

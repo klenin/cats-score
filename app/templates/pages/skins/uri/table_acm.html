@@ -16,7 +16,7 @@ table.define_openers();
         var p = app.problems[contest.problems[i]];%>
         <th class="problem"><a href="#<%=p.name%>" target="_blank"><%=p.code%></a></th>
     <%}%>
-        <th class="total">Total</th>
+        <th class="total problem">Total</th>
     </tr>
     <%
     var idx = 0;
@@ -32,7 +32,7 @@ table.define_openers();
             var p = row.problems[i];
         %>
             <% if (p.is_solved) {%>
-            <td class="<%=p.opener ? 'first' : 'solved'%>"><div>+<%=p.runs_cnt%></div><p><%=p.best_run_time%></p></td>
+            <td class="<%=p.opener ? 'first' : 'solved'%>"><div>+<% if (p.runs_cnt > 1) {%><%=p.runs_cnt-1%><%}%></div><p><%=p.best_run_time%></p></td>
             <%} else if (p.runs_cnt) {%>
             <td class="failed"><div>-<%=p.runs_cnt%></div><p><%=p.best_run_time%></p></td>
             <%} else {%>

@@ -8,6 +8,7 @@
     border-collapse: collapse;
     margin: 0;
     padding: 1pt;
+    width: 100%;
 }
 
 #catsscore_wrapper td {
@@ -17,6 +18,7 @@
 
 #catsscore_wrapper th.minw {
     min-width: 5em;
+    text-align: center;
 }
 
 #catsscore_wrapper td.eye {
@@ -43,7 +45,7 @@
 
 #catsscore_wrapper td>div {
     min-width: 45px;
-    max-width: 60px;
+    max-width: 90px;
     padding: 0.4em 0.3em;
     font-size: x-small;
 }

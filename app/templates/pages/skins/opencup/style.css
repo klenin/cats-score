@@ -9,6 +9,7 @@
     border-collapse: separate;
     border-spacing: 2px;
     border-color: gray;
+    width: 100%;
 }
 #catsscore_wrapper IMG {
     border:0;
@@ -19,7 +20,7 @@
 }
 #catsscore_wrapper TD.stnd
 {
-    font-size: 12px; border: solid; border-width: 1px; border-color: #000000; margin: 1px;
+    font-size: 12px; border: solid; border-width: 1px; border-color: #000000; margin: 1px; text-align: center;
 }
 #catsscore_wrapper TD.stndact
 {

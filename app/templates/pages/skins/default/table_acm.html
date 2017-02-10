@@ -42,7 +42,7 @@ var table = app.result_tables[table_id];
         for (var i = 0; i < row["problems"].length; ++i) {
         %>
         <td>
-            <% if (row["problems"][i]["best_run_time"]) {%>
+            <% if (row["problems"][i]["is_solved"]) {%>
             <p><%="+" + (row["problems"][i]["runs_cnt"] > 1 ? row["problems"][i]["runs_cnt"] - 1 : "")%></p>
             <small><%=app.utils.minutes_to_formated_hours(row["problems"][i]["best_run_time"])%></small>
             <%} else %>
