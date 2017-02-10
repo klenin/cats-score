@@ -6,6 +6,7 @@
     border-collapse: collapse;
     clear: both;
     font-family: Lucida, Arial, sanf-serif;
+    width: 100%;
 }
 #catsscore_wrapper .scoreboard td {
     font-size: small;
@@ -34,8 +35,9 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    width: 40%;
 }
-#catsscore_wrapper .scoreboard .scoreaf { white-space: nowrap; border: 0; }
+#catsscore_wrapper .scoreboard .scoreaf { white-space: nowrap; border: 0; width: 6%; min-width: 25px;}
 #catsscore_wrapper .scoreboard .scoreaf img { vertical-align: middle; }
 #catsscore_wrapper .univ {
     font-size: 80%;
