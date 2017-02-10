@@ -21,7 +21,7 @@ CATS.Adapter.Cats = Classify({
         var contest = null;
         self.get_contests(function () {
             contest = CATS.App.contests[contest_id];
-            self.get_users(function (users) {
+            self.get_users(function (users, times) {
                 contest.users = users;
                 self.get_problems(function (problems) {
                     contest.problems = problems;
@@ -35,7 +35,8 @@ CATS.Adapter.Cats = Classify({
                         run.user = row.team_id;
                         run.contest = contest_id;
                         run.status = self.statuses[row['state']];
-                        run.start_processing_time = row['time'].to_date();
+                        var _time = CATS.App.utils.add_time(row['time'].to_date(), -times[run.user]);
+                        run.start_processing_time = _time;
                         CATS.App.add_object(run);
                         contest.add_object(run);
                     });
@@ -74,6 +75,12 @@ CATS.Adapter.Cats = Classify({
     add_user: function(v) {
         var user = new CATS.Model.User();
         user.id = v['account_id'];
+        if (typeof v["time_diff_minutes"] !== "undefined"){
+			user.time_offset = v["time_diff_minutes"];
+		}
+		else{
+			user.time_offset = 0;
+		}
         user.name = v['name'];
         user.role = v['virtual'] == 1 ? 'virtual' : v['role'];
         user.is_remote = v["remote"];
@@ -89,11 +96,18 @@ CATS.Adapter.Cats = Classify({
         var self = this;
         CATS.App.utils.json_get(this.url + '?f=users;sid=;rows=1000000;cid=' + contest_id + ';json=?', function (data) {
             var users = [];
+            var times = {};
             $.each(data, function (k, v) {
                 self.add_user(v);
                 users.push(v['account_id']);
+                if (typeof v['time_diff_minutes'] !== "undefined"){
+					times[v['account_id']] = v['time_diff_minutes'];
+				}
+				else{
+					times[v['account_id']] = 0;
+				}
             });
-            callback(users);
+            callback(users, times);
         });
     },
 
