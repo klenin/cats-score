@@ -26,16 +26,19 @@
 #catsscore_wrapper td.solved div, #catsscore_wrapper td.first div {
     background-color: #88C425;
     border-bottom: 3px solid #519548;
+    height: 25px;
 }
 
 #catsscore_wrapper td.failed div {
     background-color: #F24E4E;
     border-bottom: 3px solid #D31900;
+    height: 25px;
 }
 
 #catsscore_wrapper td.total div {
     background-color: #BBBBBB;
     border-bottom: 3px solid #7F8C8D;
+    height: 25px;
 }
 
 #catsscore_wrapper td.pending {
@@ -57,10 +60,18 @@
     width: 100%;
 }
 
+#catsscore_wrapper .standings .problem {
+    text-align: center;
+}
+
 #catsscore_wrapper .standings th {
     background-color: #DDDDDD;
     padding: 4px;
     border-top: 1px solid #BBBBBB;
+}
+
+#catsscore_wrapper .standings th.rank{
+	text-align: center;
 }
 
 #catsscore_wrapper .standings td {
