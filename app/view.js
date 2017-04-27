@@ -15,7 +15,9 @@ CATS.View = Classify({
             settings: null,
             lang: null,
             page: null,
-            el_per_page: null
+            el_per_page: null,
+            ooc: null,
+            virtual: null
         },
         name: "ViewState"
     }),
@@ -233,6 +235,14 @@ CATS.View = Classify({
                 $('#catsscore_header').html(header);
                 $('#source').val(this.source());
                 $('#skin').val(this.skin());
+            },
+            'click #visible_ooc': function(){
+                var ooc_value = $("#visible_ooc").prop("checked");
+                this.update_rank_table({ ooc: ooc_value });
+            },
+            'click #visible_virtual': function(){
+                var virtual_value = $("#visible_virtual").prop("checked");
+                this.update_rank_table({ virtual: virtual_value });
             },
             'click #add_series': function () {
                 var chart = this.current_chart(),

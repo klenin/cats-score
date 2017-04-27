@@ -79,6 +79,8 @@ CATS.Adapter.Cats = Classify({
         user.name = v['name'];
         user.role = v['virtual'] == 1 ? 'virtual' : v['role'];
         user.is_remote = v["remote"];
+        user.ooc = v['ooc'];
+        user.virtual = v['virtual'];
         if (v.affiliation) {
             user.affiliation.city = v.affiliation.city;
             user.affiliation.country = v.affiliation.country;
